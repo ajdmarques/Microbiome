@@ -1,0 +1,139 @@
+---
+title: "Porto Diet GIS analyses"
+author: "Adam Marques"
+date: "`r Sys.Date()`"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+home.dir <- "~/Documents/SALMONICS/Projects/DeitPorto2022/Diet_Porto2022/"
+library(ggplot2)
+library(dplyr)
+```
+
+## Imperviousness
+Started : 03 / 02 / 2023
+
+For each site in the study, we have between one and two coordinates. To evaluate the extent of urbanization and how much usable habitat is available, I will estimate the imperviousness of the site. Data on terrain imperviousness was taken from the [Copernicus land monitoring service](https://land.copernicus.eu/pan-european/high-resolution-layers/imperviousness/status-maps/imperviousness-density-2018) 2018 assessment. Here it is defined as "The Imperviousness degree is a thematic product showing the sealing density in the range from 0-100% for the period 2018 (including data from 2017-2019) for the EEA-39 area."
+
+To assess the imperviousness of a site, a radial [buffer](https://docs.qgis.org/2.8/en/docs/gentle_gis_introduction/vector_spatial_analysis_buffers.html) of **200 m** will be applied. When two coordinates are available for a site, the buffers will be dissolved. Note that if genetic analysis determines that these sites should later be defined as distinct populations, then the buffers should be reset and not dissolved.
+
+The [average value within the buffer polygon](https://www.qgistutorials.com/en/docs/3/sampling_raster_data.html) will then be used as the measure of imperviousness. The categories of urbanization being used in this study are "urban", "urban park", and "ex-urban". I hypothesize an increase in imperviousness with proximity to urbanization, and a similar correlation in the prey diversity.
+
+Hypothesized relationship between impverviousness and pey diversity. 
+
+|Habitat Category|Imperviousness|Prey Diversity|
+|:---------------|:-------------|:-------------|
+|urban|high|low|
+|urban park|mid|mid|
+|ex-urban|low|high|
+
+#### Steps
+
+1. Import sample site coordinates as Point layer from a .CSV file. (Layer > Add Layer > Add Delimited Text File)
+
+2. Import relevant Raster layers from Copernicus data. (Layer > Add Layer > Add Raster Layer)
+
+3. Porto is comprised of two separate .TIFF files that were merged into a single file. (Raster > Miscellaneous > Merge)
+
+4. Establish a buffer around each point using 0.0018 degrees (100 m = 0.0009 degrees), roughly equivalent to a 400 m radial buffer. This creates a single Polygon Vector. (Vector > Geoprocessing Tools > Buffer)
+
+5. Split the Polygon into its component parts and rename them accordingly (Processing Toolbox > Multipart to Singleparts)
+
+5. Use the *Zonal Statistics* function to estimate the mean, median, and variance (Processing Toolbox > Raster Analysis > Zonal statistics)
+
+6. Plot the average imperviousness of each habitat category to see how they differ.
+
+7. Compare the averages between habitat categories to determine if they are significantly different.
+
+
+#### Results
+
+These results are based on just the sites that will be included in the Porto diet study. 
+```{r Names of sites, echo=FALSE}
+# Load data
+df_imperv <- read.csv(paste0(home.dir,"data/intermediate/porto_imperv_250m.csv"), header = TRUE)
+# Names of sites
+df_imperv$site
+```
+
+For the purpose of defining each habitat category as: 
+
+- **urban**, when the average imperviousness is > 20% within a 250 m radius.
+- **rural**, when the average imperviousness is < 20% within a 250 m radius.
+
+
+```{r Plot Habitat Type by imperviousness}
+# Plot habitat type by mean imperviousness
+ggplot(df_imperv, aes(x=habitat, y=X_impervmean)) +
+  geom_boxplot(fill='steelblue') +
+  ylab("Mean Imperviousness (%)") -> p_imperviousness_porto
+# Global comparison of averages between habitat categories 
+oneway.test(X_impervmean ~ habitat, data = df_imperv, var.equal = TRUE)
+# Pairwise  test between each habitat type
+pairwise.t.test(df_imperv$X_impervmean, df_imperv$habitat)
+# display result
+p_imperviousness_porto
+
+# Save plot to file
+png(paste0(home.dir,"data/intermediate/fig_site_imperviousness.png"))
+p_imperviousness_porto
+dev.off()
+
+```
+
+Also considered was the mean **tree cover density** around sites using the same methodology. Tree cover was neatively correlated with mean imperiousness and therefor not necessary as an inclusion as well. 
+
+```{r}
+coef(lm(X_impervmean ~ X_treecovmean, data = df_imperv)) -> df_lm
+cor.test(df_imperv$X_impervmean, df_imperv$X_treecovmean) -> df_cortest
+ggplot(df_imperv, aes(x=X_impervmean, y=X_treecovmean)) +
+  geom_point(aes(colour = factor(habitat), size = X_treecovvariance)) +
+  ylab("Mean Tree Cover") +
+  xlab("Mean Imperviousness (%)") +
+  geom_abline(intercept = df_lm[1], slope = df_lm[2]) +
+  geom_text(x = 50, y = 40, 
+            label = paste("R2 =",signif(df_lm[2],2),"p =", signif(df_cortest$p.value,1))
+            ) -> fig_treecovimperv
+  fig_treecovimperv
+  ggsave(paste0(home.dir,"data/intermediate/output/fig_treecovimperv.png"),
+         fig_treecovimperv, "png", units = "mm", width = 200, height = 70)
+```
+
+
+### Plotting Sequence Submission
+
+This is an updated map for the purpose of visualizing the study. Begin by loading the list of samples submitted for sequencing, cross referencing that with the codes from the raw data with coordinate information, then save to a CSV for use in QGIS.
+
+```{r Updated sample info,}
+# Sequenced samples
+df_seq <- read.csv(paste0(home.dir,
+                          "data/intermediate/IndexSubmission_DietPorto.csv"), 
+                   header = TRUE, skip = 13, sep = ";")
+# sample info
+df_raw <- read.csv(paste0(home.dir,
+                          "data/raw/Feces_Porto_2022.csv"), 
+                   header = TRUE)
+# subset raw by samples sequenced
+df_map <- df_raw[df_raw$code %in% substr(df_seq$Sample_ID,1,8),]
+# Add site codes
+site_name = levels(as.factor(df_map$Site))
+site_code = c("TAT","MAL","MIN","PAV","CID","POR","POR","PRL","RAM","RAM","MAT","VAI")
+for (i in seq_along(levels(as.factor(df_map$Site)))){
+  df_map[df_map$Site==site_name[i],'site_code']=site_code[i]
+}
+# write to file
+write.csv(df_map,
+          paste0(home.dir,
+                 "gis/sequenced_samples.csv"))
+```
+
+![Figure X. Sample sites in Porto and the % imperviousness of the study region.](~/Documents/SALMONICS/Projects/DeitPorto2022/Diet_Porto2022/gis/map_site_imperviousness.png)
+
+
+## Bibliography
+
+© European Union, Copernicus Land Monitoring Service 2018, European Environment Agency (EEA)", f.ex. in 2023: “© European Union, Copernicus Land Monitoring Service 2023, European Environment Agency (EEA)"
