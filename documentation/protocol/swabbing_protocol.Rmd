@@ -1,0 +1,72 @@
+---
+title: "Pilot Sampling"
+author: "Adam Marques"
+date: "`r Sys.Date()`"
+output:
+  word_document: default
+  pdf_document: default
+bibliography: ../references/references.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+home_dir <- "~/Documents/SALMONICS/Projects/Microbiome/Microbiome/"
+```
+
+## Background
+
+Early in our inception of the project our goal was to follow some of the earlier work by @vences_comparative_2005 and subsequent studies using 16S amplicons to characterize fire salamander (*Salamandra salamandra*) microbiomes [@wang_assessing_2022; @barnes_assembly_2021; @kueneman_amphibian_2014]. The intenion has been to compare dermal and gut microbiomes between salamander populations occupying nearby disturbed and undisturbed habitats. These systems include urban and peri-urban habitats among *S.s.gallaica* in Porto, PT; urban and rural habitats among *S.s.bernardezi* in Oviedo; endemic and eucalypt woodlands among *S.s.gallaica* in Morrazo, ES. Our sampling entailed collecting individual salamanders, five from each patch, storing them in solitary containers and on the following day, rinsing them with ddH2O and collecting dermal, cloacal, and buccal swabs.
+
+How samples are collected can have a greater effect size on the results than the biological factors in question [@quince_shotgun_2017]. Samples preserved in ethanol require that the ethanol be removed prior to extraction, reducing the amount of available DNA. With dermal swabs we already expect very little DNA, so removing the ethanol could reduce the available DNA even further and alter the proportions of remaining microbial DNA. To avoid this, the EHI initiative recommends placing swabs directly into digestion solution then proceed with extraction.
+
+```{r}
+```
+
+## Proposal
+
+To determine the utility of the already collected microbioata swabs stored in ethanol, I will visit a few localities in Porto and collect additional swabs from individuals using the ethanol preserved method and the EHI recommended collection kit. With these swabs, we can compare the amount of DNA recovered from either. We need to define what is a viable amount of DNA (e.g. 10 ng) to decide whether shotgun sequencing is viable. If both ethanol and EHI preserved swabs yeild DNA we can consider sequencing a subset to compare the result.
+
+Otherwise, if ethanol preserved swabs do not yield sufficient DNA, they can still be used for 16S amplicon sequencing to compare microbiota community composition between habitat types. The remaining samples collected using the EHI protocol, can then be used for shotgun sequencing to characterize microbial metagenomic complexity of salamander populations within Porto [@alberdi_disentangling_2022].
+
+## Protocol
+
+**Site Selection**. Porto has several possible urban and peri-urban sites to choose from, however, if we are to reduce our sample to just a few locations I would recommend the following as an example of an urban gradient:
+
+-   S. de Matosinhos and Ramalde are small urban patch situated next to a metro station and surrounded by a high density of impervious surfaces. i.e. urban
+
+-   Parque Cidade and Parque Oriental are urban parks with little connectivity but a large amount of naturalized space and little impervious surfaces therein. i.e. peri-urban
+
+-   Mindelo and Parque Avioso are large protected spaces with varied tree cover and minimal impervious surface therein and between rural patches. i.e. rural
+
+All of these are within 2 km of the coast, have high densities, and are very likely isolated populations (at least from each other) by physical barriers.
+
+**Individual Sampling**. Individuals are collected in autumn, on nights of high humidity and when temperatures range from 5-20 ºC. This coincides with a season of peak activity, when males move above the leaf litter and present themselves as mating candidates. At this time, both males and females can be found in high density, and distinguished by the presence of enlarged male cloacas. Using sterile gloves, technicians will collect up to 30 individual in small individualized sterile containers, ideally avoiding direct contact with salamanders, instead scooping them into the containers to reduce contact with the dermis or contamination between individuals. Once all salamanders have been collected we will assemble the individuals and proceed with swabbing.
+
+**General Handling**. For either swabbing protocol the following conditions remain constant. One at a time, individual containers will be numbered and the sex of the individual noted. A technician wearing sterile gloves (replace between samples) will hold the individual by the base of the tail, using sterile paper towel to help maintain a grip. The individual will then be sprayed thoroughly with distilled H2O to remove debris from the dermis. Once rinsed, the individual dermis will be swabbed in accordance with either protocol. Then the cloaca will be swabbed by inserting the swab tip gentle into the cloaca (in this case it is recommended that juveniles are avoided, as the adult salamander's cloaca can be swabbed with minimal resistance). After swabbing individuals are returned to their individual containers.
+
+Once all swabs have been collected, any feces produced by individuals during this process can also be collected, scooping \< 100 mg of material into an EHI collection tube with a sterile spatula. Collect a H2O negative control by rinsing a swab in the distilled H2O to detect possible contaminants introduced during rinsing, and an environmental swab by swabbing a wide surface of the surrounding forest litter to determine how much the environment reflects individuals' microbiota. Once completed, release all salamanders to the capture site.
+
+**EtOH and EHI Combined**. Begin by selecting 2 males from the site. After rinsing, use a Microgene swab to stroke one half of the individuals' body. Place the dermal swab in a 2 mL collection tube with 70% ethanol. Dip the EHI FloqSwab in PBS bugger then proceed by stroking the other half of the body for 60 seconds. Alternate side swabbed ( left + dermal vs right + ventral ) using either method. Proceed with a cloacal swab, gentle pressing the tip of the swab into the cloaca, only the very tip should be inserted and no more than 1-2 mm, alternating order of protocol. Place the cloacal swab in a tube with the corresponding solution, i.e. EtOH 70% or EHI solution. Place swabs in a freezer at the next possible opportunity until ready to proceed with extraction.
+
+*Reminder*
+
+-   ODD = EthOH 70%~Right,Ventral,1ºCloacal~ , EHI~Left,Dorsal,2ºCloacal~
+
+-   EVEN = EHI~Right,Ventral,1ºCloacal~ , EtOH 70%~Left,Dorsal,2ºCloacal~
+
+**EHI**, for the remaining samples, select 13 males and 5 females, and assign each a code. Using the EHI swab kit dip the tip of the FloqSwab (COPAN Italia S.p.A., Brescia, Itlay) in PBS, and immediately swab all sides of the salamander (ventral, dorsal, left, right) for 60 seconds @boyle_rapid_2004. Place the dermal swab into an EHI collection tube. Proceed with a cloacal swab, gentle pressing the tip of the swab into the cloaca, only the very tip should be inserted and no more than 1-2 mm. Place the dermal swab into an EHI collection tube. Store samples in fridge and mail to Copenhagen for extraction at earliest convenience.
+
+| Method     | male / site | female / site | Total |
+|:-----------|:------------|:--------------|:------|
+| EtOH + EHI | 2           | 0             | 6     |
+| EHI        | 13          | 5             | 54    |
+
+**Comparisons**. While the number of samples in this proposal are small, the hope is that we can answer the following.
+
+(i) Whether Ethanol preserved swabs can provide sufficient DNA for shotgun sequencing. Comparing swabs collected with either protocol (*n*~protocol~ = 6) for differences in extraction yield.
+
+(ii) What changes in microbiome are observed along an urban gradient. Comparing swabs collected from different sites (*n*~site~ = 18) for differences in microbial metagenomic complexity.
+
+(iii) What changes in microbiome are observed between sexes. Comparing swabs collected from either sex (*n*~sex~ = 15) to determine whether sex corresponds to differences in microbial metagenomic complexity.
+
+## References

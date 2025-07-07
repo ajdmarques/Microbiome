@@ -1,0 +1,60 @@
+---
+title: "Swab Extraction Protocol"
+output:
+  html_document:
+    df_print: paged
+bibliography: ../references/references.bib
+---
+
+The following extraction protocol is developed by CTM for collecting DNA from swabs.
+
+## Protocol
+
+1.  Begin with decontaminating the non-invasive lab with 3% bleach soltion and wiping down with 70% ethanol. Run the ultra-violet light for 15 minutes.
+2.  For each sample, prepare a **2 mL tube** with 400 uL of **PBS buffer** to seperate cells from the swab and remove residual ethanol.
+3.  With steralized twezers (steralizing between samples with ethanol and flame exposure) move the swab into the new 2 ml tube with PBS. 
+4.  Incubate at 55ºC for 30 minutes in PBS solution, meanwhile clean the work station in preparation for the next step.
+5.  Vortex all the swabs for \~ 20 seconds.
+6.  For each sample add 450 uL of **Lysis Buffer** and 10 uL of **Proteinase-K** for a total volume of 860 uL of solution in addition to the swab.
+7.  Vortex briefly, then incubate at 55ºC for 30 minutes.
+8.  Notify CTM to prepare four **96 well plates** for the upcoming cleaning step. Label each plate and prepare them with the following reagents:
+
+-   Plate 1 = 20 uL of **SPRI beads** + 350 uL of **Binding Buffer**
+-   Plate 2 = 500 uL of **Wash Buffer 1**
+-   Plate 3 = 500 uL of **Wash Buffer 2**
+-   Plate 4 = 75 uL of **Elution Buffer**
+
+9.  Return to the samples with another brief cortex and centrifuge at 8000 rpm for 1 minute.
+10. Transfer 550 uL of the sample solution to the bead solution in Plate 1.
+11. Once all samples are loaded, deliver the plates to a CTM technician to proceed with the automated bead cleaning.
+12. Once cleaning is complete, move samples into storage.
+
+```{r Reagent checklist, echo=FALSE}
+n = 96 # number of samples, icnluding negative control
+## Plastics
+t = n # number of 2 ml tubes
+p = (n / 96) * 4 # number of 96 well plates
+## Reagents
+l = 450 * n # volume of lysis buffer
+pk = 10 * n # volume of Protinase K
+pbs = 400 * n # volume of PBS buffer
+b = 20 * n # volume of SPRI beads
+bb = 350 * n # volume of binding buffer
+wb1 = 500 * n # volume of wash buffer 1  
+wb2 = 500 * n # volume of wash buffer 1  
+eb = 75 * n # volume of elution buffer
+## Output
+print(paste(
+  "2 mL tubes", t, ",",
+  "96 well plates", p, ",",
+  "Lysis buffer", l, "uL,",
+  "Protinase K", pk, "uL,",
+  "PBS", pbs, "uL,",
+  "SPRI beads", b, "uL,",
+  "Binding buffer", bb, "uL,",
+  "Wash buffer 1", wb1, "uL,",
+  "Wash buffer 2", wb2, "uL,",
+  "Elution buffer", eb, "uL,"
+))
+```
+

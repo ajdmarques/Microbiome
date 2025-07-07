@@ -68,7 +68,7 @@ for (i in seq_along(files)){
 | Loira        | 5        | 5        | 10    |
 | Lagocheiras  | 5        | 5        | 10    |
 | Udra         | 5        | 5        | 10    |
-| *Total*      | *30*       | *34*       | *64*    |
+| *Total*      | *30*     | *34*     | *64*  |
 
 | OVIEDO                  | Urban | Woodland |
 |:------------------------|:------|:---------|
@@ -89,7 +89,7 @@ for (i in seq_along(files)){
 | Villamar                |       | 5        |
 | *Total*                 | *39*  | *42*     |
 
-| OVIEDO                    | Urban | Woodland |
+| PORTO                     | Urban | Woodland |
 |:--------------------------|:------|:---------|
 | Casa Tait                 | 5     |          |
 | Covelo                    | 1     |          |
@@ -110,4 +110,36 @@ for (i in seq_along(files)){
 | Senhora do Salto          |       | 5        |
 | Vairao                    |       | 5        |
 | Virtudes                  |       | 5        |
-| *Total*                   | *63*    | *45*       |
+| *Total*                   | *63*  | *45*     |
+
+## Statistical Power
+
+[Thresholds for interpreting the effect size](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7745163/table/t3/?report=objectonly)
+
+Animal studies usually recommend using low sample sizes on ethical grounds, to establish large effects before proceeding with further study.
+
+[Recommended sample sizes.](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7745163/table/t5/?report=objectonly)
+
+```{r Statistical Power}
+## Determine statistical power between sites
+pwr_site <- list()
+for (i in seq_along(files)){
+# Defined as number of sites
+k = sum(                       # the number of sites
+  table(files[[i]][
+    !is.na(files[[i]]$Skin.swab), # with skin swabs
+    ]$Location
+    )>=5                           # and at least 5 samples
+  )
+# Defined as the minimum sample size among all sites
+n = 5
+f = NULL
+sig.level = 0.05
+power = 0.85
+pwr::pwr.anova.test(k = k,
+                    n = n,
+                    f = f,
+                    sig.level = sig.level,
+                    power = power) -> pwr_site[[i]]
+}
+```

@@ -1,0 +1,5 @@
+Uniq1;size=71;	denoise	amp1
+Uniq2;size=63;	denoise	amp2
+Uniq3;size=12;	denoise	shifted	dqt=0;top=Uniq2;
+Uniq1;size=71;	chfilter	zotu
+Uniq2;size=63;	chfilter	zotu

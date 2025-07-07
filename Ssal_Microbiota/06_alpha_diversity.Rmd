@@ -1,0 +1,278 @@
+# Alpha diversity
+
+```{r load_data_alpha, comment="", message=FALSE, warning=FALSE}
+load("data/data.Rdata")
+```
+
+
+## Summary table
+
+```{r alpha_div, comment="", message=FALSE, warning=FALSE}
+# Calculate Hill numbers
+richness <- genome_counts_filt %>%
+  column_to_rownames(var = "genome") %>%
+  dplyr::select(where(~ !all(. == 0))) %>%
+  hilldiv(., q = 0) %>%
+  t() %>%
+  as.data.frame() %>%
+  dplyr::rename(richness = 1) %>%
+  rownames_to_column(var = "sample")
+
+neutral <- genome_counts_filt %>%
+  column_to_rownames(var = "genome") %>%
+  dplyr::select(where(~ !all(. == 0))) %>%
+  hilldiv(., q = 1) %>%
+  t() %>%
+  as.data.frame() %>%
+  dplyr::rename(neutral = 1) %>%
+  rownames_to_column(var = "sample")
+
+phylogenetic <- genome_counts_filt %>%
+  column_to_rownames(var = "genome") %>%
+  dplyr::select(where(~ !all(. == 0))) %>%
+  hilldiv(., q = 1, tree = genome_tree) %>%
+  t() %>%
+  as.data.frame() %>%
+  dplyr::rename(phylogenetic = 1) %>%
+  rownames_to_column(var = "sample")
+
+# # Aggregate basal GIFT into elements
+genome_counts_filt <- genome_counts_filt[genome_counts_filt$genome %in% rownames(genome_gifts_raw),]
+genome_counts_filt <- genome_counts_filt %>%
+  column_to_rownames(., "genome") %>%
+  filter(rowSums(. != 0, na.rm = TRUE) > 0) %>%
+  select_if(~!all(. == 0))%>%
+  rownames_to_column(., "genome")
+
+genome_gifts <- genome_gifts_raw[rownames(genome_gifts_raw) %in% genome_counts_filt$genome,]
+genome_gifts <- genome_gifts[, colSums(genome_gifts != 0) > 0]
+
+dist <- genome_gifts %>%
+  to.elements(., GIFT_db) %>%
+  traits2dist(., method = "gower")
+
+functional <- genome_counts_filt %>%
+  filter(genome %in% rownames(dist)) %>%
+  column_to_rownames(var = "genome") %>%
+  dplyr::select(where(~ !all(. == 0))) %>%
+  hilldiv(., q = 1, dist = dist) %>%
+  t() %>%
+  as.data.frame() %>%
+  dplyr::rename(functional = 1) %>%
+  rownames_to_column(var = "sample") %>%
+  mutate(functional = if_else(is.nan(functional), 1, functional))
+
+# Merge all metrics
+alpha_div <- richness %>%
+  full_join(neutral, by = join_by(sample == sample)) %>%
+  full_join(phylogenetic, by = join_by(sample == sample))%>%
+  full_join(functional, by = join_by(sample == sample))
+```
+
+
+## Shapiro test
+
+```{r}
+# significant richness diversity
+alpha_div %>%
+  pivot_longer(-sample, names_to = "metric", values_to = "value") %>%
+  left_join(., sample_metadata, by = join_by(sample == sample)) %>%
+  filter(metric=="richness") %>% 
+  summarize(shapiro_p_value = shapiro.test(value)$p.value) %>%
+  pull(shapiro_p_value)
+
+# significant neutral diversity 
+alpha_div %>%
+  pivot_longer(-sample, names_to = "metric", values_to = "value") %>%
+  left_join(., sample_metadata, by = join_by(sample == sample)) %>%
+  filter(metric=="neutral") %>% 
+  summarize(shapiro_p_value = shapiro.test(value)$p.value) %>%
+  pull(shapiro_p_value)
+
+# significant phylogentic diversity
+alpha_div %>%
+  pivot_longer(-sample, names_to = "metric", values_to = "value") %>%
+  left_join(., sample_metadata, by = join_by(sample == sample)) %>%
+  filter(metric=="phylogenetic") %>% 
+  summarize(shapiro_p_value = shapiro.test(value)$p.value) %>%
+  pull(shapiro_p_value)
+
+alpha_div %>%
+  pivot_longer(-sample, names_to = "metric", values_to = "value") %>%
+  left_join(., sample_metadata, by = join_by(sample == sample)) %>%
+  filter(metric=="phylogenetic") %>% 
+  summarize(var.test_p_value_phylo = var.test(value ~ habitat)$p.value) 
+```
+
+## Plots
+
+```{r wilcox_habitat, comment="", message=FALSE, warning=FALSE}
+g_alpha_div = list()
+
+for ( i in seq_along(colnames(alpha_div))[-1]){
+  g_alpha_div[[i]] =
+  ggplot(
+# filter by diversity measure
+    alpha_div %>%
+      pivot_longer(-sample, names_to = "metric", values_to = "value") %>%
+      left_join(., sample_metadata, by = join_by(sample == sample)) %>%
+      #  filter(!sol =="ETOH") %>% 
+      filter(metric==colnames(alpha_div)[i]),
+
+    aes(x = habitat, y = value, colour = habitat)) +
+    geom_boxplot() +
+    geom_jitter(width = 0.1, alpha = 0.5) +
+    labs(x = "habitat",
+       y = colnames(alpha_div)[i]) +
+  
+    # add significance from wilcox test
+    annotate("text", x=1.5, y=max(alpha_div[,colnames(alpha_div)[i]]), label= 
+    paste("Wilcox,",signif(wilcox.test(value ~ habitat, data = 
+                 alpha_div %>%
+                 pivot_longer(-sample, names_to = "metric", values_to = "value") %>%
+                 left_join(., sample_metadata, by = join_by(sample == sample)) %>%
+                 filter(metric==colnames(alpha_div)[i]))$p.value,3))) +
+  
+    theme_minimal() +
+    guides(colour = FALSE)
+  
+  #Render composite figure
+grid.arrange(grobs = g_alpha_div[-1],
+        layout_matrix = rbind(c(1,2,3,4))) ->
+  g
+
+ggsave(paste0('figure/habitat_alpha_div.png'), g, width=20, height=10, units='cm')
+  }
+```
+
+```{r anova_site, comment="", message=FALSE, warning=FALSE}
+for ( i in seq_along(colnames(alpha_div))[-1]){
+  print(
+  
+  ggplot(
+# filter by diversity measure
+    alpha_div %>%
+      pivot_longer(-sample, names_to = "metric", values_to = "value") %>%
+      left_join(., sample_metadata, by = join_by(sample == sample)) %>%
+        filter(!sol =="ETOH") %>% 
+      filter(metric==colnames(alpha_div)[i]),
+
+    aes(x = event_ID, y = value, colour = habitat)) +
+    geom_boxplot() + 
+    geom_jitter(width = 0.1, alpha = 0.5) +
+    labs(x = "event_ID",
+       y = colnames(alpha_div)[i]) +
+    theme_minimal() +
+    stat_anova_test() +
+    #facet_wrap(vars(habitat), scales = "free_x") +
+    guides(colour = FALSE)
+    
+)
+}
+```
+
+
+```{r tukey_site, comment="", message=FALSE, warning=FALSE}
+GGTukey.3<-function(Tukey, Style){
+  GT<-function(Tukey){
+    A<-require("tidyverse")
+    if(A==TRUE){
+      library(tidyverse)
+    } else {
+      install.packages("tidyverse")
+      library(tidyverse)
+    }
+    B<-as.data.frame(Tukey[1])
+    colnames(B)[2:3]<-c("min",
+                        "max")
+    C<-data.frame(id=row.names(B),
+                  min=B$min,
+                  max=B$max)
+    D<-C%>%
+      ggplot(aes(id))+
+      geom_errorbar(aes(ymin=min,
+                        ymax=max),
+                    width = 0.2)+
+      geom_hline(yintercept=0,
+                 color="red")+
+      labs(x=NULL)+
+      coord_flip()+
+      theme(text=element_text(family="TimesNewRoman"),
+            title=element_text(color="black",size=15),
+            axis.text = element_text(color="black",size=10),
+            axis.title = element_text(color="black",size=10),
+            panel.grid=element_line(color="grey75"),
+            axis.line=element_blank(),
+            plot.background=element_rect(fill="white",color="white"),
+            panel.background=element_rect(fill="white"),
+            panel.border = element_rect(colour = "black", fill = NA,size=0.59),
+            legend.key= element_rect(color="white",fill="white")
+            )
+    return(D)
+  }
+  GT2<-function(Tukey){
+    A<-require("tidyverse")
+    if(A==TRUE){
+      library(tidyverse)
+    } else {
+      install.packages("tidyverse")
+      library(tidyverse)
+    }
+    B<-as.data.frame(Tukey[1])
+    colnames(B)[2:4]<-c("min",
+                        "max",
+                        "p")
+    C<-data.frame(id=row.names(B),
+                  min=B$min,
+                  max=B$max,
+                  idt=ifelse(B$p<0.05,
+                             "significant",
+                             "not significant")
+    )
+    D<-C%>%
+      ggplot(aes(id,color=idt))+
+      geom_errorbar(aes(ymin=min,
+                        ymax=max),
+                    width = 0.5,
+                    size=1.25)+
+      labs(x=NULL,
+           color=NULL)+
+      scale_color_manual(values=c("red",
+                                  "green")
+      )+
+      coord_flip()+
+      theme(text=element_text(family="TimesNewRoman"),
+            title=element_text(color="black",size=15),
+            axis.text = element_text(color="black",size=10),
+            axis.title = element_text(color="black",size=10),
+            panel.grid=element_line(color="grey75"),
+            axis.line=element_blank(),
+            plot.background=element_rect(fill="white",color="white"),
+            panel.background=element_rect(fill="white"),
+            panel.border = element_rect(colour = "black", fill = NA,size=0.59),
+            legend.key= element_rect(color="white",fill="white")
+            )
+    return(D)
+  }
+  GR<-if(Style==1){
+    return(GT(Tukey))
+  } else if(Style==2){
+    return(GT2(Tukey))
+  }
+  return(GR)
+}
+## Display Tukey results
+
+TUKEY = 
+  TukeyHSD(
+  aov(value ~ event_ID, 
+            data = alpha_div %>%
+      pivot_longer(-sample, names_to = "metric", values_to = "value") %>%
+      left_join(., sample_metadata, by = join_by(sample == sample)) %>%
+      #  filter(!sol =="ETOH") %>% 
+      filter(metric==colnames(alpha_div)[i])), 
+  conf.level=.95)
+
+GGTukey.3( TUKEY, Style=1 )
+GGTukey.3( TUKEY, Style=2 )
+```
