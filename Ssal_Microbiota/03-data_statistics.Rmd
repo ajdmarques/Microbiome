@@ -162,7 +162,8 @@ merge(singlem_table, sample_metadata[,query_variables],by = "sample") %>%
 
 ```{r}
 paste(
-  "Mean estimated proportion of prokaryote bases", round(mean(singlem_table$singlem_proportion),2),"±", round(sd(singlem_table$singlem_proportion),2)
+  "Mean estimated proportion of prokaryote bases", round(mean(na.omit(singlem_table$singlem_proportion)),2),"±",
+  round(sd(na.omit(singlem_table$singlem_proportion)),2)
 )
 paste(
   "Mean proportion of based assigned to MAGs", round(mean(singlem_table$mags_proportion),2),"±", round(sd(singlem_table$mags_proportion),2)
@@ -174,10 +175,11 @@ singlm_df= singlem_table  %>%
 wilcox.test(mags_proportion ~ habitat,
             data = singlm_df)
 ggboxplot(singlm_df, x = "habitat", y = "mags_proportion", 
-          color = "habitat", palette = c("#FF6347", "#4169E1"),
-          ylab = "Prop.MAGs", xlab = "Habitat")
-
-ggsave('figure/habitat_prop_mag.png', width=15, height=10, units='cm')
+          color = "habitat", palette = c("#986eac","#5bae63"),
+          ylab = "Prop.MAGs", xlab = "Habitat") +
+  theme(legend.position = "none")
+ 
+ggsave('figure/habitat_prop_mag.png', width=6, height=10, units='cm')
 
 wilcox.test(mags_proportion ~ swab,
             data = singlm_df)

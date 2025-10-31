@@ -22,7 +22,7 @@ load("data/data.Rdata")
 ### Sample metadata
 
 ```{r load_sample_metadata, warning=FALSE, comments="", message=FALSE, eval=TRUE}
-sample_metadata <- read_tsv("data/DMB0174_metadata.tsv.gz") %>%
+sample_metadata <- read_tsv("data/DMB0177_metadata.tsv.gz") %>%
     rename(sample=1)
 ```
 
@@ -113,7 +113,7 @@ annotate("text",x=1.6,y=1.5*min(sample_metadata2$reads_post_fastp),label=paste(
 ### Read counts
 
 ```{r load_read_counts, warning=FALSE, comments="", message=FALSE, eval=TRUE}
-read_counts <- read_tsv("data/DMB0174_counts.tsv.gz") %>%
+read_counts <- read_tsv("data/DMB0177_counts.tsv.gz") %>%
     rename(genome=1) %>% 
     select(one_of(c("genome",sample_metadata$sample)))
 head(read_counts)
@@ -122,7 +122,7 @@ head(read_counts)
 ### Genome taxonomy
 
 ```{r load_genome_metadata, warning=FALSE, comments="", message=FALSE, eval=TRUE}
-genome_metadata <- read_tsv("data/DMB0174_mag_info.tsv.gz") %>%
+genome_metadata <- read_tsv("data/DMB0177_mag_info.tsv.gz") %>%
     rename(length=mag_size)%>%
   semi_join(., read_counts, by = "genome") %>% 
   arrange(match(genome,read_counts$genome))
@@ -132,7 +132,7 @@ head(genome_metadata)
 ### Genome base hits
 
 ```{r load_genome_hits, warning=FALSE, comments="", message=FALSE, eval=TRUE}
-genome_coverage <- read_tsv("data/DMB0174_coverage.tsv.gz") %>%
+genome_coverage <- read_tsv("data/DMB0177_coverage.tsv.gz") %>%
     rename(genome=1) %>% 
     select(one_of(c("genome",sample_metadata$sample)))%>% 
   semi_join(., genome_metadata, by = "genome")%>%
@@ -143,7 +143,7 @@ head(genome_coverage)
 ### Genome tree
 
 ```{r load_genome_tree, warning=FALSE, comments="", message=FALSE, eval=TRUE}
-genome_tree <- read_tree("data/DMB0174.tree.gz")
+genome_tree <- read_tree("data/DMB0177.tree.gz")
 genome_tree$tip.label <- str_replace_all(genome_tree$tip.label,"'", "") #remove single quotes in MAG names
 genome_tree <- keep.tip(genome_tree, tip=genome_metadata$genome) # keep only MAG tips
 genome_tree
@@ -167,8 +167,12 @@ airtable("MAGs", "appWbHBNLE6iAsMRV") %>% #get base ID from Airtable browser URL
 ```
 
 ```{r load_genome_annotations, warning=FALSE, comments="", message=FALSE}
-genome_annotations <- read_tsv("data/genome_annotations.tsv.xz") %>%
-    rename(gene=1, genome=2, contig=3)
+genome_annotations <- 
+  #read_tsv("data/genome_annotations.tsv.xz") %>%
+  #rename(gene=1, genome=2, contig=3)
+  read_tsv("data/gene_annotations.tsv.xz") %>%
+  mutate(genome = str_extract(gene,"EHA\\d+_bin\\.\\d+"))
+    
 head(genome_annotations)
 ```
 
@@ -220,9 +224,18 @@ head(genome_counts_filt)
 
 Generates a gene presence-based Genome-Inferred Functional Trait (GIFT) table at the gene bundle level from a bacterial genome annotation table. The community mode of [distillR](https://github.com/anttonalberdi/distillR) computes community-averaged GIFT values for the entire microbiome in each sample. 
 
+The default distill database is for metabolism. Another KEGG Database (i.e. [KEGG ORTHOLOGY](https://www.genome.jp/kegg/ko.html)) is needed to capture the new gene annotations for toxicology, and must be [dowloaded](https://www.cd-genomics.com/blog/kegg-databse-download-comprehensive-guide/).
+
 ```{r distill_annotations, warning=FALSE, comments="", message=FALSE, eval=TRUE}
 # input data used
-genome_gifts_raw <- distill(genome_annotations,GIFT_db,genomecol=2,annotcol=c(7,8), verbosity=F)
+genome_gifts_raw <- distill(
+  genome_annotations,
+  GIFT_db, 
+  #genomecol=2, # column with genome name
+  #annotcol=c(7,8), # column with kegg id and crazy hits
+  genomecol=match("genome",colnames(genome_annotations)), # column with genome name
+  annotcol=match(c("kegg","cazy"),colnames(genome_annotations)), # column with kegg id and crazy hits
+  verbosity=F)
 ```
 ## Prepare color scheme
 

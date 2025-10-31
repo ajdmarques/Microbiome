@@ -40,6 +40,9 @@ genome_counts_filt <- genome_counts_filt %>%
   select_if(~!all(. == 0))%>%
   rownames_to_column(., "genome")
 
+genome_gifts <- genome_gifts_raw[rownames(genome_gifts_raw) %in% genome_counts_filt$genome,]
+genome_gifts <- genome_gifts[, colSums(genome_gifts != 0) > 0]
+
 genome_gifts1 <- genome_gifts[rownames(genome_gifts) %in% genome_counts_filt$genome,]
 genome_gifts1 <- genome_gifts1[, colSums(genome_gifts1 != 0) > 0]
 
@@ -48,7 +51,7 @@ dist <- genome_gifts1 %>%
   traits2dist(., method = "gower")
 
 beta_q1f <- genome_counts_filt %>%
-#  remove_rownames() %>% 
+  remove_rownames() %>% 
   column_to_rownames(., "genome") %>%
   filter(rowSums(. != 0, na.rm = TRUE) > 0) %>%
   select_if(~!all(. == 0)) %>%
@@ -95,25 +98,27 @@ beta_q0n$S %>%
     #   stat_ellipse(aes(color = beta_q1n_nmds$Groups))+
     geom_segment(aes(x = x_cen, y = y_cen, xend = NMDS1, yend = NMDS2), alpha = 0.9, show.legend = FALSE) +
     theme_classic() +
-  
+    scale_color_manual(name = 'habitat', 
+                     values = c("rural" = '#5bae63',"urban" = '#986eac'),
+                     drop = FALSE) +
     # add significance from permanova
-    annotate("text", x=-0.1, y=-0.13, label= 
-    paste("Permanova, ",
-          adonis2(beta_q0n$S ~ habitat, 
-          data = sample_metadata %>% arrange(match(sample,labels(beta_q0n$S))), 
-          permutations = 999)$`Pr(>F)`[1])) +
-  
+        labs(x = paste("p =",adonis2(beta_q0n$S ~ habitat, 
+                                      data = sample_metadata %>% arrange(match(sample,labels(beta_q1n$S))), 
+                                      permutations = 999)$`Pr(>F)`[1]), y = "")+ 
     theme(
-      axis.text.x = element_text(size = 12),
-      axis.text.y = element_text(size = 12),
-      axis.title = element_text(size = 12, face = "bold"),
-      axis.text = element_text(face = "bold", size = 12),
+      axis.text.x = element_text(size = 10),
+      axis.text.y = element_text(size = 10),
+      axis.title = element_text(size = 10, face = "bold"),
+      axis.text = element_text(face = "bold", size = 10),
       panel.background = element_blank(),
       axis.line = element_line(size = 0.5, linetype = "solid", colour = "black"),
       legend.text = element_text(size = 12),
       legend.title = element_text(size = 14),
-      legend.position = "right", legend.box = "vertical"
+      legend.position="none"
+      #legend.position = "right", legend.box = "vertical"
     ) +labs(color='Origin')
+
+g_beta_q0n
 ```
 
 #### Neutral
@@ -144,26 +149,28 @@ beta_q1n$S %>%
   #scale_color_manual(values = diet_colors,labels=c("Pre_grass" = "Captive-bred no grass diet", "Post_grass" = "Captive-bred grass diet", "Wild" = "Wild"))+
     #   stat_ellipse(aes(color = beta_q1n_nmds$Groups))+
     geom_segment(aes(x = x_cen, y = y_cen, xend = NMDS1, yend = NMDS2), alpha = 0.9, show.legend = FALSE) +
-    
+        scale_color_manual(name = 'habitat', 
+                     values = c("rural" = '#5bae63',"urban" = '#986eac'),
+                     drop = FALSE) +
   # add significance from permanova
-    annotate("text", x=-0.3, y=-0.3, label= 
-    paste("Permanova, ",
-          adonis2(beta_q1n$S ~ habitat, 
-          data = sample_metadata %>% arrange(match(sample,labels(beta_q1n$S))), 
-          permutations = 999)$`Pr(>F)`[1])) +
-  
   theme_classic() +
+    labs(x = paste("p = ",adonis2(beta_q1n$S ~ habitat, 
+          data = sample_metadata %>% arrange(match(sample,labels(beta_q1n$S))), 
+          permutations = 999)$`Pr(>F)`[1]), y = "") +
     theme(
-      axis.text.x = element_text(size = 12),
-      axis.text.y = element_text(size = 12),
-      axis.title = element_text(size = 12, face = "bold"),
-      axis.text = element_text(face = "bold", size = 12),
+      axis.text.x = element_text(size = 10),
+      axis.text.y = element_text(size = 10),
+      axis.title = element_text(size = 10, face = "bold"),
+      axis.text = element_text(face = "bold", size = 10),
       panel.background = element_blank(),
       axis.line = element_line(size = 0.5, linetype = "solid", colour = "black"),
       legend.text = element_text(size = 12),
       legend.title = element_text(size = 14),
-      legend.position = "right", legend.box = "vertical"
+      legend.position="none"
+      #legend.position = "right", legend.box = "vertical"
     ) +labs(color='Origin')
+
+g_beta_q1n
 ```
 
 #### Phylogenetic
@@ -196,25 +203,27 @@ beta_q1p$S %>%
   #scale_color_manual(values = diet_colors,labels=c("Pre_grass" = "Captive-bred no grass diet", "Post_grass" = "Captive-bred grass diet", "Wild" = "Wild"))+
     #   stat_ellipse(aes(color = beta_q1n_nmds$Groups))+
     geom_segment(aes(x = x_cen, y = y_cen, xend = NMDS1, yend = NMDS2), alpha = 0.9, show.legend = FALSE) +
-  
-  annotate("text", x=-0.5, y=-0.4, label= 
-    paste("Permanova, ",
-          adonis2(beta_q1p$S ~ habitat, 
-          data = sample_metadata %>% arrange(match(sample,labels(beta_q1p$S))), 
-          permutations = 999)$`Pr(>F)`[1])) +  
-  
+      scale_color_manual(name = 'habitat', 
+                     values = c("rural" = '#5bae63',"urban" = '#986eac'),
+                     drop = FALSE) +
   theme_classic() +
+    labs(x = paste("p =",adonis2(beta_q1p$S ~ habitat, 
+          data = sample_metadata %>% arrange(match(sample,labels(beta_q1p$S))), 
+          permutations = 999)$`Pr(>F)`[1]), y = "") +
     theme(
-      axis.text.x = element_text(size = 12),
-      axis.text.y = element_text(size = 12),
-      axis.title = element_text(size = 12, face = "bold"),
-      axis.text = element_text(face = "bold", size = 12),
+      axis.text.x = element_text(size = 10),
+      axis.text.y = element_text(size = 10),
+      axis.title = element_text(size = 10, face = "bold"),
+      axis.text = element_text(face = "bold", size = 10),
       panel.background = element_blank(),
       axis.line = element_line(size = 0.5, linetype = "solid", colour = "black"),
       legend.text = element_text(size = 12),
       legend.title = element_text(size = 14),
-      legend.position = "right", legend.box = "vertical"
+      legend.position="none"
+      #legend.position = "right", legend.box = "vertical"
     ) +labs(color='Origin')
+
+g_beta_q1p
 ```
 
 #### Functional
@@ -245,37 +254,53 @@ beta_q1f$S %>%
   #scale_color_manual(values = diet_colors,labels=c("Pre_grass" = "Captive-bred no grass diet", "Post_grass" = "Captive-bred grass diet", "Wild" = "Wild"))+
     #   stat_ellipse(aes(color = beta_q1n_nmds$Groups))+
     geom_segment(aes(x = x_cen, y = y_cen, xend = NMDS1, yend = NMDS2), alpha = 0.9, show.legend = FALSE) +
-    
-   annotate("text", x=-0.3, y=-0.05, label= 
-    paste("Permanova, ",
-          adonis2(beta_q1f$S ~ habitat, 
+        scale_color_manual(name = 'habitat', 
+                     values = c("rural" = '#5bae63',"urban" = '#986eac'),
+                     drop = FALSE) +
+   theme_classic() +
+    labs(x = paste("p =",adonis2(beta_q1f$S ~ habitat, 
           data = sample_metadata %>% arrange(match(sample,labels(beta_q1f$S))), 
-          permutations = 999)$`Pr(>F)`[1])) + 
-  
-  theme_classic() +
+          permutations = 999)$`Pr(>F)`[1]), y = "") +
     theme(
-      axis.text.x = element_text(size = 12),
-      axis.text.y = element_text(size = 12),
-      axis.title = element_text(size = 12, face = "bold"),
-      axis.text = element_text(face = "bold", size = 12),
+      axis.text.x = element_text(size = 10),
+      axis.text.y = element_text(size = 10),
+      axis.title = element_text(size = 10, face = "bold"),
+      axis.text = element_text(face = "bold", size = 10),
       panel.background = element_blank(),
       axis.line = element_line(size = 0.5, linetype = "solid", colour = "black"),
       legend.text = element_text(size = 12),
       legend.title = element_text(size = 14),
-      legend.position = "right", legend.box = "vertical"
+      legend.position="none"
+      #legend.position = "right", legend.box = "vertical"
     ) +labs(color='Origin')
+g_beta_q1f
 ```
 
 ```{r}
  #Render composite figure
 ggarrange(g_beta_q0n,g_beta_q1n,g_beta_q1p,g_beta_q1f, 
           ncol=2, nrow=2, 
+          labels = c("A", "B", "C", "D"),
           common.legend = TRUE, legend="bottom") ->
   g
 
+g
 ggsave(paste0('figure/habitat_beta_div.png'), g, width=20, height=20, units='cm')
 ```
 
+```{r, eval=FALSE}
+library(patchwork)
+design <- "
+1234
+5679
+5679
+"
+# alpha diversity
+g_alpha_div[[2]] + g_alpha_div[[3]] + g_alpha_div[[4]] + g_alpha_div[[5]] +
+g_beta_q0n + g_beta_q1n + g_beta_q1p + g_beta_q1f +
+plot_layout(design = design) +
+  plot_annotation(tag_levels = 'A')
+```
 
 ## Site Comparisons
 
@@ -344,23 +369,23 @@ bdHp_q0n[[h]] =
   mutate(x_cen = mean(NMDS1, na.rm = TRUE)) %>%
   mutate(y_cen = mean(NMDS2, na.rm = TRUE)) %>%
   ungroup() %>%
-  ggplot(aes(x = NMDS1, y = NMDS2, color = event_ID)) +
-    geom_point(size = 4) +
-    scale_color_manual(values = habitat_col[[h]])+
+  mutate_at(c('event_ID'), as.factor)%>%
+  ggplot(aes(x = NMDS1, y = NMDS2, color = factor(event_ID, levels = c("MIND","CNSC","PAVI","CTAT","PCAR","SMAT")))) +
+    geom_point(show.legend = TRUE, size = 4) +
+     scale_color_manual(name = 'Site', 
+                     values = c("MIND" = '#add4a0', "CNSC" = '#5bae63', "PAVI" = '#1a7939', 
+                                "CTAT" = '#c3a4cf', "PCAR" = '#986eac', "SMAT" = '#742881'),
+                     drop = FALSE)+
   
-  # add significance from permanova
-    annotate("text", x=-0.15, y=-0.15, label= 
-    paste("Permanova, ",
-          adH$`Pr(>F)`[1])) +
-  
-    #   stat_ellipse(aes(color = beta_q1n_nmds$Groups))+
+  #   stat_ellipse(aes(color = beta_q1n_nmds$Groups))+
     geom_segment(aes(x = x_cen, y = y_cen, xend = NMDS1, yend = NMDS2), alpha = 0.9, show.legend = FALSE) +
     theme_classic() +
+    labs(x = paste("p = ",adH$`Pr(>F)`[1]), y = "") +
     theme(
-      axis.text.x = element_text(size = 12),
-      axis.text.y = element_text(size = 12),
-      axis.title = element_text(size = 12, face = "bold"),
-      axis.text = element_text(face = "bold", size = 12),
+      #axis.text.x = element_text(size = 12),
+      #axis.text.y = element_text(size = 12),
+      axis.title = element_text(size = 10),
+      axis.text = element_text(face = "bold", size = 10),
       panel.background = element_blank(),
       axis.line = element_line(size = 0.5, linetype = "solid", colour = "black"),
       legend.text = element_text(size = 12),
@@ -418,22 +443,22 @@ bdHp_q1n[[h]] =
   mutate(x_cen = mean(NMDS1, na.rm = TRUE)) %>%
   mutate(y_cen = mean(NMDS2, na.rm = TRUE)) %>%
   ungroup() %>%
-  ggplot(aes(x = NMDS1, y = NMDS2, color = event_ID)) +
-    geom_point(size = 4) +
-    scale_color_manual(values = habitat_col[[h]])+
-  # add significance from permanova
-    annotate("text", x=-0.15, y=-0.15, label= 
-    paste("Permanova, ",
-          adH$`Pr(>F)`[1])) +  
-  
-    #   stat_ellipse(aes(color = beta_q1n_nmds$Groups))+
+  mutate_at(c('event_ID'), as.factor)%>%
+  ggplot(aes(x = NMDS1, y = NMDS2, color = factor(event_ID, levels = c("MIND","CNSC","PAVI","CTAT","PCAR","SMAT")))) +
+   geom_point(show.legend = TRUE, size = 4) +
+    scale_color_manual(name = 'Site', 
+                     values = c("MIND" = '#add4a0', "CNSC" = '#5bae63', "PAVI" = '#1a7939', 
+                                "CTAT" = '#c3a4cf', "PCAR" = '#986eac', "SMAT" = '#742881'),
+                     drop = FALSE)+
+  #   stat_ellipse(aes(color = beta_q1n_nmds$Groups))+
     geom_segment(aes(x = x_cen, y = y_cen, xend = NMDS1, yend = NMDS2), alpha = 0.9, show.legend = FALSE) +
     theme_classic() +
+    labs(x = paste("p = ",adH$`Pr(>F)`[1]), y = "") +
     theme(
-      axis.text.x = element_text(size = 12),
-      axis.text.y = element_text(size = 12),
-      axis.title = element_text(size = 12, face = "bold"),
-      axis.text = element_text(face = "bold", size = 12),
+      #axis.text.x = element_text(size = 12),
+      #axis.text.y = element_text(size = 12),
+      axis.title = element_text(size = 10),
+      axis.text = element_text(face = "bold", size = 10),
       panel.background = element_blank(),
       axis.line = element_line(size = 0.5, linetype = "solid", colour = "black"),
       legend.text = element_text(size = 12),
@@ -489,21 +514,22 @@ bdHp_q1p[[h]] =
   mutate(x_cen = mean(NMDS1, na.rm = TRUE)) %>%
   mutate(y_cen = mean(NMDS2, na.rm = TRUE)) %>%
   ungroup() %>%
-  ggplot(aes(x = NMDS1, y = NMDS2, color = event_ID)) +
-    geom_point(size = 4) +
-    scale_color_manual(values = habitat_col[[h]])+
-    # add significance from permanova
-    annotate("text", x=-0.15, y=-0.15, label= 
-    paste("Permanova, ",
-          adH$`Pr(>F)`[1])) +
+  mutate_at(c('event_ID'), as.factor)%>%
+   ggplot(aes(x = NMDS1, y = NMDS2, color = factor(event_ID, levels = c("MIND","CNSC","PAVI","CTAT","PCAR","SMAT")))) +
+    geom_point(show.legend = TRUE, size = 4) +
+    scale_color_manual(name = 'Site', 
+                     values = c("MIND" = '#add4a0', "CNSC" = '#5bae63', "PAVI" = '#1a7939', 
+                                "CTAT" = '#c3a4cf', "PCAR" = '#986eac', "SMAT" = '#742881'),
+                     drop = FALSE)+
     #   stat_ellipse(aes(color = beta_q1n_nmds$Groups))+
     geom_segment(aes(x = x_cen, y = y_cen, xend = NMDS1, yend = NMDS2), alpha = 0.9, show.legend = FALSE) +
     theme_classic() +
+        labs(x = paste("p = ",adH$`Pr(>F)`[1]), y = "") +
     theme(
-      axis.text.x = element_text(size = 12),
-      axis.text.y = element_text(size = 12),
-      axis.title = element_text(size = 12, face = "bold"),
-      axis.text = element_text(face = "bold", size = 12),
+      #axis.text.x = element_text(size = 12),
+      #axis.text.y = element_text(size = 12),
+      axis.title = element_text(size = 10),
+      axis.text = element_text(face = "bold", size = 10),
       panel.background = element_blank(),
       axis.line = element_line(size = 0.5, linetype = "solid", colour = "black"),
       legend.text = element_text(size = 12),
@@ -577,21 +603,22 @@ bdHp_q1f[[h]] =
   mutate(x_cen = mean(NMDS1, na.rm = TRUE)) %>%
   mutate(y_cen = mean(NMDS2, na.rm = TRUE)) %>%
   ungroup() %>%
-  ggplot(aes(x = NMDS1, y = NMDS2, color = event_ID)) +
-    geom_point(size = 4) +
-    scale_color_manual(values = habitat_col[[h]])+
-  # add significance from permanova
-    annotate("text", x=-0.15, y=-0.15, label= 
-    paste("Permanova, ",
-          adH$`Pr(>F)`[1])) +
+  mutate_at(c('event_ID'), as.factor)%>%
+  ggplot(aes(x = NMDS1, y = NMDS2, color = factor(event_ID, levels = c("MIND","CNSC","PAVI","CTAT","PCAR","SMAT")))) +
+   geom_point(show.legend = TRUE, size = 4) +
+    scale_color_manual(name = 'Site', 
+                     values = c("MIND" = '#add4a0', "CNSC" = '#5bae63', "PAVI" = '#1a7939', 
+                                "CTAT" = '#c3a4cf', "PCAR" = '#986eac', "SMAT" = '#742881'),
+                     drop = FALSE)+
     #   stat_ellipse(aes(color = beta_q1n_nmds$Groups))+
     geom_segment(aes(x = x_cen, y = y_cen, xend = NMDS1, yend = NMDS2), alpha = 0.9, show.legend = FALSE) +
     theme_classic() +
+        labs(x = paste("p = ",adH$`Pr(>F)`[1]), y = "") +
     theme(
-      axis.text.x = element_text(size = 12),
-      axis.text.y = element_text(size = 12),
-      axis.title = element_text(size = 12, face = "bold"),
-      axis.text = element_text(face = "bold", size = 12),
+      #axis.text.x = element_text(size = 12),
+      #axis.text.y = element_text(size = 12),
+      axis.title = element_text(size = 10),
+      axis.text = element_text(face = "bold", size = 10),
       panel.background = element_blank(),
       axis.line = element_line(size = 0.5, linetype = "solid", colour = "black"),
       legend.text = element_text(size = 12),
@@ -605,14 +632,18 @@ print(adH)
 print(bdHp_q1f)
 ```
 
+#### Join Plots
+
 ```{r}
 #Render composite figure
 ggarrange(bdHp_q0n[[1]],bdHp_q1n[[1]],bdHp_q1p[[1]],bdHp_q1f[[1]],
           bdHp_q0n[[2]],bdHp_q1n[[2]],bdHp_q1p[[2]],bdHp_q1f[[2]], 
           ncol=4, nrow=2, 
-          common.legend = TRUE, legend="bottom") ->
+          labels = c("A", "B", "C", "D", "E", "F", "G", "H"),
+          common.legend = TRUE, 
+          legend="right") ->
   g
-
+g
 ggsave(paste0('figure/site_beta_diversity.png'), g, width=20, height=15, units='cm')
 ```
 

@@ -1,10 +1,18 @@
 
 scripts adapted from EmmaGravesen [squirrel_functional_diversity](https://github.com/alberdilab/squirrels_functional_diversity/tree/main)
 
-### functional differences
+
+```{r load_data_alpha, comment="", message=FALSE, warning=FALSE}
+load("data/data.Rdata")
+```
+
+## Functional differences
 
 
 ```{r}
+genome_gifts <- genome_gifts_raw[rownames(genome_gifts_raw) %in% genome_counts_filt$genome,]
+genome_gifts <- genome_gifts[, colSums(genome_gifts != 0) > 0]
+
 # Aggregate bundle-level GIFTs into the compound level
 GIFTs_elements <- to.elements(genome_gifts, GIFT_db2)
 
@@ -33,6 +41,252 @@ GIFTs_domains_community <- to.community(GIFTs_domains,tss(genome_counts_filt[-1]
 
 
 ```{r}
+genome_GIFT_mean = list()
+
+genome_GIFT_mean[["c__Gammaproteobacteria"]] =
+colMeans(
+GIFTs_domains[
+  rownames(GIFTs_domains) %in% 
+    genome_metadata[genome_metadata$class %in% c("c__Gammaproteobacteria"),]$genome,
+  ] %>%
+  as.data.frame() )
+
+genome_GIFT_mean[["c__Bacteroidia"]] =
+colMeans(
+GIFTs_domains[
+  rownames(GIFTs_domains) %in% 
+    genome_metadata[genome_metadata$class %in% c("c__Bacteroidia"),]$genome,
+  ] %>%
+  as.data.frame() )
+
+ data.frame(gift = colnames(GIFTs_domains),
+            c__Gammaproteobacteria = genome_GIFT_mean[["c__Gammaproteobacteria"]],
+            c__Bacteroidia = genome_GIFT_mean[["c__Bacteroidia"]]) %>%
+   ggplot() + 
+    geom_point(aes(x=gift, y=c__Gammaproteobacteria), colour="#E0A608", size=3) +
+    geom_point(aes(x=gift, y=c__Bacteroidia), colour="#823838", size=3)
+```
+
+
+```{r}
+genome_GIFT_mean = list()
+
+genome_GIFT_mean[["c__Gammaproteobacteria"]] =
+colMeans(
+GIFTs_functions[
+  rownames(GIFTs_functions) %in% 
+    genome_metadata[genome_metadata$class %in% c("c__Gammaproteobacteria"),]$genome,
+  ] %>%
+  as.data.frame() )
+
+genome_GIFT_mean[["c__Bacteroidia"]] =
+colMeans(
+GIFTs_functions[
+  rownames(GIFTs_functions) %in% 
+    genome_metadata[genome_metadata$class %in% c("c__Bacteroidia"),]$genome,
+  ] %>%
+  as.data.frame() )
+
+ data.frame(gift = colnames(GIFTs_functions),
+            c__Gammaproteobacteria = genome_GIFT_mean[["c__Gammaproteobacteria"]],
+            c__Bacteroidia = genome_GIFT_mean[["c__Bacteroidia"]]) %>%
+   ggplot() + 
+    geom_point(aes(x=gift, y=c__Gammaproteobacteria), colour="#E0A608", size=3) +
+    geom_point(aes(x=gift, y=c__Bacteroidia), colour="#823838", size=3)
+ 
+unique(GIFT_db2[,c("Code_function","Domain","Function")])
+```
+
+```{r}
+genome_GIFT_mean = list()
+
+genome_GIFT_mean[["c__Gammaproteobacteria"]] =
+colMeans(
+GIFTs_elements[
+  rownames(GIFTs_elements) %in% 
+    genome_metadata[genome_metadata$class %in% c("c__Gammaproteobacteria"),]$genome,
+  ] %>%
+  as.data.frame() )
+
+genome_GIFT_mean[["c__Bacteroidia"]] =
+colMeans(
+GIFTs_elements[
+  rownames(GIFTs_elements) %in% 
+    genome_metadata[genome_metadata$class %in% c("c__Bacteroidia"),]$genome,
+  ] %>%
+  as.data.frame() )
+
+df_tmp =
+ data.frame(gift = colnames(GIFTs_elements),
+            c__Gammaproteobacteria = genome_GIFT_mean[["c__Gammaproteobacteria"]],
+            c__Bacteroidia = genome_GIFT_mean[["c__Bacteroidia"]]) %>%
+   mutate(delta = abs(c__Gammaproteobacteria - c__Bacteroidia)) %>%
+   filter(delta > (mean(delta) + (sd(delta *2))))
+
+element_labels =
+  GIFT_db2[GIFT_db2$Code_element %in% df_tmp$gift,] %>%
+                        select(Element) %>%
+                        unique()
+
+
+ data.frame(gift = colnames(GIFTs_elements),
+            c__Gammaproteobacteria = genome_GIFT_mean[["c__Gammaproteobacteria"]],
+            c__Bacteroidia = genome_GIFT_mean[["c__Bacteroidia"]]) %>%
+   mutate(delta = abs(c__Gammaproteobacteria - c__Bacteroidia)) %>%
+   filter(delta > (mean(delta) + (sd(delta *2)))) %>%
+   
+   ggplot() + 
+    geom_point(aes(x=gift, y=c__Gammaproteobacteria), colour="#E0A608", size=3) +
+    geom_point(aes(x=gift, y=c__Bacteroidia), colour="#823838", size=3) +
+   scale_x_discrete(labels = element_labels$Element) +
+   theme_classic()+
+   ylab("Probability") +
+   theme(
+     axis.text.x = element_text(angle = 90)
+         )
+
+data.frame(gift = colnames(GIFTs_elements),
+            c__Gammaproteobacteria = genome_GIFT_mean[["c__Gammaproteobacteria"]],
+            c__Bacteroidia = genome_GIFT_mean[["c__Bacteroidia"]]) %>%
+   mutate(delta = abs(c__Gammaproteobacteria - c__Bacteroidia)) %>%
+   filter(delta > (mean(delta) + (sd(delta *2)))) %>%
+   pivot_longer(c(c__Gammaproteobacteria,c__Bacteroidia)) %>%
+   mutate(across('name', str_replace, 'c__Gammaproteobacteria', 'https://cdn4.iconfinder.com/data/icons/biology-37/64/Prokaryote-cell-Bacteria-organism-biology-512.png')) %>%
+  mutate(across('name', str_replace, 'c__Bacteroidia', 'https://cdn1.iconfinder.com/data/icons/filled-lineo-health-vol-2/48/Bacteria-512.png')) %>%
+  rename(image = name) %>%
+
+ggplot(aes(gift,value)) + 
+    ggimage::geom_image(aes(image=image), size=.05) +
+    scale_x_discrete(labels = element_labels$Element) +
+   theme()+
+   ylab("GIFT Probability") +
+   xlab("GIFT Element") +
+   theme_bw() +
+  theme(
+     axis.text.x = element_text(angle = 90, face = "bold", 
+                                colour = c("#706513","#706513","#520120","#520120","#520120","#08403E","#08403E"))
+         )
+ 
+```
+
+### GIFTs Elements
+ 
+```{r}
+GIFTs_elements_community %>%
+    as.data.frame() %>%
+    rownames_to_column(var="sample") %>%
+    pivot_longer(!sample,names_to="trait",values_to="gift") %>%
+    left_join(sample_metadata, by = join_by(sample == sample)) %>%
+    ggplot(aes(x=trait,y=sample,fill=gift)) +
+        geom_tile(colour="white", linewidth=0.2)+
+        scale_fill_gradientn(colours=rev(c("#d53e4f", "#f46d43", "#fdae61", "#fee08b", "#e6f598", "#abdda4", "#ddf1da")))+
+        facet_grid(habitat ~ ., scales="free",space="free") +
+  theme(axis.text.y = element_blank(),
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, size = 8))
+
+ggsave(paste0('figure/habitat_gift_function.png'), width=15, height=10, units='cm')
+```
+
+```{r}
+GIFTs_elements_community %>%
+    as.data.frame() %>%
+    rownames_to_column(var="sample") %>%
+    pivot_longer(!sample,names_to="trait",values_to="gift") %>%
+    left_join(sample_metadata, by = join_by(sample == sample)) %>%
+    ggplot(aes(x=trait,y=sample,fill=gift)) +
+        geom_tile(colour="white", linewidth=0.2)+
+        scale_fill_gradientn(colours=rev(c("#d53e4f", "#f46d43", "#fdae61", "#fee08b", "#e6f598", "#abdda4", "#ddf1da")))+
+        facet_grid(event_ID ~ ., scales="free",space="free")
+
+```
+
+#### WilCox Comparison
+
+```{r}
+# Generate temporary dataframe
+tmp_GIFTs = GIFTs_elements_community %>%
+    as.data.frame() %>%
+    rownames_to_column(var="sample")
+# identify functions will less than an average 0.1 functional association per sample
+low.funct.GIFTS = colnames(tmp_GIFTs[,-1])[colSums(tmp_GIFTs[,-1]) <= (nrow(tmp_GIFTs) * .3)]
+
+tmp_GIFT_element =
+  GIFTs_elements_community %>%
+    as.data.frame() %>%
+    
+  select(!low.funct.GIFTS) %>%
+    
+    rownames_to_column(var="sample") %>%
+    pivot_longer(!sample,names_to="trait",values_to="gift") %>%
+    left_join(sample_metadata, by = join_by(sample == sample)) %>%
+    select(sample,trait,gift,event_ID,habitat)
+
+wcox = list()
+Wstat = list()
+Wpval = list()
+
+for (e in seq_along(unique(tmp_GIFT_element$trait))){
+  
+  wcox[[e]] = wilcox.test(gift ~ habitat, tmp_GIFT_element[tmp_GIFT_element$trait==unique(tmp_GIFT_element$trait)[e],])
+  Wstat[[e]] = wcox[[e]]$statistic
+  Wpval[[e]] = wcox[[e]]$p.value
+
+}
+
+WCox_GIFT_element =
+  data.frame(element = unique(tmp_GIFT_element$trait),
+           W = unlist(Wstat),
+           p = unlist(Wpval))
+
+
+merge(
+  na.omit(WCox_GIFT_element[WCox_GIFT_element$p < 0.05,]),
+  GIFT_db[,c("Code_element","Domain","Function","Element")], by.x = "element", by.y = "Code_element"
+  ) %>%
+  unique.data.frame()
+```
+```{r}
+tmp_xtick =
+  GIFT_db[GIFT_db2$Code_element %in%
+            unique(tmp_GIFT_element[tmp_GIFT_element$trait %in% na.omit(WCox_GIFT_element[WCox_GIFT_element$p < 0.05,])$element,]$trait),
+          ]$Element
+
+
+ggplot(
+  tmp_GIFT_element[tmp_GIFT_element$trait %in% na.omit(WCox_GIFT_element[WCox_GIFT_element$p < 0.05,])$element,],
+  aes(x=trait, y=gift, facet = trait, colour = habitat)) + 
+  geom_boxplot() +
+  geom_jitter(size=0.4, alpha=0.9) +
+  theme_minimal() +
+  scale_x_discrete(labels = tmp_xtick) +
+  scale_color_manual(name = 'habitat', 
+                     values = c("rural" = '#5bae63',"urban" = '#986eac'),
+                     drop = FALSE) +
+   ylab("GIFT Probability") +
+   xlab("GIFT Element") +
+   theme(
+     axis.text.x = element_text(angle = 0, face = "bold", 
+                                colour = c("#706513","#706513","#706513","#520120","#520120"))
+         )
+ggsave(paste0('figure/habitat_gift_boxplot.png'), width=15, height=10, units='cm')
+```
+
+```{r}
+aggregate( gift ~ habitat + trait, tmp_GIFT_element, mean )
+
+tmp_GIFT_element[tmp_GIFT_element$trait %in% na.omit(WCox_GIFT_element[WCox_GIFT_element$p < 0.05,])$element, ] %>% 
+  group_by(trait, habitat) %>%  # First group by cyl, then by gear within cyl
+  summarize(mean_gift = mean(gift, na.rm = TRUE),
+            sd_gift = sd(gift, na.rm = TRUE),
+            .groups = 'drop')
+
+
+```
+
+
+### GIFTs Functions
+ 
+```{r}
 GIFTs_functions_community %>%
     as.data.frame() %>%
     rownames_to_column(var="sample") %>%
@@ -46,6 +300,8 @@ GIFTs_functions_community %>%
 
 ggsave(paste0('figure/habitat_gift_function.png'), width=15, height=10, units='cm')
 ```
+
+
 
 ```{r}
 GIFTs_functions_community %>%
@@ -63,67 +319,116 @@ GIFTs_functions_community %>%
 ```{r}
 unique(GIFT_db[,c("Code_function","Domain","Function")])
 ```
+## Habitat Exlusive Taxa 
 
+Limit the comparison to only those habitat exclusive taxa, i.e. 
+
+### Families
+
+Erysipelotrichaceae (phylum Bacillota; 3 MAGs) and Pseudonocardiaceae (phylum Actinomycetota; 3 MAGs), exclusive to rural habitats
+
+Chitinophagaceae (phylum Bacteroidota; 5 MAGs) and Steroidobacteraceae (phylum Pseudomonadota, 2 MAGs), exclusive to urban habitats
 
 ```{r}
-# Merge all metrics
-alpha <- list(richness,neutral,phylogenetic) %>%
-  reduce(full_join,by="sample") %>%
-  as.data.frame()
+# list of families exclusive to one habitat
+hab.exclusive_fam = c("f__Erysipelotrichaceae","f__Pseudonocardiaceae","f__Chitinophagaceae","f__Steroidobacteraceae")
+```
+
+
+```{r, warning=FALSE}
+genome_GIFTs_Hexclusive =
+  GIFTs_elements_filtered[
+    row.names(GIFTs_elements_filtered) %in% 
+      genome_metadata[genome_metadata$family %in% hab.exclusive_fam,]$genome,]
+
+GIFTs_elements_Hcomm <- to.community(genome_GIFTs_Hexclusive, tss(genome_counts_filt[-1]), GIFT_db2)
 ```
 
 
 ```{r}
-GIFTs_domains_diversity <- GIFTs_domains_community %>% 
-  as.data.frame() %>% 
-  na.omit() %>% 
-  add_rownames(var = "sample") %>%
-  left_join(alpha, by="sample") %>% 
-  left_join(sample_metadata, by="sample")%>% 
-select(-ends_with(".x"))
+# Generate temporary dataframe
+tmp_GIFTs = GIFTs_elements_Hcomm %>%
+    as.data.frame() %>%
+    rownames_to_column(var="sample")
+# identify functions will less than an average 0.1 functional association per sample
+low.funct.GIFTS = colnames(tmp_GIFTs[,-1])[colSums(tmp_GIFTs[,-1]) <= (nrow(tmp_GIFTs) * .1)]
 
-wilcox_domain = list()
-for (col in seq_along(colnames(domains))) {
-  formula <- as.formula(paste(colnames(domains)[col], "~ habitat"))
-  test_result <- wilcox.test(formula, 
-                             data = GIFTs_domains_diversity)
-  wilcox_domain[[col]] <- test_result
+
+df_GIFT_H.element =
+  GIFTs_elements_Hcomm %>%
+    as.data.frame() %>%
+    
+  select(!low.funct.GIFTS) %>%
+    
+    rownames_to_column(var="sample") %>%
+    pivot_longer(!sample,names_to="trait",values_to="gift") %>%
+    left_join(sample_metadata, by = join_by(sample == sample)) %>%
+    select(sample,trait,gift,event_ID,habitat)
+
+wcox = list()
+Wstat = list()
+Wpval = list()
+
+for (e in seq_along(unique(df_GIFT_H.element$trait))){
+  
+  wcox[[e]] = wilcox.test(gift ~ habitat, df_GIFT_H.element[df_GIFT_H.element$trait==unique(df_GIFT_H.element$trait)[e],])
+  Wstat[[e]] = wcox[[e]]$statistic
+  Wpval[[e]] = wcox[[e]]$p.value
+
 }
-wilcox_domain
 
-for (col in colnames(domains)) {
-  cat("\nPairwise Wilcoxon tests for:", col, "\n")
-  print(pairwise.wilcox.test(GIFTs_domains_diversity[[col]], 
-                             GIFTs_domains_diversity$event_id, 
-                             p.adjust.method = "bonferroni"))
-}
+WCox_GIFT_element =
+  data.frame(element = unique(df_GIFT_H.element$trait),
+           W = unlist(Wstat),
+           p = unlist(Wpval))
 
+
+merge(
+  na.omit(WCox_GIFT_element[WCox_GIFT_element$p < 0.05,]),
+  GIFT_db[,c("Code_element","Domain","Function","Element")], by.x = "element", by.y = "Code_element"
+  ) %>%
+  unique.data.frame()
 ```
 
 
 ```{r}
-GIFTs_functions_diversity <- GIFTs_functions_community %>% 
-  as.data.frame() %>% 
-  add_rownames(var = "sample") %>%
-  left_join(alpha, by="sample") %>% 
-  left_join(sample_metadata, by="sample")%>% 
-  na.omit() %>% 
-select(-ends_with(".x"))
+GIFTs_elements_Hcomm %>%
+    as.data.frame() %>%
+    rownames_to_column(var="sample") %>%
+    pivot_longer(!sample,names_to="trait",values_to="gift") %>%
+    left_join(sample_metadata, by = join_by(sample == sample)) %>% 
+  
+  filter(trait %in% na.omit(WCox_GIFT_element[WCox_GIFT_element$p < 0.05,]$element)) %>%
+  
+    ggplot(aes(x=trait,y=sample,fill=gift)) +
+        geom_tile(colour="white", linewidth=0.2)+
+        scale_fill_gradientn(colours=rev(c("#d53e4f", "#f46d43", "#fdae61", "#fee08b", "#e6f598", "#abdda4", "#ddf1da")))+
+        facet_grid(habitat ~ ., scales="free",space="free")
+```
 
-wilcox_function = list()
-for (col in seq_along(colnames(functions))) {
-  formula <- as.formula(paste(colnames(functions)[col], "~ habitat"))
-  test_result <- wilcox.test(formula, 
-                             data = GIFTs_functions_diversity)
-  wilcox_function[[col]] <- test_result
-}
-wilcox_function
 
-for (col in colnames(functions)) {
-  cat("\nPairwise Wilcoxon tests for:", col, "\n")
-  print(pairwise.wilcox.test(GIFTs_functions_diversity[[col]], 
-                             GIFTs_functions_diversity$event_id, 
-                             p.adjust.method = "bonferroni"))
-}
+
+```{r}
+tmp_xtick =
+  unique(GIFT_db[GIFT_db2$Code_element %in%
+            unique(df_GIFT_H.element[df_GIFT_H.element$trait %in% na.omit(WCox_GIFT_element[WCox_GIFT_element$p < 0.05,])$element,]$trait),
+          ]$Element)
+
+ggplot(
+  df_GIFT_H.element[df_GIFT_H.element$trait %in% na.omit(WCox_GIFT_element[WCox_GIFT_element$p < 0.05,])$element,],
+  aes(x=trait, y=gift, facet = trait, colour = habitat)) + 
+  geom_boxplot() +
+  geom_jitter(size=0.4, alpha=0.9) +
+  theme_minimal() +
+  scale_x_discrete(labels = tmp_xtick) +
+  scale_color_manual(name = 'habitat', 
+                     values = c("rural" = '#5bae63',"urban" = '#986eac'),
+                     drop = FALSE) +
+   ylab("GIFT Probability") +
+   xlab("GIFT Element") +
+   theme(
+     axis.text.x = element_text(angle = 0, face = "bold", 
+                                colour = c("#706513","#706513","#706513","#520120","#520120"))
+         )
 
 ```

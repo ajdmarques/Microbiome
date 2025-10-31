@@ -4,6 +4,12 @@
 load("data/data.Rdata")
 ```
 
+```{r}
+habitat_col = list(
+  RColorBrewer::brewer.pal(3,"YlGn"),
+  RColorBrewer::brewer.pal(3,"BuPu")
+)
+```
 
 ## Summary table
 
@@ -104,6 +110,19 @@ alpha_div %>%
   summarize(var.test_p_value_phylo = var.test(value ~ habitat)$p.value) 
 ```
 
+```{r}
+merge(
+  alpha_div,
+  sample_metadata[,c("sample","habitat","event_ID")],
+  "sample"
+)  %>%
+  group_by(habitat) %>%
+  summarise_at(vars(richness), list(rich.mean = mean))
+  
+
+```
+
+
 ## Plots
 
 ```{r wilcox_habitat, comment="", message=FALSE, warning=FALSE}
@@ -121,19 +140,24 @@ for ( i in seq_along(colnames(alpha_div))[-1]){
 
     aes(x = habitat, y = value, colour = habitat)) +
     geom_boxplot() +
+    scale_color_manual(name = 'habitat', 
+                     values = c("rural" = '#5bae63',"urban" = '#986eac'),
+                     drop = FALSE)+
     geom_jitter(width = 0.1, alpha = 0.5) +
     labs(x = "habitat",
        y = colnames(alpha_div)[i]) +
   
     # add significance from wilcox test
-    annotate("text", x=1.5, y=max(alpha_div[,colnames(alpha_div)[i]]), label= 
-    paste("Wilcox,",signif(wilcox.test(value ~ habitat, data = 
+    annotate("text", x=1.5, y=max(alpha_div[,colnames(alpha_div)[i]])+(max(alpha_div[,colnames(alpha_div)[i]])*.1), 
+             label= 
+    paste("p =",signif(wilcox.test(value ~ habitat, data = 
                  alpha_div %>%
                  pivot_longer(-sample, names_to = "metric", values_to = "value") %>%
                  left_join(., sample_metadata, by = join_by(sample == sample)) %>%
                  filter(metric==colnames(alpha_div)[i]))$p.value,3))) +
   
     theme_minimal() +
+    theme(axis.title.x=element_blank())+
     guides(colour = FALSE)
   
   #Render composite figure
@@ -160,7 +184,10 @@ for ( i in seq_along(colnames(alpha_div))[-1]){
     aes(x = event_ID, y = value, colour = habitat)) +
     geom_boxplot() + 
     geom_jitter(width = 0.1, alpha = 0.5) +
-    labs(x = "event_ID",
+  scale_color_manual(name = 'habitat', 
+                     values = c("rural" = '#5bae63',"urban" = '#986eac'),
+                     drop = FALSE)+  
+  labs(x = "event_ID",
        y = colnames(alpha_div)[i]) +
     theme_minimal() +
     stat_anova_test() +
