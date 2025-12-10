@@ -1,3 +1,4 @@
+
 ```{r}
 load("data/data.Rdata")
 ```
@@ -291,15 +292,17 @@ ggsave(paste0('figure/habitat_beta_div.png'), g, width=20, height=20, units='cm'
 ```{r, eval=FALSE}
 library(patchwork)
 design <- "
-1234
-5679
-5679
+11223344
+55667788
 "
 # alpha diversity
 g_alpha_div[[2]] + g_alpha_div[[3]] + g_alpha_div[[4]] + g_alpha_div[[5]] +
 g_beta_q0n + g_beta_q1n + g_beta_q1p + g_beta_q1f +
 plot_layout(design = design) +
   plot_annotation(tag_levels = 'A')
+
+ggsave("figure/habitat_alphabeta_div.png", last_plot(), 
+       units = "cm", width = 22, height = 16)
 ```
 
 ## Site Comparisons
@@ -546,6 +549,12 @@ print(bdHp_q1p)
 #### Functional
 
 ```{r}
+#genome_gifts <- genome_gifts_raw[rownames(genome_gifts_raw) %in% genome_counts_filt$genome,]
+#genome_gifts <- genome_gifts[, colSums(genome_gifts != 0) > 0]
+```
+
+
+```{r}
 betadisper(beta_q1f$S, sample_metadata_row$event_ID) %>% permutest(., pairwise = TRUE) 
 
 adonis2(beta_q1f$S ~ event_ID, 
@@ -554,6 +563,7 @@ adonis2(beta_q1f$S ~ event_ID,
 ```
 
 ##### sperate by habitat
+
 
 ```{r}
 beta_q1f_H = list()

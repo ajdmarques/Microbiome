@@ -471,7 +471,11 @@ class_summary %>%
         theme(legend.position="none") +
         #facet_nested(as.formula(paste("~", query_variables[q])),scales = "free") +
         labs(y="Class", x="Relative abundance", color="Phylum") +
-  scale_y_discrete(labels=str_remove(class_arrange,"c__"))
+  scale_y_discrete(labels=rev(str_remove(class_arrange,"c__"))) +
+  scale_x_continuous(labels=c("-1.0" = "1.0", "-0.5" = "Urban",
+                            "0.0" = "0.0",
+                            "0.5" = "Rural", "1.0" = "1.0"))
+  
 
 ggsave("figure/habitat_CLASS_relative_abundance.png",last_plot(), width = 10, height = 8, units = "cm")
 ```
@@ -577,6 +581,33 @@ genus_summary %>%
         facet_nested(as.formula(paste("~", query_variables[q])),scales = "free") +
         labs(y="genus", x="Relative abundance", color="Phylum")
 )}
+```
+```{r tukey_genus, warning=FALSE, comments="", message=FALSE}
+genus_tukey =
+  TukeyHSD(
+    aov(relabun ~ genus * habitat, 
+        data = 
+          genus_summary %>%
+          left_join(genome_metadata %>% select(genus,genus) %>% unique(),by=join_by(genus==genus)) %>%
+          filter(genus %in% genus_arrange[1:20]) %>%
+          mutate(genus=factor(genus,levels=rev(genus_arrange[1:20]))) %>%
+          filter(sample %in% sample_metadata$sample) %>%
+          filter(relabun > 0)
+        )
+    )
+
+genus_tukey = as.data.frame(genus_tukey[[3]])
+
+genus_tukey$j = sub("-.*", "", rownames(genus_tukey))
+genus_tukey$k = sub(".*-", "", rownames(genus_tukey))
+
+genus_tukey$j = gsub(paste(c(":rural",":urban"), collapse = '|'), '', genus_tukey$j)
+genus_tukey$k = gsub(paste(c(":rural",":urban"), collapse = '|'), '', genus_tukey$k)
+
+genus_tukey[
+  genus_tukey$j == genus_tukey$k & # when comparing specific taxa between habitat 
+  genus_tukey$`p adj` < 0.05 # sig 
+  , !colnames(genus_tukey) %in% c("j","k")]
 ```
 
 ## Enrichment analysis: Ancombc2

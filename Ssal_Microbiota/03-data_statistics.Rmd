@@ -120,6 +120,19 @@ round(sd( 100 *
   rowSums(sequence_fractions[,-1]) # total bases
   ),3)
 )
+
+paste(
+    "average % host & unmapped bases",
+    round(mean( 100 *
+                    (sequence_fractions$host_bases + sequence_fractions$unmapped_bases)  /  # host bases
+                    rowSums(sequence_fractions[,-1]) # total bases
+    ),3),
+    " ± ",
+    round(sd( 100 *
+                  (sequence_fractions$host_bases + sequence_fractions$unmapped_bases) /  # host bases
+                  rowSums(sequence_fractions[,-1]) # total bases
+    ),3)
+)
 ```
 
 

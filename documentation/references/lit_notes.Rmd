@@ -1,5 +1,43 @@
 #### Notes
 
+@demori_peptide_2019, focus on amphibian skin peptides and their role in wound healing and protection from oxidative stress and UV irradiation. Mucousal glands on the dermis produce mucasins and mucopolysacchrides to maintain skin humidity. Specialized glads also produce poisons as anti-predator defences triggered by stress and contracting the glands. Peptides produced by glands serve a variety of functions depeding on the species, effecting everyjing from deffense, signalling, and would healing. Wound healing applieads to damage from dehydration, ultra violet, and lacerations.
+
+@purucker2023, evaluating the pesticide exposure concentration on amphibians skins. Amphibians's skin have very little keratin and are thin to allow water an gas exchange. Folded skin on the ventral sides focus on rehydration and maintain contact with substrate.
+
+@kaufmann2016, @quaranta2009, expectation that due to permeability, amphibians dermis is more sensitive to xenobiotics. Testing the permeability of xenobiotics such as natural and manufactures herbicide and pesticides shows increased uptake and permeability of amphibian skin compared to mammals or avians.
+
+@akatçömden2023, aim to provide an evolutionary account for the evolution of amphibian dermis as a permeable membrane. Specifies gland formation, skin immunology, water relations, and metamorphosis. Amphibian skin was among the earliest vertebrate adaptations to terrestrial evolution. Amphibian skin also undergoes structural changes during metamorphosis from larvae to adult, such as keratinization. Development of antimicrobial peptides may be limited to adult gland development. Macroglands produce peptides that contribute to defence. Mucosal glands secrete mucous which have many regulatory functions. Antimicrobial peptides select against detrimental bacteria. Water evaporates quickly from the amphibian skin, which may play a role in thermoregulation. Aquaglyceroporins are channels in the epidermis that allow for water uptake.
+
+@santymire2018, measures glucocorticoids among amphibian dermal secretions. This is produced in response to stress and is measured to see how amphibians respond to stress.
+
+@tattersall2007, respiratory function of amphibian skin. Amphibian skin can facilitate up to 100% of O2 and CO2 gas exchange with most of the bodies respiratory cappilaries in the skin. The cost of a thin dermis with high rates of water loss. Folds in the skin increase surface area to increase exchange.
+
+@luddecke_salamanders_2018, summary of fire salamander toxic defence and bioactivity of compounds. Salamander toxins have been used in a variety of ways in traditional medicines, as poisons, to prevent pregnancy. The highest concentrations of toxins are produces in the parotoid glands. Toxins are comprised of salamander alkaloids or samandarines (SAMs). SAMs intoxication can also affect salamanders, usually cause nuerological responses in animals and in some cases death. SAM also assist in antimicrobial defence, .
+
+@pereira2018, compares how skin glands vary among salamanders by sex and along the body. Specific focus to antimicrobial peptides associated with chytrid resistance. Antimicrobial compounds including alkaloids, proteins and antimicrobial peptides (AMPs) have anti-microbial functions.
+
+@rollins-smith_future_2024, some thoughts on studies examining amphibian immunology. Notes include mucosal immunity and the role of microbiome, and salamander immune defences.
+
+@rollins-smith_heat_2023, heat stress exacerbated by climate can reduce amphibian condition and survival. Examines reports on how heat influences amphibian immunity and alter microbal communities. 
+
+@hernández-gómez2023, a broad review of amphibian microbiota in response to environmental conditions at varying scales. Probably the best starting point for review.
+
+@colombo2015, study of mucosal immunity among amphibians from a broad perspective. 
+
+@ohmer2015, skin sloughing is a means of shedding the outermost layer of the epidermis. This happens regularly but can increase in frequency in response to pathogens. The effect of doing so reduces the overall abundance of microbiota on the dermis of amphibians.  
+
+@zhu2024, examines differences in git and dermal microbiota of Rana associated with healthy versus ulcerated skin.
+
+@dong2024, experimental treatment to examine the effect that ash from rice straw, an agricultural pollutant, has on the microbial dermis of Rana. Found decreased diversity and change in composition.
+
+@hernández-gómez2020, compares the effect that forest type, ecualyptus versus quercus, have on the skin microbiome of amphibians. 16S reports change in microbiome composition and decline in body condition with invasive species.
+
+@bletz_disruption_2018, disruption to skin microbiota in response to experimental exposure to Bsal pathogen.
+
+@walke2014, compared amphibian skin microbiome from different habitats to see how microbes colonize the dermal microbiome.
+
+
+
 ##### Studies on urban pollution
 
 Urban soil is disturbed through the mixing, importing, and exporting of materials and is often characterized by contamination, compaction, and soil sealing, as well as deposition, and removal or mixing of natural substrates. Soil in the urban environment tends to be very disturbed because of surrounding human activities or even exogenous. Urban soil is widely distributed in parks, along roads, sports fields, urban rivers, peri-urban areas, landfill sites and mining areas, and near to buildings, industries and transport facilities. Urban soil is an important sink for heavy metals that are non-degradable and can persist for long periods. Heavy metals can be discharged from numerous anthropogenic sources, which include traffic emissions, industrial activities, municipal waste disposal, corrosion of construction or building materials. [@li_2018]
