@@ -44,7 +44,10 @@ GIFTs_domains_community <- to.community(GIFTs_domains,tss(genome_counts_filt[-1]
 ```{r}
 merge(
   GIFTs_domains %>% as.data.frame(),
-  genome_metadata[genome_metadata$class %in% c("c__Gammaproteobacteria","c__Bacteroidia"),
+  genome_metadata[genome_metadata$class %in% c("c__Gammaproteobacteria",
+                                               "c__Bacteroidia",
+                                               "c__Bacilli"
+                                               ),
                   c("genome","class")] %>% remove_rownames %>% column_to_rownames(var="genome"), by = 0, all = F
   ) %>% mutate(across(c('class'), substr, 4, nchar(class))) %>%
   pivot_longer(cols = colnames(GIFTs_domains)) %>%
@@ -55,7 +58,9 @@ merge(
   theme_minimal() +
   #scale_x_discrete(labels = unique(tmp_xtick)) +
   scale_color_manual(name = 'class', 
-                     values = c("Gammaproteobacteria" = '#E0A608',"Bacteroidia" = '#823838'),
+                     values = c("Gammaproteobacteria" = '#E0A608',
+                                "Bacteroidia" = '#823838',
+                                "Bacilli" = '#086C98'),
                      drop = FALSE) +
    ylab("GIFT Probability") +
    ylim(0,1) +
@@ -71,7 +76,10 @@ merge(
 ```{r}
 merge(
   GIFTs_functions %>% as.data.frame(),
-  genome_metadata[genome_metadata$class %in% c("c__Gammaproteobacteria","c__Bacteroidia"),
+  genome_metadata[genome_metadata$class %in% c("c__Gammaproteobacteria",
+                                               "c__Bacteroidia",
+                                               "c__Bacilli"
+                                               ),
                   c("genome","class")] %>% remove_rownames %>% column_to_rownames(var="genome"), by = 0, all = F
   ) %>% mutate(across(c('class'), substr, 4, nchar(class))) %>%
   pivot_longer(cols = colnames(GIFTs_functions)) %>%
@@ -82,7 +90,9 @@ merge(
   theme_minimal() +
   #scale_x_discrete(labels = unique(tmp_xtick)) +
   scale_color_manual(name = 'class', 
-                     values = c("Gammaproteobacteria" = '#E0A608',"Bacteroidia" = '#823838'),
+                     values = c("Gammaproteobacteria" = '#E0A608',
+                                "Bacteroidia" = '#823838',
+                                "Bacilli" = '#086C98'),
                      drop = FALSE) +
    ylab("GIFT Probability") +
    ylim(0,1) +
@@ -100,7 +110,10 @@ merge(
 GIFTs_elements_long =
 merge(
   GIFTs_elements %>% as.data.frame(),
-  genome_metadata[genome_metadata$class %in% c("c__Gammaproteobacteria","c__Bacteroidia"),
+  genome_metadata[genome_metadata$class %in% c("c__Gammaproteobacteria",
+                                               "c__Bacteroidia"#,
+                                               #"c__Bacilli"
+                                               ),
                   c("genome","class")] %>% remove_rownames %>% column_to_rownames(var="genome"), by = 0, all = F
   ) %>% mutate(across(c('class'), substr, 4, nchar(class))) %>%
   pivot_longer(cols = colnames(GIFTs_elements)) 
@@ -152,7 +165,10 @@ GIFTs_elements_sig %>%
   theme_classic() +
   #scale_x_discrete(labels = unique(tmp_xtick)) +
   scale_color_manual(name = 'class', 
-                     values = c("Gammaproteobacteria" = '#E0A608',"Bacteroidia" = '#823838'),
+                     values = c("Gammaproteobacteria" = '#E0A608',
+                                "Bacteroidia" = '#823838' #,
+                                #"Bacilli" = '#086C98'
+                                ),
                      drop = FALSE) +
    ylab("GIFT Probability") +
    ylim(0,1) +
@@ -367,6 +383,97 @@ GIFTs_functions_community %>%
 ```{r}
 unique(GIFT_db[,c("Code_function","Domain","Function")])
 ```
+## ANCOMB2 Identified Taxa
+
+```{r}
+# list of taxa with significant relative abundance differences
+ancombc_rand_table_mag = readRDS("data/ancombc_rand_table_mag.Rds")
+```
+
+```{r, warning=FALSE}
+genome_GIFTs_relabund =
+  GIFTs_elements_filtered[
+    row.names(GIFTs_elements_filtered) %in% ancombc_rand_table_mag$genome,]
+
+GIFTs_elements_Hcomm <- to.community(genome_GIFTs_relabund, tss(genome_counts_filt[-1]), GIFT_db2)
+```
+
+```{r}
+# Generate temporary dataframe
+tmp_GIFTs = GIFTs_elements_Hcomm %>%
+    as.data.frame() %>%
+    rownames_to_column(var="sample")
+# identify functions will less than an average 0.1 functional association per sample
+low.funct.GIFTS = colnames(tmp_GIFTs[,-1])[colSums(tmp_GIFTs[,-1]) <= (nrow(tmp_GIFTs) * .1)]
+
+
+df_GIFT_H.element =
+  GIFTs_elements_Hcomm %>%
+    as.data.frame() %>%
+    
+  select(!low.funct.GIFTS) %>%
+    
+    rownames_to_column(var="sample") %>%
+    pivot_longer(!sample,names_to="trait",values_to="gift") %>%
+    left_join(sample_metadata, by = join_by(sample == sample)) %>%
+    select(sample,trait,gift,event_ID,habitat)
+
+wcox = list()
+Wstat = list()
+Wpval = list()
+
+for (e in seq_along(unique(df_GIFT_H.element$trait))){
+  
+  wcox[[e]] = wilcox.test(gift ~ habitat, df_GIFT_H.element[df_GIFT_H.element$trait==unique(df_GIFT_H.element$trait)[e],])
+  Wstat[[e]] = wcox[[e]]$statistic
+  Wpval[[e]] = wcox[[e]]$p.value
+
+}
+
+WCox_GIFT_element =
+  data.frame(element = unique(df_GIFT_H.element$trait),
+           W = unlist(Wstat),
+           p = p.adjust(unlist(Wpval), method="fdr"))
+
+
+merge(
+  na.omit(WCox_GIFT_element[WCox_GIFT_element$p < 0.05,]),
+  GIFT_db[,c("Code_element","Domain","Function","Element")], by.x = "element", by.y = "Code_element"
+  ) %>%
+  unique.data.frame()
+```
+
+```{r}
+GIFTs_elements_Hcomm %>%
+    as.data.frame() %>%
+    rownames_to_column(var="sample") %>%
+    pivot_longer(!sample,names_to="trait",values_to="gift") %>%
+    left_join(sample_metadata, by = join_by(sample == sample)) %>% 
+  
+  filter(trait %in% na.omit(WCox_GIFT_element[WCox_GIFT_element$p < 0.05,]$element)) %>%
+  
+    ggplot(aes(x=trait,y=sample,fill=gift)) +
+        geom_tile(colour="white", linewidth=0.2)+
+        scale_fill_gradientn(colours=rev(c("#d53e4f", "#f46d43", "#fdae61", "#fee08b", "#e6f598", "#abdda4", "#ddf1da")))+
+        facet_grid(habitat ~ ., scales="free",space="free")
+
+```
+
+### Taxa specific GIFT 
+
+Identify the most likely functionality of *Acinetobacter johnsonii* (EHA05315_bin.31)
+
+```{r}
+acinetobacter_gift.75 =
+  genome_GIFTs_relabund[grep("bin.31",rownames(genome_GIFTs_relabund)),] %>% 
+    select_if(colSums(genome_GIFTs_relabund[grep("bin.31",rownames(genome_GIFTs_relabund)),] ) > .75) %>%
+    colnames()
+
+unique.data.frame(GIFT_db2[GIFT_db2$Code_element %in% acinetobacter_gift.75,
+                           c("Code_element","Domain","Function","Element")])
+```
+
+
 ## Habitat Exlusive Taxa 
 
 Limit the comparison to only those habitat exclusive taxa, i.e. 
