@@ -1,6 +1,7 @@
 
 ```{r}
 load("data/data.Rdata")
+set.seed(4480)
 ```
 
 
@@ -76,9 +77,11 @@ sample_metadata_row <- sample_metadata_row[labels(beta_q0n$S), ]
 betadisper(beta_q0n$S, sample_metadata_row$habitat) %>% permutest(., pairwise = TRUE) 
 ```
 ```{r}
+beta_Hq0n = 
 adonis2(beta_q0n$S ~ habitat, 
         data = sample_metadata %>% arrange(match(sample,labels(beta_q0n$S))), 
-        permutations = 999)
+        permutations = 9999)
+beta_Hq0n
 ```
 
 ```{r}
@@ -103,9 +106,7 @@ beta_q0n$S %>%
                      values = c("rural" = '#5bae63',"urban" = '#986eac'),
                      drop = FALSE) +
     # add significance from permanova
-        labs(x = paste("p =",adonis2(beta_q0n$S ~ habitat, 
-                                      data = sample_metadata %>% arrange(match(sample,labels(beta_q1n$S))), 
-                                      permutations = 999)$`Pr(>F)`[1]), y = "")+ 
+        labs(x = paste("p =",beta_Hq0n$`Pr(>F)`[1]), y = "")+ 
     theme(
       axis.text.x = element_text(size = 10),
       axis.text.y = element_text(size = 10),
@@ -128,9 +129,11 @@ g_beta_q0n
 betadisper(beta_q1n$S, sample_metadata_row$habitat) %>% permutest(., pairwise = TRUE) 
 ```
 ```{r}
+beta_Hq1n = 
 adonis2(beta_q1n$S ~ habitat, 
         data = sample_metadata %>% arrange(match(sample,labels(beta_q1n$S))), 
-        permutations = 999)
+        permutations = 9999)
+beta_Hq1n
 ```
 
 ```{r}
@@ -155,9 +158,7 @@ beta_q1n$S %>%
                      drop = FALSE) +
   # add significance from permanova
   theme_classic() +
-    labs(x = paste("p = ",adonis2(beta_q1n$S ~ habitat, 
-          data = sample_metadata %>% arrange(match(sample,labels(beta_q1n$S))), 
-          permutations = 999)$`Pr(>F)`[1]), y = "") +
+    labs(x = paste("p = ",beta_Hq1n$`Pr(>F)`[1]), y = "") +
     theme(
       axis.text.x = element_text(size = 10),
       axis.text.y = element_text(size = 10),
@@ -181,9 +182,11 @@ betadisper(beta_q1p$S, sample_metadata_row$habitat) %>% permutest(., pairwise = 
 ```
 
 ```{r}
+beta_Hq1p =
 adonis2(beta_q1p$S ~ habitat, 
         data = sample_metadata %>% arrange(match(sample,labels(beta_q1p$S))), 
-        permutations = 999)
+        permutations = 9999)
+beta_Hq1p
 ```
 
 
@@ -208,9 +211,7 @@ beta_q1p$S %>%
                      values = c("rural" = '#5bae63',"urban" = '#986eac'),
                      drop = FALSE) +
   theme_classic() +
-    labs(x = paste("p =",adonis2(beta_q1p$S ~ habitat, 
-          data = sample_metadata %>% arrange(match(sample,labels(beta_q1p$S))), 
-          permutations = 999)$`Pr(>F)`[1]), y = "") +
+    labs(x = paste("p =",beta_Hq1p$`Pr(>F)`[1]), y = "") +
     theme(
       axis.text.x = element_text(size = 10),
       axis.text.y = element_text(size = 10),
@@ -234,10 +235,13 @@ betadisper(beta_q1f$S, sample_metadata_row$habitat) %>% permutest(., pairwise = 
 ```
 
 ```{r}
+beta_Hq1f =
 adonis2(beta_q1f$S ~ habitat, 
         data = sample_metadata %>% arrange(match(sample,labels(beta_q1f$S))), 
-        permutations = 999)
+        permutations = 9999)
+beta_Hq1f
 ```
+
 ```{r}
 g_beta_q1f =
 
@@ -259,9 +263,7 @@ beta_q1f$S %>%
                      values = c("rural" = '#5bae63',"urban" = '#986eac'),
                      drop = FALSE) +
    theme_classic() +
-    labs(x = paste("p =",adonis2(beta_q1f$S ~ habitat, 
-          data = sample_metadata %>% arrange(match(sample,labels(beta_q1f$S))), 
-          permutations = 999)$`Pr(>F)`[1]), y = "") +
+    labs(x = paste("p =",beta_Hq1f$`Pr(>F)`[1]), y = "") +
     theme(
       axis.text.x = element_text(size = 10),
       axis.text.y = element_text(size = 10),
@@ -334,9 +336,12 @@ Test for differences in richness among all sites.
 betadisper(beta_q0n$S, sample_metadata_row$event_ID) %>% permutest(., pairwise = TRUE) 
 
 
+beta_IDq0n = 
 adonis2(beta_q0n$S ~ event_ID, 
         data = sample_metadata %>% arrange(match(sample,labels(beta_q0n$S))), 
-        permutations = 999)
+        permutations = 9999)
+
+beta_IDq0n
 ```
 ##### sperate by habitat
 
@@ -360,7 +365,7 @@ beta_q0n_H[[h]] <- genome_counts[,c("genome",
 bdH =  betadisper(beta_q0n_H[[h]]$S, sample_metadata_row[sample_metadata_row$habitat==habitats[h],]$event_ID) %>% permutest(., pairwise = TRUE)
 adH =  adonis2(beta_q0n_H[[h]]$S ~ event_ID, 
         data = sample_metadata[sample_metadata$habitat==habitats[h],] %>% arrange(match(sample,labels(beta_q0n_H[[h]]$S))), 
-        permutations = 999)
+        permutations = 9999)
 
 bdHp_q0n[[h]] = 
   beta_q0n_H[[h]]$S %>%
@@ -407,9 +412,11 @@ print(bdHp_q0n)
 ```{r}
 betadisper(beta_q1n$S, sample_metadata_row$event_ID) %>% permutest(., pairwise = TRUE) 
 
+beta_IDq1n = 
 adonis2(beta_q1n$S ~ event_ID, 
         data = sample_metadata %>% arrange(match(sample,labels(beta_q1n$S))), 
-        permutations = 999)
+        permutations = 9999)
+beta_IDq1n
 ```
 
 
@@ -434,7 +441,7 @@ beta_q1n_H[[h]] <- genome_counts[,c("genome",
 bdH =  betadisper(beta_q1n_H[[h]]$S, sample_metadata_row[sample_metadata_row$habitat==habitats[h],]$event_ID) %>% permutest(., pairwise = TRUE)
 adH =  adonis2(beta_q1n_H[[h]]$S ~ event_ID, 
         data = sample_metadata[sample_metadata$habitat==habitats[h],] %>% arrange(match(sample,labels(beta_q1n_H[[h]]$S))), 
-        permutations = 999)
+        permutations = 9999)
 
 bdHp_q1n[[h]] = 
   beta_q1n_H[[h]]$S %>%
@@ -480,9 +487,11 @@ print(bdHp_q1n)
 ```{r}
 betadisper(beta_q1p$S, sample_metadata_row$event_ID) %>% permutest(., pairwise = TRUE) 
 
+beta_IDq1p =
 adonis2(beta_q1p$S ~ event_ID, 
         data = sample_metadata %>% arrange(match(sample,labels(beta_q1p$S))), 
-        permutations = 999)
+        permutations = 9999)
+beta_IDq1p
 ```
 ##### sperate by habitat
 
@@ -505,7 +514,7 @@ beta_q1p_H[[h]] <- genome_counts[,c("genome",
 bdH =  betadisper(beta_q1p_H[[h]]$S, sample_metadata_row[sample_metadata_row$habitat==habitats[h],]$event_ID) %>% permutest(., pairwise = TRUE)
 adH =  adonis2(beta_q1p_H[[h]]$S ~ event_ID, 
         data = sample_metadata[sample_metadata$habitat==habitats[h],] %>% arrange(match(sample,labels(beta_q1p_H[[h]]$S))), 
-        permutations = 999)
+        permutations = 9999)
 
 bdHp_q1p[[h]] = 
   beta_q1p_H[[h]]$S %>%
@@ -557,9 +566,11 @@ print(bdHp_q1p)
 ```{r}
 betadisper(beta_q1f$S, sample_metadata_row$event_ID) %>% permutest(., pairwise = TRUE) 
 
+beta_IDq1f =
 adonis2(beta_q1f$S ~ event_ID, 
         data = sample_metadata %>% arrange(match(sample,labels(beta_q1f$S))), 
-        permutations = 999)
+        permutations = 9999)
+beta_IDq1f
 ```
 
 ##### sperate by habitat
@@ -601,7 +612,7 @@ beta_q1f_H[[h]] <- genome_counts_FH %>%
 bdH =  betadisper(beta_q1f_H[[h]]$S, sample_metadata_row[sample_metadata_row$habitat==habitats[h],]$event_ID) %>% permutest(., pairwise = TRUE)
 adH =  adonis2(beta_q1f_H[[h]]$S ~ event_ID, 
         data = sample_metadata[sample_metadata$habitat==habitats[h],] %>% arrange(match(sample,labels(beta_q1f_H[[h]]$S))), 
-        permutations = 999)
+        permutations = 9999)
 
 bdHp_q1f[[h]] = 
   beta_q1f_H[[h]]$S %>%
@@ -641,6 +652,25 @@ print(adH)
 }
 print(bdHp_q1f)
 ```
+
+```{r}
+saveRDS(
+  
+cbind.data.frame(
+  c("species richness","neutral diversity","phylogenetic diversity","functional diversity"),
+  
+  c(beta_Hq0n$R2[1], beta_Hq1p$R2[1], beta_Hq1n$R2[1], beta_Hq1f$R2[1]),
+  c(beta_Hq0n$`Pr(>F)`[1], beta_Hq1p$`Pr(>F)`[1], beta_Hq1n$`Pr(>F)`[1], beta_Hq1f$`Pr(>F)`[1]),
+  
+  c(beta_IDq0n$R2[1], beta_IDq1p$R2[1], beta_IDq1n$R2[1], beta_IDq1f$R2[1]),
+  c(beta_IDq0n$`Pr(>F)`[1], beta_IDq1p$`Pr(>F)`[1], beta_IDq1n$`Pr(>F)`[1], beta_IDq1f$`Pr(>F)`[1])
+) %>% `colnames<-`(c("Metric", "Habitat R2", "Habitat P", "Site R2", "Site P")),
+
+file = "data/anova_table.Rds")
+
+  
+```
+
 
 #### Join Plots
 
