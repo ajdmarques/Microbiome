@@ -1,0 +1,2 @@
+Sample	berger_parker	buzas_gibson	chao1	dominance	equitability	jost	jost1	reads	richness	richness2	robbins	simpson	shannon_e	shannon_2	shannon_10	flyvbjerg	mirror	mirrorns	logfit	logfitns	logfitmu	logfitmuns
+M01998	0.388	0.0245	10.00	0.777	0.796	5.17	6.25	255.0	10.00	10.00	0	0.223	1.83	2.64	0.796	10.00	17.0	17.0	9.00	12.0	2.20	1.90

@@ -1,0 +1,6 @@
+/GIS
+.Rproj.user
+# too large
+data/raw/SILVA_138.1_SSURef_NR99_12_06_20_opt.arb.gz
+# softwares
+documentation/software

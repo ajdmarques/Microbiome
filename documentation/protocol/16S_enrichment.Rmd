@@ -1,0 +1,95 @@
+---
+title: "16S Enrichment"
+author: "Adam Marques"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    df_print: paged
+bibliography: ../references/references.bib
+---
+
+## Primers
+
+An early trial of 16S primers was used to verify that the DNA extracted using the CTM swab extraction with bead cleaning protocol was able to isolate sufficient DNA for enrichment. In the trial, we observed that while dermal swabs did not enrich, we were able to extract DNA from cloacal and buccal swabs.
+
+The Earth Microbiome Project (EMP) which catalogs global microbial diversity recommends using a standardized primer and protocol. Among these, the 515F-Y (5′-GTGYCAGCMGCCGCGGTAA) is a common forward primer, while the reverse 926R (5′-CCGYCAATTYMTTTRAGTTT) has been proposed for bacteria and archaea that encompasses the V4 and V5 hypervariable regions for longer fragments that overlap with shorter fragments used in older databases [@parada_every_2016]. The primers with the Illumina adapters appended are:
+
+```         
+ 515F-Y: TCG TCG GCA GCG TCA GAT GTG TAT AAG AGA CAG GTG YCA GCM GCC GCG GTA A      926R: GTC TCG TGG GCT CGG AGA TGT GTA TAA GAG ACA GCC GYC AAT TYM TTT RAG TTT
+```
+
+## Enrichment
+
+The protocol to is adapted from @scheifler_characterization_2019 to enrich bacterial 16S fragments. The protocol recommends running replicate enrichments to reduce PCR bias and increase read diversity. One replicate will be performed at a time.
+
+1.  Prepare a master mix comprised of 5 uL of Qiagen Master Mix, 0.3 μl of each primer (515Y-F + 926R at concentration of 0.2 μM), 3.4 μl of ultrapure water per sample.
+
+2.  Dispense 9 uL of the master mix to each reaction well and add 1 μl of DNA for a final volume of 10 μl.
+
+3.  Thermocylcer conditions Following an initial denaturation of 3 min at 95°C, there is a following 95°C denaturing step for 45s, annealing at 50°C for 45s, then an extension at 68°C for 90s, repeated for 30 cycles before a final extension at 68°C for 5 min.
+
+4.  Prepare a 2% agarose gel and run 2 uL of PCR product at 300V for 15 min. A band should be present to confirm whether enrichment was successful.
+
+5.  Transfer the remaining 8 µL of DNA from each replicate to a common well in a new plate.
+
+6.  Proceed with a bead cleaning by pipette mixing AMPure beads with DNA and mix well by pipetting up and down at least 10 times. Allow them to incubate for 5-8 minutes then placing them on magnetic stand for 5 minutes. Carefully remove and discard the supernatant, being careful not to discard beads. AMPure beads per reaction = 8 µLDNA \* No. Replicates \* 0.97 ratio
+
+7.  Wash beads twice with 150 µL of 80% ethanol and let sit for 30 seconds each.
+
+8.  Remove all the ethanol after the second wash and let the residuals evaporate for 5 minutes at room temperature. Do not over dry the beads.
+
+9.  Elute the DNA target from the beads with 15 μl of elution buffer. Mix well by pipetting up and down. Let them incubate for 2 minutes at room temperature then return them to the magnetic stand until the solution is clear.
+
+10. Transfer to a new plate.
+
+```{r 26-02-2024, echo=FALSE}
+# load extraction data
+readxl::read_xlsx("../../data/raw/extra ction_records.xlsx", "Sheet1") ->
+  df
+# determine number of reactions
+n = length(df$plate)
+n = 96
+# reagent volumes per reaction
+qmix  = 5.0
+pfwd = 0.2 
+prev = 0.2
+h2o = 9.0 - (qmix + pfwd + prev)
+dna = 1.0
+# print table
+reagent <- c('QiagenMix','FWD','REV','H2O','DNA')
+vrxn <- c(qmix,pfwd,prev,h2o,dna)
+vmix <- vrxn*n*1.05 # include 5% margin of error
+data.frame(reagent,vrxn,vmix)
+# cleanup
+rm(df,qmix,pfwd,prev,h2o)
+```
+
+## Indexing
+
+Primers were adapted to contain Illumina adapters so that individual samples can be indexed and sequenced simultaneously. Pre-made combinations (see ./documentation/protocol/metabarcoding_Indexes.xlsx) are provided by CTM for use with in-house sequencing. Indexes samples should be prepared in a post-PCR work space. Be especially diligent to avoid cross contamination between indices. It is recommended to use a multi-channel pipette when loading the index plate to avoid confusion between wells. Remember not to use the same index plate twice in a single run otherwise samples with matching indexes will become indistinguishable.
+
+1.  Collect materials for indexing and a ice container to arrest the indexing reaction while in preparation.
+
+2.  Prepare a reaction mix for each samples comprised of 13.75 uL of H2O, 5.0 μL of 5X KAPA HiFi GC Buffer, 0.75 μL of 10 mM dNTP Mix, and 0.5 uL of KAPA HiFi DNA Polymerase (1 U/μL). While on ice add 17 µL of the master mix into each reaction well of a new PCR plate.
+
+3.  In each well with the mix, add 0.5 μL of the corresponding Nextera Index Sequences (i5 and i7), and 5 μl of DNA for a final volume of 25 μl.
+
+4.  The PCR enrichment begins with an initial denaturation at 95°C for 3 min, followed by 8 cycles of a denature step at 98°C for 20s, annealing at 65°C for 20s, extension at 72°C for 30s, ending with a final extension at 72°C for 2 min.
+
+5.  All PCR products was then quantified by Nanodrop and normalized with a 96 well plate.
+
+6.  To confirm if indexing was successful, load 2 µL of pre- and post-indexed PCR product into a 2 % agarose gel at 150V for 20 minutes. If successful a slight increase in fragment length should be visible between pre- and post-indexed product.
+
+7.  Proceed with a bead cleaning by pipette mixing AMPure beads with DNA, mix well by pipetting at least 10 times, then allowing them to incubate for 5-8 minutes then placing them on magnetic stand for 5 minutes. A ratio of 0.8 is used to remove fragments shorter than 200 bp. 10.8 µLAMPure/rxn = 12 µLDNA \* 0.8 ratio
+
+8.  Wash beads twice with 150 µL of 80% ethanol and let sit for 30 seconds each.
+
+9.  Remove all the ethanol after the second wash and let the residuals evaporate for 5 minutes at room temperature. Do not over dry the beads.
+
+10. Elute the DNA from the beads with 25 μl of elution buffer. Mix well by pipetting up and down, and put the plate in the magnetic stand until the solution is clear.
+
+11. Transfer the supernatant to a clean PCR plate.
+
+## Notes
+
+The 515F-Y/926R pairs have a high matches percentage to eukaryotic 18S rRNA, but by removing non-overlapping paired-end reads, the eukaryotic 18S sequences, typically 160--180bp, can be discarded during filtering [@parada_every_2016].

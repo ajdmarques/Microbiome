@@ -1,0 +1,202 @@
+id,tube_code,animal_id,event_id,sample_type,sample_origin,freshness,freeze_time,note
+1,AIY67,GVA10463,SMAT,Skin,Animal,< 1 minute,< 1 day,EHI swab
+2,AIY68,GVA10463,SMAT,Anal/cloacal,Animal,< 1 minute,< 1 day,EHI swab
+3,AIY69,GVA10464,SMAT,Skin,Animal,< 1 minute,< 1 day,CTM swab
+4,AIY70,GVA10464,SMAT,Anal/cloacal,Animal,< 1 minute,< 1 day,CTM swab
+5,AIY71,GVA10465,SMAT,Skin,Animal,< 1 minute,< 1 day,EHI swab
+6,AIY72,GVA10465,SMAT,Anal/cloacal,Animal,< 1 minute,< 1 day,EHI swab
+7,AIY73,GVA10466,SMAT,Skin,Animal,< 1 minute,< 1 day,CTM swab
+8,AIY74,GVA10466,SMAT,Anal/cloacal,Animal,< 1 minute,< 1 day,CTM swab
+9,AIY75,GVA10467,SMAT,Skin,Animal,< 1 minute,< 1 day,EHI swab
+10,AIY76,GVA10467,SMAT,Anal/cloacal,Animal,< 1 minute,< 1 day,EHI swab
+11,AIY77,GVA10468,SMAT,Skin,Animal,< 1 minute,< 1 day,CTM swab
+12,AIY78,GVA10468,SMAT,Anal/cloacal,Animal,< 1 minute,< 1 day,CTM swab
+13,AIY79,GVA10469,SMAT,Skin,Animal,< 1 minute,< 1 day,EHI swab
+14,AIY80,GVA10469,SMAT,Anal/cloacal,Animal,< 1 minute,< 1 day,EHI swab
+15,AIY81,GVA10470,SMAT,Skin,Animal,< 1 minute,< 1 day,CTM swab
+16,AIY82,GVA10470,SMAT,Anal/cloacal,Animal,< 1 minute,< 1 day,CTM swab
+17,AIY83,GVA10471,SMAT,Skin,Animal,< 1 minute,< 1 day,EHI swab
+18,AIY84,GVA10471,SMAT,Anal/cloacal,Animal,< 1 minute,< 1 day,EHI swab
+19,AIY85,GVA10472,SMAT,Skin,Animal,< 1 minute,< 1 day,CTM swab
+20,AIY86,GVA10472,SMAT,Anal/cloacal,Animal,< 1 minute,< 1 day,CTM swab
+21,AIZ88,GVA10473,SMAT,Skin,Animal,< 1 minute,< 1 day,EHI swab
+22,AKD59,GVA10473,SMAT,Skin,Animal,< 1 minute,< 1 day,CTM swab + ETOH
+23,AIY87,GVA10474,CTAT,Skin,Animal,< 1 minute,< 1 day,EHI swab
+24,AIY88,GVA10474,CTAT,Anal/cloacal,Animal,< 1 minute,< 1 day,EHI swab
+25,AIY89,GVA10475,CTAT,Skin,Animal,< 1 minute,< 1 day,CTM swab
+26,AIY90,GVA10475,CTAT,Anal/cloacal,Animal,< 1 minute,< 1 day,CTM swab
+27,AIY91,GVA10476,CTAT,Skin,Animal,< 1 minute,< 1 day,EHI swab
+28,AIY92,GVA10476,CTAT,Anal/cloacal,Animal,< 1 minute,< 1 day,EHI swab
+29,AIY93,GVA10477,CTAT,Skin,Animal,< 1 minute,< 1 day,CTM swab
+30,AIY94,GVA10477,CTAT,Anal/cloacal,Animal,< 1 minute,< 1 day,CTM swab
+31,AIY95,GVA10478,CTAT,Skin,Animal,< 1 minute,< 1 day,EHI swab
+32,AIY96,GVA10478,CTAT,Anal/cloacal,Animal,< 1 minute,< 1 day,EHI swab
+33,AIY97,GVA10479,CTAT,Skin,Animal,< 1 minute,< 1 day,CTM swab
+34,AIY98,GVA10479,CTAT,Anal/cloacal,Animal,< 1 minute,< 1 day,CTM swab
+35,AIY99,GVA10480,CTAT,Skin,Animal,< 1 minute,< 1 day,EHI swab
+36,AIZ01,GVA10480,CTAT,Anal/cloacal,Animal,< 1 minute,< 1 day,EHI swab
+37,AIZ02,GVA10481,CTAT,Skin,Animal,< 1 minute,< 1 day,CTM swab
+38,AIZ03,GVA10481,CTAT,Anal/cloacal,Animal,< 1 minute,< 1 day,CTM swab
+39,AIZ04,GVA10482,CTAT,Skin,Animal,< 1 minute,< 1 day,EHI swab
+40,AIZ05,GVA10482,CTAT,Anal/cloacal,Animal,< 1 minute,< 1 day,EHI swab
+41,AIZ06,GVA10483,CTAT,Skin,Animal,< 1 minute,< 1 day,CTM swab
+42,AIZ07,GVA10483,CTAT,Anal/cloacal,Animal,< 1 minute,< 1 day,CTM swab
+43,AIZ89,GVA10484,CTAT,Skin,Animal,< 1 minute,< 1 day,EHI swab
+44,AKD60,GVA10484,CTAT,Skin,Animal,< 1 minute,< 1 day,CTM swab + ETOH
+45,AIZ08,GVA10485,MIND,Skin,Animal,< 1 minute,< 1 day,EHI swab
+46,AIZ09,GVA10485,MIND,Anal/cloacal,Animal,< 1 minute,< 1 day,EHI swab
+47,AIZ10,GVA10486,MIND,Skin,Animal,< 1 minute,< 1 day,CTM swab
+48,AIZ11,GVA10486,MIND,Anal/cloacal,Animal,< 1 minute,< 1 day,CTM swab
+49,AIZ12,GVA10487,MIND,Skin,Animal,< 1 minute,< 1 day,EHI swab
+50,AIZ13,GVA10487,MIND,Anal/cloacal,Animal,< 1 minute,< 1 day,EHI swab
+51,AIZ14,GVA10488,MIND,Skin,Animal,< 1 minute,< 1 day,CTM swab
+52,AIZ15,GVA10488,MIND,Anal/cloacal,Animal,< 1 minute,< 1 day,CTM swab
+53,AIZ16,GVA10489,MIND,Skin,Animal,< 1 minute,< 1 day,EHI swab
+54,AIZ17,GVA10489,MIND,Anal/cloacal,Animal,< 1 minute,< 1 day,EHI swab
+55,AIZ18,GVA10490,MIND,Skin,Animal,< 1 minute,< 1 day,CTM swab
+56,AIZ19,GVA10490,MIND,Anal/cloacal,Animal,< 1 minute,< 1 day,CTM swab
+57,AIZ20,GVA10491,MIND,Skin,Animal,< 1 minute,< 1 day,EHI swab
+58,AIZ21,GVA10491,MIND,Anal/cloacal,Animal,< 1 minute,< 1 day,EHI swab
+59,AIZ22,GVA10492,MIND,Skin,Animal,< 1 minute,< 1 day,CTM swab
+60,AIZ23,GVA10492,MIND,Anal/cloacal,Animal,< 1 minute,< 1 day,CTM swab
+61,AIZ24,GVA10493,MIND,Skin,Animal,< 1 minute,< 1 day,EHI swab
+62,AIZ25,GVA10493,MIND,Anal/cloacal,Animal,< 1 minute,< 1 day,EHI swab
+63,AIZ26,GVA10494,MIND,Skin,Animal,< 1 minute,< 1 day,CTM swab
+64,AIZ27,GVA10494,MIND,Anal/cloacal,Animal,< 1 minute,< 1 day,CTM swab
+65,AIZ90,GVA10495,MIND,Skin,Animal,< 1 minute,< 1 day,EHI swab
+66,AIZ90_ETOH,GVA10495,MIND,Skin,Animal,< 1 minute,< 1 day,CTM swab
+67,AIZ28,GVA10496,CNSC,Skin,Animal,< 1 minute,< 1 day,EHI swab
+68,AIZ29,GVA10496,CNSC,Anal/cloacal,Animal,< 1 minute,< 1 day,EHI swab
+69,AIZ30,GVA10497,CNSC,Skin,Animal,< 1 minute,< 1 day,CTM swab
+70,AIZ31,GVA10497,CNSC,Anal/cloacal,Animal,< 1 minute,< 1 day,CTM swab
+71,AIZ32,GVA10498,CNSC,Skin,Animal,< 1 minute,< 1 day,EHI swab
+72,AIZ33,GVA10498,CNSC,Anal/cloacal,Animal,< 1 minute,< 1 day,EHI swab
+73,AIZ34,GVA10499,CNSC,Skin,Animal,< 1 minute,< 1 day,CTM swab
+74,AIZ35,GVA10499,CNSC,Anal/cloacal,Animal,< 1 minute,< 1 day,CTM swab
+75,AIZ36,GVA10500,CNSC,Skin,Animal,< 1 minute,< 1 day,EHI swab
+76,AIZ37,GVA10500,CNSC,Anal/cloacal,Animal,< 1 minute,< 1 day,EHI swab
+77,AIZ38,GVA10501,CNSC,Skin,Animal,< 1 minute,< 1 day,CTM swab
+78,AIZ39,GVA10501,CNSC,Anal/cloacal,Animal,< 1 minute,< 1 day,CTM swab
+79,AIZ40,GVA10502,CNSC,Skin,Animal,< 1 minute,< 1 day,EHI swab
+80,AIZ41,GVA10502,CNSC,Anal/cloacal,Animal,< 1 minute,< 1 day,EHI swab
+81,AIZ42,GVA10503,CNSC,Skin,Animal,< 1 minute,< 1 day,CTM swab
+82,AIZ43,GVA10503,CNSC,Anal/cloacal,Animal,< 1 minute,< 1 day,CTM swab
+83,AIZ44,GVA10504,CNSC,Skin,Animal,< 1 minute,< 1 day,EHI swab
+84,AIZ45,GVA10504,CNSC,Anal/cloacal,Animal,< 1 minute,< 1 day,EHI swab
+85,AIZ48,GVA10505,PAVI,Skin,Animal,< 1 minute,< 1 day,EHI swab
+86,AIZ49,GVA10505,PAVI,Anal/cloacal,Animal,< 1 minute,< 1 day,EHI swab
+87,AIZ50,GVA10506,PAVI,Skin,Animal,< 1 minute,< 1 day,CTM swab
+88,AIZ51,GVA10506,PAVI,Anal/cloacal,Animal,< 1 minute,< 1 day,CTM swab
+89,AIZ52,GVA10507,PAVI,Skin,Animal,< 1 minute,< 1 day,EHI swab
+90,AIZ53,GVA10507,PAVI,Anal/cloacal,Animal,< 1 minute,< 1 day,EHI swab
+91,AIZ54,GVA10508,PAVI,Skin,Animal,< 1 minute,< 1 day,CTM swab
+92,AIZ55,GVA10508,PAVI,Anal/cloacal,Animal,< 1 minute,< 1 day,CTM swab
+93,AIZ56,GVA10509,PAVI,Skin,Animal,< 1 minute,< 1 day,EHI swab
+94,AIZ57,GVA10509,PAVI,Anal/cloacal,Animal,< 1 minute,< 1 day,EHI swab
+95,AIZ58,GVA10510,PAVI,Skin,Animal,< 1 minute,< 1 day,CTM swab
+96,AIZ59,GVA10510,PAVI,Anal/cloacal,Animal,< 1 minute,< 1 day,CTM swab
+97,AIZ60,GVA10511,PAVI,Skin,Animal,< 1 minute,< 1 day,EHI swab
+98,AIZ61,GVA10511,PAVI,Anal/cloacal,Animal,< 1 minute,< 1 day,EHI swab
+99,AIZ62,GVA10512,PAVI,Skin,Animal,< 1 minute,< 1 day,CTM swab
+100,AIZ63,GVA10512,PAVI,Anal/cloacal,Animal,< 1 minute,< 1 day,CTM swab
+101,AIZ64,GVA10513,PAVI,Skin,Animal,< 1 minute,< 1 day,EHI swab
+102,AIZ65,GVA10513,PAVI,Anal/cloacal,Animal,< 1 minute,< 1 day,EHI swab
+103,AIZ66,GVA10514,PAVI,Skin,Animal,< 1 minute,< 1 day,CTM swab
+104,AIZ67,GVA10514,PAVI,Anal/cloacal,Animal,< 1 minute,< 1 day,CTM swab
+105,AIZ91,GVA10515,PAVI,Skin,Animal,< 1 minute,< 1 day,EHI swab
+106,AKD62,GVA10515,PAVI,Skin,Animal,< 1 minute,< 1 day,CTM swab + ETOH
+107,AIZ68,GVA10516,PCAR,Skin,Animal,< 1 minute,< 1 day,EHI swab
+108,AIZ69,GVA10516,PCAR,Anal/cloacal,Animal,< 1 minute,< 1 day,EHI swab
+109,AIZ70,GVA10517,PCAR,Skin,Animal,< 1 minute,< 1 day,CTM swab
+110,AIZ71,GVA10517,PCAR,Anal/cloacal,Animal,< 1 minute,< 1 day,CTM swab
+111,AIZ72,GVA10518,PCAR,Skin,Animal,< 1 minute,< 1 day,EHI swab
+112,AIZ73,GVA10518,PCAR,Anal/cloacal,Animal,< 1 minute,< 1 day,EHI swab
+113,AIZ74,GVA10519,PCAR,Skin,Animal,< 1 minute,< 1 day,CTM swab
+114,AIZ75,GVA10519,PCAR,Anal/cloacal,Animal,< 1 minute,< 1 day,CTM swab
+115,AIZ76,GVA10520,PCAR,Skin,Animal,< 1 minute,< 1 day,EHI swab
+116,AIZ77,GVA10520,PCAR,Anal/cloacal,Animal,< 1 minute,< 1 day,EHI swab
+117,AIZ78,GVA10521,PCAR,Skin,Animal,< 1 minute,< 1 day,CTM swab
+118,AIZ79,GVA10521,PCAR,Anal/cloacal,Animal,< 1 minute,< 1 day,CTM swab
+119,AIZ80,GVA10522,PCAR,Skin,Animal,< 1 minute,< 1 day,EHI swab
+120,AIZ81,GVA10522,PCAR,Anal/cloacal,Animal,< 1 minute,< 1 day,EHI swab
+121,AIZ82,GVA10523,PCAR,Skin,Animal,< 1 minute,< 1 day,CTM swab
+122,AIZ83,GVA10523,PCAR,Anal/cloacal,Animal,< 1 minute,< 1 day,CTM swab
+123,AIZ84,GVA10524,PCAR,Skin,Animal,< 1 minute,< 1 day,EHI swab
+124,AIZ85,GVA10524,PCAR,Anal/cloacal,Animal,< 1 minute,< 1 day,EHI swab
+125,AIZ86,GVA10525,PCAR,Skin,Animal,< 1 minute,< 1 day,CTM swab
+126,AIZ87,GVA10525,PCAR,Anal/cloacal,Animal,< 1 minute,< 1 day,CTM swab
+127,AIZ92,GVA10526,PCAR,Skin,Animal,< 1 minute,< 1 day,EHI swab
+128,AKD63,GVA10526,PCAR,Skin,Animal,< 1 minute,< 1 day,CTM swab + ETOH
+129,AIZ93,NEGATIVE,,,<,< 1 minute,< 1 day,EHI swab
+130,,,,,,,,
+131,,,,,,,,
+132,,,,,,,,
+133,,,,,,,,
+134,,,,,,,,
+135,,,,,,,,
+136,,,,,,,,
+137,,,,,,,,
+138,,,,,,,,
+139,,,,,,,,
+140,,,,,,,,
+141,,,,,,,,
+142,,,,,,,,
+143,,,,,,,,
+144,,,,,,,,
+145,,,,,,,,
+146,,,,,,,,
+147,,,,,,,,
+148,,,,,,,,
+149,,,,,,,,
+150,,,,,,,,
+151,,,,,,,,
+152,,,,,,,,
+153,,,,,,,,
+154,,,,,,,,
+155,,,,,,,,
+156,,,,,,,,
+157,,,,,,,,
+158,,,,,,,,
+159,,,,,,,,
+160,,,,,,,,
+161,,,,,,,,
+162,,,,,,,,
+163,,,,,,,,
+164,,,,,,,,
+165,,,,,,,,
+166,,,,,,,,
+167,,,,,,,,
+168,,,,,,,,
+169,,,,,,,,
+170,,,,,,,,
+171,,,,,,,,
+172,,,,,,,,
+173,,,,,,,,
+174,,,,,,,,
+175,,,,,,,,
+176,,,,,,,,
+177,,,,,,,,
+178,,,,,,,,
+179,,,,,,,,
+180,,,,,,,,
+181,,,,,,,,
+182,,,,,,,,
+183,,,,,,,,
+184,,,,,,,,
+185,,,,,,,,
+186,,,,,,,,
+187,,,,,,,,
+188,,,,,,,,
+189,,,,,,,,
+190,,,,,,,,
+191,,,,,,,,
+192,,,,,,,,
+193,,,,,,,,
+194,,,,,,,,
+195,,,,,,,,
+196,,,,,,,,
+197,,,,,,,,
+198,,,,,,,,
+199,,,,,,,,
+200,,,,,,,,
+,Add,more,rows,if,,,,

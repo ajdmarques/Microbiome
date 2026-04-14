@@ -1,0 +1,13 @@
+#OTU ID	M01998
+Otu9	17
+Otu5	27
+Otu3	24
+Otu8	25
+Otu12	13
+Otu7	4
+Otu1	44
+Otu4	53
+Otu2	45
+Otu6	4
+Otu11	5
+Otu13	3

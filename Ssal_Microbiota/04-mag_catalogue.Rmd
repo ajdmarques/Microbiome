@@ -1,0 +1,653 @@
+# MAG catalogue
+
+```{r load_data_mag, message=FALSE, warning=FALSE}
+load("data/data.Rdata")
+```
+
+
+```{r load_data_mag_filt, comment="", message=FALSE, warning=FALSE, eval=FALSE}
+genome_counts_filt <- genome_counts %>% 
+    select(one_of(c("genome",sample_metadata$sample)))%>%
+  filter(rowSums(. != 0, na.rm = TRUE) > 0) %>%
+  select_if(~!all(. == 0))
+
+genome_metadata <- genome_metadata %>% 
+  semi_join(., genome_counts_filt, by = "genome") %>% 
+  arrange(match(genome,genome_counts_filt$genome))
+
+genome_tree <- keep.tip(genome_tree, tip=genome_metadata$genome) # keep only MAG tips
+
+#load("data/genome_gifts.Rdata")
+```
+
+## Genome phylogeny
+
+Construct a phylogeny for all the MAGs present among your samples. EHI uses its own internal colour scheme to ensure consistency among studies. This is first loaded from GitHub then applied to each genome based on its phylum. If the genome has no existing species match, then it is characterized as a 'new species'.
+
+Begin the plot by generating a circular tree for the genomes. Then apply a ring for the genomes assigned phylum. Apply another ring indicating the genome quality, with bar height indicating completeness and colour the proportion of contamination. Group specific heatmaps can then also be applied. Additionally, apply a ring indicating if the species is new or not. 
+
+```{r genome_phylogeny, message=FALSE, warning=FALSE, fig.height=10, fig.width=10, fig.fullwidth=TRUE}
+# Generate the phylum color heatmap
+phylum_heatmap <- read_tsv("https://raw.githubusercontent.com/earthhologenome/EHI_taxonomy_colour/main/ehi_phylum_colors.tsv") %>%
+    right_join(genome_metadata, by=join_by(phylum == phylum)) %>%
+    arrange(match(genome, genome_tree$tip.label)) %>%
+    select(genome,phylum) %>%
+    mutate(phylum = factor(phylum, levels = unique(phylum))) %>%
+    column_to_rownames(var = "genome")
+
+# Generate new species table
+newspecies_table <- genome_metadata %>% 
+  mutate(newspecies=ifelse(species=="s__","Y","N")) %>% 
+  select(genome,newspecies) %>% 
+  column_to_rownames(var = "genome")
+
+# study specific query
+swabmap <- genome_counts_filt  %>%
+  pivot_longer(!genome,names_to="sample",values_to="abundance") %>% 
+  left_join(sample_metadata,by="sample") %>% 
+  group_by(genome,swab) %>% 
+  summarise(presence=ifelse(sum(abundance[swab == "EHI"]) > 0, "present", "absent")) %>%
+  filter(swab == "EHI")  %>%
+  select(genome,presence) %>%
+  column_to_rownames(var="genome")
+
+# study specific query
+urbanmap <- genome_counts_filt  %>%
+  pivot_longer(!genome,names_to="sample",values_to="abundance") %>% 
+  left_join(sample_metadata,by="sample") %>% 
+  group_by(genome,habitat) %>% 
+  summarise(presence=ifelse(sum(abundance[habitat == "urban"]) > 0, "present", "absent")) %>%
+  filter(habitat == "urban")  %>%
+  select(genome,presence) %>%
+  column_to_rownames(var="genome")
+
+# study specific query
+ruralnmap <- genome_counts_filt  %>%
+  pivot_longer(!genome,names_to="sample",values_to="abundance") %>% 
+  left_join(sample_metadata,by="sample") %>% 
+  group_by(genome,habitat) %>% 
+  summarise(presence=ifelse(sum(abundance[habitat == "rural"]) > 0, "present", "absent")) %>%
+  filter(habitat == "rural")  %>%
+  select(genome,presence) %>%
+  column_to_rownames(var="genome")
+```
+
+
+```{r genome_phylogeny, message=FALSE, warning=FALSE, fig.height=10, fig.width=10, fig.fullwidth=TRUE}
+# Generate  basal tree
+circular_tree <- force.ultrametric(genome_tree, method="extend") %>% # extend to ultrametric for the sake of visualisation
+    ggtree(., layout="fan", open.angle=10, size=0.2)
+
+# Add phylum ring
+circular_tree <- gheatmap(circular_tree, phylum_heatmap, offset=0.05, width=0.05, colnames=FALSE) +
+        scale_fill_manual(values=phylum_colors) +
+        theme(legend.position = "none", plot.margin = margin(0, 0, 0, 0), panel.margin = margin(0, 0, 0, 0))
+
+# Flush color scale to enable a new color scheme in the next ring
+circular_tree <- circular_tree + new_scale_fill()
+
+# Add completeness ring
+circular_tree <- circular_tree +
+        new_scale_fill() +
+        scale_fill_gradient(low = "#d1f4ba", high = "#f4baba") +
+        geom_fruit(
+                data=genome_metadata,
+                geom=geom_bar,
+                mapping = aes(x=completeness, y=genome, fill=contamination),
+                offset = 0.3,
+                pwidth = 0.1,
+                orientation="y",
+              stat="identity")
+
+# Add genome-size ring
+circular_tree <- circular_tree + new_scale_fill()
+
+circular_tree <- gheatmap(circular_tree, swabmap, offset=0.3, width=0.05, colnames=FALSE) +
+        scale_fill_manual(values=c("#ffffff","#74C8AE")) +
+        theme(legend.position = "none", plot.margin = margin(0, 0, 0, 0), panel.margin = margin(0, 0, 0, 0)) +
+        new_scale_fill()
+
+circular_tree <- gheatmap(circular_tree, urbanmap, offset=0.4, width=0.05, colnames=FALSE) +
+        scale_fill_manual(values=c("#ffffff","#CD5555")) +
+        theme(legend.position = "none", plot.margin = margin(0, 0, 0, 0), panel.margin = margin(0, 0, 0, 0)) +
+        new_scale_fill()
+
+circular_tree <- gheatmap(circular_tree, ruralnmap, offset=0.5, width=0.05, colnames=FALSE) +
+        scale_fill_manual(values=c("#ffffff","#F4B02E")) +
+        theme(legend.position = "none", plot.margin = margin(0, 0, 0, 0), panel.margin = margin(0, 0, 0, 0)) +
+        new_scale_fill()
+
+circular_tree <- gheatmap(circular_tree, newspecies_table, offset=1.2, width=0.05, colnames=FALSE) +
+        scale_fill_manual(values=c("#f4f4f4","#666666"))
+        theme(legend.position = "none", plot.margin = margin(0, 0, 0, 0), panel.margin = margin(0, 0, 0, 0))
+
+# Add text
+circular_tree <-  circular_tree +
+        annotate('text', x=2.8, y=0, label='            Phylum', family='arial', size=3.5) +
+        annotate('text', x=3.0, y=0, label='            Swab', family='arial', size=3.5) +
+        annotate('text', x=3.2, y=0, label='            Habitat', family='arial', size=3.5) +
+        annotate('text', x=3.6, y=0, label='                    Genome quality', family='arial', size=3.5) +
+        annotate('text', x=4.0, y=0, label='                    New species', family='arial', size=3.5)
+
+#Plot circular tree
+circular_tree %>% open_tree(30) %>% rotate_tree(90)
+
+ggsave(
+  "figure/circular_tree.png",
+  plot = last_plot(),
+  scale = 1,
+  width = 200,
+  height = 200,
+  units = c("mm"),
+  dpi = 300,
+  limitsize = TRUE)
+```
+
+```{r genome_phylogeny, message=FALSE, warning=FALSE, fig.height=10, fig.width=10, fig.fullwidth=TRUE}
+# revise phylum names for print
+phylum_colors_rm = phylum_colors 
+names(phylum_colors_rm) = str_remove(names(phylum_colors), "p__")
+
+
+# Generate  basal tree
+circular_tree <- force.ultrametric(genome_tree, method="extend") %>% # extend to ultrametric for the sake of visualisation
+    ggtree(., layout="fan", open.angle=10, size=0.2)
+
+# Add phylum ring
+circular_tree <- gheatmap(circular_tree, phylum_heatmap %>%  
+                            mutate(across(c('phylum'), as.character)) %>%
+                            mutate(across(c('phylum'), substr, 4, nchar(phylum))) %>%
+                            mutate_if(is.character, as.factor), 
+                          offset=0.05, width=0.05, colnames=FALSE) +
+        scale_fill_manual(values=phylum_colors_rm) +
+        theme(legend.position = "none", plot.margin = margin(0, 0, 0, 0), panel.margin = margin(0, 0, 0, 0))
+
+# Flush color scale to enable a new color scheme in the next ring
+circular_tree <- circular_tree + new_scale_fill()
+
+# Add genome-size ring
+circular_tree <- circular_tree + new_scale_fill()
+
+circular_tree <- gheatmap(circular_tree, urbanmap, offset=0.2, width=0.05, colnames=FALSE) +
+        scale_fill_manual(values=c("#ffffff","#986eac")) +
+        theme(legend.position = "none", plot.margin = margin(0, 0, 0, 0), panel.margin = margin(0, 0, 0, 0)) +
+        new_scale_fill()
+
+circular_tree <- gheatmap(circular_tree, ruralnmap, offset=0.4, width=0.05, colnames=FALSE) +
+        scale_fill_manual(values=c("#ffffff","#5bae63")) +
+        theme(legend.position = "none", plot.margin = margin(0, 0, 0, 0), panel.margin = margin(0, 0, 0, 0)) +
+        new_scale_fill()
+
+circular_tree <- gheatmap(circular_tree, newspecies_table, offset=0.6, width=0.05, colnames=FALSE) +
+        scale_fill_manual(values=c("#f4f4f4","#666666"))
+        theme(legend.position = "none", plot.margin = margin(0, 0, 0, 0), panel.margin = margin(0, 0, 0, 0))
+
+# Add text
+circular_tree <-  circular_tree +
+        annotate('text', x=2.75, y=0, label='             Phylum', family='arial', size=3.5) +
+        annotate('text', x=2.9, y=0, label='          Urban', family='arial', size=3.5) +
+        annotate('text', x=3.10, y=0, label='          Rural', family='arial', size=3.5) +
+        annotate('text', x=3.35, y=0, label='              New Sp.', family='arial', size=3.5)
+
+#Plot circular tree
+circular_tree %>% open_tree(15) %>% rotate_tree(90)
+
+ggsave(
+  "figure/circular_tree_simplified.png",
+  plot = last_plot(),
+  scale = 1,
+  width = 200,
+  height = 200,
+  units = c("mm"),
+  dpi = 300,
+  limitsize = TRUE)
+```
+
+
+#### Summarize phylum richness
+
+```{r}
+# merge phylum and new species
+df_tree = merge( phylum_heatmap,newspecies_table, by = 0, all = TRUE) %>% 
+  remove_rownames %>% 
+  column_to_rownames(var="Row.names")
+# merge urban presence
+df_tree = merge( df_tree,urbanmap, by = 0, all = TRUE) %>% 
+  remove_rownames %>% 
+  column_to_rownames(var="Row.names")
+# merge rural presence
+df_tree = merge( df_tree,ruralnmap, by = 0, all = TRUE) %>% 
+  remove_rownames %>% 
+  column_to_rownames(var="Row.names")
+
+# number of MAGs per phylum
+df_treestats = 
+  as.data.frame(table(df_tree$phylum)) %>%
+  remove_rownames %>% 
+  column_to_rownames(var="Var1")
+
+# proportion of each phylum
+df_treestats = 
+  merge(
+    df_treestats,
+    as.data.frame(table(df_tree$phylum)/nrow(df_tree) * 100)  %>%
+      remove_rownames %>% 
+      column_to_rownames(var="Var1"),
+     by = 0, all = TRUE) %>%
+  remove_rownames %>% 
+  column_to_rownames(var="Row.names")
+
+# number of classes, order, and families
+df_treestats = 
+  merge(df_treestats,
+      genome_metadata %>%
+        group_by(phylum) %>%
+        summarize(class = n_distinct(class)) %>%
+        remove_rownames %>%  
+        column_to_rownames(var="phylum"),
+      by = 0, all = TRUE) %>%
+  remove_rownames %>% 
+  column_to_rownames(var="Row.names")
+df_treestats = 
+  merge(df_treestats,
+      genome_metadata %>%
+        group_by(phylum) %>%
+        summarize(order = n_distinct(order)) %>%
+        remove_rownames %>%  
+        column_to_rownames(var="phylum"),
+      by = 0, all = TRUE) %>%
+  remove_rownames %>% 
+  column_to_rownames(var="Row.names")
+df_treestats = 
+  merge(df_treestats,
+      genome_metadata %>%
+        group_by(phylum) %>%
+        summarize(family = n_distinct(family)) %>%
+        remove_rownames %>%  
+        column_to_rownames(var="phylum"),
+      by = 0, all = TRUE) %>%
+  remove_rownames %>% 
+  column_to_rownames(var="Row.names")
+
+# new species per phylum
+df_treestats = 
+  merge(df_treestats,
+      df_tree %>%
+        group_by(phylum) %>%
+        summarise(New_species = mean(newspecies == 'Y')) %>%
+        remove_rownames %>%  
+        column_to_rownames(var="phylum"),
+      by = 0, all = TRUE) %>%
+  remove_rownames %>% 
+  column_to_rownames(var="Row.names")
+
+signif( df_treestats, 2)
+```
+
+
+#### Identify brach taxonomy
+
+```{r}
+tmp_tree = 
+  ggplot(genome_tree) + 
+    geom_tree() +
+    geom_tiplab(size = 2)
+
+tmp_tree = gheatmap(tmp_tree, phylum_heatmap, offset=0.05, width=0.05, colnames=FALSE) +
+              scale_fill_manual(values=phylum_colors) +
+              theme(legend.position = "none", plot.margin = margin(0, 0, 0, 0), panel.margin = margin(0, 0, 0, 0))
+
+tmp_tree = tmp_tree + new_scale_fill()
+
+tmp_tree = gheatmap(tmp_tree, urbanmap, offset=0.01, width=0.02, colnames=FALSE) +
+              scale_fill_manual(values=c("#ffffff","#CD5555")) +
+              theme(legend.position = "none", plot.margin = margin(0, 0, 0, 0), panel.margin = margin(0, 0, 0, 0)) +
+              new_scale_fill()
+tmp_tree = gheatmap(tmp_tree, ruralnmap, tmp_tree, urbanmap, offset=0.04, width=0.02, colnames=FALSE) +
+              scale_fill_manual(values=c("#ffffff","#F4B02E")) +
+              theme(legend.position = "none", plot.margin = margin(0, 0, 0, 0), panel.margin = margin(0, 0, 0, 0)) +
+              new_scale_fill()
+tmp_tree = gheatmap(tmp_tree, newspecies_table, offset=0.1, width=0.02, colnames=FALSE) +
+              scale_fill_manual(values=c("#f4f4f4","#666666"))
+              theme(legend.position = "none", plot.margin = margin(0, 0, 0, 0), panel.margin = margin(0, 0, 0, 0))
+
+tmp_tree
+
+genome_metadata[
+            match(genome_metadata$genome,tmp_tree$data$label), # match tip label to genome name
+            c("genome","phylum","family")] %>% # return class 
+            arrange(phylum, family)
+
+```
+
+#### Habitat exclusive families
+
+```{r}
+# urban presence by family
+urban_pres =
+merge(
+  genome_counts_filt  %>%
+    pivot_longer(!genome,names_to="sample",values_to="abundance") %>% 
+    left_join(sample_metadata,by="sample") %>% 
+    group_by(genome,habitat) %>% 
+    summarise(presence=ifelse(sum(abundance[habitat == "urban"]) > 0, "present", "absent")) %>%
+    filter(habitat == "urban")  %>%
+    column_to_rownames(var="genome"),
+  genome_metadata %>%
+    remove_rownames %>% 
+    column_to_rownames(var="genome"),
+      by = 0, all = TRUE) %>%
+  select(family,presence) %>%
+  group_by(family) %>% 
+  summarise(present = sum(presence == 'present', na.rm = TRUE), 
+            absent = sum(presence == 'absent', na.rm = TRUE), 
+            .groups = "drop") %>%
+  mutate(urban = signif(present / (present + absent),2))
+
+# rural presence by family
+rural_pres =
+merge(
+  genome_counts_filt  %>%
+    pivot_longer(!genome,names_to="sample",values_to="abundance") %>% 
+    left_join(sample_metadata,by="sample") %>% 
+    group_by(genome,habitat) %>% 
+    summarise(presence=ifelse(sum(abundance[habitat == "rural"]) > 0, "present", "absent")) %>%
+    filter(habitat == "rural")  %>%
+    column_to_rownames(var="genome"),
+  genome_metadata %>%
+    remove_rownames %>% 
+    column_to_rownames(var="genome"),
+      by = 0, all = TRUE) %>%
+  select(family,presence) %>%
+  group_by(family) %>% 
+  summarise(present = sum(presence == 'present', na.rm = TRUE), 
+            absent = sum(presence == 'absent', na.rm = TRUE), 
+            .groups = "drop")  %>%
+  mutate(rural = signif(present / (present + absent),2))
+
+UrbRur_pres =
+  merge(urban_pres,rural_pres, by = 'family') %>%
+  mutate(exlusion = abs(urban - rural) >= 0.75) %>%
+  mutate(n_fam = (present.x + absent.x))
+
+UrbRur_pres[UrbRur_pres$exlusion == TRUE & UrbRur_pres$n_fam > 1,]
+
+```
+
+
+(p)Bacteroidota (f)Chitinophagaceae is observed exclusively among samples from urban habitats.
+
+(p)Actinomycetota	(f)Pseudonocardiaceae and (p)Bacillota (f)Erysipelotrichaceae are two Families with several identified taxa observed exclusively among samples from rural habitats.
+
+## Taxonomy overview
+
+```{r genome_taxonomy_bacteria, message=FALSE, warning=FALSE,}
+tax_mag <-genome_metadata %>% 
+  group_by(phylum) %>%
+  summarise(mag_n=n()) 
+
+tax_mag %>%
+  mutate(percetage_mag=round(mag_n*100/sum(mag_n), 2)) %>% 
+  arrange(-percetage_mag) %>%
+  tt()
+```
+
+## Mag size (MB)
+
+```{r}
+genome_metadata <-genome_metadata %>% 
+  mutate(corrected_size=100*length/completeness)
+```
+
+Mags average size (MB)
+```{r mag_size_all_mean, message=FALSE, warning=FALSE}
+genome_metadata %>% 
+  summarise(Average_corrected_size=mean(corrected_size)) %>% 
+  tt()
+```
+
+Minimum Mags size (MB)
+
+```{r mag_size_min,message=FALSE, warning=FALSE}
+genome_metadata %>% 
+  filter(corrected_size==min(corrected_size)) %>% 
+  tt()
+```
+
+Maximum Mags size (MB)
+
+```{r mag_size_max,message=FALSE, warning=FALSE}
+genome_metadata %>% 
+  filter(corrected_size==max(corrected_size)) %>% 
+  tt()
+```
+
+Mags arrange by size (MB)
+```{r mag_size_all, message=FALSE, warning=FALSE}
+genome_metadata %>% 
+  arrange(-corrected_size)
+
+plot(genome_metadata$length, xlab = "", ylab = "MAG length") +
+  abline(h = mean(genome_metadata$length), col = 'red', lwd = 1, lty = 1)+
+  abline(h = mean(genome_metadata$length) + sd(genome_metadata$length), col = 'steelblue', lwd = 2, lty = 2)+
+  abline(h = mean(genome_metadata$length) - sd(genome_metadata$length), col = 'steelblue', lwd = 2, lty = 2) +
+      text(x=100, y=mean(genome_metadata$length) + (2*sd(genome_metadata$length)), 
+           labels=paste(signif(mean(genome_metadata$length) / 1e6,2),"M +-",signif(sd(genome_metadata$length)/1e6,2)))
+
+```
+
+Mags average size and completeness by phylum
+
+```{r mag_size_phylum, message=FALSE, warning=FALSE}
+genome_metadata %>% 
+  group_by(phylum) %>%
+  summarise(average_size=mean(corrected_size),sd_size=sd(corrected_size),average_comp=mean(completeness),sd_comp=sd(completeness)) %>%
+  mutate(Size=str_c(round(average_size,2),"±",round(sd_size,2)),
+         Completeness=str_c(round(average_comp,2),"±",round(sd_comp,2))) %>% 
+  arrange(-average_size) %>% 
+  select(phylum, Size, Completeness) %>% 
+  tt()
+```
+## Genome quality
+
+```{r genome_quality, message=FALSE, warning=FALSE}
+genome_metadata %>% 
+    summarise(completeness_mean=mean(completeness) %>% round(2) %>% as.character(), 
+              completeness_sd=sd(completeness) %>% round(2) %>% as.character(), 
+              contamination_mean=mean(contamination) %>% round(2), 
+              contamination_sd=sd(contamination) %>% round(2)) %>%
+    unite("Completeness",completeness_mean, completeness_sd, sep = " ± ", remove = TRUE) %>%
+    unite("Contamination",contamination_mean, contamination_sd, sep = " ± ", remove = TRUE) %>%
+    tt()
+```
+
+```{r genome_quality_plot, message=FALSE, warning=FALSE, fig.height=8, fig.width=10, fig.fullwidth=TRUE}
+
+#Generate quality biplot
+genome_biplot <- genome_metadata %>%
+  select(c(genome,domain,phylum,completeness,contamination,length)) %>%
+  arrange(match(genome, rev(genome_tree$tip.label))) %>% #sort MAGs according to phylogenetic tree
+  ggplot(aes(x=completeness,y=contamination,size=length,color=phylum)) +
+              geom_point(alpha=0.7) +
+                    ylim(c(10,0)) +
+                    scale_color_manual(values=phylum_colors) +
+                    labs(y= "Contamination", x = "Completeness") +
+                    theme_classic() +
+                    theme(legend.position = "none")
+
+#Generate contamination boxplot
+genome_contamination <- genome_metadata %>%
+            ggplot(aes(y=contamination)) +
+                    ylim(c(10,0)) +
+                    geom_boxplot(colour = "#999999", fill="#cccccc") +
+                    theme_void() +
+                    theme(legend.position = "none",
+                        axis.title.x = element_blank(),
+                        axis.title.y = element_blank(),
+                        axis.text.y=element_blank(),
+                        axis.ticks.y=element_blank(),
+                        axis.text.x=element_blank(),
+                        axis.ticks.x=element_blank(),
+                        plot.margin = unit(c(0, 0, 0.40, 0),"inches")) #add bottom-margin (top, right, bottom, left)
+
+#Generate completeness boxplot
+genome_completeness <- genome_metadata %>%
+        ggplot(aes(x=completeness)) +
+                xlim(c(50,100)) +
+                geom_boxplot(colour = "#999999", fill="#cccccc") +
+                theme_void() +
+                theme(legend.position = "none",
+                    axis.title.x = element_blank(),
+                    axis.title.y = element_blank(),
+                    axis.text.y=element_blank(),
+                    axis.ticks.y=element_blank(),
+                    axis.text.x=element_blank(),
+                    axis.ticks.x=element_blank(),
+                    plot.margin = unit(c(0, 0, 0, 0.50),"inches")) #add left-margin (top, right, bottom, left)
+
+#Render composite figure
+grid.arrange(grobs = list(genome_completeness,genome_biplot,genome_contamination),
+        layout_matrix = rbind(c(1,1,1,1,1,1,1,1,1,1,1,4),
+                              c(2,2,2,2,2,2,2,2,2,2,2,3),
+                              c(2,2,2,2,2,2,2,2,2,2,2,3),
+                              c(2,2,2,2,2,2,2,2,2,2,2,3),
+                              c(2,2,2,2,2,2,2,2,2,2,2,3),
+                              c(2,2,2,2,2,2,2,2,2,2,2,3),
+                              c(2,2,2,2,2,2,2,2,2,2,2,3),
+                              c(2,2,2,2,2,2,2,2,2,2,2,3),
+                              c(2,2,2,2,2,2,2,2,2,2,2,3),
+                              c(2,2,2,2,2,2,2,2,2,2,2,3),
+                              c(2,2,2,2,2,2,2,2,2,2,2,3),
+                              c(2,2,2,2,2,2,2,2,2,2,2,3))) ->
+  g
+
+ggsave(paste0('figure/mag_completeness_contamination.png'), g, width=10, height=10, units='cm')
+```
+
+
+## Functional overview
+
+Lists the total number of predicted genomes and how many of them have a possible annotation. Then specify those from the [KEGG database](https://www.kegg.jp/kegg/) for microbial functions and utilities.
+
+```{r annotation_stats, message=FALSE, warning=FALSE, fig.height=10, fig.width=10, fig.fullwidth=TRUE}
+genome_annotations <- 
+  #read_tsv("data/genome_annotations.tsv.xz") %>%
+  #rename(gene=1, genome=2, contig=3)
+  read_tsv("data/gene_annotations.tsv.xz") %>%
+  mutate(genome = str_extract(gene,"EHA\\d+_bin\\.\\d+"))
+
+
+# Predicted genes
+genome_annotations %>%
+  nrow()
+
+# KEGG annotation
+genome_annotations %>%
+  #filter(!is.na(kegg_id)) %>% 
+  filter(!is.na(kegg)) %>% 
+  nrow()
+```
+
+Display the genome phylogeny again along with the assigned phylum and completeness. Additionally, include the community-averaged Genome-Inferred Functional Traits (GIFT).
+Each GIFT code (e.g. B010101) corresponds to a functional annotation in the KEGG: Kyoto Encyclopedia of Genes and Genomes database, with a probability that the MAG corresponds to a given corresponding GIFT.
+
+```{r function_heatmap, message=FALSE, warning=FALSE, fig.height=10, fig.width=10, fig.fullwidth=TRUE}
+# Aggregate basal GIFT into elements
+genome_gifts<-genome_gifts_raw
+function_table <- genome_gifts %>%
+    to.elements(., GIFT_db)
+
+# Generate  basal tree
+function_tree <- force.ultrametric(genome_tree, method="extend") %>%
+                ggtree(., size = 0.3) 
+
+#Add phylum colors next to the tree tips
+function_tree <- gheatmap(function_tree, phylum_heatmap, offset=0, width=0.1, colnames=FALSE) +
+            scale_fill_manual(values=phylum_colors) +
+            labs(fill="Phylum")
+
+#Reset fill scale to use a different colour profile in the heatmap
+function_tree <- function_tree + new_scale_fill()
+
+#Add functions heatmap
+function_tree <- gheatmap(function_tree, function_table, offset=0.5, width=3.5, colnames=FALSE) +
+            vexpand(.08) +
+            coord_cartesian(clip = "off") +
+            scale_fill_gradient(low = "#f4f4f4", high = "steelblue", na.value="white") +
+            labs(fill="GIFT")
+
+#Reset fill scale to use a different colour profile in the heatmap
+function_tree <- function_tree + new_scale_fill()
+
+# Add completeness barplots
+function_tree <- function_tree +
+            geom_fruit(data=genome_metadata,
+            geom=geom_bar,
+            grid.params=list(axis="x", text.size=2, nbreak = 1),
+            axis.params=list(vline=TRUE),
+            mapping = aes(x=length, y=genome, fill=completeness),
+                 offset = 3.8,
+                 orientation="y",
+                 stat="identity") +
+            scale_fill_gradient(low = "#cf8888", high = "#a2cc87") +
+            labs(fill="Genome\ncompleteness")
+
+function_tree
+```
+
+
+```{r}
+genome_GIFT_mean = list()
+
+genome_GIFT_mean[["c__Gammaproteobacteria"]] =
+colMeans(
+GIFTs_elements[
+  rownames(GIFTs_elements) %in% 
+    genome_metadata[genome_metadata$class %in% c("c__Gammaproteobacteria"),]$genome,
+  ] %>%
+  as.data.frame() )
+
+genome_GIFT_mean[["c__Bacteroidia"]] =
+colMeans(
+GIFTs_elements[
+  rownames(GIFTs_elements) %in% 
+    genome_metadata[genome_metadata$class %in% c("c__Bacteroidia"),]$genome,
+  ] %>%
+  as.data.frame() )
+
+ data.frame(gift = colnames(GIFTs_elements),
+            c__Gammaproteobacteria = genome_GIFT_mean[["c__Gammaproteobacteria"]],
+            c__Bacteroidia = genome_GIFT_mean[["c__Bacteroidia"]]) %>%
+   ggplot() + 
+    geom_point(aes(x=gift, y=c__Gammaproteobacteria), colour="#E0A608", size=3) +
+    geom_point(aes(x=gift, y=c__Bacteroidia), colour="#086C98", size=3)
+```
+
+
+## Functional ordination
+
+A Barnes-Hut implementation of t-Distributed Stochastic Neighbour Embedding (Rtsne) is a tool to visualize high-dimensional data. It converts similarities between data points to joint probabilities and tries to minimize the Kullback-Leibler divergence between the joint probabilities of the low-dimensional embedding and the high-dimensional data.
+
+```{r function_ordination, message=FALSE, fig.height=8, fig.width=10, fig.fullwidth=TRUE}
+set.seed(4485)
+# Generate the tSNE ordination
+tSNE_function <- Rtsne(X=function_table, dims = 2, check_duplicates = FALSE)
+
+# Plot the ordination
+function_ordination <- tSNE_function$Y %>%
+                as.data.frame() %>%
+                mutate(genome=rownames(function_table)) %>%
+                inner_join(genome_metadata, by="genome") %>%
+                rename(tSNE1="V1", tSNE2="V2") %>%
+                select(genome,phylum,tSNE1,tSNE2, length) %>%
+                ggplot(aes(x = tSNE1, y = tSNE2, color = phylum, size=length))+
+                            geom_point(shape=16, alpha=0.7) +
+                            scale_color_manual(values=phylum_colors) +
+                            theme_minimal() +
+                labs(color="Phylum", size="Genome size") +
+                guides(color = guide_legend(override.aes = list(size = 5))) # enlarge Phylum dots in legend
+
+function_ordination
+```
+
+

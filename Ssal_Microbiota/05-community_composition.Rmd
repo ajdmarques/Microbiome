@@ -1,0 +1,998 @@
+# Community composition
+
+## Filter data
+
+```{r load_data_community, comment="", message=FALSE, warning=FALSE, eval=TRUE}
+load("data/data.Rdata")
+```
+
+
+```{r}
+query_variables = c("sample","event_id","sol","swab","habitat")
+query_variables = query_variables[sapply(sample_metadata[,query_variables], function(x) length(unique(x))) > 1 ] # varaibles with at least two conditions
+```
+
+Filter samples with high host data
+```{r load_data_host_filtering, comment="", message=FALSE, warning=FALSE, eval=TRUE}
+genome_counts_filt <- genome_counts %>%
+  select(one_of(c("genome",sample_metadata$sample)))%>%
+  filter(rowSums(. != 0, na.rm = TRUE) > 0) %>%
+  select_if(~!all(. == 0))
+genome_counts <- genome_counts_filt
+genome_metadata <- genome_metadata %>% 
+  semi_join(., genome_counts_filt, by = "genome") %>% 
+  arrange(match(genome,genome_counts_filt$genome))
+
+genome_tree <- keep.tip(genome_tree, tip=genome_metadata$genome) # keep only MAG tips
+
+#load("data/genome_gifts.Rdata")
+```
+
+Make a phyloseq object
+
+```{r phyloseq_objects1, warning=FALSE, comments="", message=FALSE, eval=FALSE}
+phylo_samples <- sample_metadata %>% 
+  column_to_rownames("sample") %>% 
+  sample_data() #convert to phyloseq sample_data object
+phylo_genome <- genome_counts_filt %>% 
+  column_to_rownames("genome") %>% 
+  otu_table(., taxa_are_rows = TRUE)
+phylo_taxonomy <- genome_metadata %>%
+  column_to_rownames("genome") %>% 
+  as.matrix() %>% 
+  tax_table() #convert to phyloseq tax_table object
+phylo_tree <- phy_tree(genome_tree) 
+
+physeq_genome <- phyloseq(phylo_genome, phylo_taxonomy, phylo_samples,phylo_tree)
+physeq_genome_clr <- microbiome::transform(physeq_genome, 'clr')
+```
+
+```{r wrap_working_objects_filtered, warning=FALSE, comments="", message=FALSE, eval=TRUE}
+save(sample_metadata, 
+     genome_metadata, 
+     read_counts, 
+     genome_counts, 
+     genome_counts_filt, 
+     genome_tree,
+     physeq_genome,
+     physeq_genome_clr,
+     genome_gifts_raw, 
+#     genome_gifts,
+     phylum_colors,
+     file = "data/data_host_filtered.Rdata")
+```
+
+
+## Taxonomy overview 
+
+### Stacked barplot
+
+```{r taxonomy_barplot, fig.height=6, fig.width=10, fig.fullwidth=TRUE}
+for (q in seq_along(query_variables)[-1]){
+print(
+genome_counts_filt %>%
+  mutate_at(vars(-genome),~./sum(.)) %>% #apply TSS normalization
+  pivot_longer(-genome, names_to = "sample", values_to = "count") %>% #reduce to minimum number of columns
+  filter(sample %in% sample_metadata$sample) %>%
+  left_join(., genome_metadata, by = join_by(genome == genome)) %>% #append genome metadata
+  left_join(., sample_metadata, by = join_by(sample == sample)) %>% #append sample metadata
+  filter(count > 0) %>% #filter 0 counts
+  ggplot(., aes(x=sample,y=count, fill=phylum, group=phylum)) + #grouping enables keeping the same sorting of taxonomic units
+    geom_bar(stat="identity", colour="white", linewidth=0.1) + #plot stacked bars with white borders
+    scale_fill_manual(values=phylum_colors) +
+  
+  facet_nested(as.formula(paste("~", query_variables[q])),scales = "free") + #facet site and habitat
+
+    guides(fill = guide_legend(ncol = 1)) +
+    theme(
+          axis.title.x = element_blank(),
+          panel.background = element_blank(),
+          panel.border = element_blank(),
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          strip.background = element_rect(fill = "white"),
+    strip.text = element_text(size = 12, lineheight = 0.6),
+    strip.placement = "outside",
+    axis.text.x = element_blank(), axis.ticks.x = element_blank(),
+          axis.line = element_line(linewidth = 0.5, linetype = "solid", colour = "black")) +
+   labs(fill="Phylum",y = "Relative abundance",x="Samples")
+)
+}
+```
+
+**Number of bacteria phyla**
+
+```{r phyla, comment="", echo=FALSE, message=FALSE, warning=FALSE}
+genome_metadata %>% 
+  filter(domain == "d__Bacteria")%>%
+  dplyr::select(phylum) %>%
+  unique() %>%
+  pull() %>%
+  length()
+```
+
+**Bacteria phyla in urban individuals**
+
+```{r phyla_nat, comment="", echo=FALSE, message=FALSE, warning=FALSE}
+
+urban_samples <- sample_metadata %>% 
+  filter(event_id==c("CTAT","SMAT","PCAR")) %>% 
+  dplyr::select(sample) %>% 
+  pull()
+
+urban_genomes <- genome_counts %>% 
+  column_to_rownames("genome") %>% 
+  select(all_of(urban_samples)) %>%
+  as.data.frame() %>%
+  filter(rowSums(across(where(is.numeric)))!=0)%>% 
+  rownames_to_column("genome")%>% 
+  dplyr::select(genome) %>% 
+  pull()
+
+genome_metadata %>% 
+  filter(genome %in% urban_genomes) %>% 
+  filter(domain == "d__Bacteria")%>%
+  dplyr::select(phylum) %>%
+  unique() %>%
+  pull() %>%
+  length() 
+```
+
+
+**Number of Archaea phyla**
+
+```{r arch, comment="", echo=FALSE, message=FALSE, warning=FALSE}
+genome_metadata %>% 
+  filter(domain == "d__Archaea")%>%
+  dplyr::select(phylum) %>%
+  unique() %>%
+  pull() %>%
+  length()
+```
+
+### Genus and species annotation
+
+**Number of MAGs without species-level annotation**
+```{r nonspe, comment="", echo=FALSE, message=FALSE, warning=FALSE}
+genome_metadata %>%
+  filter(species == "s__") %>%
+  summarize(Mag_nospecies = n())%>%
+  select(Mag_nospecies) %>% 
+  pull()
+
+```
+
+```{r nonspe_phylum, comment="", echo=FALSE, message=FALSE, warning=FALSE}
+total_mag_phylum <- genome_metadata %>%
+  group_by(phylum) %>%
+  summarize(count_total = n())
+genome_metadata %>%
+  filter(species == "s__") %>%
+  group_by(phylum) %>%
+  summarize(count_nospecies = n()) %>% 
+  left_join(total_mag_phylum, by = join_by(phylum == phylum)) %>% 
+  mutate(percentage=100*count_nospecies/count_total) %>% 
+  tt()
+
+```
+
+**Percentage of MAGs without species-level annotation**
+```{r sp_percet, comment="", echo=FALSE, message=FALSE, warning=FALSE}
+nmags <- nrow(genome_counts)
+nonspecies <- genome_metadata %>%
+    filter(species == "s__") %>%
+    nrow()
+perct <- nonspecies*100/nmags
+perct
+```
+
+**Number of MAGs without genera-level annotation**
+```{r nongenera, comment="", echo=FALSE, message=FALSE, warning=FALSE}
+nongenera <- genome_metadata %>%
+    filter(genus == "g__") %>%
+    nrow()
+cat(nongenera)
+```
+
+
+```{r nongen_phylum, comment="", echo=FALSE, message=FALSE, warning=FALSE}
+total_mag_phylum <- genome_metadata %>%
+  group_by(phylum) %>%
+  summarize(count_total = n())
+genome_metadata %>%
+  filter(genus == "g__") %>%
+  group_by(phylum) %>%
+  summarize(count_nospecies = n()) %>% 
+  left_join(total_mag_phylum, by = join_by(phylum == phylum)) %>% 
+  mutate(percentage=100*count_nospecies/count_total) %>% 
+  tt()
+
+```
+
+## Taxonomy boxplots
+
+### Phylum
+
+```{r taxonomy_phylum_summary, warning=FALSE, comments="", message=FALSE}
+phylum_summary <- genome_counts_filt %>%
+  mutate_at(vars(-genome),~./sum(.)) %>% #apply TSS nornalisation
+  pivot_longer(-genome, names_to = "sample", values_to = "count") %>%
+  left_join(sample_metadata, by = join_by(sample == sample)) %>%
+  left_join(genome_metadata, by = join_by(genome == genome)) %>%
+  group_by(sample,phylum,event_id,habitat,sol,swab) %>%
+  #group_by(sample,phylum,event_id,habitat,sol) %>%
+  summarise(relabun=sum(count)) 
+
+# add the clr 
+phylum_summary$clr = 
+  compositions::clr(phylum_summary$relabun)
+```
+
+```{r taxonomy_boxplot_phylum, warning=FALSE, comments="", message=FALSE, fig.height=8, fig.width=10, fig.fullwidth=TRUE}
+phylum_arrange <- phylum_summary %>%
+    group_by(phylum) %>%
+    summarise(mean=mean(clr)) %>%
+    arrange(-mean) %>%
+    select(phylum) %>%
+    pull()
+
+phylum_summary %>%
+    filter(phylum %in% phylum_arrange) %>%
+    filter(sample %in% sample_metadata$sample) %>%
+    mutate(phylum=factor(phylum,levels=rev(phylum_arrange))) %>%
+    ggplot(aes(x=clr, y=phylum, group=phylum, fill=phylum)) +
+        scale_fill_manual(values=phylum_colors[rev(phylum_arrange)]) +
+        geom_boxplot(alpha=0.5) + 
+        theme_minimal() + 
+        theme(legend.position="none") +
+        labs(y="Phylum",x="Relative abundance")
+
+```
+
+```{r taxonomy_jitterplot_phylum, warning=FALSE, comments="", message=FALSE, fig.height=8, fig.width=10, fig.fullwidth=TRUE}
+phylum_arrange <- phylum_summary %>%
+    group_by(phylum) %>%
+    summarise(mean=sum(clr)) %>%
+    arrange(-mean) %>%
+    mutate(phylum = str_remove(phylum,"p__")) %>%
+    select(phylum) %>%
+    pull() 
+
+phylum_colors2 = phylum_colors
+names(phylum_colors2) = str_remove(names(phylum_colors2),"p__")
+
+fig_phylum_relative_abundance =
+
+phylum_summary %>%
+    left_join(genome_metadata %>% select(phylum,phylum) %>% unique(),by=join_by(phylum==phylum)) %>%
+    mutate(phylum = str_remove(phylum,"p__")) %>%
+    filter(phylum %in% phylum_arrange[1:20]) %>%
+    mutate(phylum=factor(phylum,levels=rev(phylum_arrange[1:20]))) %>%
+    filter(sample %in% sample_metadata$sample) %>%
+
+    ggplot(aes(x=clr, y=phylum, 
+               #group=phylum, 
+               fill=habitat 
+               #colour = habitat
+               )) +
+        #scale_fill_manual(values=phylum_colors2) +
+        scale_fill_manual(name = 'Habitat', values=c("#5bae63","#986eac")) +
+        geom_boxplot(alpha=0.5, lwd = .5) + 
+        theme_minimal() + 
+        theme(legend.position="top") +
+        #scale_y_discrete(label = str_remove(phylum_arrange,"p__")) +
+        labs(y="phylum", x="Relative abundance CLR", color="Phylum") 
+
+fig_phylum_relative_abundance
+
+```
+
+
+```{r, eval=FALSE}
+for(q in seq_along(query_variables)[-1]){
+  print(
+phylum_summary %>%
+    left_join(genome_metadata %>% select(phylum,phylum) %>% unique(),by=join_by(phylum==phylum)) %>%
+#    left_join(sample_metadata,by=join_by(sample==sample)) %>%
+    filter(phylum %in% phylum_arrange[1:20]) %>%
+    mutate(phylum=factor(phylum,levels=rev(phylum_arrange[1:20]))) %>%
+    filter(sample %in% sample_metadata$sample) %>%
+    ggplot(aes(x=clr, y=phylum, 
+               group=phylum, 
+               fill=phylum)) +
+        scale_fill_manual(values=phylum_colors[-8]) +
+        geom_boxplot(alpha=0.5) + 
+        theme_minimal() + 
+        theme(legend.position="none") +
+        #facet_grid(.~event_id)+  
+        facet_nested(as.formula(paste("~", query_variables[q])),scales = "free") +
+        
+        labs(y="phylum", x="Relative abundance (CLR)", color="Phylum")
+  )
+  }
+```
+
+```{r}
+# relative urban abundance
+rel.abund.urban =
+  phylum_summary %>%
+    group_by(phylum) %>%
+    filter(habitat=="urban") %>%
+    summarise(mean=mean(clr)) %>%
+    arrange(-mean)
+  # relative rural abundance
+rel.abund.rural =
+  phylum_summary %>%
+    group_by(phylum) %>%
+    filter(habitat=="rural") %>%
+    summarise(mean=mean(clr)) %>%
+    arrange(-mean)
+  # relative toal abundance
+rel.abund.total =
+  phylum_summary %>%
+    group_by(phylum) %>%
+    summarise(mean=mean(clr)) %>%
+    arrange(-mean)
+
+rel.abun.df = merge(rel.abund.urban,rel.abund.rural, by="phylum")
+  colnames(rel.abun.df) = c("phylum","urban","rural")
+rel.abun.df = merge(rel.abun.df,rel.abund.total, by="phylum")
+  colnames(rel.abun.df) = c("phylum","urban","rural","overall")
+
+
+```
+
+
+Use Tukey Honest Significant Differences to create confidence intervals on the differences between the levels (phylum) of factors (habitat, swab).
+
+#### Difference between habitat
+
+```{r tukey_phylum_habitat, warning=FALSE, comments="", message=FALSE}
+phylum_tukey =
+  TukeyHSD(
+    aov(clr ~ phylum * habitat, 
+        data = 
+          phylum_summary %>%
+          left_join(genome_metadata %>% select(phylum,phylum) %>% 
+                      unique(),by=join_by(phylum==phylum)) %>%
+          mutate(phylum = str_remove(phylum,"p__")) %>%
+          filter(phylum %in% phylum_arrange) %>%
+          mutate(phylum=factor(phylum,levels=rev(phylum_arrange[1:20]))) %>%
+          filter(sample %in% sample_metadata$sample) 
+        )
+    )
+
+phylum_tukey = as.data.frame(phylum_tukey[[3]])
+
+phylum_tukey$j = sub("-.*", "", rownames(phylum_tukey))
+phylum_tukey$k = sub(".*-", "", rownames(phylum_tukey))
+
+phylum_tukey$j = gsub(paste(c(":rural",":urban"), collapse = '|'), '', phylum_tukey$j)
+phylum_tukey$k = gsub(paste(c(":rural",":urban"), collapse = '|'), '', phylum_tukey$k)
+
+phylum_tukey[
+  phylum_tukey$j == phylum_tukey$k  
+  , !colnames(phylum_tukey) %in% c("j","k")]
+
+phylum_tukey[
+  phylum_tukey$j == phylum_tukey$k & # when comparing specific taxa between habitat 
+  phylum_tukey$`p adj` < 0.05 # sig 
+  , !colnames(phylum_tukey) %in% c("j","k")]
+
+```
+
+
+
+#### Difference between swabs
+
+```{r tukey_phylum_Swab, warning=FALSE, comments="", message=FALSE}
+phylum_tukey =
+  TukeyHSD(
+    aov(clr ~ phylum * swab, 
+        data = 
+          phylum_summary %>%
+          left_join(genome_metadata %>% select(phylum,phylum) %>% 
+                      unique(),by=join_by(phylum==phylum)) %>%
+          mutate(phylum = str_remove(phylum,"p__")) %>%
+          filter(phylum %in% phylum_arrange[1:20]) %>%
+          mutate(phylum=factor(phylum,levels=rev(phylum_arrange[1:20]))) %>%
+          filter(sample %in% sample_metadata$sample) 
+        )
+    )
+
+phylum_tukey = as.data.frame(phylum_tukey[[3]])
+
+phylum_tukey$j = sub("-.*", "", rownames(phylum_tukey))
+phylum_tukey$k = sub(".*-", "", rownames(phylum_tukey))
+
+phylum_tukey$j = gsub(paste(c(":EHI",":CTM"), collapse = '|'), '', phylum_tukey$j)
+phylum_tukey$k = gsub(paste(c(":EHI",":CTM"), collapse = '|'), '', phylum_tukey$k)
+
+phylum_tukey[
+  phylum_tukey$j == phylum_tukey$k & # when comparing specific taxa between habitat 
+  phylum_tukey$`p adj` < 0.05 # sig 
+  , !colnames(phylum_tukey) %in% c("j","k")]
+
+
+```
+Significant differences in p__Desulfobacterota between swab types. However, this is the contaminant with the lowest detection.
+
+### Class
+
+```{r taxonomy_family_summary, warning=FALSE, comments="", message=FALSE}
+class_summary <- genome_counts_filt %>%
+  mutate_at(vars(-genome),~./sum(.)) %>% #apply TSS nornalisation
+  pivot_longer(-genome, names_to = "sample", values_to = "count") %>% #reduce to minimum number of columns
+  left_join(sample_metadata, by = join_by(sample == sample)) %>% #append sample metadata
+  left_join(., genome_metadata, by = join_by(genome == genome)) %>% #append genome metadata
+  group_by(sample,class,event_id,habitat) %>%
+  summarise(relabun=sum(count))
+
+# add the clr 
+class_summary$clr = 
+  compositions::clr(class_summary$relabun)
+```
+
+```{r taxonomy_jitterplot_family, warning=FALSE, comments="", message=FALSE, fig.height=8, fig.width=10, fig.fullwidth=TRUE}
+class_arrange <- class_summary %>%
+    group_by(class) %>%
+    summarise(mean=sum(clr)) %>%
+    arrange(-mean) %>%
+    select(class) %>%
+    pull()
+
+class_summary %>%
+    left_join(genome_metadata %>% select(class,phylum) %>% unique(),by=join_by(class==class)) %>%
+    filter(class %in% class_arrange[1:20]) %>%
+    mutate(class=factor(class,levels=rev(class_arrange[1:20]))) %>%
+    filter(sample %in% sample_metadata$sample) %>%
+    ggplot(aes(x=clr, y=class, 
+               fill=habitat, 
+               colour = phylum)) +
+        scale_colour_manual(values=phylum_colors) +
+        scale_fill_manual(values=c("#5bae63","#986eac")) +
+        geom_boxplot(alpha=0.5, lwd = 1) +
+        theme_minimal() + 
+        #theme(legend.position="none") +
+        labs(y="class", x="Relative abundance CLR", color="Habitat")
+
+```
+
+```{r tukey_class, warning=FALSE, comments="", message=FALSE}
+class_tukey =
+  TukeyHSD(
+    aov(clr ~ class * habitat, 
+        data = 
+          class_summary %>%
+          left_join(genome_metadata %>% select(class,class) %>% unique(),by=join_by(class==class)) %>%
+          filter(class %in% class_arrange[1:20]) %>%
+          mutate(class=factor(class,levels=rev(class_arrange[1:20]))) %>%
+          filter(sample %in% sample_metadata$sample) 
+        )
+    )
+
+class_tukey = as.data.frame(class_tukey[[3]])
+
+class_tukey$j = sub("-.*", "", rownames(class_tukey))
+class_tukey$k = sub(".*-", "", rownames(class_tukey))
+
+class_tukey$j = gsub(paste(c(":rural",":urban"), collapse = '|'), '', class_tukey$j)
+class_tukey$k = gsub(paste(c(":rural",":urban"), collapse = '|'), '', class_tukey$k)
+
+class_tukey[
+  class_tukey$j == class_tukey$k & # when comparing specific taxa between habitat 
+  class_tukey$`p adj` < 0.05 # sig 
+  , !colnames(class_tukey) %in% c("j","k")]
+```
+Significant difference in proportion of classes c__Bacilli between habitats.
+
+### Family
+
+```{r taxonomy_family_summary, warning=FALSE, comments="", message=FALSE}
+family_summary <- genome_counts_filt %>%
+  mutate_at(vars(-genome),~./sum(.)) %>% #apply TSS nornalisation
+  pivot_longer(-genome, names_to = "sample", values_to = "count") %>% #reduce to minimum number of columns
+  left_join(sample_metadata, by = join_by(sample == sample)) %>% #append sample metadata
+  left_join(., genome_metadata, by = join_by(genome == genome)) %>% #append genome metadata
+  group_by(sample,family,event_id,habitat) %>%
+  summarise(relabun=sum(count))
+
+# add the clr 
+family_summary$clr = 
+  compositions::clr(family_summary$relabun)
+```
+
+```{r taxonomy_jitterplot_family, warning=FALSE, comments="", message=FALSE, fig.height=8, fig.width=10, fig.fullwidth=TRUE}
+family_arrange <- family_summary %>%
+    group_by(family) %>%
+    summarise(mean=sum(clr)) %>%
+    arrange(-mean) %>%
+    select(family) %>%
+    pull()
+
+family_summary %>%
+    left_join(genome_metadata %>% select(family,phylum) %>% unique(),by=join_by(family==family)) %>%
+    filter(family %in% family_arrange[1:12]) %>%
+    mutate(family=factor(family,levels=rev(family_arrange[1:20]))) %>%
+    filter(sample %in% sample_metadata$sample) %>%
+    ggplot(aes(x=clr, y=family, 
+               fill=phylum, 
+               colour = habitat)) +
+        scale_fill_manual(values=phylum_colors[-8]) +
+        scale_color_manual(values=c("#5bae63","#986eac")) +
+        geom_boxplot(alpha=0.5) + 
+        theme_minimal() + 
+        #theme(legend.position="none") +
+        labs(y="family", x="Relative abundance CLR", color="Habitat")
+ggsave(paste0('figure/habitat_FAMILY_relative_abundance.png'), width=15, height=10, units='cm')
+```
+```{r tukey_family, warning=FALSE, comments="", message=FALSE}
+family_tukey =
+  TukeyHSD(
+    aov(clr ~ family * habitat, 
+        data = 
+          family_summary %>%
+          left_join(genome_metadata %>% select(family,family) %>% unique(),by=join_by(family==family)) %>%
+          filter(family %in% family_arrange[1:20]) %>%
+          mutate(family=factor(family,levels=rev(family_arrange[1:20]))) %>%
+          filter(sample %in% sample_metadata$sample) 
+        )
+    )
+
+family_tukey = as.data.frame(family_tukey[[3]])
+
+family_tukey$j = sub("-.*", "", rownames(family_tukey))
+family_tukey$k = sub(".*-", "", rownames(family_tukey))
+
+family_tukey$j = gsub(paste(c(":rural",":urban"), collapse = '|'), '', family_tukey$j)
+family_tukey$k = gsub(paste(c(":rural",":urban"), collapse = '|'), '', family_tukey$k)
+
+family_tukey[
+  family_tukey$j == family_tukey$k & # when comparing specific taxa between habitat 
+  family_tukey$`p adj` < 0.05 # sig 
+  , !colnames(family_tukey) %in% c("j","k")]
+```
+f__Moraxellaceae and f__2013Ark19i are significantly different Family between habitats. 
+
+### Genus 
+
+```{r taxonomy_family_summary, warning=FALSE, comments="", message=FALSE}
+genus_summary <- genome_counts_filt %>%
+  mutate_at(vars(-genome),~./sum(.)) %>% #apply TSS nornalisation
+  pivot_longer(-genome, names_to = "sample", values_to = "count") %>% #reduce to minimum number of columns
+  left_join(sample_metadata, by = join_by(sample == sample)) %>% #append sample metadata
+  left_join(., genome_metadata, by = join_by(genome == genome)) %>% #append genome metadata
+  group_by(sample,genus,event_id,habitat) %>%
+  summarise(relabun=sum(count))
+
+# add the clr 
+genus_summary$clr = 
+  compositions::clr(genus_summary$relabun)
+
+genus_arrange <- genus_summary %>%
+    group_by(genus) %>%
+    summarise(mean=sum(clr)) %>%
+    arrange(-mean) %>%
+    select(genus) %>%
+    pull()
+
+genus_summary %>%
+    left_join(genome_metadata %>% select(genus,phylum) %>% unique(),by=join_by(genus==genus)) %>%
+    filter(genus %in% genus_arrange[1:20]) %>%
+    mutate(genus=factor(genus,levels=rev(genus_arrange[1:20]))) %>%
+    filter(sample %in% sample_metadata$sample) %>%
+    ggplot(aes(x=clr, y=genus, 
+               fill=phylum, 
+               colour = habitat)) +
+        scale_fill_manual(values=phylum_colors[-8]) +
+        scale_color_manual(values=c("#5bae63","#986eac")) +
+        geom_boxplot(alpha=0.5) + 
+        theme_minimal() + 
+        #theme(legend.position="none") +
+        labs(y="genus", x="Relative abundance CLR", color="Habitat")
+
+```
+
+
+## Enrichment analysis: Ancombc2
+
+Analysis of Compositions of Microbiomes with Bias Correction 2 (ANCOM-BC2) is a methodology for performing differential abundance (DA) analysis of microbiome count data. It estimates and corrects both the sample-specific (sampling fraction) as well as taxon-specific (sequencing efficiency) biases.
+
+The primary output of the ANCOM-BC2 methodology identifies taxa with differential abundance based on the chosen covariate. The results include: 1) log fold changes, 2) standard errors, 3) test statistics, 4) p-values, 5) adjusted p-values, 6) indicators denoting whether the taxon is differentially abundant (TRUE) or not (FALSE), and 7) indicators denoting whether the taxon passed the sensitivity analysis (TRUE) or not (FALSE).
+
+```{r zero_phylo1, comment="", echo=FALSE, message=FALSE, warning=FALSE}
+#phyloseq object considering structual zeros
+phylo_samples <- sample_metadata %>% 
+                    column_to_rownames("sample") %>% 
+                    sample_data() #convert to phyloseq sample_data object
+phylo_genome <- genome_counts_filt %>% 
+                    column_to_rownames("genome") %>% 
+                    mutate_all(~ replace(., . == 0, 0.00001)) %>% #add pseudo counts to avoid structural zero issues (note this approach can be improved!)
+                    otu_table(., taxa_are_rows = TRUE)
+phylo_taxonomy <- genome_metadata %>% 
+                    filter(genome %in% rownames(phylo_genome)) %>% # remove structural zeros
+                    mutate(genome2=genome) %>% #create a pseudo genome name column
+                    column_to_rownames("genome2") %>% 
+                    dplyr::select(domain,phylum,class,order,family,genus,species,genome) %>% #add an additional taxonomic level to ensure genome-level analysis (as no all genomes have species-level taxonomic assignments. Otherwise, ANCOMBC2 aggregates analyses per species)
+                    as.matrix() %>% 
+                    tax_table() #convert to phyloseq tax_table object
+
+physeq_genome_filtered <- phyloseq(phylo_genome, phylo_taxonomy, phylo_samples)
+```
+
+
+```{r filtercapwild, comment="", echo=FALSE, message=FALSE, warning=FALSE}
+physeq_sample <- subset_samples(physeq_genome_filtered, habitat %in% c("urban","rural"))
+physeq_sample <- prune_taxa(taxa_sums(physeq_sample)>0, physeq_sample)
+```
+
+#### Perform ANCOMB2
+
+```{r ancom_rand_capwild, comment="", echo=FALSE, message=FALSE, warning=FALSE, eval=TRUE}
+set.seed(1234) #set seed for reproducibility
+ancom_rand_output_mag_habitat = ancombc2(data = physeq_sample, 
+                  assay_name = "counts", 
+                  tax_level = NULL, #change to agglomerate analysis to a higher taxonomic range
+                  fix_formula = "habitat", #fixed variable(s)
+ #                 rand_formula = "(1|individual)",
+                  p_adj_method = "holm", 
+                  pseudo_sens = TRUE, # TRUE significantly reduces the number of significant p-values
+                  prv_cut =0, 
+                  lib_cut = 0, 
+                  s0_perc = 0.05,
+                  group = NULL, 
+                  struc_zero = FALSE, 
+                  neg_lb = FALSE,
+                  alpha = 0.05, 
+                  n_cl = 2, 
+                  verbose = TRUE,
+                  global = FALSE, 
+                  pairwise = FALSE, 
+                  dunnet = FALSE, 
+                  trend = FALSE,
+                  iter_control = list(tol = 1e-5, max_iter = 20, verbose = FALSE),
+                  em_control = list(tol = 1e-5, max_iter = 100),
+#                  lme_control = lme4::lmerControl(),
+                  mdfdr_control = list(fwer_ctrl_method = "holm", B = 100), 
+                  trend_control = NULL)
+```
+
+#### MAG level
+
+```{r}
+res_perm = 
+  ancom_rand_output_mag_habitat$res %>%
+    dplyr::transmute(taxon = taxon,
+                     p = p_habitaturban,
+                     ss_pass = passed_ss_habitaturban) %>%
+  rowwise() %>%
+  mutate(
+      p_update = case_when(
+          # For taxa with significant p-values that failed the sensitivity analysis,
+          # we assign a random value uniformly drawn from the range [0.05, 1].
+          p < 0.05 & ss_pass == FALSE ~ runif(1, min = 0.05, max = 1),
+    TRUE ~ p 
+  )) %>%
+  ungroup()
+
+df_p = res_perm %>%
+  dplyr::select(p, p_update) %>%
+  pivot_longer(cols = p:p_update, names_to = "type", values_to = "value") 
+df_p$type = recode(df_p$type, 
+                   `p` = "ANCOM-BC2 (Without Sensitivity Analysis)", 
+                   `p_update` = "ANCOM-BC2 (With Sensitivity Analysis)")
+
+num_bins = 30
+fig_p = df_p %>%
+  ggplot(aes(x = value, fill = type)) +
+  geom_histogram(position = "identity", alpha = 0.5, bins = num_bins) +
+  geom_hline(yintercept = length(ancom_rand_output_mag_habitat$ss_tab$taxon)/
+               num_bins, linetype = "dashed") +
+  theme_minimal() +
+  labs(title = "Distribution of P-values",
+       x = "P-value",
+       y = "Frequency",
+       fill = NULL,
+       color = NULL) +
+    theme_bw() + 
+    theme(plot.title = element_text(hjust = 0.5),
+          panel.grid.minor.y = element_blank(),
+          legend.position = "bottom")
+fig_p
+```
+
+
+
+```{r ancom_table_capwild, comment="", echo=FALSE, message=FALSE, warning=FALSE}
+taxonomy <- data.frame(physeq_sample@tax_table) %>%
+  rownames_to_column(., "taxon") %>%
+  mutate_at(vars(phylum, class, order, family, genus, species), ~ str_replace(., "[dpcofgs]__", ""))
+
+ancombc_rand_table_mag <- ancom_rand_output_mag_habitat$res %>%
+  dplyr::select(taxon, lfc_habitaturban, p_habitaturban) %>%
+  filter(p_habitaturban < 0.05) %>%
+  dplyr::arrange(p_habitaturban) %>%
+  left_join(taxonomy, by = join_by(taxon == taxon)) %>%
+  mutate_at(vars(phylum, species), ~ str_replace(., "[dpcofgs]__", ""))%>%
+  dplyr::arrange(lfc_habitaturban)
+  
+colors_alphabetic <- read_tsv("https://raw.githubusercontent.com/earthhologenome/EHI_taxonomy_colour/main/ehi_phylum_colors.tsv") %>%
+    mutate_at(vars(phylum), ~ str_replace(., "[dpcofgs]__", ""))  %>%
+  right_join(taxonomy, by=join_by(phylum == phylum)) %>%
+  dplyr::select(phylum, colors) %>%
+  mutate(colors = str_c(colors, "80"))  %>% #add 80% alpha
+	unique() %>%
+	dplyr::arrange(phylum)
+
+tax_table <- as.data.frame(unique(ancombc_rand_table_mag$phylum))
+  
+colnames(tax_table)[1] <- "phylum"
+tax_color <- merge(tax_table, colors_alphabetic, by="phylum")%>%
+	dplyr::arrange(phylum) %>%
+	dplyr::select(colors) %>%
+	pull()
+
+saveRDS(file = "data/ancombc_rand_table_mag.Rds", 
+        object = ancombc_rand_table_mag)
+```
+
+```{r ancombc_rand_plot_capwild, comment="", echo=FALSE, message=FALSE, warning=FALSE, fig.height=10, fig.width=8, fig.fullwidth=TRUE}
+ancombc_rand_table_mag%>%
+      mutate(genome=factor(genome,levels=ancombc_rand_table_mag$genome)) %>%
+ggplot(., aes(x=lfc_habitaturban, y=forcats::fct_reorder(genome,lfc_habitaturban), fill=phylum)) + #forcats::fct_rev()
+  geom_col() + 
+  scale_fill_manual(values=tax_color) + 
+  geom_hline(yintercept=0) + 
+  theme(panel.background = element_blank(),
+        axis.line = element_line(size = 0.5, linetype = "solid", colour = "black"),
+        axis.text.x = element_text(size = 12),
+        axis.text.y = element_text(size = 6),
+        axis.title = element_text(size = 14, face = "bold"),
+        legend.text = element_text(size = 12),
+        legend.title = element_text(size = 14, face = "bold"),
+        legend.position = "right", legend.box = "vertical")+
+  xlab("log2FoldChange") + 
+  ylab("Genome")+
+  guides(fill=guide_legend(title="Phylum"))
+```
+A fold change describes the ratio of two values (not the difference). The log2 fold changes are the log-of-the-fold-changes, and are used/plotted in graphs as those are nicer to show because they center around 0, giving reductions a negative value and increments a positive value. Changes can be interpreted thus, if there is a two fold increase (fold change=2, Log2FC=1) between A and B, then A is twice as big as B (or A is 200% of B). If there is a two fold decrease (fold change = 0.5, Log2FC= -1) between A and B, then A is half as big as B (or B is twice as big as A, or A is 50% of B). 
+-- Ian Sudbery 2018
+
+
+```{r}
+res_prim = ancom_rand_output_mag_habitat$res
+
+df_habitaturban = res_prim %>%
+    dplyr::select(taxon, ends_with("habitaturban")) 
+df_fig_habitaturban = df_habitaturban %>%
+    dplyr::filter(diff_habitaturban == 1) %>% 
+    dplyr::arrange(desc(lfc_habitaturban)) %>%
+    dplyr::mutate(direct = ifelse(lfc_habitaturban > 0, "Positive LFC", "Negative LFC"),
+                  color = ifelse(diff_robust_habitaturban, "aquamarine3", "black"))
+df_fig_habitaturban$taxon = factor(df_fig_habitaturban$taxon, levels = df_fig_habitaturban$taxon)
+df_fig_habitaturban$direct = factor(df_fig_habitaturban$direct, 
+                           levels = c("Positive LFC", "Negative LFC"))
+  
+fig_habitaturban = df_fig_habitaturban %>%
+    ggplot(aes(x = taxon, y = lfc_habitaturban, fill = direct)) + 
+    geom_bar(stat = "identity", width = 0.7, color = "black", 
+             position = position_dodge(width = 0.4)) +
+    geom_errorbar(aes(ymin = lfc_habitaturban - se_habitaturban, ymax = 
+                        lfc_habitaturban + se_habitaturban), 
+                  width = 0.2, position = position_dodge(0.05), color = "black") + 
+    labs(x = NULL, y = "Log fold change", 
+         title = "Log fold changes between habitat") + 
+    scale_fill_discrete(name = NULL) +
+    scale_color_discrete(name = NULL) +
+    theme_bw() + 
+    theme(plot.title = element_text(hjust = 0.5),
+          panel.grid.minor.y = element_blank(),
+          axis.text.x = element_text(angle = 60, hjust = 1,
+                                     color = df_fig_habitaturban$color))
+fig_habitaturban
+```
+Any taxon highlighted in green indicates its successful passage through the sensitivity analysis (diff_robust is TRUE) for pseudo-count addition. In this case the only value was Pseudomonadota Gammaproteobacteria Pseudomonadales Moraxellaceae *Acinetobacter johnsonii* (EHA05315_bin.31).
+
+This species of Acinetobacter is known for its denitrification capacity and in some cases as a pathogen in humans. It was identified as pathogenic among a bullfrog species in southern China that emerges in low temperature conditions [Lin, et al. 2025]. *A. johnsonii* used as an environmental probiotic in aquaculture for ammonia removal, pyrene degradation, sulfide degradation, and malathion biodegradation (Jiang et al., 2012, Jiang et al., 2018). 
+
+```{r ancom_rand_volcano_sp, comment="", echo=FALSE, message=FALSE, warning=FALSE}
+
+genome_counts_clr =
+cbind.data.frame(genome = genome_counts_filt$genome,
+                 compositions::clr(genome_counts_filt[,-1])) %>%
+  mutate(mean_clr = rowMeans(pick(where(is.numeric),-genome))) %>%
+  select(genome, mean_clr)
+  
+  
+fig_ancomb_relative_abundance =
+  
+ancom_rand_output_mag_habitat$res %>%
+  na.omit() %>%
+  dplyr::select(genome=taxon, lfc_habitaturban, p_habitaturban) %>%
+  left_join(genome_metadata, by = join_by(genome == genome)) %>%
+  mutate(phylum = ifelse(p_habitaturban < 0.05, phylum, NA)) %>%
+  mutate(clr = genome_counts_clr$mean_clr) %>%
+  
+  ggplot(., aes(y = lfc_habitaturban, 
+                x = clr,
+                #y = -log(p_habitaturban), 
+                color = phylum)) +
+  
+  geom_vline(xintercept = 0) +
+  geom_hline(yintercept=0) +
+  
+  geom_point(size=3, show.legend = FALSE) +
+  
+  scale_x_continuous(labels = scientific) +
+  #scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
+  #            labels = trans_format("log10", math_format(10^.x))) +
+  
+  scale_color_manual(values = phylum_colors) +
+  labs(color = "Significant phylum", 
+       y = "Log-fold difference", 
+       #y = "p-value") +
+       x = "Mean relative abundance CLR") +
+  
+  
+  coord_flip(clip = "off") +
+  
+  theme_classic()
+
+fig_ancomb_relative_abundance
+
+ggsave(paste0('figure/ANCOMB_significant_taxa.png'), width=15, height=10, units='cm')
+```
+
+CLR transformation removes the constant-sum constraint that means relative abundances must always equal 1, centring the values around zero. A CLR = 0 suggest the relative abundance is equal to the mean of all components, while positive CLR > 0 is more abundant than the geometric mean, and CLR < 0 is less than the geometric mean.
+
+#### Variable taxonomic scales
+
+```{r}
+set.seed(1234) #set seed for reproducibility
+
+ancom_rand_output_scale = list()
+res_perm_scale = list()
+df_p_scale = list()
+ancombc_rand_table_scale = list()
+
+taxonomic_scales = c("phylum", "class", "order", "family", "genus")
+
+taxonomy <- data.frame(physeq_sample@tax_table) %>%
+  rownames_to_column(., "taxon") %>%
+  mutate_at(vars(phylum, class, order, family, genus, species), ~ str_replace(., "[dpcofgs]__", ""))
+
+for (i in seq_along(taxonomic_scales)){
+ancom_rand_output_scale[[i]] = ancombc2(data = physeq_sample, 
+                  assay_name = "counts", 
+                  tax_level = taxonomic_scales[i], #change to agglomerate analysis to a higher taxonomic range
+                  fix_formula = "habitat", #fixed variable(s)
+ #                 rand_formula = "(1|individual)",
+                  p_adj_method = "holm", 
+                  pseudo_sens = TRUE, # TRUE significantly reduces the number of significant p-values
+                  prv_cut =0, 
+                  lib_cut = 0, 
+                  s0_perc = 0.05,
+                  group = NULL, 
+                  struc_zero = FALSE, 
+                  neg_lb = FALSE,
+                  alpha = 0.05, 
+                  n_cl = 2, 
+                  verbose = TRUE,
+                  global = FALSE, 
+                  pairwise = FALSE, 
+                  dunnet = FALSE, 
+                  trend = FALSE,
+                  iter_control = list(tol = 1e-5, max_iter = 20, verbose = FALSE),
+                  em_control = list(tol = 1e-5, max_iter = 100),
+#                  lme_control = lme4::lmerControl(),
+                  mdfdr_control = list(fwer_ctrl_method = "holm", B = 100), 
+                  trend_control = NULL)
+
+res_perm_scale[[i]] = 
+  ancom_rand_output_scale[[i]]$res %>%
+    dplyr::transmute(taxon = taxon,
+                     p = p_habitaturban,
+                     ss_pass = passed_ss_habitaturban) %>%
+  rowwise() %>%
+  mutate(
+      p_update = case_when(
+          # For taxa with significant p-values that failed the sensitivity analysis,
+          # we assign a random value uniformly drawn from the range [0.05, 1].
+          p < 0.05 & ss_pass == FALSE ~ runif(1, min = 0.05, max = 1),
+    TRUE ~ p 
+  )) %>%
+  ungroup()
+
+df_p_scale[[i]] = res_perm_scale[[i]] %>%
+  dplyr::select(p, p_update) %>%
+  pivot_longer(cols = p:p_update, names_to = "type", values_to = "value") 
+df_p$type = recode(df_p$type, 
+                   `p` = "ANCOM-BC2 (Without Sensitivity Analysis)", 
+                   `p_update` = "ANCOM-BC2 (With Sensitivity Analysis)")
+
+ancombc_rand_table_scale[[i]] <- ancom_rand_output_scale[[i]]$res %>%
+  dplyr::select(taxon, lfc_habitaturban, p_habitaturban) %>%
+  filter(p_habitaturban < 0.05) %>%
+  dplyr::arrange(p_habitaturban) %>%
+  left_join(taxonomy, by = join_by(taxon == taxon)) %>%
+  mutate_at(vars(phylum, species), ~ str_replace(., "[dpcofgs]__", ""))%>%
+  dplyr::arrange(lfc_habitaturban)
+}
+
+names(ancom_rand_output_scale) = taxonomic_scales
+
+ancombc_rand_table_scale
+
+```
+
+## Outputs
+
+```{r}
+saveRDS(
+  merge(rel.abun.df,
+      ancom_rand_output_scale$phylum$res[,c("taxon","p_habitaturban")],
+      by.x = "phylum", by.y = "taxon") %>% 
+  mutate(phylum = str_remove(phylum,"p__")) %>%
+  `colnames<-`(c("Phylum", "Urban", "Rural", "Overall","p")) %>%
+  mutate(across(where(is.numeric), signif, 3)) %>%
+  arrange(-Overall),
+  "figure/table_relative_abundance.RDS")
+```
+
+```{r}
+saveRDS(
+ancombc_rand_table_mag[,c("phylum","class","order","family","genus","species","genome",
+                          "lfc_habitaturban", "p_habitaturban")] %>%
+  mutate(across(where(is.numeric), signif, 2)) %>%
+  `colnames<-`(c("Phylum","Class","Order","Family","Genus","Species","MAG",
+                          "LFC", "p")),
+  "figure/table_lfc.RDS")
+```
+
+
+```{r}
+grid.arrange(grobs = 
+               list(fig_phylum_relative_abundance,
+                    fig_ancomb_relative_abundance),
+        layout_matrix = rbind(c(1,1,1,1,1,1,1,1,2,2,2,2),
+                              c(1,1,1,1,1,1,1,1,2,2,2,2),
+                              c(1,1,1,1,1,1,1,1,2,2,2,2),
+                              c(1,1,1,1,1,1,1,1,2,2,2,2),
+                              c(1,1,1,1,1,1,1,1,2,2,2,2),
+                              c(1,1,1,1,1,1,1,1,2,2,2,2),
+                              c(1,1,1,1,1,1,1,1,2,2,2,2),
+                              c(1,1,1,1,1,1,1,1,2,2,2,2),
+                              c(1,1,1,1,1,1,1,1,2,2,2,2),
+                              c(1,1,1,1,1,1,1,1,2,2,2,2)
+                              ))
+
+grid.arrange(grobs = 
+               list(fig_phylum_relative_abundance,
+                    fig_ancomb_relative_abundance),
+        layout_matrix = rbind(c(1,1,1,1,1,1,1,1,1,1,1,1),
+                              c(1,1,1,1,1,1,1,1,1,1,1,1),
+                              c(1,1,1,1,1,1,1,1,1,1,1,1),
+                              c(1,1,1,1,1,1,1,1,1,1,1,1),
+                              c(1,1,1,1,1,1,1,1,1,1,1,1),
+                              c(1,1,1,1,1,1,1,1,1,1,1,1),
+                              c(1,1,1,1,1,1,1,1,1,1,1,1),
+                              c(2,2,2,2,2,2,2,2,2,2,2,2),
+                              c(2,2,2,2,2,2,2,2,2,2,2,2),
+                              c(2,2,2,2,2,2,2,2,2,2,2,2),
+                              c(2,2,2,2,2,2,2,2,2,2,2,2)
+                              )) 
+
+
+ggarrange(fig_phylum_relative_abundance,
+         fig_ancomb_relative_abundance, 
+          ncol=1, nrow=2, 
+          labels = c("A", "B")
+         ) -> fig
+
+
+ggsave(
+  filename = paste0('figure/relative_abundance.png'), 
+  plot = fig, 
+  width=10, height=15, units='cm')
+```
+

@@ -1,0 +1,88 @@
+---
+title: "Urban Amphibian Microbiota | Manuscript in prep"
+subtitle: "Contrasting fire salamander dermal microbiota within and urban-rural matrix"
+author:
+  - [Blinded for review]
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+url: [Blinded for review]
+description: |
+  Data analysis for mircrobiota sequencing of salamanders
+link-citations: yes
+github-repo: [Blinded for review]
+---
+
+```{r knitr_opts, echo=FALSE}
+knitr::opts_chunk$set(
+    class.source = "script-source",
+    class.output = "script-output",
+    comment = NA)
+```
+
+# Introduction
+
+## Prepare the R environment
+
+### Environment
+
+To reproduce all the analyses locally, clone this repository in your computer using:
+
+```         
+RStudio > New Project > Version Control > Git
+```
+
+And indicating the following git repository:
+
+> [Blinded for review]
+
+Once the R project has been created, follow the instructions and code chunks shown in this webbook.
+
+### Libraries
+
+The following R packages are required for the data analysis.
+
+```{r load_libraries, warning=FALSE, comments="", message=FALSE}
+# Base
+library(R.utils)
+library(knitr)
+library(tidyverse)
+library(devtools)
+library(tinytable)
+library(rairtable)
+library(janitor)
+library(rmarkdown)
+
+
+# For tree handling
+library(ape)
+library(phyloseq)
+library(phytools)
+
+# For plotting
+library(ggplot2)
+library(ggrepel)
+library(ggpubr)
+library(ggnewscale)
+library(gridExtra)
+library(ggtreeExtra)
+library(ggtree)
+library(ggh4x)
+library(scales)
+
+# For statistics
+library(spaa)
+library(vegan)
+library(Rtsne)
+library(geiger)
+library(hilldiv2)
+library(distillR)
+library(broom.mixed)
+#library(lmerTest)
+library(Hmsc)
+library(corrplot)
+library(lme4)
+library(nlme)
+library(ANCOMBC)
+```

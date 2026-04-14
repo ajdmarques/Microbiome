@@ -1,0 +1,87 @@
+#### Notes
+
+@demori_peptide_2019, focus on amphibian skin peptides and their role in wound healing and protection from oxidative stress and UV irradiation. Mucousal glands on the dermis produce mucasins and mucopolysacchrides to maintain skin humidity. Specialized glads also produce poisons as anti-predator defences triggered by stress and contracting the glands. Peptides produced by glands serve a variety of functions depeding on the species, effecting everyjing from deffense, signalling, and would healing. Wound healing applieads to damage from dehydration, ultra violet, and lacerations.
+
+@purucker2023, evaluating the pesticide exposure concentration on amphibians skins. Amphibians's skin have very little keratin and are thin to allow water an gas exchange. Folded skin on the ventral sides focus on rehydration and maintain contact with substrate.
+
+@kaufmann2016, @quaranta2009, expectation that due to permeability, amphibians dermis is more sensitive to xenobiotics. Testing the permeability of xenobiotics such as natural and manufactures herbicide and pesticides shows increased uptake and permeability of amphibian skin compared to mammals or avians.
+
+@akatçömden2023, aim to provide an evolutionary account for the evolution of amphibian dermis as a permeable membrane. Specifies gland formation, skin immunology, water relations, and metamorphosis. Amphibian skin was among the earliest vertebrate adaptations to terrestrial evolution. Amphibian skin also undergoes structural changes during metamorphosis from larvae to adult, such as keratinization. Development of antimicrobial peptides may be limited to adult gland development. Macroglands produce peptides that contribute to defence. Mucosal glands secrete mucous which have many regulatory functions. Antimicrobial peptides select against detrimental bacteria. Water evaporates quickly from the amphibian skin, which may play a role in thermoregulation. Aquaglyceroporins are channels in the epidermis that allow for water uptake.
+
+@santymire2018, measures glucocorticoids among amphibian dermal secretions. This is produced in response to stress and is measured to see how amphibians respond to stress.
+
+@tattersall2007, respiratory function of amphibian skin. Amphibian skin can facilitate up to 100% of O2 and CO2 gas exchange with most of the bodies respiratory cappilaries in the skin. The cost of a thin dermis with high rates of water loss. Folds in the skin increase surface area to increase exchange.
+
+@luddecke_salamanders_2018, summary of fire salamander toxic defence and bioactivity of compounds. Salamander toxins have been used in a variety of ways in traditional medicines, as poisons, to prevent pregnancy. The highest concentrations of toxins are produces in the parotoid glands. Toxins are comprised of salamander alkaloids or samandarines (SAMs). SAMs intoxication can also affect salamanders, usually cause nuerological responses in animals and in some cases death. SAM also assist in antimicrobial defence, .
+
+@pereira2018, compares how skin glands vary among salamanders by sex and along the body. Specific focus to antimicrobial peptides associated with chytrid resistance. Antimicrobial compounds including alkaloids, proteins and antimicrobial peptides (AMPs) have anti-microbial functions.
+
+@rollins-smith_future_2024, some thoughts on studies examining amphibian immunology. Notes include mucosal immunity and the role of microbiome, and salamander immune defences.
+
+@rollins-smith_heat_2023, heat stress exacerbated by climate can reduce amphibian condition and survival. Examines reports on how heat influences amphibian immunity and alter microbal communities. 
+
+@hernández-gómez2023, a broad review of amphibian microbiota in response to environmental conditions at varying scales. Probably the best starting point for review.
+
+@colombo2015, study of mucosal immunity among amphibians from a broad perspective. 
+
+@ohmer2015, skin sloughing is a means of shedding the outermost layer of the epidermis. This happens regularly but can increase in frequency in response to pathogens. The effect of doing so reduces the overall abundance of microbiota on the dermis of amphibians.  
+
+@zhu2024, examines differences in git and dermal microbiota of Rana associated with healthy versus ulcerated skin.
+
+@dong2024, experimental treatment to examine the effect that ash from rice straw, an agricultural pollutant, has on the microbial dermis of Rana. Found decreased diversity and change in composition.
+
+@hernández-gómez2020, compares the effect that forest type, ecualyptus versus quercus, have on the skin microbiome of amphibians. 16S reports change in microbiome composition and decline in body condition with invasive species.
+
+@bletz_disruption_2018, disruption to skin microbiota in response to experimental exposure to Bsal pathogen.
+
+@walke2014, compared amphibian skin microbiome from different habitats to see how microbes colonize the dermal microbiome.
+
+
+
+##### Studies on urban pollution
+
+Urban soil is disturbed through the mixing, importing, and exporting of materials and is often characterized by contamination, compaction, and soil sealing, as well as deposition, and removal or mixing of natural substrates. Soil in the urban environment tends to be very disturbed because of surrounding human activities or even exogenous. Urban soil is widely distributed in parks, along roads, sports fields, urban rivers, peri-urban areas, landfill sites and mining areas, and near to buildings, industries and transport facilities. Urban soil is an important sink for heavy metals that are non-degradable and can persist for long periods. Heavy metals can be discharged from numerous anthropogenic sources, which include traffic emissions, industrial activities, municipal waste disposal, corrosion of construction or building materials. [@li_2018]
+
+Traffic emission can contribute to large heavy metal concentrations in road dusts depended on the traffic volume. The major sources of heavy metals in road dusts varied greatly, with Ni and Cu mainly from exhaust emissions and brake abrasion and Zn from vehicle emissions and wear of tyres. The highest concentrations of heavy metals in the road dust were identified in the samples from the highways, followed by the rotary areas and downtown areas. [@duong_2011]
+
+Large concentrations of organic pollutants, polycyclic aromatic hydrocarbons (PAHs), were reported as higher in the larger industrialized city of Lisbon compared to the smaller and less industrialized cities of Viseu. The main sources of PAHs include motor vehicle exhaust, industrial activities, coal and biomass combustion, and atmospheric deposition of long-range transported PAHs. In both cities the highest PAH concentrations were observed in historical parks and gardens located in the city centre as a result of long term contamination and accumulation.  [@cachada_2012]
+
+Contrary to natural and slightly modified soils, urban soils often display a succession of layers that are not always parallel to the soil surface. Heterogeneity can be also very large within any one layer, a feature common in urban soils. Microorganism activity may be enhanced by human intervention. Root systems normally extend circularly, but urban tree roots are often enclosed in a narrow and shallow strip of poor quality soil by building foundations and highly compacted road material. The volume for water and nutrient storage is then much diminished. [@kimpe_2000]
+
+##### Studies on how urbanization / pollution effect microbiota
+
+Abiotic factors such as seasonality, air temperature, and water characteristics have been demonstrated to be correlated with the variation of the amphibian microbiome, with amphibians inhabiting forested and agricultural sites differ in their skin and gut bacterial communities, with individuals from agricultural sites showing a higher gut bacterial alpha diversity. Studies have provided evidence that host bacteria are susceptible to anthropogenic pollutants that might have health and fitness consequences for amphibian hosts. [@jimenez_2017]
+
+The composition of the skin-associated bacterial communities were predominantly influenced by whether human participants were living in an urban or rural environment, and variation within groups was greater among rural residents. [@ying_2015]
+
+Amphibians as a whole respond negatively to urbanization (69 reported responses were negative, 6 were positive and 35 showed no effect). [@Scheffers_2012]
+
+Nearly all studies reviewed reported a negative relationship between urbanisation and amphibian species richness, presence/absence, abundance or community structure; directly associated with changes in landscape structure from urbanisation that results in decreased wetland area and density, and increased wetland isolation. Amphibians are generally regarded as being highly sensitive to environmental pollutants due to their biphasic life cycle and physiological requirements. Waterbodies receive stormwater runoff from large areas of impervious surfaces as well as exposure to environmental contaminants such as soil acidification and airborne pollutants. [@hamer_2008]
+
+##### Studies on amphibian skin microbiota
+
+@Gonzalez-Serrano_2025 to identify gene clusters associated with the antifungal activity, isolated amphibian skin bacteria from frogs *Agalychnis callidryas*, *Craugastor fitzingeri*, *Dendropsophus ebraccatus*, and the axolotl *Ambystoma altamirani*. Biosynthetic Gene Clusters (BGCs) and chitin-degrading gene families (ChDGFs) composition and abundance differed among bacterial families with the capacity to inhibit the growth of either Bd or Bc.
+
+@martinez-ugalde_2024 Examine endangered axolotl *Ambystoma altamirani* skin microbiome accross season, elevation, and presence of fungal pathogens. Assembled 50 unique metagenome assembled genomes (MAGs). Genes linked to these potential antifungal traits were mainly identified in Burkholderiales and Chitinophagales MAGs. Proteobacteria (66.2%) and Bacteroidetes (28.3%) were the most common phyla
+
+@Maheshwari_2023 roteobacteria can be divided into five subgroups as a, b, g, d, and ε.
+
+@wan_2024 Hong Kong newt (*Paramesotriton hongkongensis*), are native to East Asia, a region suspected to be the origin of chytrids, and has exhibited asymptomatic infection, suggesting a long-term coexistence with the chytrids. Most common phyla Proteobacteria (59.2%), Bacteroidetes (21.2%), and Verrucomicrobia (12%). Within each, the most common class from each was Betaproteobacteria (44.8%), Sphingobacteriia (5.9%), and Opitutae (6.2 %), respectively.
+
+@barnes_2021 microbial communities of *Plethodon cinereus* salamanders along a land-use gradient in the New York metropolitan area compared. Five bacterial phyla dominated: Proteobacteria (36.2% of all bacterial reads), Acidobacteria (19.1%), Bacteroidetes (12.0%), Actinobacteria (10.6%) and Verrucomicrobia (9.0%). Along the land-use gradient, patterns of microbial taxonomic groups varied among richness and diversity. For bacteria, we found no significant difference in Shannon diversity by level of urbanization. The composition of salamander communities was significantly between site and extent of urbanization.  Taxa in Actinobacteria and Bacteroidetes had a non-significant but slight increase in the relative abundance in urban sites compared to exurban and sub-surban site.
+
+@walke_2021 Eastern red-spotted newts, *Notophthalmus viridescens*, skin microbiota monitored over 2 years with disturbance. Newt skin was heavily dominated by Proteobacteria (mean ± SD: 76.7 ± 16.9%) and Actinobacteria (21.6 ± 17.1%).
+
+@jimenez_2019 eotropical amphibians, *Lithobates vibicarius*, *Craugastor escoces*, and *Isthmohyla rivularis*, after near extinction, seem to have evolved a resistance/tolerance to Batrachochytrium dendrobatidis (Bd). Proteobacteria dominated the skin microbiome of both Bd– and Bd+ individuals.
+
+@bletz_2018 *Salamandra salamandra* sampled at multiple locations across Germany. The skin microbiota predominantly comprised Proteobacteria (48.8%), Bacteriodetes (24.8%), Actinobacteria (8.2%), Firmicutes (6.7%), Cyanobacteria (4.1%), Acidobacteria (2.8%) and Verrucomicrobia (2.7%). 
+
+@beltz_2017 swabbed 89 frog species from Madagascar. Frog skin microbiotas were dominated by Proteobacteria (Gamma – 46.6%, Beta – 15.4%, Alpha – 9.4%, Delta – 1.6%), Bacteriodetes (8.1%), Actinobacteria (7.9%), Firmicutes (3.6%), and Acidobacteria (2.3%). 
+
+@prado-irwin_2017 skin microbiome of salamander *Ensatina eschscholtzii xanthoptica*, comprise four genetically distinct populations distributed throughout the San Francisco Bay Area and the Sierra Nevada mountains in California, USA. The most abundant core OTUs belonged to the genus Pseudomonas, which also one of the most common bacterial taxa in skin microbiomes of other amphibian species.
+
+@belden_2015 2-3 species of frog sampled at four sites in Panamá. Prominent phyla included Proteobacteria, Actinobacteria, Firmicutes, Bacteroidetes, etc.
+
+@mckenzie_2012 northern leopard frogs (Lithobates pipiens), western chorus frogs (Pseudacris triseriata) and tiger salamanders (Ambystoma tigrinum), with dominant bacterial phyla included Acidobacteria, Actinobacteria, Bacteriodetes, Cyanobacteria, Firmicutes and Proteobacteria.
+
+(McKenzie et al. 2012; Belden et al. 2015; Prado-Irwin et al. 2017; Bletz et al. 2017a, 2018; Jiménez et al. 2019; Walker et al. 2020; Walke et al. 2021; Wan, et al. 2024)

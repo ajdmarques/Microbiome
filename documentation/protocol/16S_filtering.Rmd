@@ -1,0 +1,223 @@
+---
+title: "16S Filtering"
+author: "Adam Marques"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    df_print: paged
+bibliography: ../references/references.bib
+---
+
+## Demultiplex
+
+[Demultiplex](https://demultiplex.readthedocs.io/en/latest/index.html) separates FastQ files by either in-header or in-read barcodes. The software automatically detects classical Illumina and the newer HiSeq X headers. A barcode file is required and look like this, e.g. A.tsv
+
+```         
+index1 ACGTAA
+index2 GTAAGG
+```
+
+Suppose we have two files containing barcodes that are used for dual indexing, A.tsv for barcode 1 and 2, B.tsv for barcode 3 and 4, where the first barcode can be found in the header of read 1 and the second one in the header of read 2.In this case demultiplexing proceedes in two steps,
+
+```         
+demultiplex demux A.tsv read_1.fq read_2.fq
+```
+
+This will result in two new pairs of files,
+
+```         
+read_1_1.fq, read_2_1.fq
+read_1_2.fq, read_2_2.fq
+```
+
+The pairs are then demultiplexed as follows,
+
+```         
+demultiplex demux B.tsv read_2_1.fq read_1_1.fq 
+demultiplex demux B.tsv read_2_2.fq read_1_2.fq
+```
+
+Which will result in the final list of pairs,
+
+```         
+read_1_1_3.fq, read_2_1_3.fq
+read_1_1_4.fq, read_2_1_4.fq
+read_1_2_3.fq, read_2_2_3.fq
+read_1_2_4.fq, read_2_2_4.fq
+```
+
+Files named file_1_UNKNOWN.fq will contain anything that could not be assigned. The demux command allows for one substitution in a barcode by default. This behaviour can be modified with the -m and -d options. The -d option enables support for all single nucleotide variants (substitutions, deletions and insertions), while the -m option controls the amount of mismatches. For our purposes we will allow one mismatch is allowed among barcodes which should have no more than 3-4 variable bases between them.
+
+| example | description                                 |
+|---------|---------------------------------------------|
+| -m 2    | Allow for two substitutions.                |
+| -d      | Allow for one single nucleotide variant.    |
+| -m 3 -d | Allow for three single nucleotide variants. |
+
+If the list of barcodes is not known beforehand, the guess subcommand can be used to search for a top list of barcodes. For example, if we want to search for the top five barcodes in the first 1000 records, we use the following,
+
+```         
+demultiplex guess -o barcodes.tsv -t 5 -n 1000 file.fq
+```
+
+## Merge reads
+
+Paired read merging should be performed before quality filtering because merging improves base call error estimates (Q scores) in the overlapping segment. Paired reads are merged reads with [USEARCH](https://www.drive5.com/usearch/) using the *fastq_mergepairs* command. Most of the pairs should align and the lengths of the consensus sequences ought to be consistent with the distribution expected for your primer pair, i.e. \~500 bp.
+
+Paired-end sequences following the convention currently used by Illumina, have forward read FASTQs labeled "R1" and the reverse FASTQs have "R2". The simplest way to use *fastq_mergepairs* is to specify the the forward and reverse FASTQ filenames and an output FASTQ filename.
+
+```         
+usearch -fastq_mergepairs SampleA_R1.fastq -reverse SampleA_R2.fastq -fastqout merged.fq
+```
+
+In the case where repliates samples were sequenced, multiple FASTQ file pairs can be merged in a single command by specifying two or more FASTQ filenames following *-fastq_mergepairs*. In the following example, SampleA and SampleB are both merged. The R2 filenames are constructed automatically as explained above, or can be given explicitly using the *-reverse* option.
+
+```         
+usearch -fastq_mergepairs SampleA_R1.fastq SampleB_R1.fastq -fastqout merged.fq
+```
+
+If multiple samples are combined into a single file, you can track which read came from which sample. This is addressed by adding a sample identifier to each read label. The simplest method is to use the *-sample* option, as with the following example were the string sample=SampleA, will be added at the end of the read label.
+
+```         
+usearch -fastq_mergepairs SampleA_R1.fastq -fastqout merged.fq -sample SampleA
+```
+
+Additional options for *-fastq_mergepairs* include reports and filtering options,
+
+| example            | description                                                                                                           |
+|------------------|------------------------------------------------------|
+| -report            | Filename for summary report. See Reviewing a fastq_mergepairs report to check for problems.                           |
+| -tabbedout         | Tabbed text file containing detailed information about merging process for each pair including reason for discarding. |
+| -alnout            | Human-readable alignments. Useful for trouble-shooting.                                                               |
+| -fastq_pctid       | Minimum %id of alignment. Default 90. Consider decreasing if you have long overlaps.                                  |
+| -fastq_nostagger   | Discard staggered pairs. Default is to trim overhangs (non-biological sequence).                                      |
+| -fastq_minmergelen | Minimum length for the merged sequence. See Filtering artifacts by setting a merge length range.                      |
+| -fastq_maxmergelen | Maximum length for the merged sequence.                                                                               |
+| -fastq_minqual     | Discard merged read if any merged Q score is less than the given value. (No minimum by default).                      |
+| -fastq_minovlen    | Discard pair if alignment is shorter than given value. Default 16.                                                    |
+
+It is recommended that we retain only reads with ≤ 3 mismatches in the overlap.
+
+## Quality filter reads
+
+For quality OTU sequences, low-quality reads should be discarded to avoid spurious OTUs. For this the USEARCH *fastq_filter* command to discard reads with average quality score below q33 across a 50 bp sliding window, sequence with no reverse primer, containing any ambiguous bases, or are discarding singletons.
+
+```         
+  usearch -fastq_filter reads.fastq -fastq_truncqual 33 -fastq_maxee 0.5 -fastq_maxns 0 -fastaout reads.fasta
+```
+
+| example             | description                                                                                                             |
+|------------------|------------------------------------------------------|
+| -fastq_truncqual N  | Truncate reads to the first position with quality score \<= N, so that all remaining Q scores are \>N.                  |
+| -fastq_maxee E      | Discard reads with \> E total expected errors for all bases in the read after any truncation options have been applied. |
+| -fastq_trunclen L   | Truncate sequences at the L'th base. If the sequence is shorter than L, discard.                                        |
+| -fastq_minlen L     | Discard sequences with \< L letters.                                                                                    |
+| -fastq_stripleft N  | Delete the first N bases in the read.                                                                                   |
+| -fastq_maxee_rate E | Discard reads with \> E expected errors per base. Calculated after any truncation options have been applied.            |
+| -fastq_maxns k      | Discard if there are \>k Ns in the read.                                                                                |
+
+To validate the effectiveness of quality filtering is to use control samples with known composition. If no control samples are available, the *fastx_learn* command estimates the error rate de novo. This can be used as a check that the error rate after quality filtering is low, i.e. that the Q scores give good predictions of base call errors.
+
+## Clustering OTUs
+
+### USEARCH
+
+In 16S sequencing, OTUs are typically constructed using an identity threshold of 97% (Stackebrandt and Goebel 1994). However, taxonomy predictions in the SILVA database can be erroneous and may require thresholds as high as \~99% identity for full-length sequences and \~100% for V4 (Edgar 2018a; Edgar 2018b). Softwares, DOTUR and mothur, generate OTUs at a range of identity thresholds, noting (DOTUR paper) that "[s]sequences with greater than 97% identity are typically assigned to the same species, those with 95% identity are typically assigned to the same genus, and those with 80% identity are typically assigned to the same phylum, although these distinctions are controversial". QIIME (Caporaso et al. 2010) uses the 97% threshold almost exclusively. Early versions of QIIME used CD-HIT as the default OTU clustering method, which was later replaced by UCLUST (Edgar 2013). Recommendations for clustering are to merge variation within a single bacterial strain into a single OTU. Errors due to PCR sequencing error cause sequence variation in the reads which is not biological in origin. Clustering tends to merge bad sequences with correct biological sequences. To be effective, this requires that sequences with \>3% error are rare, because they always induce spurious OTUs (see e.g. Edgar and Flyvbjerg 2014).
+
+USEARCH has two methods for clustering, either with the UPARSE-OTU algorithm, *cluster_otus command*, where the goal is to report a subset of the correct biological sequences such that all pairs of OTUs are \<97% identical to each other and the OTU sequence is the most abundant in its neighborhood; and the UNOISE algorithm, *unoise3 command*, which reports all correct biological sequences in the reads, also calledzero-radius OTUs, or ZOTUs. It is expected that some species may be split over several ZOTUs due to intra-species variation, but the advantage of ZOTUs is that they enable resolution of closely related strains with potentially different phenotypes that would be lumped into the same cluster by 97% OTUs, e.g.
+
+A UDB file is a database file that contains sequences and a k-mer index for those sequences. A UDB file is created using makeudb_usearch, makeudb_ublast or makeudb_sintax. The udb2fasta command can be used to convert the UDB file to FASTA. The [SSU dataset](https://www.arb-silva.de/download/arb-files/) is based on the reference dataset with a 99% criterion applied to remove redundant sequences for a final dataset containing 510,508 sequences and can be used as a representative dataset for phylogenetic analysis and classification. The SSU Parc (Web database only) contains all aligned sequences with an alignment identity value equal and above 50, an alignment quality value equal and above 40 as well as an basepair score or sequence quality equal and above 30.
+
+```         
+usearch -unoise3 uniques.fa -zotus zotus.fa -tabbedout unoise3.txt
+```
+
+| example       | description                                                                       |
+|------------------|------------------------------------------------------|
+| -zotus        | Predicted correct biological sequences are written to a file in FASTA format.     |
+| -ampout       | Predicted correct amplicon sequences are written to a file in FASTA format.       |
+| -minsize      | Specifies the minimum abundance (size= annotation). Default is 8.                 |
+| -tabbedout    | Specifies a tabbed text filename to reports the processing done for each sequence |
+| -unoise_alpha | specifies the alpha parameter. Default is 2.0.                                    |
+
+Most low-abundance sequences are usually noise and are be mapped to a zOTU. For higher sensivity, reducing minsize to 4 is reasonable.
+
+An OTU table can be generated using the *otutab* command. To run the command, every query sequence must be labeled with a sample identifier. The *fastx_get_sample_names* command can be used to check that your sample names are formatted correctly. Query sequences are typically raw reads, i.e. reads after paired read merging, if applicable, but before quality filtering. Low-quality reads and singletons can often be mapped successfully to an OTU, so including them accounts for a larger fraction of the reads.
+
+```         
+usearch -otutab reads.fq -otus otus.udb -otutabout otutab.txt 
+```
+
+| example            | description                                                                        |
+|-------------------|-----------------------------------------------------|
+| -otus; -zotus      | the database file. Use -zotus if the OTUs are denoised, -otus otherwise.           |
+| -id                | sets the minimum fractional identity. Default is 0.97.                             |
+| -strand            | Search both strands. Default assumes the same strand as the OTU sequences.         |
+| -mapout            | specifies a tabbed text file name with two fields, 1. read label and 2. OTU label. |
+| -notmatched        | specifies a FASTA filename for sequences which are not assigned to an OTU.         |
+| -notmatchedfq      | specifies a FASTQ file for unassigned sequences (input must be FASTQ).             |
+| -mapout            | Tab-separated text file which maps reads to OTUs.                                  |
+| -otutabout         | QIIME classic tabbed text format.                                                  |
+| -mothur_shared_out | Mothur file.                                                                       |
+
+A rarified OTU table sets a fixed number of reads per sample using random subsampling without replacement. This is to preserve the shape of the abundance distribution in each sample more accurately than systematic rounding. The number of reads per sample must be specified by the *-sample_size* option and sampels with fewer are discarded.
+
+```         
+usearch -otutab_rare otutab.txt -sample_size 5000 -output otutab_5k.txt
+```
+
+#### Remove chimeras
+
+The cluster_otus and unoise3 commands have built-in filters for chimeras. UCHIME (Edgar, 2016), provides a post-processing step to filter chimeric OTUs, but when used with cluster_otus and unoise3, the OTUs that are discarded are more likely to be false positives than true chimeras. Instead it is suggested to run uchime2_ref with the largest possible database (SILVA for 16S), review the results with -mode high_confidence and decide whether these are false positives or true chimeras.
+
+### Mothur
+
+To use mothur you'll need to be initiate the program from a directory. Once open, you can call on internal function therein. Working in mothur it is recommended to generate a stability file, where the first column is the name of the sample, the second is the name of the forward read for that sample, and the third columns in the name of the reverse read for that sample.
+
+```         
+mothur > make.file(inputdir=., type=fastq, prefix=stability)
+
+F3D0   F3D0_S188_L001_R1_001.fastq F3D0_S188_L001_R2_001.fastq
+F3D141 F3D141_S207_L001_R1_001.fastq   F3D141_S207_L001_R2_001.fastq
+```
+
+Begin by combining paired reads for each sample and all of the samples. This is done using the make.contigs command, which requires stability.files as input. This command will extract the sequence and quality score data from your fastq files, create the reverse complement of the reverse read and then join the reads into contigs. This command will also produce several files that you will need down the road: stability.trim.contigs.fasta and stability.contigs.count_table. These contain the sequence data and group identity for each sequence. The stability.contigs.report file will tell you something about the contig assembly for each read.
+
+```         
+mothur > make.contigs(file=stability.files)
+
+Group count: 
+F3D0   7793
+F3D1   5869
+F3D141 5958
+...
+Total of all groups is 152360
+
+mothur > summary.seqs(fasta=stability.trim.contigs.fasta, count=stability.contigs.count_table)
+
+   Start   End NBases  Ambigs  Polymer NumSeqs
+Minimum:    1   248 248 0   3   1
+2.5%-tile:  1   252 252 0   3   3810
+25%-tile:   1   252 252 0   4   38091
+Median:     1   252 252 0   4   76181
+75%-tile:   1   253 253 0   5   114271
+97.5%-tile: 1   253 253 6   6   148552
+Maximum:    1   502 502 249 243 152360
+Mean:   1   252 252 0   4
+# of unique seqs:   152360
+total # of seqs:    152360
+```
+
+5.  Clustered de novo to form operational taxonomic units (OTUs) with mothur 1.34.4 at 99% similarity with the average-neighbour algorithm. Pre-clustering at 3 base similarity reduces the effects of sequencing errors.
+
+## Classify OTUs
+
+7.  Classify with the default mothur classifier using the SILVA v119 database at an 80% confidence cut-off.
+
+## Filter samples
+
+8.  Discard samples with fewer than 10K sequences.
+
+## Normalize OTUs
+
+9.  Normalize relative abundance for each OTU as the proportion of all sequences (tags) in a sample after all OTUs with fewer than six sequences across all samples was discarded. [@parada_every_2016]

@@ -1,0 +1,540 @@
+Location,Habitat,Latitude,Longitude,Date,Code,Sex,Weight,SVL,LC,Biopsy,Skin swab,Buccal swab,Cloacal swab,Faecal swab,Photos,Obs
+"Porto, Casa Tait",Urban,41.148087,-8.629559,28.10.2021,TAT03,female (j),7.5,72.22,37.85,T_GVA9835,S_GVA9835,B_GVA9835,C_GVA9835,,"body, head",
+"Porto, Casa Tait",Urban,41.14774,-8.629091,31.10.2021,TAT22,male,8.4,74.41,40.8,,,,,,"body, head",
+"Porto, Casa Tait",Urban,41.14774,-8.629091,31.10.2021,TAT25,female (j),8.4,76.18,44.8,,,,,,"body, head",
+"Porto, Casa Tait",Urban,41.14774,-8.629091,31.10.2021,TAT23,female,8.6,76.44,42.11,,,,,,"body, head",
+"Porto, Casa Tait",Urban,41.14774,-8.629091,31.10.2021,TAT21,male,9,78.13,45.89,T_GVA9944,,,,,"body, head",
+"Porto, Casa Tait",Urban,41.14774,-8.629091,31.10.2021,TAT20,male,12.2,85.31,48.81,T_GVA9943,,,,,"body, head",
+"Porto, Casa Tait",Urban,41.14774,-8.629091,31.10.2021,TAT09,male,11.1,85.73,53.38,T_GVA9932,,,,,"body, head",
+"Porto, Casa Tait",Urban,41.14774,-8.629091,31.10.2021,TAT11,male,9.3,86.56,46.01,T_GVA9934,,,,,"body, head",
+"Porto, Casa Tait",Urban,41.14774,-8.629091,31.10.2021,TAT17,male,12.5,88.85,54.82,T_GVA9940,,,,,"body, head",
+"Porto, Casa Tait",Urban,41.14774,-8.629091,31.10.2021,TAT24,male,7.6,90.88,43.83,,,,,,"body, head",
+"Porto, Casa Tait",Urban,41.14774,-8.629091,31.10.2021,TAT13,male,15.9,92.91,54.07,T_GVA9936,,,,,"body, head",
+"Porto, Casa Tait",Urban,41.14774,-8.629091,31.10.2021,TAT10,female,17.6,92.99,56.28,T_GVA9933,,,,,"body, head",
+"Porto, Casa Tait",Urban,41.14774,-8.629091,31.10.2021,TAT06,male,19.1,97.87,51.64,T_GVA9929,,,,,"body, head",
+"Porto, Casa Tait",Urban,41.148087,-8.629559,28.10.2021,TAT02,male,16.3,98.19,61.56,T_GVA9834,S_GVA9834,B_GVA9834,C_GVA9834,,"body, head",
+"Porto, Casa Tait",Urban,41.148087,-8.629559,28.10.2021,TAT04,male,16.9,99,60.65,T_GVA9836,S_GVA9836,B_GVA9836,C_GVA9836,,"body, head",
+"Porto, Casa Tait",Urban,41.14774,-8.629091,31.10.2021,TAT18,female,15.1,99.73,55.01,T_GVA9941,,,,,"body, head",
+"Porto, Casa Tait",Urban,41.148087,-8.629559,28.10.2021,TAT05,male,18.1,101.63,61.16,T_GVA9837,S_GVA9837,B_GVA9837,C_GVA9837,,"body, head",
+"Porto, Casa Tait",Urban,41.14774,-8.629091,31.10.2021,TAT07,male,17.4,102.03,63.06,T_GVA9930,,,,,"body, head",
+"Porto, Casa Tait",Urban,41.148087,-8.629559,28.10.2021,TAT01,female,24.2,102.51,56.33,T_GVA9833,S_GVA9833,B_GVA9833,C_GVA9833,F_GVA9833,"body, head",
+"Porto, Casa Tait",Urban,41.14774,-8.629091,31.10.2021,TAT19,female,24.9,102.59,59.65,T_GVA9942,,,,,"body, head",
+"Porto, Casa Tait",Urban,41.14774,-8.629091,31.10.2021,TAT12,male,24.5,108.9,57.89,T_GVA9935,,,,,"body, head",
+"Porto, Casa Tait",Urban,41.14774,-8.629091,31.10.2021,TAT15,female,33.7,111.65,65.25,T_GVA9938,,,,,"body, head",missing digit one foot
+"Porto, Casa Tait",Urban,41.14774,-8.629091,31.10.2021,TAT08,male,25.2,112.83,75.09,T_GVA9931,,,,,"body, head",
+"Porto, Casa Tait",Urban,41.14774,-8.629091,31.10.2021,TAT14,female,28.4,116.19,71.99,T_GVA9937,,,,,"body, head",
+"Porto, Casa Tait",Urban,41.14774,-8.629091,31.10.2021,TAT16,male,29.7,116.61,62.24,T_GVA9939,,,,,"body, head",
+"Porto, Casa Tait",Urban,41.148087,-8.629559,28.10.2021,T_GVA9846,,,,,T_GVA9846,,,,,,roadkill
+"Porto, Casa Tait",Urban,41.14774,-8.629091,31.10.2021,NO ID,,,,,,,,,TAT-F01,,
+"Porto, Casa Tait",Urban,41.14774,-8.629091,31.10.2021,NO ID,,,,,,,,,TAT-F02,,
+"Porto, CIBIO",Non-urban,41.32895,-8.672086,27.05.2021,,,,,,T_GVA9743,,,,,,Road mortality
+"Porto, Couce (Valongo)",Non-urban,41.157607,-8.485234,02.11.2021,COU17,female (j),9.2,74.83,42.68,T_GVA10003,,,,,"body, head",
+"Porto, Couce (Valongo)",Non-urban,41.157607,-8.485234,02.11.2021,COU16,male,9.4,76.79,39.02,T_GVA10002,,,,,"body, head",
+"Porto, Couce (Valongo)",Non-urban,41.157607,-8.485234,31.10.2021,COU05,male,9.3,81.32,41.85,T_GVA9896,S_GVA9896,B_GVA9896,C_GVA9896,,"body, head",missing fingers in hands
+"Porto, Couce (Valongo)",Non-urban,41.157607,-8.485234,31.10.2021,COU08,male,10.2,83.5,49.75,T_GVA9916,,,,,"body, head",
+"Porto, Couce (Valongo)",Non-urban,41.157607,-8.485234,31.10.2021,COU06,male,13.8,93.23,55.78,T_GVA9914,,,,,"body, head",
+"Porto, Couce (Valongo)",Non-urban,41.157607,-8.485234,31.10.2021,COU07,male,16.3,94.55,58.83,T_GVA9915,,,,,"body, head",
+"Porto, Couce (Valongo)",Non-urban,41.157607,-8.485234,31.10.2021,COU04,male,16.3,95.76,51.76,T_GVA9895,S_GVA9895,B_GVA9895,C_GVA9895,,"body, head",
+"Porto, Couce (Valongo)",Non-urban,41.157607,-8.485234,02.11.2021,COU19,male,18.2,95.92,59.52,T_GVA10005,,,,F_GVA10005,"body, head",entrada Valongo
+"Porto, Couce (Valongo)",Non-urban,41.157607,-8.485234,02.11.2021,COU15,male,21.1,99.28,50.53,T_GVA10001,,,,,"body, head",
+"Porto, Couce (Valongo)",Non-urban,41.157607,-8.485234,31.10.2021,COU09,male,22.1,101.06,58.09,T_GVA9917,,,,,"body, head",
+"Porto, Couce (Valongo)",Non-urban,41.157607,-8.485234,31.10.2021,COU03,male,22.9,102.4,44.9,T_GVA9894,S_GVA9894,B_GVA9894,C_GVA9894,,"body, head",regenerated tail. Samll feet
+"Porto, Couce (Valongo)",Non-urban,41.157607,-8.485234,02.11.2021,COU14,male,25.1,102.46,,T_GVA10000,,,,,"body, head",break tail
+"Porto, Couce (Valongo)",Non-urban,41.157607,-8.485234,31.10.2021,COU01,male,28.2,105.3,64.54,T_GVA9892,S_GVA9892,B_GVA9892,C_GVA9892,,"body, head",
+"Porto, Couce (Valongo)",Non-urban,41.157607,-8.485234,31.10.2021,COU12,female,24.7,107.93,57.91,T_GVA9920,,,,,"body, head",weird foot
+"Porto, Couce (Valongo)",Non-urban,41.157607,-8.485234,31.10.2021,COU02,female,43.4,112.48,71.95,T_GVA9893,S_GVA9893,B_GVA9893,C_GVA9893,,"body, head",pregnant?
+"Porto, Couce (Valongo)",Non-urban,41.157607,-8.485234,31.10.2021,COU10,male,29,113.09,68.22,T_GVA9918,,,,,"body, head",
+"Porto, Couce (Valongo)",Non-urban,41.157607,-8.485234,31.10.2021,COU11,female,37.1,114.6,71.03,T_GVA9919,,,,,"body, head",
+"Porto, Couce (Valongo)",Non-urban,41.157607,-8.485234,02.11.2021,COU18,male,29.2,115.8,73.7,T_GVA10004,,,,,"body, head",
+"Porto, Couce (Valongo)",Non-urban,41.157607,-8.485234,31.10.2021,COU13,female,40.8,118.11,63.46,T_GVA9921,,,,,"body, head",
+"Porto, Covelo",Urban,41.166404,-8.604578,07.12.2021,CVL01,male,38.1,121.82,78.46,T_GVA10455,S_GVA10455,B_GVA10455,C_GVA10455,,"body, head",anophthalmy
+"Porto, Esposade",Urban,41.217441,-8.653162,29.10.2021,ESP01,male,28,105.83,73.51,T_GVA9860,S_GVA9860,B_GVA9860,C_GVA9860,,"body, head",
+"Porto, Esposade",Urban,41.217441,-8.653162,29.10.2021,ESP02,male,26.3,110.57,73.7,T_GVA9861,S_GVA9861,B_GVA9861,C_GVA9861,,"body, head",
+"Porto, Jancido",Non-urban,41.093523,-8.490926,02.11.2021,JAN11,male,7.4,73.56,39.8,T_GVA9990,,,,,"body, head",
+"Porto, Jancido",Non-urban,41.093523,-8.490926,02.11.2021,JAN29,juveniñ,8.3,76.15,43,,,,,,"body, head",
+"Porto, Jancido",Non-urban,41.093523,-8.490926,02.11.2021,JAN02,female,11.4,77.57,45.65,T_GVA9961,S_GVA9961,B_GVA9961,C_GVA9961,,"body, head",
+"Porto, Jancido",Non-urban,41.093523,-8.490926,02.11.2021,JAN23,male,14.2,85.52,50.41,,,,,,"body, head",
+"Porto, Jancido",Non-urban,41.093523,-8.490926,02.11.2021,JAN04,male,17.6,96.53,59.37,T_GVA9963,S_GVA9963,B_GVA9963,C_GVA9963,F_GVA9963,"body, head",
+"Porto, Jancido",Non-urban,41.093523,-8.490926,02.11.2021,JAN14,female,22.7,97.57,53.54,T_GVA9993,,,,,"body, head",
+"Porto, Jancido",Non-urban,41.093523,-8.490926,02.11.2021,JAN03,male,23.8,103.85,67.59,T_GVA9962,S_GVA9962,B_GVA9962,C_GVA9962,,"body, head",
+"Porto, Jancido",Non-urban,41.093523,-8.490926,02.11.2021,JAN15,male,24.7,104.91,62.84,T_GVA9994,,,,,"body, head",
+"Porto, Jancido",Non-urban,41.093523,-8.490926,02.11.2021,JAN07,male,28.4,106.15,65.52,T_GVA9986,,,,,"body, head",
+"Porto, Jancido",Non-urban,41.093523,-8.490926,02.11.2021,JAN25,male,24.1,106.21,62.5,,,,,,"body, head",
+"Porto, Jancido",Non-urban,41.093523,-8.490926,02.11.2021,JAN09,male,24.5,108.51,66.03,T_GVA9988,,,,,"body, head",
+"Porto, Jancido",Non-urban,41.093523,-8.490926,02.11.2021,JAN13,male,30.4,108.66,74.43,T_GVA9992,,,,,"body, head",
+"Porto, Jancido",Non-urban,41.093523,-8.490926,02.11.2021,JAN24,male,24.8,109.88,69.27,,,,,,"body, head",
+"Porto, Jancido",Non-urban,41.093523,-8.490926,02.11.2021,JAN26,male,31,110.35,70.38,,,,,,"body, head",
+"Porto, Jancido",Non-urban,41.093523,-8.490926,02.11.2021,JAN18,male,28.4,110.49,62.39,T_GVA9997,,,,,"body, head",
+"Porto, Jancido",Non-urban,41.093523,-8.490926,02.11.2021,JAN06,male,29.6,110.55,63.38,T_GVA9985,,,,,"body, head",missing toe in one foot
+"Porto, Jancido",Non-urban,41.093523,-8.490926,02.11.2021,JAN19,male,30,110.85,70.72,T_GVA9998,,,,,"body, head",
+"Porto, Jancido",Non-urban,41.093523,-8.490926,02.11.2021,JAN01,male,27.3,112.12,71.19,T_GVA9960,S_GVA9960,B_GVA9960,C_GVA9960,,"body, head",
+"Porto, Jancido",Non-urban,41.093523,-8.490926,02.11.2021,JAN27,male,31,112.8,74.92,,,,,,"body, head",
+"Porto, Jancido",Non-urban,41.093523,-8.490926,02.11.2021,JAN17,male,35.2,112.99,64.33,T_GVA9996,,,,,"body, head",
+"Porto, Jancido",Non-urban,41.093523,-8.490926,02.11.2021,JAN16,female,38.4,113.98,55.59,T_GVA9995,,,,,"body, head",
+"Porto, Jancido",Non-urban,41.093523,-8.490926,02.11.2021,JAN22,male,28,115.14,68.5,,,,,,"body, head",
+"Porto, Jancido",Non-urban,41.093523,-8.490926,02.11.2021,JAN21,male,30.5,115.63,68.25,,,,,,"body, head",
+"Porto, Jancido",Non-urban,41.093523,-8.490926,02.11.2021,JAN28,female,47.1,116.16,74.38,,,,,,"body, head",
+"Porto, Jancido",Non-urban,41.093523,-8.490926,02.11.2021,JAN05,male,31.6,116.64,68.64,T_GVA9964,S_GVA9964,B_GVA9964,C_GVA9964,,"body, head",small fingers and toes
+"Porto, Jancido",Non-urban,41.093523,-8.490926,02.11.2021,JAN20,male,35.6,116.65,72.38,T_GVA9999,,,,,"body, head",
+"Porto, Jancido",Non-urban,41.093523,-8.490926,02.11.2021,JAN08,female,43.2,117.49,67.25,T_GVA9987,,,,,"body, head",
+"Porto, Jancido",Non-urban,41.093523,-8.490926,02.11.2021,JAN12,male,38,123.7,76.98,T_GVA9991,,,,,"body, head",fused  toes
+"Porto, Jancido",Non-urban,41.093523,-8.490926,02.11.2021,JAN10,female,42.7,127.76,70.34,T_GVA9989,,,,,"body, head",
+"Porto, Lagoa do Coura",Non-urban,41.306362,-8.522804,06.12.2021,LCO08,male,59,64.23,33.31,T_GVA10407,,,,,"body, head",
+"Porto, Lagoa do Coura",Non-urban,41.306362,-8.522804,06.12.2021,LCO14,female,17,87.4,50.67,T_GVA10413,,,,,"body, head",
+"Porto, Lagoa do Coura",Non-urban,41.306362,-8.522804,06.12.2021,LCO03,male,18,95.67,51.57,T_GVA10402,S_GVA10402,B_GVA10402,C_GVA10402,,"body, head",
+"Porto, Lagoa do Coura",Non-urban,41.306362,-8.522804,06.12.2021,LCO09,female,25.9,102.08,63.55,T_GVA10408,,,,,"body, head",
+"Porto, Lagoa do Coura",Non-urban,41.306362,-8.522804,06.12.2021,LCO04,male,30.1,107.97,62.93,T_GVA10403,S_GVA10403,B_GVA10403,C_GVA10403,,"body, head",
+"Porto, Lagoa do Coura",Non-urban,41.306362,-8.522804,06.12.2021,LCO02,male,31.8,108,67.04,T_GVA10401,S_GVA10401,B_GVA10401,C_GVA10401,,"body, head",
+"Porto, Lagoa do Coura",Non-urban,41.306362,-8.522804,06.12.2021,LCO13,male,26.4,109.83,72.27,T_GVA10412,,,,,"body, head",
+"Porto, Lagoa do Coura",Non-urban,41.306362,-8.522804,06.12.2021,LCO06,male,26.7,110.69,67.72,T_GVA10405,,,,,"body, head",
+"Porto, Lagoa do Coura",Non-urban,41.306362,-8.522804,06.12.2021,LCO05,male,30.6,112.58,69.13,T_GVA10404,S_GVA10404,B_GVA10404,C_GVA10404,,"body, head",break tail
+"Porto, Lagoa do Coura",Non-urban,41.306362,-8.522804,06.12.2021,LCO11,male,31.5,113.31,76.62,T_GVA10410,,,,,"body, head",
+"Porto, Lagoa do Coura",Non-urban,41.306362,-8.522804,06.12.2021,LCO07,male,28.3,113.68,71.47,T_GVA10406,,,,,"body, head",
+"Porto, Lagoa do Coura",Non-urban,41.306362,-8.522804,06.12.2021,LCO10,male,35.4,116.08,76.53,T_GVA10409,,,,,"body, head","missing, regenerating fingers"
+"Porto, Lagoa do Coura",Non-urban,41.306362,-8.522804,06.12.2021,LCO15,male,44.2,118.53,79.79,T_GVA10414,,,,,"body, head",
+"Porto, Lagoa do Coura",Non-urban,41.306362,-8.522804,06.12.2021,LCO12,male,38.3,120.35,56.64,T_GVA10411,,,,,"body, head",regenerated tail
+"Porto, Lagoa do Coura",Non-urban,41.306362,-8.522804,06.12.2021,LCO01,female,52.1,121.8,70.87,T_GVA10400,S_GVA10400,B_GVA10400,C_GVA10400,,"body, head",
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,31.10.2021,MND05,male,17.2,5.16,55.73,T_GVA9891,S_GVA9891,B_GVA9891,C_GVA9891,,"body, head",
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,05.10.2015,Mindelo_18,male,8.1,71,42,,,,,,head,From Alarcón-Ríos et al 2017 J Morphology
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,10.10.2015,Mindelo_40,male,7.8,71,43,,,,,,head,From Alarcón-Ríos et al 2017 J Morphology
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,05.10.2015,Mindelo_21,male,8.2,74,40,,,,,,head,From Alarcón-Ríos et al 2017 J Morphology
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,10.10.2015,Mindelo_38,male,8.1,76,41,,,,,,head,From Alarcón-Ríos et al 2017 J Morphology
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,05.10.2015,Mindelo_19,male,8.5,77,47,,,,,,head,From Alarcón-Ríos et al 2017 J Morphology
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,05.10.2015,Mindelo_17,male,10.8,81,48,,,,,,head,From Alarcón-Ríos et al 2017 J Morphology
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,10.10.2015,Mindelo_37,male,12,84,51,,,,,,head,From Alarcón-Ríos et al 2017 J Morphology
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,10.10.2015,Mindelo_39,male,10,84,51,,,,,,head,From Alarcón-Ríos et al 2017 J Morphology
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,10.10.2015,Mindelo_46,male,12.7,84,51,,,,,,head,From Alarcón-Ríos et al 2017 J Morphology
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,05.10.2015,Mindelo_16,male,11,85,51,,,,,,head,From Alarcón-Ríos et al 2017 J Morphology
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,31.10.2021,MND04,male,14.1,86.56,54,T_GVA9890,S_GVA9890,B_GVA9890,C_GVA9890,,"body, head",shedding
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,10.10.2015,Mindelo_36,male,15.1,88,58,,,,,,head,From Alarcón-Ríos et al 2017 J Morphology
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,10.10.2015,Mindelo_47,male,13.2,88,56,,,,,,head,From Alarcón-Ríos et al 2017 J Morphology
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,05.10.2015,Mindelo_12,male,11.8,89,52,,,,,,head,From Alarcón-Ríos et al 2017 J Morphology
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,05.10.2015,Mindelo_22,male,15.7,89,57,,,,,,head,From Alarcón-Ríos et al 2017 J Morphology
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,05.10.2015,Mindelo_24,male,11.7,89,53,,,,,,head,From Alarcón-Ríos et al 2017 J Morphology
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,10.10.2015,Mindelo_35,male,12.7,90,52,,,,,,head,From Alarcón-Ríos et al 2017 J Morphology
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,05.10.2015,Mindelo_9,male,17.2,91,60,,,,,,head,From Alarcón-Ríos et al 2017 J Morphology
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,31.10.2021,MND03,male,14.3,91.45,55.32,T_GVA9889,S_GVA9889,B_GVA9889,C_GVA9889,,"body, head",
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,05.10.2015,Mindelo_11,male,15.9,92,63,,,,,,head,From Alarcón-Ríos et al 2017 J Morphology
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,05.10.2015,Mindelo_13,male,13.6,93,54,,,,,,head,From Alarcón-Ríos et al 2017 J Morphology
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,10.10.2015,Mindelo_41,male,13.8,93,62,,,,,,head,From Alarcón-Ríos et al 2017 J Morphology
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,31.10.2021,MND01,male,17.2,93.65,55.67,T_GVA9887,S_GVA9887,B_GVA9887,C_GVA9887,,"body, head",some toes missing in the foot
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,05.10.2015,Mindelo_10,male,17,94,54,,,,,,head,From Alarcón-Ríos et al 2017 J Morphology
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,10.10.2015,Mindelo_32,male,15.3,94,58,,,,,,head,From Alarcón-Ríos et al 2017 J Morphology
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,31.10.2021,MND15,male,16.7,94.38,58.14,T_GVA9911,,,,,"body, head",
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,05.10.2015,Mindelo_7,male,19.3,95,68,,,,,,head,From Alarcón-Ríos et al 2017 J Morphology
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,05.10.2015,Mindelo_8,male,20.6,95,63,,,,,,head,From Alarcón-Ríos et al 2017 J Morphology
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,10.10.2015,Mindelo_45,male,19.6,97,69,,,,,,head,From Alarcón-Ríos et al 2017 J Morphology
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,31.10.2021,MND14,male,20,97.64,63.45,T_GVA9910,,,,,"body, head",
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,31.10.2021,MND16,male,19.6,98.06,57.52,T_GVA9912,,,,,"body, head",
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,31.10.2021,MND07,male,20.6,98.95,57.13,T_GVA9903,,,,,"body, head",
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,31.10.2021,MND12,male,18.5,99,62.92,T_GVA9908,,,,,"body, head",
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,31.10.2021,MND02,male,21.3,100.09,65.13,T_GVA9888,S_GVA9888,B_GVA9888,C_GVA9888,,"body, head",
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,05.10.2015,Mindelo_6,male,21.9,101,65,,,,,,head,From Alarcón-Ríos et al 2017 J Morphology
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,31.10.2021,MND11,male,23,101.06,68.93,T_GVA9907,,,,,"body, head",
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,31.10.2021,MND06,male,21.2,101.12,66.33,T_GVA9902,,,,,"body, head",
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,05.10.2015,Mindelo_3,male,25.3,102,76,,,,,,head,From Alarcón-Ríos et al 2017 J Morphology
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,05.10.2015,Mindelo_5,male,20.5,102,60,,,,,,head,From Alarcón-Ríos et al 2017 J Morphology
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,05.10.2015,Mindelo_27,male,22.3,103,65,,,,,,head,From Alarcón-Ríos et al 2017 J Morphology
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,10.10.2015,Mindelo_48,male,28.5,103,66,,,,,,head,From Alarcón-Ríos et al 2017 J Morphology
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,31.10.2021,MND17,male,23.5,103.71,67.43,T_GVA9913,,,,,"body, head",
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,05.10.2015,Mindelo_25,male,25.2,104,67,,,,,,head,From Alarcón-Ríos et al 2017 J Morphology
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,10.10.2015,Mindelo_33,male,24.4,104,79,,,,,,head,From Alarcón-Ríos et al 2017 J Morphology
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,05.10.2015,Mindelo_23,male,23.8,105,73,,,,,,head,From Alarcón-Ríos et al 2017 J Morphology
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,31.10.2021,MND09,male,24.3,107,65,T_GVA9905,,,,,"body, head",
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,05.10.2015,Mindelo_2,male,24.6,109,,,,,,,head,From Alarcón-Ríos et al 2017 J Morphology
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,05.10.2015,Mindelo_28,male,30.6,110,76,,,,,,head,From Alarcón-Ríos et al 2017 J Morphology
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,31.10.2021,MND13,male,33.2,110.7,72.04,T_GVA9909,,,,,"body, head",
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,31.10.2021,MND10,female,33.4,110.87,66.77,T_GVA9906,,,,,"body, head",
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,10.10.2015,Mindelo_31,male,28.9,114,69,,,,,,head,From Alarcón-Ríos et al 2017 J Morphology
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,10.10.2015,Mindelo_44,male,36.8,114,72,,,,,,head,From Alarcón-Ríos et al 2017 J Morphology
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,31.10.2021,MND08,male,31.9,114.98,73.09,T_GVA9904,,,,,"body, head",
+"Porto, Mindelo",Non-urban,41.32389,-8.73292,10.10.2015,Mindelo_43,male,38.5,115,78,,,,,,head,From Alarcón-Ríos et al 2017 J Morphology
+"Porto, Palacio Cristal",Urban,41.147969,-8.627798,21.02.2021,,,,,,T_GVA9742,,,,,,Road mortality
+"Porto, Parque Carrizal",Urban,41.183811,-8.65592,17.10.2021,CAR08,male,22.2,102.5,63.89,T_GVA9771,,,,,"body, head",
+"Porto, Parque Carrizal",Urban,41.183811,-8.65592,17.10.2021,CAR11,female,24.4,102.87,65.41,T_GVA9774,,,,,"body, head",small fingers forehands
+"Porto, Parque Carrizal",Urban,41.183811,-8.65592,17.10.2021,CAR06,male,24,104.04,69.48,T_GVA9769,,,,,"body, head",
+"Porto, Parque Carrizal",Urban,41.183811,-8.65592,17.10.2021,CAR03,female,27.3,105.21,69.9,T_GVA9766,S_GVA9766,B_GVA9766,C_GVA9766,F_GVA9766,"body, head",small finguers
+"Porto, Parque Carrizal",Urban,41.183811,-8.65592,17.10.2021,CAR15,female,46.8,107.02,,T_GVA9778,,,,,head,pregnant
+"Porto, Parque Carrizal",Urban,41.183811,-8.65592,17.10.2021,CAR07,male,24.2,108.09,64.87,T_GVA9770,,,,,"body, head",
+"Porto, Parque Carrizal",Urban,41.183811,-8.65592,17.10.2021,CAR13,male,31.7,109.24,71.86,T_GVA9776,,,,,"body, head",
+"Porto, Parque Carrizal",Urban,41.183811,-8.65592,17.10.2021,CAR10,male,28.9,109.48,76.55,T_GVA9773,,,,,"body, head",
+"Porto, Parque Carrizal",Urban,41.183811,-8.65592,17.10.2021,CAR09,male,31.4,110.63,60.51,T_GVA9772,,,,F_GVA9772,"body, head",
+"Porto, Parque Carrizal",Urban,41.183811,-8.65592,17.10.2021,CAR04,male,33.9,110.9,75.32,T_GVA9767,S_GVA9767,B_GVA9767,C_GVA9767,,"body, head",
+"Porto, Parque Carrizal",Urban,41.183811,-8.65592,17.10.2021,CAR05,male,25.5,111.28,67.85,T_GVA9768,S_GVA9768,B_GVA9768,C_GVA9768,,"body, head",shed skin
+"Porto, Parque Carrizal",Urban,41.183811,-8.65592,17.10.2021,CAR12,male,30.1,111.39,7112,T_GVA9775,,,,,"body, head",
+"Porto, Parque Carrizal",Urban,41.183811,-8.65592,17.10.2021,CAR14,male,32.4,112.04,73.23,T_GVA9777,,,,,"body, head",right eye missing. Strange limp in the throat
+"Porto, Parque Carrizal",Urban,41.183811,-8.65592,17.10.2021,CAR02,male,42.1,121.26,80.8,T_GVA9765,S_GVA9765,B_GVA9765,C_GVA9765,,"body, head",
+"Porto, Parque Carrizal",Urban,41.183811,-8.65592,17.10.2021,CAR01,male,28.9,111.67,69.07,T_GVA9764,S_GVA9764,B_GVA9764,C_GVA9764,F_GVA9764,"body, head",
+"Porto, Parque Cidade",Urban,41.168225,-8.67736,20.10.2021,PCF06,female,7.6,68.67,40.92,T_GVA9789,,,,,"body, head",Parque Cidade Fontain
+"Porto, Parque Cidade",Urban,41.168225,-8.67736,20.10.2021,PCF14,male,19.4,85.71,48.92,T_GVA9797,,,,,"body, head",Parque Cidade Fontain
+"Porto, Parque Cidade",Urban,41.168225,-8.67736,20.10.2021,PCF02,male,17.4,88.6,56.37,T_GVA9780,S_GVA9780,B_GVA9780,C_GVA9780,,"body, head",Parque Cidade Fontain
+"Porto, Parque Cidade",Urban,41.168225,-8.67736,20.10.2021,PCF16,male,25.5,89.06,53.8,T_GVA9799,,,,,"body, head",Parque Cidade Fontain
+"Porto, Parque Cidade",Urban,41.168225,-8.67736,20.10.2021,PCF09,male,20.2,93.38,57.16,T_GVA9792,,,,,"body, head",Parque Cidade Fontain
+"Porto, Parque Cidade",Urban,41.168225,-8.67736,20.10.2021,PCF07,female,21,93.44,61.18,T_GVA9790,,,,,"body, head",Parque Cidade Fontain
+"Porto, Parque Cidade",Urban,41.16983,-8.67327,20.10.2021,PCE01,female,22.1,93.74,57.82,T_GVA9784,S_GVA9784,B_GVA9784,C_GVA9784,F_GVA9784,"body, head",Parque Cidade East
+"Porto, Parque Cidade",Urban,41.168225,-8.67736,20.10.2021,PCF11,male,25.9,94.56,58.86,T_GVA9794,,,,,"body, head",Parque Cidade Fontain
+"Porto, Parque Cidade",Urban,41.168225,-8.67736,20.10.2021,PCF04,female,20.4,96.29,60,T_GVA9782,S_GVA9782,B_GVA9782,C_GVA9782,,"body, head",Parque Cidade Fontain
+"Porto, Parque Cidade",Urban,41.168225,-8.67736,20.10.2021,PCF15,female,37.8,96.41,58.42,T_GVA9798,,,,,"body, head",Parque Cidade Fontain. Pregnant
+"Porto, Parque Cidade",Urban,41.16983,-8.67327,20.10.2021,PCE06,female,23.3,98.61,58.54,T_GVA9806,,,,,"body, head",Parque Cidade East
+"Porto, Parque Cidade",Urban,41.168225,-8.67736,20.10.2021,PCF18,male,33.4,99.14,69.3,T_GVA9801,,,,,"body, head",Parque Cidade Fontain.Small feet
+"Porto, Parque Cidade",Urban,41.16983,-8.67327,20.10.2021,PCE05,male,21.4,99.78,58.64,T_GVA9788,S_GVA9788,B_GVA9788,C_GVA9788,F_GVA9788,"body, head",Parque Cidade East
+"Porto, Parque Cidade",Urban,41.168225,-8.67736,20.10.2021,PCF19,male,33.6,101.49,57.84,T_GVA9802,,,,,"body, head",Parque Cidade Fontain
+"Porto, Parque Cidade",Urban,41.168225,-8.67736,20.10.2021,PCF05,female,45.3,104.17,61.64,T_GVA9783,S_GVA9783,B_GVA9783,C_GVA9783,,head,Parque Cidade Fontain. Pregnant
+"Porto, Parque Cidade",Urban,41.168225,-8.67736,20.10.2021,PCF21,female,30.2,110.9,70.36,T_GVA9804,,,,,"body, head",Parque Cidade Fontain
+"Porto, Parque Cidade",Urban,41.168225,-8.67736,20.10.2021,PCF10,male,31.8,111.43,71.85,T_GVA9793,,,,,"body, head",Parque Cidade Fontain
+"Porto, Parque Cidade",Urban,41.168225,-8.67736,20.10.2021,PCF17,male,33,112.99,52.63,T_GVA9800,,,,,"body, head",Parque Cidade Fontain
+"Porto, Parque Cidade",Urban,41.168225,-8.67736,20.10.2021,PCF20,male,41.6,113.74,76.19,T_GVA9803,,,,,"body, head",Parque Cidade Fontain
+"Porto, Parque Cidade",Urban,41.168225,-8.67736,20.10.2021,PCF12,male,42.1,114.31,67.01,T_GVA9795,,,,,"body, head",Parque Cidade Fontain
+"Porto, Parque Cidade",Urban,41.168225,-8.67736,20.10.2021,PCF13,female,37.7,115.2,47.85,T_GVA9796,,,,,"body, head",Parque Cidade Fontain. Regenerated tail
+"Porto, Parque Cidade",Urban,41.168225,-8.67736,20.10.2021,PCF01,male,36,115.35,71.43,T_GVA9779,S_GVA9779,B_GVA9779,C_GVA9779,,"body, head",Parque Cidade Fontain
+"Porto, Parque Cidade",Urban,41.168225,-8.67736,20.10.2021,PCF08,male,37.1,119.11,70.18,T_GVA9791,,,,,"body, head",Parque Cidade Fontain
+"Porto, Parque Cidade",Urban,41.168225,-8.67736,20.10.2021,PCF22,male,37.1,119.21,78.01,T_GVA9805,,,,,"body, head",Parque Cidade Fontain
+"Porto, Parque Cidade",Urban,41.168225,-8.67736,20.10.2021,PCF03,male,44.4,121.72,79.19,T_GVA9781,S_GVA9781,B_GVA9781,C_GVA9781,,"body, head",Parque Cidade Fontain
+"Porto, Parque Cidade",Urban,41.16983,-8.67327,20.10.2021,PCE04,male,49.5,123.26,82.96,T_GVA9787,S_GVA9787,B_GVA9787,C_GVA9787,,"body, head",Parque Cidade East
+"Porto, Parque Cidade",Urban,41.16983,-8.67327,20.10.2021,PCE03,female,62.5,123.71,74.2,T_GVA9786,S_GVA9786,B_GVA9786,C_GVA9786,F_GVA9786,"body, head",Parque Cidade East. Pregnant
+"Porto, Parque Cidade",Urban,41.16983,-8.67327,20.10.2021,PCE02,male,43.1,125.18,83.42,T_GVA9785,S_GVA9785,B_GVA9785,C_GVA9785,F_GVA9785,"body, head",Parque Cidade East
+"Porto, Parque Cidade",Urban,41.16983,-8.67327,20.10.2021,PCE07,male,52.3,131.76,84.68,T_GVA9807,,,,,"body, head",Parque Cidade East
+"Porto, Parque de Avioso",Non-urban,41.28892,-8.61602,29.10.2021,PAV35,male,6.1,70.33,40.62,,,,,,"body, head",
+"Porto, Parque de Avioso",Non-urban,41.28892,-8.61602,29.10.2021,PAV30,male,10.2,77.4,41.24,,,,,,"body, head",
+"Porto, Parque de Avioso",Non-urban,41.28892,-8.61602,29.10.2021,PAV15,male,15.3,92.97,59.5,T_GVA9881,,,,,"body, head",
+"Porto, Parque de Avioso",Non-urban,41.28892,-8.61602,29.10.2021,PAV11,male,18.4,97.6,63.14,T_GVA9877,,,,,"body, head",missing toes in one foot
+"Porto, Parque de Avioso",Non-urban,41.28892,-8.61602,29.10.2021,PAV28,male,20.2,99.21,58.93,,,,,,"body, head",
+"Porto, Parque de Avioso",Non-urban,41.28892,-8.61602,29.10.2021,PAV04,male,22.8,103.45,67.84,T_GVA9870,S_GVA9870,B_GVA9870,C_GVA9870,,"body, head",
+"Porto, Parque de Avioso",Non-urban,41.28892,-8.61602,29.10.2021,PAV33,male,22.4,104.47,67.29,,,,,,"body, head",
+"Porto, Parque de Avioso",Non-urban,41.28892,-8.61602,29.10.2021,PAV17,male,21,105.09,62.31,T_GVA9883,,,,,"body, head",
+"Porto, Parque de Avioso",Non-urban,41.28892,-8.61602,29.10.2021,PAV01,male,20.9,106.85,66.54,T_GVA9867,S_GVA9867,B_GVA9867,C_GVA9867,F_GVA9867,"body, head",shedding
+"Porto, Parque de Avioso",Non-urban,41.28892,-8.61602,29.10.2021,PAV34,male,25,107.4,69.23,,,,,,"body, head",
+"Porto, Parque de Avioso",Non-urban,41.28892,-8.61602,29.10.2021,PAV18,male,30.1,107.73,68.47,T_GVA9884,,,,,"body, head",weird cloaca
+"Porto, Parque de Avioso",Non-urban,41.28892,-8.61602,29.10.2021,PAV38,male,25.4,107.81,65.71,,,,,,"body, head",
+"Porto, Parque de Avioso",Non-urban,41.28892,-8.61602,29.10.2021,PAV03,male,25,108.99,72.84,T_GVA9869,S_GVA9869,B_GVA9869,C_GVA9869,,"body, head",shedding
+"Porto, Parque de Avioso",Non-urban,41.28892,-8.61602,29.10.2021,PAV12,male,29.6,109.05,70.37,T_GVA9878,,,,,"body, head",
+"Porto, Parque de Avioso",Non-urban,41.28892,-8.61602,29.10.2021,PAV16,male,26.9,109.3,73.66,T_GVA9882,,,,,"body, head",
+"Porto, Parque de Avioso",Non-urban,41.28892,-8.61602,29.10.2021,PAV27,female,33.8,110.05,67.43,,,,,,"body, head",
+"Porto, Parque de Avioso",Non-urban,41.28892,-8.61602,29.10.2021,PAV37,male,26.3,110.38,65.78,,,,,,"body, head",
+"Porto, Parque de Avioso",Non-urban,41.28892,-8.61602,29.10.2021,PAV23,male,24,111.17,55.71,,,,,,"body, head",
+"Porto, Parque de Avioso",Non-urban,41.28892,-8.61602,29.10.2021,PAV36,male,31.6,111.57,82.02,,,,,,"body, head",
+"Porto, Parque de Avioso",Non-urban,41.28892,-8.61602,29.10.2021,PAV21,male,34.7,112.01,75.96,,,,,,"body, head",
+"Porto, Parque de Avioso",Non-urban,41.28892,-8.61602,29.10.2021,PAV26,male,30.6,112.36,67.03,,,,,,"body, head",
+"Porto, Parque de Avioso",Non-urban,41.28892,-8.61602,29.10.2021,PAV09,male,32.1,112.7,71.97,T_GVA9875,,,,,"body, head",
+"Porto, Parque de Avioso",Non-urban,41.28892,-8.61602,29.10.2021,PAV10,male,29.7,112.72,79.23,T_GVA9876,,,,,"body, head",
+"Porto, Parque de Avioso",Non-urban,41.28892,-8.61602,29.10.2021,PAV14,male,31.2,112.8,77.24,T_GVA9880,,,,,"body, head",weird cloaca
+"Porto, Parque de Avioso",Non-urban,41.28892,-8.61602,29.10.2021,PAV13,male,31.2,113.45,70.9,T_GVA9879,,,,,"body, head",
+"Porto, Parque de Avioso",Non-urban,41.28892,-8.61602,29.10.2021,PAV02,male,31.2,114.38,68.05,T_GVA9868,S_GVA9868,B_GVA9868,C_GVA9868,,"body, head",
+"Porto, Parque de Avioso",Non-urban,41.28892,-8.61602,29.10.2021,PAV08,male,27.1,114.55,77.91,T_GVA9874,,,,,"body, head",
+"Porto, Parque de Avioso",Non-urban,41.28892,-8.61602,29.10.2021,PAV29,female,36.6,115.22,69.7,,,,,,"body, head",
+"Porto, Parque de Avioso",Non-urban,41.28892,-8.61602,29.10.2021,PAV24,male,33,115.96,78.23,,,,,,"body, head",
+"Porto, Parque de Avioso",Non-urban,41.28892,-8.61602,29.10.2021,PAV31,male,33.5,116.61,71.86,,,,,,"body, head",
+"Porto, Parque de Avioso",Non-urban,41.28892,-8.61602,29.10.2021,PAV19,male,41.8,116.69,79.82,T_GVA9885,,,,,"body, head",
+"Porto, Parque de Avioso",Non-urban,41.28892,-8.61602,29.10.2021,PAV32,male,31,118.17,82.03,,,,,,"body, head",
+"Porto, Parque de Avioso",Non-urban,41.28892,-8.61602,29.10.2021,PAV05,male,34.7,118.35,73.29,T_GVA9871,S_GVA9871,B_GVA9871,C_GVA9871,,"body, head",
+"Porto, Parque de Avioso",Non-urban,41.28892,-8.61602,29.10.2021,PAV06,male,36,121.41,82.17,T_GVA9872,,,,,"body, head",missing and weird hand
+"Porto, Parque de Avioso",Non-urban,41.28892,-8.61602,29.10.2021,PAV25,male,35.4,121.85,80.48,,,,,,"body, head",
+"Porto, Parque de Avioso",Non-urban,41.28892,-8.61602,29.10.2021,PAV07,male,38.7,122.59,80.52,T_GVA9873,,,,,"body, head",
+"Porto, Parque de Avioso",Non-urban,41.28892,-8.61602,29.10.2021,PAV22,male,31.1,122.73,71.94,,,,,,"body, head",
+"Porto, Parque de Avioso",Non-urban,41.28892,-8.61602,29.10.2021,PAV20,female,50.5,124.69,70.13,T_GVA9886,,,,,"body, head",
+"Porto, Parque Nossa Senhora de Valinhas",Non-urban,41.30639,-8.44891,31.10.2021,VAL03,male,10.4,80.92,48.41,T_GVA9899,S_GVA9899,B_GVA9899,C_GVA9899,,"body, head",
+"Porto, Parque Nossa Senhora de Valinhas",Non-urban,41.30639,-8.44891,31.10.2021,VAL18,male,15.5,85.89,51.6,T_GVA9957,,,,,"body, head",
+"Porto, Parque Nossa Senhora de Valinhas",Non-urban,41.30639,-8.44891,31.10.2021,VAL07,male,16.5,89.32,58.41,T_GVA9946,,,,,"body, head",
+"Porto, Parque Nossa Senhora de Valinhas",Non-urban,41.30639,-8.44891,31.10.2021,VAL13,male,21.7,99.56,60.72,T_GVA9952,,,,,"body, head",
+"Porto, Parque Nossa Senhora de Valinhas",Non-urban,41.30639,-8.44891,31.10.2021,VAL20,male,22.3,101.26,61.3,T_GVA9959,,,,,"body, head",missing toe in one foot
+"Porto, Parque Nossa Senhora de Valinhas",Non-urban,41.30639,-8.44891,31.10.2021,VAL19,male,25.9,106.44,64.8,T_GVA9958,,,,,"body, head",
+"Porto, Parque Nossa Senhora de Valinhas",Non-urban,41.30639,-8.44891,31.10.2021,VAL17,male,25.8,106.7,67.46,T_GVA9956,,,,,"body, head",
+"Porto, Parque Nossa Senhora de Valinhas",Non-urban,41.30639,-8.44891,31.10.2021,VAL16,male,28.5,112.53,73.92,T_GVA9955,,,,,"body, head",
+"Porto, Parque Nossa Senhora de Valinhas",Non-urban,41.30639,-8.44891,31.10.2021,VAL15,female,40.7,112.58,69.38,T_GVA9954,,,,,"body, head",
+"Porto, Parque Nossa Senhora de Valinhas",Non-urban,41.30639,-8.44891,31.10.2021,VAL02,male,27.8,112.97,77.82,T_GVA9898,S_GVA9898,B_GVA9898,C_GVA9898,,"body, head",
+"Porto, Parque Nossa Senhora de Valinhas",Non-urban,41.30639,-8.44891,31.10.2021,VAL12,female,30.9,113.15,71.98,T_GVA9951,,,,,"body, head",
+"Porto, Parque Nossa Senhora de Valinhas",Non-urban,41.30639,-8.44891,31.10.2021,VAL21,female,72.5,115.86,70.06,,,,,,head,pregnant
+"Porto, Parque Nossa Senhora de Valinhas",Non-urban,41.30639,-8.44891,31.10.2021,VAL01,female,35.2,115.87,80.01,T_GVA9897,S_GVA9897,B_GVA9897,C_GVA9897,,"body, head",
+"Porto, Parque Nossa Senhora de Valinhas",Non-urban,41.30639,-8.44891,31.10.2021,VAL08,female,45.5,116,75.84,T_GVA9947,,,,,"body, head",pregnant
+"Porto, Parque Nossa Senhora de Valinhas",Non-urban,41.30639,-8.44891,31.10.2021,VAL22,female,62.7,116,,,,,,,head,pregnant
+"Porto, Parque Nossa Senhora de Valinhas",Non-urban,41.30639,-8.44891,31.10.2021,VAL23,female,57.9,116.3,,,,,,,head,pregnant
+"Porto, Parque Nossa Senhora de Valinhas",Non-urban,41.30639,-8.44891,31.10.2021,VAL11,male,51.1,116.74,76.46,T_GVA9950,,,,,"body, head",
+"Porto, Parque Nossa Senhora de Valinhas",Non-urban,41.30639,-8.44891,31.10.2021,VAL10,male,39.6,118.35,74.73,T_GVA9949,,,,,"body, head",
+"Porto, Parque Nossa Senhora de Valinhas",Non-urban,41.30639,-8.44891,31.10.2021,VAL05,male,39.8,118.8,76.74,T_GVA9901,S_GVA9901,B_GVA9901,C_GVA9901,,"body, head",
+"Porto, Parque Nossa Senhora de Valinhas",Non-urban,41.30639,-8.44891,31.10.2021,VAL14,female,48.6,118.94,80.07,T_GVA9953,,,,,"body, head","seriously injured in the cloaca, finally died - stored in the freezer"
+"Porto, Parque Nossa Senhora de Valinhas",Non-urban,41.30639,-8.44891,31.10.2021,VAL06,male,34.8,119.44,69.14,T_GVA9945,,,,,"body, head",
+"Porto, Parque Nossa Senhora de Valinhas",Non-urban,41.30639,-8.44891,31.10.2021,VAL04,male,44.8,125.53,78.84,T_GVA9900,S_GVA9900,B_GVA9900,C_GVA9900,,"body, head",
+"Porto, Parque Nossa Senhora de Valinhas",Non-urban,41.30639,-8.44891,31.10.2021,VAL09,male,49.9,126.06,86.16,T_GVA9948,,,,,"body, head",
+"Porto, Parque Oriental",Urban,41.154586,-8.566416,07.12.2021,POR33,female,12.8,80.35,49.99,T_GVA10462,,,,,"body, head",Site B
+"Porto, Parque Oriental",Urban,41.154586,-8.566416,07.12.2021,POR25,male,13,81.64,47.78,,,,,,"body, head",Site A. Weird low jaw
+"Porto, Parque Oriental",Urban,41.154586,-8.566416,07.12.2021,POR26,male,15.1,82.99,49.35,,,,,,"body, head",Site A
+"Porto, Parque Oriental",Urban,41.154586,-8.566416,07.12.2021,POR20,male,17,83.55,52.16,T_GVA10454,,,,,"body, head",Site A
+"Porto, Parque Oriental",Urban,41.154586,-8.566416,07.12.2021,POR22,male,15.7,83.84,50.93,,,,,,"body, head",Site A
+"Porto, Parque Oriental",Urban,41.154586,-8.566416,07.12.2021,POR11,female,13.5,83.85,51.27,T_GVA10445,,,,,"body, head",Site A
+"Porto, Parque Oriental",Urban,41.154586,-8.566416,07.12.2021,POR18,male,13.8,85.58,52.1,T_GVA10452,,,,,"body, head",Site A
+"Porto, Parque Oriental",Urban,41.154586,-8.566416,07.12.2021,POR08,male,16.7,86.91,59.41,T_GVA10442,,,,,"body, head",Site A
+"Porto, Parque Oriental",Urban,41.154586,-8.566416,07.12.2021,POR09,male,16.5,87.58,91.9,T_GVA10443,,,,,"body, head",Site A
+"Porto, Parque Oriental",Urban,41.154586,-8.566416,07.12.2021,POR23,female,14.9,88.72,52.84,,,,,,"body, head",Site A
+"Porto, Parque Oriental",Urban,41.154586,-8.566416,07.12.2021,POR05,female,17.5,89.23,54.25,T_GVA10439,S_GVA10439,B_GVA10439,C_GVA10439,,"body, head",Site A
+"Porto, Parque Oriental",Urban,41.154586,-8.566416,07.12.2021,POR19,male,17.4,90.07,55.17,T_GVA10453,,,,,"body, head",Site A
+"Porto, Parque Oriental",Urban,41.154586,-8.566416,07.12.2021,POR13,male,19.3,91.22,62.64,T_GVA10447,,,,,"body, head",Site A
+"Porto, Parque Oriental",Urban,41.154586,-8.566416,07.12.2021,POR15,female,27.8,96.74,56.57,T_GVA10449,,,,,"body, head",Site A
+"Porto, Parque Oriental",Urban,41.154586,-8.566416,07.12.2021,POR04,male,21.7,100.31,53.96,T_GVA10438,S_GVA10438,B_GVA10438,C_GVA10438,F_GVA10438,"body, head",Site A
+"Porto, Parque Oriental",Urban,41.154586,-8.566416,07.12.2021,POR30,male,24,102.66,65.68,T_GVA10459,,,,,"body, head",Site B
+"Porto, Parque Oriental",Urban,41.154586,-8.566416,07.12.2021,POR01,male,26.5,106.31,67.15,T_GVA10435,S_GVA10435,B_GVA10435,C_GVA10435,,"body, head",Site A
+"Porto, Parque Oriental",Urban,41.154586,-8.566416,07.12.2021,POR17,male,29.5,108.04,77.12,T_GVA10451,,,,,"body, head",Site A
+"Porto, Parque Oriental",Urban,41.154586,-8.566416,07.12.2021,POR10,male,24.8,108.08,68.75,T_GVA10444,,,,,"body, head",Site A
+"Porto, Parque Oriental",Urban,41.154586,-8.566416,07.12.2021,POR06,male,29.2,110.11,66.5,T_GVA10440,,,,,"body, head",Site A
+"Porto, Parque Oriental",Urban,41.154586,-8.566416,07.12.2021,POR02,male,35.5,110.73,75.49,T_GVA10436,S_GVA10436,B_GVA10436,C_GVA10436,,"body, head",Site A
+"Porto, Parque Oriental",Urban,41.154586,-8.566416,07.12.2021,POR16,female,37.4,111.68,61,T_GVA10450,,,,,"body, head",Site A
+"Porto, Parque Oriental",Urban,41.154586,-8.566416,07.12.2021,POR14,male,39.3,111.73,72.9,T_GVA10448,,,,,"body, head",Site A
+"Porto, Parque Oriental",Urban,41.154586,-8.566416,07.12.2021,POR27,male,35,114.08,76.52,T_GVA10456,,,,,"body, head",Site B
+"Porto, Parque Oriental",Urban,41.154586,-8.566416,07.12.2021,POR31,male,36.6,114.75,73.07,T_GVA10460,,,,,"body, head",Site B
+"Porto, Parque Oriental",Urban,41.154586,-8.566416,07.12.2021,POR21,female,52.4,115.09,71.77,,,,,,"body, head",Site A. Pregnant. Asymmetric head
+"Porto, Parque Oriental",Urban,41.154586,-8.566416,07.12.2021,POR32,female,51,115.18,66.58,T_GVA10461,,,,,"body, head",Site B
+"Porto, Parque Oriental",Urban,41.154586,-8.566416,07.12.2021,POR07,male,32.4,115.29,19.02,T_GVA10441,,,,,"body, head",Site A
+"Porto, Parque Oriental",Urban,41.154586,-8.566416,07.12.2021,POR24,female,50.5,115.62,72.2,,,,,,"body, head",Site A. Pregnant
+"Porto, Parque Oriental",Urban,41.154586,-8.566416,07.12.2021,POR29,female,27.2,115.98,74.62,T_GVA10458,,,,,"body, head",Site B. Pregnant
+"Porto, Parque Oriental",Urban,41.154586,-8.566416,07.12.2021,POR28,female,60.6,120.51,78.53,T_GVA10457,,,,,"body, head",Site B. Pregnant
+"Porto, Parque Oriental",Urban,41.154586,-8.566416,07.12.2021,POR12,female,15.6,87.4,49.97,T_GVA10446,,,,,"body, head",Site A
+"Porto, Parque Oriental",Urban,41.154586,-8.566416,07.12.2021,POR03,female,17.9,88.43,53.12,T_GVA10437,S_GVA10437,B_GVA10437,C_GVA10437,,"body, head",Site A
+"Porto, Parque Oriental",Urban,41.154586,-8.566416,09.12.2021,NO ID,,,,,,,,,F-POR-09.12.2021,,
+"Porto, Parque Oriental",Urban,41.154586,-8.566416,09.12.2021,NO ID,,,,,,,,,F-POR-09.12.2021,,
+"Porto, Parque Real",Urban,41.178481,-8.673211,17.10.2021,PRL15,male,10.5,79.48,42.24,T_GVA9758,,,,,"body, head",
+"Porto, Parque Real",Urban,41.178481,-8.673211,17.10.2021,PRL14,female,14.8,87.31,48.7,T_GVA9757,,,,,"body, head",
+"Porto, Parque Real",Urban,41.178481,-8.673211,17.10.2021,PRL09,male,13.3,88.79,51.75,T_GVA9752,,,,,"body, head",
+"Porto, Parque Real",Urban,41.178481,-8.673211,17.10.2021,PRL08,male,16,92.51,60.94,T_GVA9751,,,,,"body, head",
+"Porto, Parque Real",Urban,41.178481,-8.673211,17.10.2021,PRL16,male,19.3,96.66,62.29,T_GVA9759,,,,,"body, head",
+"Porto, Parque Real",Urban,41.178481,-8.673211,17.10.2021,PRL04,female,18.3,97.76,54.47,T_GVA9747,S_GVA9747,B_GVA9747,C_GVA9747,,"body, head",
+"Porto, Parque Real",Urban,41.178481,-8.673211,17.10.2021,PRL03,male,19.3,100.29,63.37,T_GVA9746,S_GVA9746,B_GVA9746,C_GVA9746,,"body, head",
+"Porto, Parque Real",Urban,41.178481,-8.673211,17.10.2021,PRL17,male,23.3,100.5,66.19,T_GVA9760,,,,,"body, head",
+"Porto, Parque Real",Urban,41.178481,-8.673211,17.10.2021,PRL11,male,21.4,100.71,67.42,T_GVA9754,,,,,"body, head",
+"Porto, Parque Real",Urban,41.178481,-8.673211,17.10.2021,PRL13,male,26.9,107,68.35,T_GVA9756,,,,,"body, head",
+"Porto, Parque Real",Urban,41.178481,-8.673211,17.10.2021,PRL12,male,30.9,111.58,65.8,T_GVA9755,,,,,"body, head",
+"Porto, Parque Real",Urban,41.178481,-8.673211,17.10.2021,PRL05,female,35.5,111.63,72.88,T_GVA9748,S_GVA9748,B_GVA9748,C_GVA9748,,"body, head",
+"Porto, Parque Real",Urban,41.178481,-8.673211,17.10.2021,PRL19,female,47.6,112.1,,T_GVA9762,,,,,"body, head",pregnant
+"Porto, Parque Real",Urban,41.178481,-8.673211,17.10.2021,PRL10,female,30.6,112.66,61.43,T_GVA9753,,,,,"body, head",
+"Porto, Parque Real",Urban,41.178481,-8.673211,17.10.2021,PRL07,male,33,113.08,52.49,T_GVA9750,,,,,"body, head",
+"Porto, Parque Real",Urban,41.178481,-8.673211,17.10.2021,PRL18,female,36.9,117.54,76.26,T_GVA9761,,,,,"body, head",
+"Porto, Parque Real",Urban,41.178481,-8.673211,17.10.2021,PRL02,female,38.2,118.22,71.11,T_GVA9745,S_GVA9745,B_GVA9745,C_GVA9745,,"body, head",
+"Porto, Parque Real",Urban,41.178481,-8.673211,17.10.2021,PRL06,male,42.1,121,88.7,T_GVA9749,,,,,"body, head",
+"Porto, Parque Real",Urban,41.178481,-8.673211,17.10.2021,PRL01,male,42.8,121.25,80.69,T_GVA9744,S_GVA9744,B_GVA9744,C_GVA9744,F_GVA9744,"body, head",possible contamination of skin swab
+"Porto, Ponde do Pau",Non-urban,41.2673231070303,-8.4710307403073,01.12.2021,PAU05,male,10.4,76.99,45.59,T_GVA10011,S_GVA10011,B_GVA10011,C_GVA10011,,"body, head",
+"Porto, Ponde do Pau",Non-urban,41.2673231070303,-8.4710307403073,01.12.2021,PAU09,male,10.5,79.67,50.79,T_GVA10015,,,,,"body, head",
+"Porto, Ponde do Pau",Non-urban,41.2673231070303,-8.4710307403073,01.12.2021,PAU04,male,18.3,95.13,59.18,T_GVA10010,S_GVA10010,B_GVA10010,C_GVA10010,,"body, head",missing fingers in left hand
+"Porto, Ponde do Pau",Non-urban,41.2673231070303,-8.4710307403073,01.12.2021,PAU02,male,25,100.48,67.61,T_GVA10008,S_GVA10008,B_GVA10008,C_GVA10008,,"body, head",
+"Porto, Ponde do Pau",Non-urban,41.2673231070303,-8.4710307403073,01.12.2021,PAU07,male,20.8,101.13,61.45,T_GVA10013,,,,,"body, head",
+"Porto, Ponde do Pau",Non-urban,41.2673231070303,-8.4710307403073,01.12.2021,PAU19,male,21.9,101.53,56.38,T_GVA10025,,,,,"body, head",
+"Porto, Ponde do Pau",Non-urban,41.2673231070303,-8.4710307403073,01.12.2021,PAU12,male,24.4,103.19,65.7,T_GVA10018,,,,,"body, head",
+"Porto, Ponde do Pau",Non-urban,41.2673231070303,-8.4710307403073,01.12.2021,PAU11,male,32.7,104.43,64.35,T_GVA10017,,,,,"body, head",
+"Porto, Ponde do Pau",Non-urban,41.2673231070303,-8.4710307403073,01.12.2021,PAU17,male,28,105.33,63.49,T_GVA10023,,,,,"body, head",
+"Porto, Ponde do Pau",Non-urban,41.2673231070303,-8.4710307403073,01.12.2021,PAU10,male,21.1,106.56,68.66,T_GVA10016,,,,,"body, head",
+"Porto, Ponde do Pau",Non-urban,41.2673231070303,-8.4710307403073,01.12.2021,PAU14,male,26.6,107.78,70,T_GVA10020,,,,,"body, head",
+"Porto, Ponde do Pau",Non-urban,41.2673231070303,-8.4710307403073,01.12.2021,PAU15,male,27.5,107.78,72.37,T_GVA10021,,,,,"body, head",
+"Porto, Ponde do Pau",Non-urban,41.2673231070303,-8.4710307403073,01.12.2021,PAU06,male,29.7,109.24,63.37,T_GVA10012,,,,,"body, head",
+"Porto, Ponde do Pau",Non-urban,41.2673231070303,-8.4710307403073,01.12.2021,PAU01,male,32.4,110.4,72.22,T_GVA10007,S_GVA10007,B_GVA10007,C_GVA10007,,"body, head",
+"Porto, Ponde do Pau",Non-urban,41.2673231070303,-8.4710307403073,01.12.2021,PAU08,male,31.2,111.84,73.18,T_GVA10014,,,,,"body, head",
+"Porto, Ponde do Pau",Non-urban,41.2673231070303,-8.4710307403073,01.12.2021,PAU20,female,47.2,112.03,75.21,T_GVA10026,,,,,"body, head",perg?
+"Porto, Ponde do Pau",Non-urban,41.2673231070303,-8.4710307403073,01.12.2021,PAU13,male,33.2,112.47,63.02,T_GVA10019,,,,,"body, head",
+"Porto, Ponde do Pau",Non-urban,41.2673231070303,-8.4710307403073,01.12.2021,PAU16,male,29.4,113.75,73.36,T_GVA10022,,,,,"body, head",
+"Porto, Ponde do Pau",Non-urban,41.2673231070303,-8.4710307403073,01.12.2021,PAU18,male,29.7,117.33,80.27,T_GVA10024,,,,,"body, head",missing fingers in left hand
+"Porto, Ponde do Pau",Non-urban,41.2673231070303,-8.4710307403073,01.12.2021,PAU03,male,35.1,118.49,84.45,T_GVA10009,S_GVA10009,B_GVA10009,C_GVA10009,F_GVA10009,"body, head",
+"Porto, Ponde do Pau",Non-urban,41.2673231070303,-8.4710307403073,01.12.2021,NO ID,,,,,,,,,F-PAU-03.12,,
+"Porto, Ramalde",Urban,41.17732,-8.64003,28.10.2021,RAM22,male,19.3,95.25,66.11,T_GVA9848,,,,,"body, head",
+"Porto, Ramalde",Urban,41.17643,-8.64172,09.05.2021,RAM07,male,21.2,97.22,58.12,T_GVA9733,,,,,"body, head",
+"Porto, Ramalde",Urban,41.17643,-8.64172,09.05.2021,RAM02,male ,25.7,97.52,58.32,T_GVA9728,S_GVA9728,B_GVA9728,C_GVA9728,,"body, head",
+"Porto, Ramalde",Urban,41.17732,-8.64003,28.10.2021,RAM25,male,22.3,100.69,67.1,T_GVA9851,,,,,"body, head",
+"Porto, Ramalde",Urban,41.17643,-8.64172,09.05.2021,RAM15,female,22.3,101.4,58.33,T_GVA9741,,,,,"body, head",
+"Porto, Ramalde",Urban,41.17732,-8.64003,28.10.2021,RAM33,male,27.4,101.45,65.59,T_GVA9859,,,,,"body, head",
+"Porto, Ramalde",Urban,41.17643,-8.64172,09.05.2021,RAM08,male,25.5,101.78,58.46,T_GVA9734,,,,,"body, head",
+"Porto, Ramalde",Urban,41.17643,-8.64172,09.05.2021,RAM12,female,30,102.65,66.96,T_GVA9738,,,,,"body, head","Nostril injure ""Labio leporino"""
+"Porto, Ramalde",Urban,41.17643,-8.64172,09.05.2021,RAM01,female,29.9,102.71,60.13,T_GVA9727,S_GVA9727,B_GVA9727,C_GVA9727,F_GVA9727,"body, head",
+"Porto, Ramalde",Urban,41.17732,-8.64003,28.10.2021,RAM29,male,24.7,103.29,59.3,T_GVA9855,,,,,"body, head",
+"Porto, Ramalde",Urban,41.17732,-8.64003,28.10.2021,RAM23,male,26.8,103.8,66.4,T_GVA9849,,,,,"body, head",
+"Porto, Ramalde",Urban,41.17643,-8.64172,09.05.2021,RAM10,female,27.9,104.64,68.1,T_GVA9736,,,,,"body, head",
+"Porto, Ramalde",Urban,41.17732,-8.64003,28.10.2021,RAM18,male,24.3,105.03,66.15,T_GVA9830,S_GVA9830,B_GVA9830,C_GVA9830,F_GVA9830,"body, head",
+"Porto, Ramalde",Urban,41.17643,-8.64172,09.05.2021,RAM03,male,29.4,105.55,72.14,T_GVA9729,S_GVA9729,B_GVA9729,C_GVA9729,,"body, head",
+"Porto, Ramalde",Urban,41.17643,-8.64172,09.05.2021,RAM04,female,36.5,106.35,62.36,T_GVA9730,S_GVA9730,B_GVA9730,C_GVA9730,F_GVA9730,"body, head",
+"Porto, Ramalde",Urban,41.17732,-8.64003,28.10.2021,RAM31,male,28.2,106.42,70.54,T_GVA9857,,,,,"body, head",
+"Porto, Ramalde",Urban,41.17643,-8.64172,09.05.2021,RAM09,female,34,106.7,69.46,T_GVA9735,,,,,"body, head",
+"Porto, Ramalde",Urban,41.17732,-8.64003,28.10.2021,RAM32,male,28.9,107.29,67.78,T_GVA9858,,,,,"body, head",
+"Porto, Ramalde",Urban,41.17643,-8.64172,09.05.2021,RAM14,female,33.7,107.81,66.97,T_GVA9740,,,,,"body, head",
+"Porto, Ramalde",Urban,41.17643,-8.64172,09.05.2021,RAM06,female,37.1,108.18,69.85,T_GVA9732,,,,,"body, head",
+"Porto, Ramalde",Urban,41.17643,-8.64172,09.05.2021,RAM13,female,38.5,110.96,61.79,T_GVA9739,,,,,"body, head",
+"Porto, Ramalde",Urban,41.17732,-8.64003,28.10.2021,RAM26,male,31.7,111.28,73.97,T_GVA9852,,,,,"body, head",
+"Porto, Ramalde",Urban,41.17732,-8.64003,28.10.2021,RAM17,male,29.8,111.87,77.17,T_GVA9829,S_GVA9829,B_GVA9829,C_GVA9829,F_GVA9829,"body, head",
+"Porto, Ramalde",Urban,41.17732,-8.64003,28.10.2021,RAM27,male,34.6,112.24,68.81,T_GVA9853,,,,,"body, head",
+"Porto, Ramalde",Urban,41.17732,-8.64003,28.10.2021,RAM30,male,35.6,113.32,75.31,T_GVA9856,,,,,"body, head",
+"Porto, Ramalde",Urban,41.17732,-8.64003,28.10.2021,RAM24,female,38.2,113.7,75.56,T_GVA9850,,,,,"body, head",
+"Porto, Ramalde",Urban,41.17643,-8.64172,09.05.2021,RAM05,female,48.5,113.95,67.45,T_GVA9731,S_GVA9731,B_GVA9731,C_GVA9731,,"body, head",
+"Porto, Ramalde",Urban,41.17732,-8.64003,28.10.2021,RAM28,male,33.2,114.47,63.96,T_GVA9854,,,,,"body, head",
+"Porto, Ramalde",Urban,41.17732,-8.64003,28.10.2021,RAM19,feamle,39.6,115.55,56.17,T_GVA9831,S_GVA9831,B_GVA9831,C_GVA9831,,"body, head",
+"Porto, Ramalde",Urban,41.17732,-8.64003,28.10.2021,RAM20,female,57.5,117.7,,T_GVA9832,S_GVA9832,B_GVA9832,C_GVA9832,,head,pregnant
+"Porto, Ramalde",Urban,41.17643,-8.64172,09.05.2021,RAM11,female,39.4,120.36,82,T_GVA9737,,,,,"body, head",
+"Porto, Ramalde",Urban,41.17732,-8.64003,28.10.2021,RAM16,male,37.1,123.36,86.41,T_GVA9828,S_GVA9828,B_GVA9828,C_GVA9828,F_GVA9828,"body, head",
+"Porto, Ramalde",Urban,41.17732,-8.64003,28.10.2021,RAM21,male,46.4,126.53,85.77,T_GVA9847,,,,,"body, head",bulto cola
+"Porto, Ramalde",Urban,41.17643,-8.64172,09.05.2021,NO ID,,,,,,,,,RAM-F01,,
+"Porto, Ramalde",Urban,41.17643,-8.64172,09.05.2021,NO ID,,,,,,,,,RAM-F02,,
+"Porto, Ramalde",Urban,41.17732,-8.64003,28.10.2021,NO ID,,,,,,,,,RAM-F03,,
+"Porto, Ramalde",Urban,41.17732,-8.64003,28.10.2021,NO ID,,,,,,,,,RAM-F04,,
+"Porto, Senhora do Salto",Non-urban,41.127089,-8.43224,02.11.2021,SLT09,juvenil,6.7,68.17,40.76,T_GVA9973,,,,,"body, head",
+"Porto, Senhora do Salto",Non-urban,41.127089,-8.43224,02.11.2021,SLT04,male,8.2,75.02,47.24,T_GVA9968,S_GVA9968,B_GVA9968,C_GVA9968,,"body, head",
+"Porto, Senhora do Salto",Non-urban,41.127089,-8.43224,02.11.2021,SLT03,male,11.6,77.99,47.01,T_GVA9967,S_GVA9967,B_GVA9967,C_GVA9967,F_GVA9967,"body, head",
+"Porto, Senhora do Salto",Non-urban,41.127089,-8.43224,02.11.2021,SLT07,male,11.5,86.25,48.44,T_GVA9971,,,,,"body, head",
+"Porto, Senhora do Salto",Non-urban,41.127089,-8.43224,02.11.2021,SLT08,male,15,88.34,51.9,T_GVA9972,,,,,"body, head",
+"Porto, Senhora do Salto",Non-urban,41.127089,-8.43224,02.11.2021,SLT01,male,15.1,91.79,50.9,T_GVA9965,S_GVA9965,B_GVA9965,C_GVA9965,,"body, head","body, head"
+"Porto, Senhora do Salto",Non-urban,41.127089,-8.43224,02.11.2021,SLT13,male,16.3,92.8,53.3,T_GVA9977,,,,,"body, head",
+"Porto, Senhora do Salto",Non-urban,41.127089,-8.43224,02.11.2021,SLT02,male,13.6,94.78,48.79,T_GVA9966,S_GVA9966,B_GVA9966,C_GVA9966,,"body, head",
+"Porto, Senhora do Salto",Non-urban,41.127089,-8.43224,02.11.2021,SLT15,female,25.3,98.24,59.25,T_GVA9979,,,,,"body, head",missing foot
+"Porto, Senhora do Salto",Non-urban,41.127089,-8.43224,02.11.2021,SLT23,male,23.7,103.34,70.76,,,,,,"body, head",
+"Porto, Senhora do Salto",Non-urban,41.127089,-8.43224,02.11.2021,SLT24,male,22.8,105.34,66.34,,,,,,"body, head",
+"Porto, Senhora do Salto",Non-urban,41.127089,-8.43224,02.11.2021,SLT19,male,23.4,106.49,64.85,T_GVA9983,,,,,"body, head",
+"Porto, Senhora do Salto",Non-urban,41.127089,-8.43224,02.11.2021,SLT20,male,26.6,107.37,67.97,T_GVA9984,,,,,"body, head",
+"Porto, Senhora do Salto",Non-urban,41.127089,-8.43224,02.11.2021,SLT17,male,25.5,107.84,69.29,T_GVA9981,,,,,"body, head",
+"Porto, Senhora do Salto",Non-urban,41.127089,-8.43224,02.11.2021,SLT12,male,30.2,108.81,55.69,T_GVA9976,,,,,"body, head",
+"Porto, Senhora do Salto",Non-urban,41.127089,-8.43224,02.11.2021,SLT05,male,31,109.49,34.3,T_GVA9969,S_GVA9969,B_GVA9969,C_GVA9969,,"body, head",regenerating tail
+"Porto, Senhora do Salto",Non-urban,41.127089,-8.43224,02.11.2021,SLT10,male,30.7,109.65,70.32,T_GVA9974,,,,,"body, head",
+"Porto, Senhora do Salto",Non-urban,41.127089,-8.43224,02.11.2021,SLT21,male,25.6,110.28,67.78,,,,,,"body, head",
+"Porto, Senhora do Salto",Non-urban,41.127089,-8.43224,02.11.2021,SLT06,male,26.6,110.47,72.21,T_GVA9970,,,,,"body, head",
+"Porto, Senhora do Salto",Non-urban,41.127089,-8.43224,02.11.2021,SLT16,male,27.5,111.85,64.77,T_GVA9980,,,,,"body, head",
+"Porto, Senhora do Salto",Non-urban,41.127089,-8.43224,02.11.2021,SLT22,male,30,113.27,73.32,,,,,,"body, head",
+"Porto, Senhora do Salto",Non-urban,41.127089,-8.43224,02.11.2021,SLT14,male,34.6,114.1,71.81,T_GVA9978,,,,,"body, head",
+"Porto, Senhora do Salto",Non-urban,41.127089,-8.43224,02.11.2021,SLT26,male,31.5,115.48,78.01,,,,,,"body, head",
+"Porto, Senhora do Salto",Non-urban,41.127089,-8.43224,02.11.2021,SLT25,male,33.7,118.93,74.07,,,,,,"body, head",
+"Porto, Senhora do Salto",Non-urban,41.127089,-8.43224,02.11.2021,SLT18,male,35.2,120.72,75.56,T_GVA9982,,,,,"body, head",
+"Porto, Senhora do Salto",Non-urban,41.127089,-8.43224,02.11.2021,SLT11,male,39.4,124.21,71.98,T_GVA9975,,,,,"body, head",tip tail torcido
+"Porto, Serralves",Urban,41.158415,-8.658085,30.11.2021,SRR07,female (j),7.4,67.19,37.49,T_GVA10033,,,,,"body, head",
+"Porto, Serralves",Urban,41.158415,-8.658085,09.12.2021,SRR32,male,14.8,89.76,57.76,,,,,,"body, head",
+"Porto, Serralves",Urban,41.158415,-8.658085,09.12.2021,SRR31,male,16.4,90.64,58.1,,,,,,"body, head",
+"Porto, Serralves",Urban,41.158415,-8.658085,30.11.2021,SRR03,male,17.4,96.34,58.78,T_GVA10029,S_GVA10029,B_GVA10029,C_GVA10029,,"body, head",
+"Porto, Serralves",Urban,41.158415,-8.658085,09.12.2021,SRR19,male,16.8,97.24,66.96,,,,,,"body, head",
+"Porto, Serralves",Urban,41.158415,-8.658085,09.12.2021,SRR25,male,20.8,97.52,63.97,,,,,,"body, head",
+"Porto, Serralves",Urban,41.158415,-8.658085,30.11.2021,SRR10,male,18.4,97.76,61.66,T_GVA10036,,,,,"body, head",
+"Porto, Serralves",Urban,41.158415,-8.658085,30.11.2021,SRR12,female,24.9,99.83,67.2,T_GVA10038,,,,,"body, head",asummetric head (jaws)
+"Porto, Serralves",Urban,41.158415,-8.658085,30.11.2021,SRR09,female,23,100.71,71.34,T_GVA10035,,,,,"body, head",
+"Porto, Serralves",Urban,41.158415,-8.658085,09.12.2021,SRR24,male,19.1,101.27,61.85,,,,,,"body, head",
+"Porto, Serralves",Urban,41.158415,-8.658085,09.12.2021,SRR26,male,24.5,102.05,71.05,,,,,,"body, head",
+"Porto, Serralves",Urban,41.158415,-8.658085,30.11.2021,SRR04,female,23.6,102.32,62.72,T_GVA10030,S_GVA10030,B_GVA10030,C_GVA10030,,"body, head",
+"Porto, Serralves",Urban,41.158415,-8.658085,30.11.2021,SRR11,male,23,103.09,66.11,T_GVA10037,,,,,"body, head",
+"Porto, Serralves",Urban,41.158415,-8.658085,30.11.2021,SRR14,female,32.8,103.48,63.89,T_GVA10040,,,,,"body, head",
+"Porto, Serralves",Urban,41.158415,-8.658085,30.11.2021,SRR05,female,22.7,104.07,64.44,T_GVA10031,S_GVA10031,B_GVA10031,C_GVA10031,,"body, head",
+"Porto, Serralves",Urban,41.158415,-8.658085,09.12.2021,SRR20,female,30.9,104.95,68.07,,,,,,"body, head",missing fingers
+"Porto, Serralves",Urban,41.158415,-8.658085,09.12.2021,SRR27,female,31.3,105.45,69.01,,,,,,"body, head",
+"Porto, Serralves",Urban,41.158415,-8.658085,09.12.2021,SRR28,male,26.8,106.65,70.07,,,,,,"body, head",
+"Porto, Serralves",Urban,41.158415,-8.658085,09.12.2021,SRR22,male,29.3,107.38,73.48,,,,,,"body, head",
+"Porto, Serralves",Urban,41.158415,-8.658085,09.12.2021,SRR23,male,31.2,108.19,70.36,,,,,,"body, head",
+"Porto, Serralves",Urban,41.158415,-8.658085,30.11.2021,SRR06,male,24.2,109.14,75.83,T_GVA10032,,,,,"body, head",
+"Porto, Serralves",Urban,41.158415,-8.658085,30.11.2021,SRR08,male,24,109.64,71.4,T_GVA10034,,,,,"body, head",
+"Porto, Serralves",Urban,41.158415,-8.658085,09.12.2021,SRR18,male,28.2,109.7,74.7,,,,,,"body, head",missing fingers and foot
+"Porto, Serralves",Urban,41.158415,-8.658085,09.12.2021,SRR17,male,34.2,109.92,7118,,,,,,"body, head",missing finger
+"Porto, Serralves",Urban,41.158415,-8.658085,09.12.2021,SRR16,male,28.9,109.96,77.82,,,,,,"body, head",injure in the foot missing toes
+"Porto, Serralves",Urban,41.158415,-8.658085,09.12.2021,SRR21,male,23,110.95,72.48,,,,,,"body, head",
+"Porto, Serralves",Urban,41.158415,-8.658085,30.11.2021,SRR01,male,32.7,111.08,79.54,T_GVA10027,S_GVA10027,B_GVA10027,C_GVA10027,,"body, head",
+"Porto, Serralves",Urban,41.158415,-8.658085,30.11.2021,SRR13,male,27.6,112.06,73.96,T_GVA10039,,,,,"body, head",
+"Porto, Serralves",Urban,41.158415,-8.658085,09.12.2021,SRR29,male,33,113.5,83.69,,,,,,"body, head",injure in one foot ¿bite?
+"Porto, Serralves",Urban,41.158415,-8.658085,09.12.2021,SRR15,male,29.6,113.55,78.41,,,,,,"body, head",
+"Porto, Serralves",Urban,41.158415,-8.658085,09.12.2021,SRR33,male,37,113.86,75.02,,,,,,"body, head",
+"Porto, Serralves",Urban,41.158415,-8.658085,09.12.2021,SRR35,male,40.6,114.64,86.07,,,,,,"body, head",
+"Porto, Serralves",Urban,41.158415,-8.658085,30.11.2021,SRR02,female,33,115.71,77.05,T_GVA10028,S_GVA10028,B_GVA10028,C_GVA10028,,"body, head",
+"Porto, Serralves",Urban,41.158415,-8.658085,09.12.2021,SRR34,male,33,117.02,74.05,,,,,,"body, head",missing fingers. Weird toe ¿regenerated?. Injures on the belly
+"Porto, Serralves",Urban,41.158415,-8.658085,09.12.2021,SRR36,male,44.5,122.31,84.33,,,,,,"body, head",
+"Porto, Serralves",Urban,41.158415,-8.658085,09.12.2021,SRR30,male,43,123.74,77.48,,,,,,"body, head",
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,09.05.2021,SMT24,juvenil,5.2,56.82,28.28,T_GVA9724,,,,,"body, head",
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,09.05.2021,SMT02,female-juvenil,6,64.02,33.57,T_GVA9702,S_GVA9702,B_GVA9702,C_GVA9702,,"body, head",
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,09.05.2021,SMT23,female,8.3,64.6,36.19,T_GVA9723,,,,,"body, head",
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,09.05.2021,SMT14,female,9.8,68.68,42.52,T_GVA9714,,,,,"body, head",
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,09.05.2021,SMT26,female,8,68.87,36.58,T_GVA9726,,,,F_GVA9726,"body, head",Asymmetric parotids
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,09.05.2021,SMT01,female-juvenil,7.1,69.04,35.28,T_GVA9701,S_GVA9701,B_GVA9701,C_GVA9701,F_GVA9701,"body, head",
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,09.05.2021,SMT25,female-juvenil,9.1,69.1,36.33,T_GVA9725,,,,,"body, head",
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,09.05.2021,SMT13,female,10.4,69.81,39.58,T_GVA9713,,,,,"body, head",
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,09.05.2021,SMT20,female,9.8,72.03,40.63,T_GVA9720,,,,,"body, head",
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,09.05.2021,SMT06,female,10.9,74.31,36.66,T_GVA9706,,,,,"body, head",tissue exhaust
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,29.10.2021,SMT33,male,9.8,74.66,38.09,,,,,,"body, head",
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,29.10.2021,SMT37,male,12.6,77.02,44.39,,,,,,"body, head",
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,29.10.2021,SMT29,male,12.7,78.85,46.77,T_GVA9864,S_GVA9864,B_GVA9864,C_GVA9864,,"body, head",
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,09.05.2021,SMT03,female,13.5,80.06,44.94,T_GVA9703,S_GVA9703,B_GVA9703,C_GVA9703,,"body, head",
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,09.05.2021,SMT21,female,13.9,80.1,43.36,T_GVA9721,,,,,"body, head",
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,29.10.2021,SMT43,male,13.7,80.12,44.07,,,,,,"body, head",
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,29.10.2021,SMT31,male,13.6,80.77,48.93,T_GVA9866,S_GVA9866,B_GVA9866,C_GVA9866,,"body, head",
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,09.05.2021,SMT12,male,20.5,81.55,53.62,T_GVA9712,,,,,"body, head",
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,29.10.2021,SMT41,male,11.9,81.56,47.47,,,,,,"body, head",
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,09.05.2021,SMT19,male,14.4,81.86,48.97,T_GVA9719,,,,,"body, head",
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,09.05.2021,SMT08,female?,17.5,83.56,51.53,T_GVA9708,,,,,"body, head",
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,09.05.2021,SMT11,female,17.9,84.02,51.87,T_GVA9711,,,,,"body, head",
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,09.05.2021,SMT18,female,18.1,85.08,40.19,T_GVA9718,,,,,"body, head",Ectrodactyly
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,29.10.2021,SMT44,female,18.2,86.09,55,,,,,,"body, head",
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,09.05.2021,SMT04,male,16.9,86.75,52.23,T_GVA9704,S_GVA9704,B_GVA9704,C_GVA9704,F_GVA9704,"body, head",
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,09.05.2021,SMT17,female,20,88.64,49.17,T_GVA9717,,,,,"body, head",
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,09.05.2021,SMT07,female,19.4,88.72,5075,T_GVA9707,,,,,"body, head",Brachidactyly
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,29.10.2021,SMT36,male,17.9,89.4,52.01,,,,,,"body, head",
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,09.05.2021,SMT09,female,1.5,91.08,55.1,T_GVA9709,,,,,"body, head",tissue exhaust
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,09.05.2021,SMT15,male,18.4,91.23,54.36,T_GVA9715,,,,,"body, head",
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,09.05.2021,SMT05,female,21.5,92.55,50.37,T_GVA9705,S_GVA9705,B_GVA9705,C_GVA9705,,"body, head",
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,29.10.2021,SMT35,male,18.5,92.55,51.3,,,,,,"body, head",
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,29.10.2021,SMT38,male,17.3,93.68,54.75,,,,,,"body, head",
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,29.10.2021,SMT39,female,19.1,93.99,54.96,,,,,,"body, head",
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,29.10.2021,SMT34,male,19,94.02,52.55,,,,,,"body, head",shedding
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,09.05.2021,SMT16,female,20.5,95.03,,T_GVA9716,,,,,"body, head",Regenarated tail
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,29.10.2021,SMT30,male,22.9,96.14,50.14,T_GVA9865,S_GVA9865,B_GVA9865,C_GVA9865,,"body, head",
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,09.05.2021,SMT10,female,22.7,96.38,57.25,T_GVA9710,,,,,"body, head",
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,29.10.2021,SMT27,male,22.9,96.78,60.67,T_GVA9862,S_GVA9862,B_GVA9862,C_GVA9862,,"body, head",
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,29.10.2021,SMT32,male,25.4,97.49,59.77,,,,,,"body, head",missingg digit one foot
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,09.05.2021,SMT22,female,29.1,104.18,49.53,T_GVA9722,,,,F_GVA9722,"body, head",
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,29.10.2021,SMT42,male,28.9,104.84,62.37,,,,,,"body, head",
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,29.10.2021,SMT45,female,36.6,106.48,58.42,,,,,,"body, head",
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,29.10.2021,SMT28,male,36.3,109.73,73.48,T_GVA9863,S_GVA9863,B_GVA9863,C_GVA9863,,"body, head",
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,29.10.2021,SMT40,male,47.2,115.08,68.5,,,,,,"body, head",
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,09.05.2021,NO ID,,,,,,,,,SMT-F01,,
+"Porto, Sr. De Matosinhos",Urban,41.187999,-8.685029,09.05.2021,NO ID,,,,,,,,,SMT-F02,,
+"Porto, Vairão",Non-urban,41.327654,-8.662487,06.12.2021,VAI17,male,6.3,62.35,36.34,,,,,,"body, head",Camino (environmental control E02)
+"Porto, Vairão",Non-urban,41.327654,-8.662487,30.10.2021,VAI11,male,8.4,64.6,44.23,T_GVA9924,,,,,"body, head",Camino (environmental control E02)
+"Porto, Vairão",Non-urban,41.327654,-8.662487,06.12.2021,VAI18,male,11.6,76.88,45.7,,,,,,"body, head",Camino (environmental control E02). Resampled VAI13
+"Porto, Vairão",Non-urban,41.327654,-8.662487,30.10.2021,VAI13,male,11.3,77.31,44.81,T_GVA9926,,,,,"body, head",Camino (environmental control E02)
+"Porto, Vairão",Non-urban,41.327654,-8.662487,30.10.2021,VAI12,male,10.4,77.61,42.98,T_GVA9925,,,,,"body, head",Camino (environmental control E02)
+"Porto, Vairão",Non-urban,41.32399,-8.66052,28.10.2021,VAI02,male,8.3,78.75,46.03,T_GVA9839,S_GVA9839,B_GVA9839,C_GVA9839,,"body, head",Poza (environmental control E01)
+"Porto, Vairão",Non-urban,41.327654,-8.662487,06.12.2021,VAI19,male,13.3,82.84,49.74,,,,,,"body, head",Camino (environmental control E02)
+"Porto, Vairão",Non-urban,41.327654,-8.662487,06.12.2021,VAI21,male,12.5,83.84,53.39,,,,,,"body, head",Camino (environmental control E02)
+"Porto, Vairão",Non-urban,41.32399,-8.66052,28.10.2021,VAI05,male,12.7,84.11,56.16,T_GVA9842,S_GVA9842,B_GVA9842,C_GVA9842,,"body, head",Poza (environmental control E01)
+"Porto, Vairão",Non-urban,41.32399,-8.66052,06.12.2021,VAI25,male,19,94.94,58.83,,,,,,"body, head",Poza (environmental control E01)
+"Porto, Vairão",Non-urban,41.32399,-8.66052,28.10.2021,VAI03,male,19.9,95.55,62.21,T_GVA9840,S_GVA9840,B_GVA9840,C_GVA9840,,"body, head",Poza (environmental control E01)
+"Porto, Vairão",Non-urban,41.32399,-8.66052,30.10.2021,VAI09,female,22.4,98.65,66.35,T_GVA9922,,,,,"body, head",Poza (environmental control E01)
+"Porto, Vairão",Non-urban,41.327654,-8.662487,02.11.2021,VAI16,male (j),22.1,99.04,55.67,T_GVA10006,,,,F_GVA10006,"body, head",Camino (environmental control E02)
+"Porto, Vairão",Non-urban,41.32399,-8.66052,06.12.2021,VAI35,male,23,99.47,69.75,,,,,,"body, head",Poza (environmental control E01)
+"Porto, Vairão",Non-urban,41.32399,-8.66052,06.12.2021,VAI23,female,27.1,100.28,65.64,,,,,,"body, head",Poza (environmental control E01). Resampled VAI09
+"Porto, Vairão",Non-urban,41.32399,-8.66052,28.10.2021,VAI04,male,17.3,100.63,61,T_GVA9841,S_GVA9841,B_GVA9841,C_GVA9841,,"body, head",Poza (environmental control E01)
+"Porto, Vairão",Non-urban,41.32399,-8.66052,06.12.2021,VAI36,male,26.6,104.13,72.9,,,,,,"body, head",Poza (environmental control E01)
+"Porto, Vairão",Non-urban,41.32399,-8.66052,30.10.2021,VAI10,male,25.2,106.24,69.28,T_GVA9923,,,,,"body, head",Poza (environmental control E01)
+"Porto, Vairão",Non-urban,41.327654,-8.662487,30.10.2021,VAI15,male,28.9,106.43,74.77,T_GVA9928,,,,,"body, head",Camino (environmental control E02)
+"Porto, Vairão",Non-urban,41.327654,-8.662487,06.12.2021,VAI22,male,34.5,107.95,70.63,,,,,,"body, head",Camino (environmental control E02)
+"Porto, Vairão",Non-urban,41.327654,-8.662487,06.12.2021,VAI20,male,28.1,108.3,74.04,,,,,,"body, head",Camino (environmental control E02)
+"Porto, Vairão",Non-urban,41.32399,-8.66052,06.12.2021,VAI32,male,29.7,110.76,71.4,,,,,,"body, head",Poza (environmental control E01)
+"Porto, Vairão",Non-urban,41.32399,-8.66052,06.12.2021,VAI28,male,32.8,111.17,72.34,,,,,,"body, head",Poza (environmental control E01)
+"Porto, Vairão",Non-urban,41.32399,-8.66052,06.12.2021,VAI29,male,35.6,111.52,70.36,,,,,,"body, head",Poza (environmental control E01)
+"Porto, Vairão",Non-urban,41.32399,-8.66052,28.10.2021,VAI06,male,26.4,111.54,71.02,T_GVA9843,,,,,"body, head",Poza (environmental control E01)
+"Porto, Vairão",Non-urban,41.327654,-8.662487,30.10.2021,VAI14,male,26.4,111.56,57.86,T_GVA9927,,,,,"body, head",Camino (environmental control E02)
+"Porto, Vairão",Non-urban,41.32399,-8.66052,28.10.2021,VAI01,male,22.9,111.94,69.71,T_GVA9838,S_GVA9838,B_GVA9838,C_GVA9838,F_GVA9838,"body, head",Poza (environmental control E01)
+"Porto, Vairão",Non-urban,41.32399,-8.66052,06.12.2021,VAI33,male,43.4,112,66.19,,,,,,"body, head",Poza (environmental control E01)
+"Porto, Vairão",Non-urban,41.32399,-8.66052,06.12.2021,VAI24,male,33.1,113.62,67.59,,,,,,"body, head",Poza (environmental control E01). Resampled VAI08
+"Porto, Vairão",Non-urban,41.32399,-8.66052,06.12.2021,VAI30,male,34.5,114.98,73.85,,,,,,"body, head",Poza (environmental control E01)
+"Porto, Vairão",Non-urban,41.32399,-8.66052,28.10.2021,VAI08,male,35.5,115.02,68.67,T_GVA9845,,,,,"body, head",Poza (environmental control E01)
+"Porto, Vairão",Non-urban,41.32399,-8.66052,06.12.2021,VAI34,male,33.4,115.43,78.5,,,,,,"body, head",Poza (environmental control E01)
+"Porto, Vairão",Non-urban,41.32399,-8.66052,06.12.2021,VAI26,male,43.4,119.52,77.43,,,,,,"body, head",Poza (environmental control E01)
+"Porto, Vairão",Non-urban,41.32399,-8.66052,06.12.2021,VAI31,male,46,123.23,85.12,,,,,,"body, head",Poza (environmental control E01)
+"Porto, Vairão",Non-urban,41.32399,-8.66052,06.12.2021,VAI27,male,47.4,123.97,81.22,,,,,,"body, head",Poza (environmental control E01). Resampled VAI07
+"Porto, Vairão",Non-urban,41.32399,-8.66052,28.10.2021,VAI07,male,42,124.79,21.35,T_GVA9844,,,,,"body, head",Poza (environmental control E01)
+"Porto, Virtudes",Urban,41.14503,-8.619401,06.12.2021,VIR24,female (j),4.1,56.39,32.32,,,,,,"body, head",
+"Porto, Virtudes",Urban,41.14503,-8.619401,06.12.2021,VIR22,female (j),3.9,58.15,35.01,,,,,,"body, head",
+"Porto, Virtudes",Urban,41.14503,-8.619401,06.12.2021,VIR26,female (j),4.7,59.4,34.47,,,,,,"body, head",
+"Porto, Virtudes",Urban,41.14503,-8.619401,06.12.2021,VIR25,female (j),5.4,63.3,37.43,,,,,,"body, head",
+"Porto, Virtudes",Urban,41.14503,-8.619401,06.12.2021,VIR23,female (j),7.4,69.4,40.38,,,,,,"body, head",
+"Porto, Virtudes",Urban,41.14503,-8.619401,06.12.2021,VIR21,female (j),8.9,73.94,41.79,,,,,,"body, head",
+"Porto, Virtudes",Urban,41.14503,-8.619401,06.12.2021,VIR04,male,14.1,86.17,59.06,T_GVA10418,S_GVA10418,B_GVA10418,C_GVA10418,,"body, head",
+"Porto, Virtudes",Urban,41.14503,-8.619401,06.12.2021,VIR02,male,13,89.15,56.25,T_GVA10416,S_GVA10416,B_GVA10416,C_GVA10416,,"body, head",
+"Porto, Virtudes",Urban,41.14503,-8.619401,06.12.2021,VIR05,male,16,91.63,55.56,T_GVA10419,S_GVA10419,B_GVA10419,C_GVA10419,,"body, head",
+"Porto, Virtudes",Urban,41.14503,-8.619401,06.12.2021,VIR14,male,21.9,102.81,62.83,T_GVA10428,,,,,"body, head",
+"Porto, Virtudes",Urban,41.14503,-8.619401,06.12.2021,VIR17,male,23.1,103.46,70.34,T_GVA10431,,,,,"body, head",
+"Porto, Virtudes",Urban,41.14503,-8.619401,06.12.2021,VIR16,male,27.1,107.14,73.57,T_GVA10430,,,,,"body, head",
+"Porto, Virtudes",Urban,41.14503,-8.619401,06.12.2021,VIR11,male,26,107.63,72.78,T_GVA10425,,,,,"body, head",
+"Porto, Virtudes",Urban,41.14503,-8.619401,06.12.2021,VIR10,male,29.8,109.19,65.25,T_GVA10424,,,,,"body, head",
+"Porto, Virtudes",Urban,41.14503,-8.619401,06.12.2021,VIR20,female,25.9,109.27,66.62,T_GVA10434,,,,,"body, head",
+"Porto, Virtudes",Urban,41.14503,-8.619401,06.12.2021,VIR13,male,32.6,110.47,72.21,T_GVA10427,,,,,"body, head",
+"Porto, Virtudes",Urban,41.14503,-8.619401,06.12.2021,VIR15,female,35.5,110.53,76.93,T_GVA10429,,,,,"body, head",
+"Porto, Virtudes",Urban,41.14503,-8.619401,06.12.2021,VIR18,female,25.7,110.55,67.08,T_GVA10432,,,,,"body, head",missing eyes (both)
+"Porto, Virtudes",Urban,41.14503,-8.619401,06.12.2021,VIR19,male,32,111.02,75.75,T_GVA10433,,,,,"body, head",asymmetric head. Missing toes
+"Porto, Virtudes",Urban,41.14503,-8.619401,06.12.2021,VIR08,male,34.4,113.15,70.64,T_GVA10422,,,,,"body, head",
+"Porto, Virtudes",Urban,41.14503,-8.619401,06.12.2021,VIR01,female,36.6,113.44,73.44,T_GVA10415,S_GVA10415,B_GVA10415,C_GVA10415,F_GVA10415,"body, head",
+"Porto, Virtudes",Urban,41.14503,-8.619401,06.12.2021,VIR03,male,31.7,114.21,80.64,T_GVA10417,S_GVA10417,B_GVA10417,C_GVA10417,,"body, head",anophthalmy
+"Porto, Virtudes",Urban,41.14503,-8.619401,06.12.2021,VIR06,male,32.2,116.02,75.26,T_GVA10420,,,,,"body, head",missing toes in one foot
+"Porto, Virtudes",Urban,41.14503,-8.619401,06.12.2021,VIR07,female,36.1,116.72,75.22,T_GVA10421,,,,,"body, head",
+"Porto, Virtudes",Urban,41.14503,-8.619401,06.12.2021,VIR12,male,38.8,122.3,84.26,T_GVA10426,,,,,"body, head",
+"Porto, Virtudes",Urban,41.14503,-8.619401,06.12.2021,VIR09,male,19.1,91.77,59.76,T_GVA10423,,,,,"body, head",

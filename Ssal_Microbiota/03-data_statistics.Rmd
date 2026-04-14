@@ -1,0 +1,231 @@
+# Data statistics
+
+```{r load_data_stats}
+load("data/data.Rdata")
+```
+
+```{r}
+query_variables = c("sample","event_id","swab","sol","habitat")
+query_variables = query_variables[sapply(sample_metadata[,query_variables], function(x) length(unique(x))) > 1 ] # varaibles with at least two conditions
+```
+
+
+## [OPTIONAL] filter samples with high host data
+
+This step would remove samples with a high proportion of host DNA. While using dermal swabs, most samples will have high host data, so consider this step only if a few samples appear to be outliers.
+
+```{r load_data_host_filt, comment="", message=FALSE, warning=FALSE, eval=FALSE}
+read_counts <- read_counts %>% 
+    select(one_of(c("genome",sample_metadata$sample)))%>%
+  filter(rowSums(. != 0, na.rm = TRUE) > 0) %>%
+  select_if(~!all(. == 0))
+
+genome_metadata <- genome_metadata %>% 
+  semi_join(., read_counts, by = "genome") %>% 
+  arrange(match(genome,read_counts$genome))
+
+genome_tree <- keep.tip(genome_tree, tip=genome_metadata$genome) # keep only MAG tips
+```
+
+## Sequencing reads statistics
+
+The total number of post-fastp bases (ie. number reads * 150) in billions, and the average number of bases among samples.
+
+```{r reads_stats}
+sample_metadata %>% 
+    summarise(Total=sum(reads_post_fastp * 150 / 1000000000) %>% round(2), 
+              mean=mean(reads_post_fastp * 150 / 1000000000) %>% round(2),
+              sd=sd(reads_post_fastp * 150 / 1000000000) %>% round(2)) %>%
+    unite("Average",mean, sd, sep = " ± ", remove = TRUE) %>%
+    tt()
+```
+
+```{r}
+# Sequencing reads statistics
+sample_metadata$reads_post_fastp %>% sum()
+sample_metadata$reads_post_fastp %>% mean()
+sample_metadata$reads_post_fastp %>% sd()
+
+```
+
+
+## DNA fractions
+```{r dna_fractions_stats}
+sequence_fractions <- read_counts %>%
+  pivot_longer(-genome, names_to = "sample", values_to = "value") %>%
+  group_by(sample) %>%
+  summarise(mags = sum(value)) %>%
+	left_join(sample_metadata, by = join_by(sample == sample)) %>%
+	select(sample,mags,metagenomic_bases,host_bases,bases_lost_fastp_percent) %>%
+	mutate(mags_bases = mags*146) %>%
+	mutate(lowqual_bases = ((metagenomic_bases+host_bases)/(1-bases_lost_fastp_percent))-(metagenomic_bases+host_bases)) %>%
+	mutate(unmapped_bases = metagenomic_bases - mags_bases) %>%
+	mutate(unmapped_bases = ifelse(unmapped_bases < 0, 0, unmapped_bases)) %>%
+	select(sample, lowqual_bases, host_bases, unmapped_bases, mags_bases)
+
+sequence_fractions %>%
+  mutate_at(vars(-sample), ~./1000000000) %>%
+  rename("Sample"=1, "Low quality"=2, "Mapped to host"=3, "Unmapped"=4, "Mapped to MAGs"=5) %>%
+  tt()
+
+sequence_fractions %>%
+  mutate_at(vars(-sample), ~./1000000000) %>%
+  rename("Sample"=1, "Low quality"=2, "Mapped to host"=3, "Unmapped"=4, "Mapped to MAGs"=5) %>%
+  summarise(across(where(is.numeric), mean, na.rm = TRUE)) %>%
+  tt()
+
+```
+
+
+```{r dna_fractions_plot, message=FALSE, warning=FALSE, fig.height=6, fig.width=10, fig.fullwidth=TRUE}
+
+for (q in seq_along(query_variables)[-1]){
+
+#sequence_fractions %>%
+print(	
+merge(sequence_fractions, sample_metadata[,query_variables],by = "sample") %>%
+  #pivot_longer(!sample, names_to = "fraction", values_to = "value") %>%
+  pivot_longer(!c(query_variables), names_to = "fraction", values_to = "value") %>%
+  mutate(value = value / 1000000000) %>%
+	mutate(fraction = factor(fraction, levels = c("lowqual_bases","host_bases","unmapped_bases","mags_bases"))) %>%
+  ggplot(., aes(x = sample, y = value, fill=fraction)) +
+	    geom_bar(position="stack", stat = "identity") +
+      scale_fill_manual(name="Sequence type",
+                    breaks=c("lowqual_bases","host_bases","unmapped_bases","mags_bases"),
+                    labels=c("Low quality","Mapped to host","Unmapped","Mapped to MAGs"),
+                    values=c("#CCCCCC", "#bcdee1", "#d8b8a3","#93655c"))+
+      
+      facet_wrap(as.formula(paste("~", query_variables[q])),scales = "free") +
+	    
+      labs(x = "Samples", y = "Amount of data (GB)") +
+	    theme_classic() +
+	    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1, size=6),legend.position = "bottom")
+  )
+  }
+
+```
+
+What proportion of reads were mapped to MAGs compared to host/unmapped?
+
+```{r}
+paste(
+  "average % MAG bases",
+round(mean( 100 *
+  sequence_fractions$mags_bases /  # MAG bases
+  rowSums(sequence_fractions[,-1]) # total bases
+  ),3),
+" ± ",
+round(sd( 100 *
+  sequence_fractions$mags_bases /  # MAG bases
+  rowSums(sequence_fractions[,-1]) # total bases
+  ),3)
+)
+
+paste(
+    "average % host & unmapped bases",
+    round(mean( 100 *
+                    (sequence_fractions$host_bases + sequence_fractions$unmapped_bases)  /  # host bases
+                    rowSums(sequence_fractions[,-1]) # total bases
+    ),3),
+    " ± ",
+    round(sd( 100 *
+                  (sequence_fractions$host_bases + sequence_fractions$unmapped_bases) /  # host bases
+                  rowSums(sequence_fractions[,-1]) # total bases
+    ),3)
+)
+```
+
+
+## Recovered microbial fraction
+
+The mags_proportion refers to the proportion of the sequence bases not removed due to low quality or assigned to hosts, that were then assigned to MAGs. The singlem_proportion, estimates by SingleM, is an estimate of what proportion of the reads are prokaryotic.
+
+```{r data_estimations_plot, message=FALSE, warning=FALSE, fig.height=6, fig.width=10, fig.fullwidth=TRUE}
+singlem_table <- sequence_fractions %>%
+	mutate(mags_proportion = round((mags_bases / (mags_bases + unmapped_bases))*100,2)) %>%
+  left_join(sample_metadata, by = join_by(sample == sample))  %>%
+	mutate(singlem_proportion = round(singlem_fraction,2)) %>%
+	select(sample,mags_proportion,singlem_proportion) %>%
+	mutate(mags_proportion = ifelse(singlem_proportion == 0, 0, mags_proportion)) %>% #convert zeros to NA
+	mutate(singlem_proportion = ifelse(singlem_proportion == 0, NA, singlem_proportion)) %>% #convert zeros to NA
+	mutate(singlem_proportion = ifelse(singlem_proportion < mags_proportion, NA, singlem_proportion)) %>% #if singlem is smaller, then NA, to simplify plot
+	mutate(singlem_proportion = ifelse(singlem_proportion > 100, 100, singlem_proportion)) #simplify
+
+for (q in seq_along(query_variables)[-1]){
+
+print(	
+merge(singlem_table, sample_metadata[,query_variables],by = "sample") %>%
+	#pivot_longer(!sample, names_to = "proportion", values_to = "value") %>%
+	pivot_longer(!c(query_variables), names_to = "proportion", values_to = "value") %>%
+  mutate(proportion = factor(proportion, levels = c("mags_proportion","singlem_proportion"))) %>%
+	ggplot(., aes(x = value, y = sample, color=proportion)) +
+			geom_line(aes(group = sample), color = "#f8a538") +
+			geom_point() +
+      scale_color_manual(name="Proportion",
+                    breaks=c("mags_proportion","singlem_proportion"),
+                    labels=c("Recovered","Estimated"),
+                    values=c("#52e1e8", "#876b53"))+
+      facet_wrap(as.formula(paste("~", query_variables[q])),scales = "free") +
+			theme_classic() +
+			labs(y = "Samples", x = "Prokaryotic fraction (%)") +
+	   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1, size=6),legend.position = "bottom")
+)}
+
+```
+
+```{r}
+paste(
+  "Mean estimated proportion of prokaryote bases", round(mean(na.omit(singlem_table$singlem_proportion)),2),"±",
+  round(sd(na.omit(singlem_table$singlem_proportion)),2)
+)
+paste(
+  "Mean proportion of based assigned to MAGs", round(mean(singlem_table$mags_proportion),2),"±", round(sd(singlem_table$mags_proportion),2)
+)
+
+singlm_df= singlem_table  %>%
+  left_join(sample_metadata[,colnames(sample_metadata) %in% query_variables], by = join_by(sample == sample))
+
+wilcox.test(mags_proportion ~ habitat,
+            data = singlm_df)
+ggboxplot(singlm_df, x = "habitat", y = "mags_proportion", 
+          color = "habitat", palette = c("#986eac","#5bae63"),
+          ylab = "Prop.MAGs", xlab = "Habitat") +
+  theme(legend.position = "none")
+ 
+ggsave('figure/habitat_prop_mag.png', width=6, height=10, units='cm')
+
+wilcox.test(mags_proportion ~ swab,
+            data = singlm_df)
+```
+
+
+Domain-Adjusted Mapping Rate (DAMR) is a metric to assess microbial genome recovery from metagenomes, calculated as the rate of read mapping to sets of microbial genomes (MAGs or other references) divided by the fraction of the community predicted to be bacterial or archaeal (here with SMF). [@Eisenhofer_2024]
+
+
+```{r damr, message=FALSE, warning=FALSE}
+damr <- singlem_table %>%
+  mutate(damr=ifelse(is.na(singlem_proportion),100,mags_proportion/singlem_proportion*100)) %>%
+  select(sample,damr)
+
+damr %>% 
+  left_join(sample_metadata, by = join_by(sample == sample)) %>%
+  summarise(mean=mean(damr),sd=sd(damr)) %>% 
+  tt()
+
+damr %>% 
+  left_join(sample_metadata, by = join_by(sample == sample)) %>%
+  summarise(mean=mean(damr),sd=sd(damr)) %>% 
+  tt()
+
+damr %>% 
+  tt()
+
+damr %>% 
+  filter(damr>95) %>%
+  nrow()
+
+damr %>% 
+  summarise(mean=mean(damr),sd=sd(damr)) %>% 
+  tt()
+```
+
