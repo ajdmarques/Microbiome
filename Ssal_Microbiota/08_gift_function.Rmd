@@ -692,3 +692,96 @@ ggplot(gift_df_figsm3, aes(x = Bin, fill = habitat)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
+## Taxa that differ by LFC
+
+The following is a list of taxa that differ between each habitat in log fold change.
+
+```{r}
+# MAGs that significantly differ in LFC between habitats 
+lfc.mags = readRDS("./figure/table_lfc.RDS")[,"MAG"]
+```
+
+Does the inferred function of these groups significantly differ from the mean?
+
+```{r}
+merge(
+  GIFTs_functions %>% as.data.frame(),
+  genome_metadata[,c("genome","phylum")] %>% remove_rownames %>% column_to_rownames(var="genome"), 
+  by = 0, all = F) %>% 
+  mutate(across(c('phylum'), substr, 4, nchar(phylum))) %>%
+  # indicate if significant
+  mutate(lfc.p= if_else(Row.names %in% lfc.mags, 'sig', 'ns')) %>%
+  #remove_rownames %>% column_to_rownames(var="Row.names") %>%
+  pivot_longer(cols = colnames(GIFTs_functions)) %>%
+
+# plot results
+ggplot(aes(x=name, y=value, colour = lfc.p)) + 
+  geom_boxplot() +
+  geom_jitter(size=0.4, alpha=0.9) +
+  theme_minimal() +
+  #scale_x_discrete(labels = unique(tmp_xtick)) +
+  scale_color_manual(values = c("grey", "red")) +
+   ylab("GIFT Probability") +
+   ylim(0,1) +
+   xlab("GIFT Element") +
+   theme(
+     axis.title.y = element_blank(),
+     axis.title.x = element_blank(),
+     axis.text.x = element_text(angle = 90, face = "bold", hjust=0.95,vjust=0.2)
+         )
+```
+
+```{r}
+# number of significant MAGs
+length(lfc.mags)
+
+# randomly select equal number form remainder
+lfc.sample =
+sample(
+  rownames(GIFTs_functions)[!rownames(GIFTs_functions) %in% lfc.mags], # excluding sig
+  length(lfc.mags),
+  replace = F
+)
+
+lfc.p_GIFTs =
+merge(
+  GIFTs_functions %>% as.data.frame(),
+  genome_metadata[,c("genome","phylum")] %>% remove_rownames %>% column_to_rownames(var="genome"), 
+  by = 0, all = F) %>% 
+  mutate(across(c('phylum'), substr, 4, nchar(phylum))) %>%
+  
+  # indicate if significant
+  mutate(lfc.p= if_else(Row.names %in% lfc.mags, 'sig', 'ns')) %>%
+  
+  # filter to all sig.LFC and equal sample of those not significant
+#  filter(Row.names %in% c(lfc.mags,lfc.sample)) %>%
+  pivot_longer(cols = colnames(GIFTs_functions))
+
+
+funct_elements = levels(as.factor(lfc.p_GIFTs$name))
+p.tmp = list()
+stat.tmp = list()
+
+# test for difference between significant and equal number of sample non-significant taxa 
+for (i in seq_along(funct_elements)){
+  tmp =
+  # use wilcox rank test as distribution is not normal
+  wilcox.test(value ~ lfc.p, 
+       data = lfc.p_GIFTs[lfc.p_GIFTs$name==funct_elements[i],])
+  p.tmp[i] = tmp$p.value
+  stat.tmp[i] = tmp$statistic
+}
+
+df_lfc_funct_elements = 
+  cbind.data.frame(funct_elements,
+                   GIFT_db[match(funct_elements,GIFT_db$Code_function),"Function"],
+                   GIFT_db[match(funct_elements,GIFT_db$Code_function),"Element"],
+                   unlist(stat.tmp),
+                   p.adjust(unlist(p.tmp),method = "fdr", n = length(funct_elements))
+                   ) %>%
+  `colnames<-`(c("code","function","element", "stat", "p"))
+
+# significant differences between functional elements after FDR 
+df_lfc_funct_elements[df_lfc_funct_elements$p < 0.05,]
+```
+

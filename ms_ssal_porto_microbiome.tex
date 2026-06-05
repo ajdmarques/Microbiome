@@ -1,0 +1,2088 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+  12pt,
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage{setspace}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{longtable,booktabs,array}
+\newcounter{none} % for unnumbered tables
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+% definitions for citeproc citations
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\makeatletter
+ % allow citations to break across lines
+ \let\@cite@ofmt\@firstofone
+ % avoid brackets around text for \cite:
+ \def\@biblabel#1{}
+ \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
+ {\begin{list}{}{%
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\parsep}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+   \setlength{\leftmargin}{\cslhangindent}
+   \setlength{\itemindent}{-1\cslhangindent}
+  \fi
+  % set entry spacing
+  \setlength{\itemsep}{#2\baselineskip}}}
+ {\end{list}}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{float}
+\usepackage{tabularray}
+\usepackage[normalem]{ulem}
+\usepackage{graphicx}
+\usepackage{rotating}
+\UseTblrLibrary{siunitx}
+\NewTableCommand{\tinytableDefineColor}[3]{\definecolor{#1}{#2}{#3}}
+\newcommand{\tinytableTabularrayUnderline}[1]{\underline{#1}}
+\newcommand{\tinytableTabularrayStrikeout}[1]{\sout{#1}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Contrasting dermal microbial genomes within an urban-rural matrix in salamanders},
+  pdfauthor={Marques, A.J.D.1,2,3, Gaun, N.4, Velo-Antón, G.5, Alberdi, A.4},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Contrasting dermal microbial genomes within an urban-rural matrix
+in salamanders}
+\author{Marques, A.J.D.\textsuperscript{1,2,3}, Gaun,
+N.\textsuperscript{4}, Velo-Antón, G.\textsuperscript{5}, Alberdi,
+A.\textsuperscript{4}}
+\date{2026-05-27}
+
+\begin{document}
+\maketitle
+
+\setstretch{2}
+\textsuperscript{1} Departamento de Biologia, Faculdade de Ciências,
+Universidade do Porto, 4099-002 Porto, Portugal
+
+\textsuperscript{2} CIBIO, Centro de Investigação em Biodiversidade e
+Recursos Genéticos, InBIO Laboratório Associado, Campus de Vairão,
+Universidade do Porto, 4485-661 Vairão, Portugal
+
+\textsuperscript{3} BIOPOLIS Program in Genomics, Biodiversity and Land
+Planning, CIBIO, Campus de Vairão, 4485-661 Vairão, Portugal
+
+\textsuperscript{4} Center for Evolutionary Hologenomics / GLOBE
+Institute, University of Copenhagen, 1353 Copenhagen K, Denmark
+
+⁵ Universidad de Vigo, ECOEVO Lab, EE Forestal, Campus Universitario A
+Xunqueira, E-36005, Pontevedra, Spain
+
+AJDM (ORCID: 0000-0002-6070-0506); NG (ORCID: 0009-0002-3068-4653); GVA
+(ORCID: 0000-0002-9483-5695); AA (ORCID: 0000-0002-2875-6446)
+
+\newpage
+
+\section{Abstract}\label{abstract}
+
+The dermis is an essential organ for respiration, hydration, and defence
+among amphibians, and its health is at least in part regulated by the
+resident microbiota. The dermal microbiome is also very sensitive to
+habitat changes such as urbanization, which introduces many novel
+environmental pressures to amphibians. There are limited examples,
+however, on how urbanization alters amphibian microbiomes. We therefore
+aimed to characterize the fire salamander (\emph{Salamandra salamandra}
+Linnaeus, 1758) dermal microbiome and examine how it varies in
+composition and functionality between urban and rural habitats. We
+utilized genome-resolved metagenomics to assemble microbial genomes,
+profile microbial communities, and estimate their functional
+capabilities. Microbiome diversity estimates within either habitat were
+comparable, however, differences were observed in microbial composition.
+Relative abundances of anti-fungal and possibly pathogenic microbiota
+were found to be greater among rural salamanders. Significant
+differences in the inferred functionality of microbiome assemblages were
+also identified and warrants further investigation into the
+environmental conditions that drive these changes and the implications
+for the host dermal health.
+
+\section{Introduction}\label{introduction}
+
+Considered one of the earliest adaptations among vertebrates to
+terrestrial life, amphibians have a thin, permeable skin that allows for
+gas and water exchange (\citeproc{ref-akat_comden_complex_2023}{Akat
+Çömden et al. 2023}). Amphibians' skin comprises most of their
+respiratory capillaries and almost completely facilitates respiration
+(\citeproc{ref-tattersall_skin_2007}{Tattersall 2007}). This increased
+permeability, however, comes at the expense of increased water loss
+(\citeproc{ref-toledo_cutaneous_1993}{Toledo and Jared 1993}) and
+vulnerability to xenobiotics
+(\citeproc{ref-kaufmann_adaption_2016}{Kaufmann and Dohmen 2016};
+\citeproc{ref-quaranta_why_2009}{Quaranta et al. 2009}) and pollutants
+(\citeproc{ref-purucker_estimating_2023}{Purucker et al. 2023}). The
+sensitivity of amphibians to environmental stressors has led to the
+generalization of amphibians as indicators of biodiversity loss
+(\citeproc{ref-morell_frogs_1999}{Morell 1999};
+\citeproc{ref-norris_ghosts_2007}{Norris 2007}), and constitute the most
+threatened vertebrate group on Earth, with 41\% of species classified as
+globally threatened (\citeproc{ref-cox_global_2022}{Cox et al. 2022};
+\citeproc{ref-luedtke_ongoing_2023}{{Luedtke et al.} 2023}). Given the
+importance of amphibians' dermis to individual health, much attention
+has been directed toward understanding the role that dermal microbiota
+have in maintaining dermis health and function
+(\citeproc{ref-hernandez-gomez_organismal_2023}{Hernández-Gómez and Hua
+2023}; \citeproc{ref-zhu_skin_2024}{Zhu et al. 2024}). Dermal microbiota
+contribute to several functions for amphibian hosts, including chemical
+signalling (\citeproc{ref-kueneman_amphibian_2014}{Kueneman et al.
+2014}), maintenance of the mucosal layer
+(\citeproc{ref-woodhams_adaptive_2023}{Woodhams et al. 2023}) which
+retains moisture and protect the dermis
+(\citeproc{ref-demori_peptides_2019}{{Demori et al.} 2019};
+\citeproc{ref-pereira_skin_2018}{Pereira et al. 2018}), and producing
+bacterial metabolites contributing to the hosts' defence against
+pathogens (\citeproc{ref-muletz-wolz_inhibition_2017}{Muletz-Wolz et al.
+2017}; \citeproc{ref-le_sage_preparatory_2021}{Le Sage et al. 2021};
+\citeproc{ref-gonzalez-serrano_amphibian_2025}{{González-Serrano et al.}
+2025}). In the wake of catastrophic amphibian mortality driven by
+chytrid fungal pathogens, most notably \emph{Batrachochytrium
+dendrobatidis} (\emph{Bd}; Longcore et al.
+(\citeproc{ref-longcore_batrachochytrium_1999}{1999})) and
+\emph{Batrachochytrium salamandrivorans} (\emph{Bsal}; {Martel et al.}
+(\citeproc{ref-martel_batrachochytrium_2013}{2013}))
+(\citeproc{ref-fisher_chytrid_2020}{Fisher and Garner 2020};
+\citeproc{ref-ohanlon_recent_2018}{{O'Hanlon et al.} 2018};
+\citeproc{ref-rollins-smith_batrachochytrium_2021}{Rollins-Smith and Le
+Sage 2021}; \citeproc{ref-castro_monzon_batrachochytrium_2022}{Castro
+Monzon et al. 2022}), contemporary research on amphibian microbiota has
+largely focused on their role in antifungal defence
+(\citeproc{ref-ross_skin_2019}{Ross et al. 2019}). While recent focus
+has turned toward understanding the impact that fungal infections have
+on disrupting dermal microbiota and how specific microbial taxa react
+post-infection, less is known about how environmental conditions
+structure the dermal microbiome prior to infection. Identifying pathogen
+resistant microbiota is key, but this must also include understanding
+the environmental conditions that determine microbiome composition and
+subsequently amphibian populations vulnerability.
+
+The amphibian dermal microbiome varies in composition depending on the
+host species, life stage, or in response to environmental disturbances
+(\citeproc{ref-kueneman_amphibian_2014}{Kueneman et al. 2014};
+\citeproc{ref-jani_amphibian_2021}{Jani et al. 2021};
+\citeproc{ref-bates_captivity_2019}{Bates et al. 2019};
+\citeproc{ref-santos_skin_2023}{Santos et al. 2023}). Environmental
+conditions, such as changes in local plant communities
+(\citeproc{ref-hernandez-gomez_invasive_2020}{Hernández-Gómez et al.
+2020}; \citeproc{ref-dong_rice_2024}{Dong et al. 2024}) and exposure to
+pollution (\citeproc{ref-cordeiro_amphibian_2024}{{Cordeiro et al.}
+2024}; \citeproc{ref-su_neglected_2023}{Su et al. 2023};
+\citeproc{ref-tornabene_energy-related_2023}{Tornabene et al. 2023}) can
+alter microbiome assemblages. Repeatedly, studies have suggested that
+alterations to microbial communities increased susceptibility to
+pathogens (\citeproc{ref-becker_cutaneous_2010}{Becker and Harris 2010};
+\citeproc{ref-bletz_disruption_2018}{{Bletz et al.} 2018}) and
+contributed to the formation of lesions
+(\citeproc{ref-zhu_skin_2024}{Zhu et al. 2024};
+\citeproc{ref-luddecke_salamanders_2018}{Lüddecke et al. 2018}). Many of
+the disturbances that are found to negatively impact amphibian fitness
+and species richness can be attributed to anthropogenic disturbances
+(\citeproc{ref-macdonald_meta-analysis_2023}{Macdonald et al. 2023};
+\citeproc{ref-iglesias-carrasco_urban_2017}{Iglesias-Carrasco et al.
+2017}), with habitat loss and degradation through agriculture and
+urbanization, serving as the primary contributor to amphibian declines
+(\citeproc{ref-luedtke_ongoing_2023}{{Luedtke et al.} 2023}).
+Urbanization in particular, dramatically changes habitat structures and
+increases the intensity of environmental stressors, influencing habitat
+hydrology, temperature, and connectivity
+(\citeproc{ref-hamer_amphibian_2008}{Hamer and McDonnell 2008};
+\citeproc{ref-scheffers_effects_2012}{Scheffers and Paszkowski 2012};
+\citeproc{ref-barrett_urbanization_2014}{Barrett and Price 2014};
+\citeproc{ref-yang_global_2022}{Yang et al. 2022}). Amphibian residents
+within urban habitats often display a reduction in body condition and
+fitness when compared to rural populations
+(\citeproc{ref-iglesias-carrasco_urban_2017}{Iglesias-Carrasco et al.
+2017}; \citeproc{ref-jennette_variation_2019}{Jennette et al. 2019}).
+Further, urban soil and water are prone to contamination from proximity
+to industrial (\citeproc{ref-cachada_levels_2012}{Cachada et al. 2012};
+\citeproc{ref-coban_soil_2022}{Coban et al. 2022};
+\citeproc{ref-liu_microbial_2025}{Liu et al. 2025};
+\citeproc{ref-mclellan_microbiome_2015}{McLellan et al. 2015}) and
+agricultural pollution
+(\citeproc{ref-soto-pozos_imprints_2025}{Soto-Pozos et al. 2025};
+\citeproc{ref-jimenez_fungicide_2021}{Jiménez et al. 2021}),
+subsequently serving as the vector through which amphibians are exposed
+to pollutants (\citeproc{ref-dong_rice_2024}{Dong et al. 2024};
+\citeproc{ref-purucker_estimating_2023}{Purucker et al. 2023}) and the
+microbiota reservoir for dermal microbiota colonization
+(\citeproc{ref-walke_amphibian_2014}{Walke et al. 2014};
+\citeproc{ref-barnes_assembly_2021}{Barnes et al. 2021};
+\citeproc{ref-loudon_microbial_2013}{Loudon et al. 2013},
+\citeproc{ref-loudon_microbial_2013}{2013}).
+
+To date, the majority of studies that have characterized amphibian
+microbiota have done so through sequencing of the 16S rRNA marker gene
+(\citeproc{ref-barnes_assembly_2021}{Barnes et al. 2021};
+\citeproc{ref-santos_skin_2023}{Santos et al. 2023};
+\citeproc{ref-muletz_wolz_effects_2018}{Muletz Wolz et al. 2018};
+\citeproc{ref-afonso_effects_2022}{Afonso et al. 2022}). Metabarcoding
+through amplicon enrichment utilizes existing microbial databases to
+identify the taxonomy of prokaryotes in a manner that is generally
+accessible and replicable (\citeproc{ref-pruesse_silva_2007}{Pruesse et
+al. 2007}; \citeproc{ref-quast_silva_2013}{Quast et al. 2013}). While
+suited for taxonomic identification of prokaryote taxa, amplicon
+sequencing can result in a coarse taxonomic resolution and cannot
+capture any of the functional variation that may occur within microbiome
+communities (\citeproc{ref-campanaro_taxonomy_2018}{Campanaro et al.
+2018}; \citeproc{ref-durazzi_comparison_2021}{Durazzi et al. 2021}).
+While indirect methods to infer functional features of microbiomes from
+16S sequences exist (\citeproc{ref-barberan_exploration_2012}{Barberán
+et al. 2012}), these rely on genomes recorded in public databases, which
+are largely biased towards humans and other model taxa. These databases
+often have limited representation of amphibian-associated microbes,
+which, despite similar 16S sequences, might carry significantly
+different functional attributes
+(\citeproc{ref-sun_inference-based_2020}{Sun et al. 2020};
+\citeproc{ref-callahan_exact_2017}{Callahan et al. 2017}). By contrast,
+genome-resolved metagenomics is a newer approach where random short-read
+DNA sequences are used to assemble microbial genomes
+(\citeproc{ref-weinstock_genomic_2012}{Weinstock 2012};
+\citeproc{ref-quince_shotgun_2017}{Quince et al. 2017}), upon which
+community-level microbiome inferences are built. This alternative
+approach was considered preferable to 16S amplicon sequencing, as larger
+sequence assemblies can improve taxonomic resolution
+(\citeproc{ref-ziesemer_intrinsic_2015}{{Ziesemer et al.} 2015};
+\citeproc{ref-durazzi_comparison_2021}{Durazzi et al. 2021}) and capture
+functional gene information within coding regions of the microbial
+genomes (\citeproc{ref-bates_microbiome_2022}{{Bates et al.} 2022};
+\citeproc{ref-eisenhofer_impact_2023}{Eisenhofer et al. 2023}).
+Additionally, because this methodology does not rely on primer-based
+enrichment, which may result in biased representation-targeting
+bacterial genome sequences, the relative abundance of taxa is better
+preserved (\citeproc{ref-gloor_microbiome_2017}{Gloor et al. 2017}). The
+compromise with this approach, however, is that host DNA will inevitably
+be sequenced and will comprise the majority of the sequence reads
+(\citeproc{ref-pereira-marques_impact_2019}{Pereira-Marques et al.
+2019}). Removing host DNA generally entails mapping reads to a
+reference, which in the case of amphibians are often unavailable or
+difficult to construct owing to the often large size and complexity of
+amphibian genomes (\citeproc{ref-sun_slow_2012}{Sun et al. 2012};
+\citeproc{ref-liedtke_macroevolutionary_2018}{Liedtke et al. 2018};
+\citeproc{ref-kosch_comparative_2025}{Kosch et al. 2025}).
+
+One amphibian species whose dermal microbiome has received increased
+attention, following outbreaks of \emph{Bsal} in Central Europe
+(\citeproc{ref-castro_monzon_batrachochytrium_2022}{Castro Monzon et al.
+2022}), are fire salamanders (\emph{Salamandra salamandra}; Linnaeus
+1758). Widely dispersed and abundant through much of Europe, fire
+salamanders are typically associated with forest biomes
+(\citeproc{ref-wagner_habitat_2020}{Wagner et al. 2020};
+\citeproc{ref-velo-anton_salamandra_2015}{Velo-Antón and Buckley 2015};
+\citeproc{ref-dinis_dry-climate_2025}{Dinis et al. 2025}), but have also
+been reported in a variety of urban environments throughout their
+species range and can be considered tolerant to urban habitats
+(\citeproc{ref-lourenco_trapped_2017}{Lourenço et al. 2017};
+\citeproc{ref-iglesias-carrasco_urban_2017}{Iglesias-Carrasco et al.
+2017}; \citeproc{ref-marques_coi_2022}{Marques et al. 2022};
+\citeproc{ref-alarcon-rios_urban_2024}{Alarcón-Ríos et al. 2024}). Urban
+habitats are generally associated with environmental perturbations to
+microbial communities
+(\citeproc{ref-mckinney_urbanization_2006}{McKinney 2006};
+\citeproc{ref-zhou_urbanization_2023}{Zhou et al. 2023};
+\citeproc{ref-zheng_urbanization_2025}{Zheng et al. 2025}). Previous
+studies among urban amphibians report that urbanization corresponds to
+increased homogeneity among urban populations but not necessarily
+decreases in taxonomic richness or diversity
+(\citeproc{ref-barnes_assembly_2021}{Barnes et al. 2021};
+\citeproc{ref-basanta_genetic_2022}{Basanta et al. 2022};
+\citeproc{ref-zhou_urbanization_2023}{Zhou et al. 2023};
+\citeproc{ref-touceda-suarez_differences_2025}{Touceda-Suárez et al.
+2025}; \citeproc{ref-wheeler_effects_2025}{Wheeler et al. 2025}) as
+repeated disturbances may disrupt community connections providing
+openings for colonization (\citeproc{ref-hu_impervious_2018}{Hu et al.
+2018}).
+
+Our aim in this study has been to characterize how dermal microbiomes
+vary between habitats, by focusing on composition and functional
+differences in the fire salamander dermal microbiome between urban and
+rural habitats. To our knowledge, the fire salamander microbiome has
+thus far only ever been subject to 16S amplicon sequencing, and while
+characterization of the microbiome at variable life stages and habitats
+are available (\citeproc{ref-sanchez_cutaneous_2017}{Sanchez et al.
+2017}; \citeproc{ref-bletz_disruption_2018}{{Bletz et al.} 2018};
+\citeproc{ref-afonso_effects_2022}{Afonso et al. 2022}), they miss out
+on the more detailed taxonomic and functional resolution that shotgun
+sequencing provides
+(\citeproc{ref-antony-babu_multiple_2017}{Antony-Babu et al. 2017}).
+Therefor, we applied shotgun-sequencing and assembled microbial genomes
+to characterize the differences in bacterial composition and
+functionality between fire salamanders from comparatively urban and
+rural habitats. We hypothesized that the dermal microbiome of
+salamanders would vary between urban and rural habitats in assemblage,
+with the expectation that diversity and variance between sites would be
+lower among urban sites owing to more recent anthropogenic disturbances
+favouring generalist taxa tolerant to perturbations
+(\citeproc{ref-zheng_urbanization_2025}{Zheng et al. 2025};
+\citeproc{ref-clavel_worldwide_2011}{Clavel et al. 2011}). Furthermore,
+that the inferred functional traits of microbiota assemblages would also
+differ between habitats.
+
+\section{Methods}\label{methods}
+
+\subsubsection{Sampling}\label{sampling}
+
+Field sampling was conducted at various urban parks in the city of Porto
+in Portugal, Europe (Figure 1). Porto is a large urban matrix comprised
+of isolated urban parks of varying size, extensive forested areas
+comprised of either endemic (e.g.~\emph{Quercus, Acer}) and invasive
+tree species (e.g.~\emph{Eucalyptus, Acacia}), and many small
+agricultural plots intersecting them
+(\citeproc{ref-guilherme_looking_2022}{Guilherme et al. 2022}). Sites
+were generalized as either urban or rural based on their proximity to
+the urban metropolitan core of the city
+(\citeproc{ref-madureira_green_2011}{Madureira et al. 2011}), with up to
+11 samples were collected when possible, with thirty samples collected
+from each habitat. Urban sites were small semi-forested plots
+(\textasciitilde9 ha) surrounded by areas of high impervious surface,
+such as roads and built structures. Rural sites, by contrast, were large
+areas (27-39 ha) with extensive tree cover, usually endemic deciduous
+species, and surrounded by agricultural or stands of exotic tree
+species. Individuals were collected between mid-October to early
+November 2023, on nights of high humidity and when temperatures range
+from 14-22 ºC. This coincides with a season of peak activity when males,
+distinguished by the presence of an enlarged cloaca, move above the leaf
+litter and present themselves as mating candidates
+(\citeproc{ref-velo-anton_salamandra_2015}{Velo-Antón and Buckley
+2015}). Using sterile gloves, specimens were collected and placed in
+small individualized sterile containers, ideally avoiding direct
+contact, instead scooping them into the containers to minimize contact
+with the dermis. Salamanders were then moved to laboratory facilities at
+Research Centre in Biodiversity and Genetic Resources (CIBIO) in Vairão,
+Portugal, the following morning to proceed with swabbing. During
+swabbing, a technician wearing sterile gloves (replaced between samples)
+restrained individual salamanders by the base of the tail, using sterile
+paper towel to help maintain a grip. Individual were then sprayed
+thoroughly with distilled H\textsubscript{2}O to remove debris. Once
+rinsed, the individual dermis was swabbed with ten stokes on the dorsal,
+ventral, and each lateral side with a swab and placed in a 2 mL tube
+pre-filled with DNA/RNA Shield (Zymo Research) and frozen at -20ºC.
+After swabbing, individuals were returned to the sampled location later
+the same day.
+
+\subsubsection{Sequencing}\label{sequencing}
+
+Samples were processed in October 2024 at the Globe Institute's
+(University of Copenhagen) molecular laboratory in Copenhagen, Denmark,
+following the established EHI laboratory protocols available at
+www.earthhologenome.org/laboratory
+(\citeproc{ref-pietroni_hologenomic_2025}{Pietroni et al. 2025}).
+Samples underwent bead-beating before DNA isolation employing silica
+magnetic beads with solid-phase reversible immobilization
+(\citeproc{ref-lauritsen_robust_2025}{{Lauritsen et al.} 2025}). The
+concentration of DNA extracts was quantified using a Qubit™ 3
+Fluorometer (Thermo Fisher Scientific, USA). DNA was fragmented into
+approximately 450 bp-long fragments using a Covaris LE220 platform.
+Library preparation followed the ligation-based BEST protocol
+(\citeproc{ref-caroe_single-tube_2018}{Carøe et al. 2018}), utilizing a
+standard input of 200 ng of DNA in 24 µl or the closest amount feasible
+based on the sample DNA concentration. We used 1.5 µl of 20 µM adapters
+for a 50-200 ng DNA input, 1.5 µl of 10 µM for 10-50 ng, 1.5 µl of 5 µM
+for \textless10 ng, and 1.5 µl of 2 µM for samples below the
+quantification range of the Qubit® dsDNA HS (High Sensitivity) Assay
+Kits. Libraries underwent qPCR screening to determine the optimal number
+of library indexing PCR cycles
+(\citeproc{ref-murray_benchtop_2015}{Murray et al. 2015}), followed by
+PCR amplification using unique dual index primers with an adjusted
+number of cycles ranging from X\textsubscript{1}-X\textsubscript{2}. The
+resulting libraries underwent automated capillary electrophoresis
+(Bioanalyzer or Fragment Analyzer) for assessment of fragment-length
+distribution, adapter dimers, and adapter-to-library molar ratios.
+Finally, samples were pooled into multiple sequencing batches, and
+sequencing was performed across multiple lanes of NovaSeq6000 and
+NovaSeq X platforms (Illumina, USA), generating 9 GB (approximately 30
+million reads) of 150 bp paired-end sequencing data per sample.
+
+\subsubsection{Bioinformatics}\label{bioinformatics}
+
+Raw metagenomic reads were processed following the bioinformatic
+workflow outlined by the Earth Hologenome Initiative (see {Leonard et
+al.} (\citeproc{ref-leonard_global_2024}{2024});
+\url{https://www.earthhologenome.org/}), and stored in the Electronic
+Research Data Archive (ERDA) of the University of Copenhagen.
+Computation was conducted in the local cluster of the Globe Institute
+(Mjolnir) using the snakemake- and slurm-based bioinformatic pipelines
+tailored to the platform
+(\url{https://github.com/earthhologenome/EHI_bioinformatics/tree/mjolnir}).
+Quality filtering to remove adapters, low-quality reads (phred
+\textgreater= 20), short reads (\textgreater= 60 bp), and polyG/polyX
+tails was done with Fastp v.0.23.4 (\citeproc{ref-chen_fastp_2018}{Chen
+et al. 2018}). With skin swabs, the majority of DNA extracted is
+expected to belong to the host, and so the proportion of prokaryotic
+sequences were estimated using SingleM microbial fraction
+(\citeproc{ref-eisenhofer_quantifying_2024}{Eisenhofer et al. 2024}).
+Host-derived reads were removed by mapping against a reference host
+genome using Bowtie2 v.2.5.1 (\citeproc{ref-langmead_fast_2012}{Langmead
+and Salzberg 2012}) and Samtools v.1.18
+(\citeproc{ref-danecek_twelve_2021}{{Danecek et al.} 2021}). In the
+absence of a reference genome for \emph{S. salamandra}, we used a
+\emph{Salamandra salamandra} transcriptome (NCBI RefSeq HBZU010000000;
+Libro et al. (\citeproc{ref-libro_novo_2023}{2023})) in addition to the
+reference genome of \emph{Pleurodeles waltl} (Michahelles, 1830) (NCBI
+RefSeq assembly GCF\_031143425.1; {Brown et al.}
+(\citeproc{ref-brown_chromosome-scale_2025}{2025})), which was the most
+phylogenetically related species with a reference genome available at
+the time (\citeproc{ref-zhang_phylogeny_2008}{Zhang et al. 2008}).
+Unmapped metagenomic reads were assembled into contigs then into
+putative bacterial genomes known as \emph{metagenome-assembled genomes
+(MAGs)} by MEGAHIT v.1.2.9 (\citeproc{ref-li_megahit_2016}{Li et al.
+2016}). The quality of these MAGs for subsequent downstream analyses was
+evaluated with Quast (\citeproc{ref-gurevich_quast_2013}{Gurevich et al.
+2013}) and contig coverage was determined by CoverM
+(\citeproc{ref-aroney_coverm_2025}{Aroney et al. 2025}). Metagenomic
+binning was performed by multiple algorithms, including CONCOCT v.1.1
+(\citeproc{ref-alneberg_binning_2014}{Alneberg et al. 2014}), MetaBAT2
+v.1.7 (\citeproc{ref-kang_metabat_2019}{Kang et al. 2019}), and MaxBin2
+v.2.2.4 (\citeproc{ref-wu_maxbin_2016}{Wu et al. 2016}), the refined by
+MetaWRAP (\citeproc{ref-uritskiy_metawrapflexible_2018}{Uritskiy et al.
+2018}) into consensus bins. Bins that passed the CheckM2
+(\citeproc{ref-chklovski_checkm2_2023}{Chklovski et al. 2023}) quality
+criteria of \textgreater50\% completeness and \textless10\%
+contamination were considered as metagenome-assembled genomes (MAGs) for
+downstream analyses (\citeproc{ref-bowers_minimum_2017}{{Bowers et al.}
+2017}).
+
+Taxonomical annotations of MAGs were matched to the Genome Taxonomy
+Database (GTDB) with the taxonomic classification toolkit (GTDB-Tk)
+(\citeproc{ref-chaumeil_gtdb-tk_2022}{Chaumeil et al. 2022};
+\citeproc{ref-parks_gtdb_2022}{Parks et al. 2022}). Genome-Inferred
+Functional Traits (GIFTs) of MAGs were assigned with DRAM
+(\citeproc{ref-shaffer_dram_2020}{{Shaffer et al.} 2020}) using the Pfam
+(\citeproc{ref-finn_pfam_2016}{{Finn et al.} 2016}), KEGG
+(\citeproc{ref-kanehisa_kegg_2017}{Kanehisa et al. 2017}), UniProt
+(\citeproc{ref-mcgarvey_uniprot_2019}{McGarvey et al. 2019}), CAZY
+(\citeproc{ref-cantarel_carbohydrate-active_2009}{Cantarel et al.
+2009}), and MEROPS (\citeproc{ref-rawlings_merops_1999}{Rawlings and
+Barrett 1999}) databases and distillR (available at
+\url{https://github.com/anttonalberdi/distillR}). An average nucleotide
+identity (ANI) of 98\% and a minimum genome completeness of 50\% were
+used to dereplicate highly similar MAGs using dRep
+(\citeproc{ref-olm_drep_2017}{Olm et al. 2017}). Reads were then mapped
+to a MAG catalogue to extract quantitative read-abundance information to
+calculate relative abundance of each MAG per sample.
+
+\subsubsection{Statistics}\label{statistics}
+
+For each sample, we determined the proportion of sequenced bases that
+were mapped to MAGs as compared to those that were filtered due to poor
+quality, unmapped, or mapped to the host. The domain-adjusted mapping
+rate (DAMR) was used to quantify microbial genome recovery from
+metagenomes, calculated as the rate of read mapping to sets of microbial
+genomes (MAGs or other references) divided by the fraction of the
+community predicted to be prokaryote
+(\citeproc{ref-eisenhofer_quantifying_2024}{Eisenhofer et al. 2024}).
+Differences in the proportion of mapped bases between habitats were
+determined through a Wilcox rank test
+(\citeproc{ref-bauer_constructing_1972}{Bauer 1972}). The relative
+abundance of each MAG was defined as the number of assigned reads as a
+proportion of the MAGs' length, divided by average read length
+(\citeproc{ref-gloor_compositional_2016}{Gloor and Reid 2016};
+\citeproc{ref-gloor_microbiome_2017}{Gloor et al. 2017}), with a centred
+log ratio (CLR) transformation used to remove the constant-sum
+constraint and to centre values around zero
+(\citeproc{ref-aitchison_statistical_1982}{Aitchison 1982}). Differences
+between habitats in the relative abundances of taxa were determined with
+an Analysis of Compositions of Microbiomes with Bias Correction 2
+(ANCOMB2) (\citeproc{ref-lin_analysis_2020}{Lin and Peddada 2020}) and
+reported as log fold changes between habitats; this analysis was
+repeated at each taxonomic resolution.
+
+Differences in MAG richness as well as neutral, phylogenetic, and
+functional beta diversities were calculated with Hill numbers
+(\citeproc{ref-hill_diversity_1973}{Hill 1973};
+\citeproc{ref-chao_unifying_2014}{Chao et al. 2014}) using Hilldiv2
+v.2.0.2 (\citeproc{ref-alberdi_hilldiv2_2025}{Alberdi 2025}). Neutral
+diversity represent species diversity without considering the degree of
+relatedness among MAGs, phylogenetic diversity incorporate branch-length
+information of the phylogenetic tree of the MAGs, and functional
+diversity consider functional differences among MAGs
+(\citeproc{ref-hernandez_contrasting_2024}{Hernández et al. 2024}).
+Differences in richness and diversity estimates between habitats and
+or/sites were determined with the \emph{betadisper} function in vegan
+v.2.6-10 (\citeproc{ref-oksanen_package_2013}{{Oksanen et al.} 2013}). A
+permutational multivariate analysis of variance (PERMANOVA) was
+performed to test for differences in microbial composition between
+habitats using the \emph{adonis2} function in vegan. Once again,
+Wilcoxon rank sum test was used to test for differences in the variance
+within each group when comparing habitats and an analysis of variance
+(ANOVA; Chambers and Hastie
+(\citeproc{ref-chambers_statistical_1992}{1992})) was used to compare
+differences in variance between sites.
+
+For each MAG, GIFTs were aggregated to a singular GIFT score for each
+functional element, then aggregated to genome specific GIFTs for each
+individual using the \emph{to.element} and \emph{to.community} functions
+included in distillR. GIFT scores ranged from 0 to 1, representing
+representing the proportion of genes required for the functional
+pathway, where 0 represents an absence of associated genes and 1 a
+complete presence of all genes
+(\citeproc{ref-aizpurua_impact_2026}{Aizpurua et al. 2026}). Functional
+elements with less than an average score of 0.1 were excluded from
+consideration. Among the remainder, a Wilcoxon rank sum test was used to
+determine if there were differences in GIFTs between habitats, with a
+subsequent correction for the false discovery rate. Additionally, among
+any microbial taxa which significantly differed in relative abundance
+between habitats, we also tested for significant differences in
+functional element association using the aforementioned methods. All
+statistical analyses were performed using the R software v.4.5.0 (R Core
+Team, 2025).
+
+\section{Results}\label{results}
+
+From each site, up to 11 samples were collected when possible, with
+thirty samples collected from each habitat (Figure 1). Sequencing
+libraries included a total of 60 swabs used to generate approximately
+105M total reads (mean ± SD = 1.75 ± 2.69, median = 1.11, M reads per
+sample) of short-read DNA sequencing data. Quality filtering and host
+read removal resulted in 98.5M filtered reads (mean ± SD = 1.69 ± 2.68 ,
+median = 0.991, Gb per sample) of metagenomic data, assembled into 118
+metagenome-assembled genomes (MAGs) that passed our minimum quality
+criteria (CheckM2 estimated completeness \textgreater50\%, contamination
+\textless10\%). A mean of 4.42 ± 1.89 Gigabases were generated per
+sample, with an average 5.8\% mapped to MAGs, while 5.3\% were removed
+for low quality, and the remaining either unmapped or mapped to the
+host. Average MAG completeness was 79.3 ± 16.1 \%, and contamination
+2.75 ± 2.42 \%. The mean DAMR suggest that 22.5 ± 20.8 \% of bacterial
+reads were successfully mapped to MAGs. Between the two habitats, a
+significantly lower proportion of bases were assigned to MAGs among
+urban samples as compared to rural samples (W = 646, p = 0.003).
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Figure 1. Sites were designated as either Urban or Rural habitats, depending on the proportion in impervious surface nearby. The names and number of swabs collected from each site are listed at each point. Photo courtesy ©Max Benito and Jose Vieira from ExSitu Project.}]{ms_ssal_porto_microbiome_files/documentation/porto_sample_sites_count.png}}
+\caption{Figure 1. Sites were designated as either Urban or Rural
+habitats, depending on the proportion in impervious surface nearby. The
+names and number of swabs collected from each site are listed at each
+point. Photo courtesy ©Max Benito and Jose Vieira from ExSitu Project.}
+\end{figure}
+
+Among the 118 distinct MAGs, the three most taxa rich phyla were
+Bacteroidota (33.1\%), Pseudomonadota (33.1\%), and Bacillota
+(21.2\%)(Table 2; Figure 2). Except for Pseudomonadota, the majority of
+MAGs (73.7\%) were identified as new species, with a total of 87 MAGs
+lacking species level annotations and a further 19 MAGs lacked genus
+level annotations. Among families with more than a single ascribed taxa,
+two, Erysipelotrichaceae (phylum Bacillota; 3 MAGs) and
+Pseudonocardiaceae (phylum Actinomycetota; 3 MAGs), were exclusive to
+rural habitats, and another two, Chitinophagaceae (phylum Bacteroidota;
+5 MAGs) and Steroidobacteraceae (phylum Pseudomonadota, 2 MAGs), were
+exclusive to urban habitats.
+
+Table 2. For each observed prokaryptic phylum, the number of distinct
+MAGs assembled, the proportion of MAGs assigned to that phylum, and the
+number of distinct classes, orders, and families in each, and the
+proportion of MAGs identified as new species.
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.2468}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.0779}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1169}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1169}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1039}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1299}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.2078}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+phylum
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+MAGs
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\% MAGs
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Classes
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Orders
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Families
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\% new species
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Acidobacteriota & 2 & 1.70 & 1 & 2 & 2 & 1.00 \\
+Actinomycetota & 8 & 6.80 & 1 & 2 & 6 & 0.75 \\
+Bacillota & 25 & 21.2 & 2 & 5 & 10 & 1.00 \\
+Bacteroidota & 39 & 33.00 & 1 & 4 & 10 & 0.90 \\
+Desulfobacterota & 1 & 0.85 & 1 & 1 & 1 & 1.00 \\
+Pseudomonadota & 39 & 33.00 & 2 & 12 & 16 & 0.36 \\
+Verrucomicrobiota & 4 & 3.40 & 2 & 2 & 2 & 1.00 \\
+\end{longtable}
+}
+
+\newpage
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Figure 2. For each branch in the MAG phylogeny, concentric rings indicate the corresponding phylum (see legend), whether the taxa were identified in an urban (purple) or rural (green) habitat, and whether the MAG likely represents a new species (grey).}]{ms_ssal_porto_microbiome_files/Ssal_Microbiota/figure/circular_tree_simplified_legend.png}}
+\caption{Figure 2. For each branch in the MAG phylogeny, concentric
+rings indicate the corresponding phylum (see legend), whether the taxa
+were identified in an urban (purple) or rural (green) habitat, and
+whether the MAG likely represents a new species (grey).}
+\end{figure}
+
+Pseudomonadota was by far the most abundant phylum represented followed
+by Bacteroidota and Actinomycetota (Table 3). Among each phylum, only
+Bacillota significantly differed in relative abundance between sites
+being more abundant among rural sample. Further increasing taxonomic
+resolution, we found this to remain the case until reaching the family
+resolution, where upon three families of Pseudomonadota (Moraxellaceae,
+Micrococcaceae, and an undefined family of order Burkholderiales) were
+also found to be more abundant among rural samples. At the highest
+taxonomic resolution we identified 12 MAGs that significantly differed
+between habitats, all of which were more abundant among rural samples
+(Figure 3B); nine of these corresponded to the genus
+\emph{Acinetobacter}, two to \emph{Citrobacter}, and one from each
+family of Mycoplasmoidaceae and the order Burkholderiales (Table SM1).
+
+Table 3. For each phylum, the mean CLR of relative abundances of each
+phylum are reported among urban, rural, and overall habitats.
+Significant differences between habitats (p \textless{} 0.05) were only
+observed among Bacillota.
+
+\begin{table}
+\centering
+\begin{tblr}[         %% tabularray outer open
+]                     %% tabularray outer close
+{                     %% tabularray inner open
+colspec={Q[]Q[]Q[]Q[]Q[]},
+hline{2}={1-5}{solid, black, 0.05em},
+hline{1}={1-5}{solid, black, 0.08em},
+hline{10}={1-5}{solid, black, 0.08em},
+}                     %% tabularray inner close
+Phylum & Urban & Rural & Overall & p \\
+Pseudomonadota & 5.94 & 6.030 & 5.990 & 0.411000 \\
+Bacteroidota & 3.84 & 2.620 & 3.230 & 0.099400 \\
+Actinomycetota & 2.54 & 2.970 & 2.750 & 0.274000 \\
+Bacillota & -2.14 & 0.574 & -0.782 & 0.000002 \\
+Bacillota_A & -1.45 & -2.210 & -1.830 & 0.467000 \\
+Acidobacteriota & -2.88 & -2.480 & -2.680 & 0.285000 \\
+Verrucomicrobiota & -3.34 & -3.330 & -3.330 & 0.912000 \\
+Desulfobacterota & -3.17 & -3.520 & -3.350 & 0.636000 \\
+\end{tblr}
+\end{table}
+
+\newpage
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Figure 3. A) Differences in relative abundance after a centred log ratio (CLR) transformation between rural and urban habitats at each of the detected phylum. B) Mean relative abundances after a CLR transformation are plotted against LFD, where taxa with significant differences are coloured according to their phylum (yellow = Pseudomonadota, blue = Bacillota).}]{ms_ssal_porto_microbiome_files/Ssal_Microbiota/figure/relative_abundance.png}}
+\caption{Figure 3. A) Differences in relative abundance after a centred
+log ratio (CLR) transformation between rural and urban habitats at each
+of the detected phylum. B) Mean relative abundances after a CLR
+transformation are plotted against LFD, where taxa with significant
+differences are coloured according to their phylum (yellow =
+Pseudomonadota, blue = Bacillota).}
+\end{figure}
+
+No significant differences in either species richness, neutral
+diversity, phylogentic diversity, or functional diversity estimates were
+observed between either habitat (Figure 4A-D). An analysis of variance
+did, however, identify significant differences between habitats and
+sites at each of the aforementioned metrics (Figure 4E-H; Table SM2).
+Further, within each of the habitats, significant differences in neutral
+diversity estimates were observed among sites from either habitat
+(Figure S1B,F) and in phylogenetic variation exclusively among urban
+sites (Figure S1G).
+
+\newpage
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Figure 4. Differences in (A-D) alpha within and (E-H) beta diversity between habitats when considering (A,F) species richness, (B,F) neutral diversity, (C,G) phylogenetic diversity, and (D,H) functional diversity.}]{ms_ssal_porto_microbiome_files/Ssal_Microbiota/figure/habitat_alphabeta_div.png}}
+\caption{Figure 4. Differences in (A-D) alpha within and (E-H) beta
+diversity between habitats when considering (A,F) species richness,
+(B,F) neutral diversity, (C,G) phylogenetic diversity, and (D,H)
+functional diversity.}
+\end{figure}
+
+After aggregating the functional association of microbial assemblages
+among individuals from either habitat, the most complete functional
+traits were those associated with biosynthesis of various organic
+anions, amino, and nucleic acids (Figure S2). Significant differences in
+the aggregare GIFT scores between habitat related to the biosynthesis of
+citrate, degradation of tryptophan, and structural formation of
+lipopolysaccharide between habitats (Figure 5). In each case, predicted
+GIFT associations were greater among rural samples when compared to
+urban counterparts. When comparing function element associations between
+those microbial taxa that significantly differed between habitats and
+those that did not, we observed significant differences in function
+associations toward the biosynthesis of betaine (W = 955, p = 0.02), the
+degradation of triglyceride lipids (W = 328, p = 0.02), lactose sugars
+(W = 959, p = 0.02), and xenobiotic toluene (W = 264, p = 0.02), along
+with differences in cellular structure associated with peptidoglycan (W
+= 360, p = 0.04) and flagellum (W = 359, p = 0.04).
+
+\newpage
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Figure 5. Mean GIFT probability of functional elements that significantly differed between habitats.}]{ms_ssal_porto_microbiome_files/Ssal_Microbiota/figure/gift_class_habitat_comparisons.png}}
+\caption{Figure 5. Mean GIFT probability of functional elements that
+significantly differed between habitats.}
+\end{figure}
+
+\section{Discussion}\label{discussion}
+
+While our hypothesis, that urbanization would result in lower taxonomic
+and functional variance among sites, was not supported, significant
+differences in diversity between sites and habitats were observed,
+suggesting a shift in microbiome assemblage between habitats and an
+increased phylogenetic diversity among urban salamanders microbiota.
+Comparing the relative abundances of microbiota between habitats,
+several taxa, namely from the phyla Pseudomonadota and Bacillia, were
+significantly less abundant among urban salamanders. Furthermore, when
+comparing significant differences in the inferred functional elements of
+microbiome assemblages between habitats, urban microbiota assemblages
+were found to be less likely associated with several functions when
+compared to rural assemblages. Based on our results, it appears that
+fire salamander residency in urbanized habitats coincides with a decline
+in the relative abundance of several relatively common taxa, which may
+consequentially result in decrease in functional elements possibly
+associated with those taxa.
+
+\subsection{Characterization of dermal
+microbiota}\label{characterization-of-dermal-microbiota}
+
+Comparing the application of shotgun sequencing in this study to
+previously reported results from other studies using 16S amplicon
+sequencing of the fire salamander dermal microbiome, both suggest a
+similar microbiome assemblage where Pseudomonadota has been identified
+as among the most taxa rich and abundant phylum, followed by
+Bacteroidota and Actinomycetota
+(\citeproc{ref-afonso_effects_2022}{Afonso et al. 2022};
+\citeproc{ref-barnes_assembly_2021}{Barnes et al. 2021};
+\citeproc{ref-bletz_host_2017}{Bletz et al. 2017},
+\citeproc{ref-bletz_disruption_2018}{2018}). Unlike many of those
+studies, however, Bacillota and Bacteroidota were identified as
+similarly taxonomic rich phylum. This may reflect that unlike
+Pseudomonadota, that MAGs ascribed to this phylum have comparatively few
+existing taxonomic references. While studies utilizing 16S amplicon
+sequences also report relative abundance, this measure is generated
+through statistical simulation or inferences to correct for enrichment
+bias (\citeproc{ref-mandal_analysis_2015}{Mandal et al. 2015};
+\citeproc{ref-kurtz_sparse_2015}{Kurtz et al. 2015}). Amphibians
+regularly shed their epidermis, in a process called sloughing
+(\citeproc{ref-ohmer_skin_2015}{Ohmer et al. 2015}) which maintains a
+healthy turnover of skin but, as revealed by electron microscopy and
+qPCR (\citeproc{ref-bletz_disruption_2018}{{Bletz et al.} 2018}),
+results in low microbial abundances along the skins surface. With less
+starting genetic material, the number of enrichment cycles required for
+suitable detection 16S fragments increases (30-35 cycles) as does the
+subsequent risk of initial enrichment bias
+(\citeproc{ref-nearing_identifying_2021}{Nearing et al. 2021};
+\citeproc{ref-silverman_measuring_2019}{Silverman et al. 2019}). Shotgun
+sequencing, by not relying on abundant enrichment cycles (3-10 cycles),
+therefore does not need to infer relative abundance and is less
+susceptible to starting material biases. The greatest logistical
+challenge of this approach, particularly when applied to amphibians, was
+the presence of a large complex host genome which required prior
+filtering to separate host from bacterial DNA
+(\citeproc{ref-eisenhofer_quantifying_2024}{Eisenhofer et al. 2024}). We
+were able to assign an average of 5.8\% of reads per sample to bacterial
+genomes and despite excluding the majority of reads, were able to
+construct 118 bacterial genomes, the majority of which lack prior
+taxonomic references. With an average genome size of 3.9Mb corresponding
+to estimated 78.5\% completeness, we wish to highlight that with even a
+small fraction of sequence reads, it is possible to generate
+comprehensive bacterial genome assemblies. Additionally, while not
+included in this study, the majority of reads attributed to the fire
+salamander genome are available for subsequent analysis of host genomics
+and will be a valuable contribution to amphibian genomic development
+(\citeproc{ref-pietroni_hologenomic_2025}{Pietroni et al. 2025};
+\citeproc{ref-kosch_amphibian_2024}{{Kosch et al.} 2024}).
+
+A further benefit of implementing a shotgun sequencing approach was our
+ability to predict microbiome functionality. Among similarly related
+taxa, functionality can vary and will not be captured by 16S sequencing
+unless the taxa in question have already been functionally characterized
+(\citeproc{ref-cevallos_genomic_2022}{Cevallos et al. 2022}). Prior
+studies comparing 16S community composition to functional gene
+characterizations have found inconsistent associations between the two
+(\citeproc{ref-barberan_exploration_2012}{Barberán et al. 2012}).
+Shotgun sequencing, by capturing full genes, can then use GIFTs rather
+than by taxonomic inference, which would be especially fraught given the
+high number of taxa described in this study without prior taxonomic
+references. Much of the work on microbiome functionality among
+amphibians, and in particular fire salamanders, have been to determine
+the role of microbiota in conferring resistance to chytrid fugal
+implications (\citeproc{ref-bletz_disruption_2018}{{Bletz et al.} 2018};
+\citeproc{ref-bates_captivity_2019}{Bates et al. 2019};
+\citeproc{ref-crawshaw_widespread_2022}{Crawshaw et al. 2022};
+\citeproc{ref-smith_skin_2018}{Smith et al. 2018};
+\citeproc{ref-kueneman_effects_2022}{{Kueneman et al.} 2022}). Among the
+microbiome communities, the genera \emph{Pseudomonas} (mean CLR = 72)
+followed by \emph{Acinetobacter} (mean CLR = 34) were the most abundant
+among all samples. The relative abundance of \emph{Pseudomonas,}
+however, did not vary significantly between habitats. Rather differences
+in microbiome abundances between habitats were driven by the relative
+abundance of specific taxa, most notably the genera
+\emph{Acinetobacter}, \emph{Citrobacter}, and \emph{Mycoplasma}. Among
+these, \emph{Acinetobacter} has repeatedly been identified for it's
+associated with inhibiting \emph{Bsal} and \emph{Bd} growth
+(\citeproc{ref-muletz-wolz_inhibition_2017}{Muletz-Wolz et al. 2017};
+\citeproc{ref-cevallos_genomic_2022}{Cevallos et al. 2022};
+\citeproc{ref-hoyt_bacteria_2015}{Hoyt et al. 2015}). Meanwhile,
+\emph{Citrobacter} is mostly known as a foodborne pathogen associated
+with aquaculture (\citeproc{ref-yang_comparative_2024}{Yang et al.
+2024}; \citeproc{ref-paranhos_sepsis_2024}{Paranhos et al. 2024};
+\citeproc{ref-li_damage_2022}{Li et al. 2022}) and \emph{Mycoplasma} is
+generally recognized as a pathogen among reptiles, associated with
+respiratory illness (\citeproc{ref-faulhaber_detection_2025}{Faulhaber
+et al. 2025}; \citeproc{ref-brown_mycoplasma_2018}{Brown et al. 2018}).
+
+Among the inferred functional traits identified as differing between
+habitats we identified the biosynthesis of citrate, which is often
+produced in the mitochondria and considered a product of metabolic
+activity (\citeproc{ref-iacobazzi_citrate_2014}{Iacobazzi and Infantino
+2014}); the degradation of tryptophan, an amino-acid involved in the
+biosynthesis of proteins and usually converted into various metabolites
+(\citeproc{ref-friedman_analysis_2018}{Friedman 2018}); and the
+structural development of lipopolysaccharide, a component of
+gram-negative bacterial cell walls that are generally considered
+pathogenic (\citeproc{ref-mayeux_pathobiology_1997}{Mayeux 1997};
+\citeproc{ref-raetz_lipopolysaccharide_2002}{Raetz and Whitfield 2002})
+and in some cases used to explore immune responses among exposed
+amphibians (\citeproc{ref-mcnabb_effects_2019}{McNabb et al. 2019};
+\citeproc{ref-ferreira_lipopolysaccharide_2021}{Ferreira et al. 2021}).
+Regrettably, while we identified these functional traits, literature on
+their relevance to amphibian dermal health is limited, and deciphering
+the role would require experimental study beyond the scope of this
+study. By identifying functionally variability of the microbiome, future
+inquiry can identify traits to examine the role that microbiota have in
+amphibians' dermal health and pathology.
+
+\subsection{Dermal microbiome differences between
+habitats}\label{dermal-microbiome-differences-between-habitats}
+
+Similar to other characterizations of amphibian dermal microbiota in
+other studies (\citeproc{ref-barnes_assembly_2021}{Barnes et al. 2021};
+\citeproc{ref-walke_seasonal_2021}{Walke et al. 2021}), diversity among
+fire salamanders was not necessarily reduced among urban habitats, but
+instead varied in composition. All observed phyla were detected in
+either habitat, and among the few cases where a taxonomic family was
+exclusive to a habitat, as was the case with Chitinophagaceae among
+urban habitats and Pseudonocardiaceae and Erysipelotrichaceae among
+rural habitats, they were nominally represented in regard to relative
+abundance, contributing no more than 2\% of the total reads. Instead, it
+appears that urban samples had a greater diversity of lineages, given
+the increased phylogenetic diversity observed between urban sites. This
+is in line with studies of urban soil microbiomes, which reported
+greater phylogenetic diversity among urban sites
+(\citeproc{ref-touceda-suarez_differences_2025}{Touceda-Suárez et al.
+2025}). Specifically, a network analysis of urban soil microbiota in
+Chengdu, China by Zhou et al.
+(\citeproc{ref-zhou_urbanization_2023}{2023}) reported that soil in
+urbanized sites were more phylogenetically diverse but subsequently had
+lower taxonomic co-occurrence compared to rural sites. Changes in
+microbial assemblages of the environment may occur through translocation
+or deposition of soils between urban sites or through pollution
+(\citeproc{ref-cachada_levels_2012}{Cachada et al. 2012};
+\citeproc{ref-touceda-suarez_differences_2025}{Touceda-Suárez et al.
+2025}). While amphibians' dermal microbiomes are generally distinct from
+their environments (\citeproc{ref-burgon_phylogenomic_2021}{{Burgon et
+al.} 2021}; \citeproc{ref-bletz_host_2017}{Bletz et al. 2017}), their
+environment represents a reservoir for exposure to microbiota taxa
+(\citeproc{ref-muletz_soil_2012}{Muletz et al. 2012}). With greater
+phylogenetic variation between sites, more evenly distributed relative
+abundance of taxa, and lower sequence output from urban salamander
+microbiomes, the characterization of dermal microbiota in urban
+salamander appears consistent with a microbial community that reduced
+taxonomic redundancy and susceptible to stochastic disturbance.
+
+\subsection{Conclusion}\label{conclusion}
+
+Through the application of genome-resolved metagenomics, we were able to
+expand upon the existing characterization of the fire salamander dermal
+microbiome. We found support for variance between urban and rural
+habitats in assemblage; however, this applied primarily to composition
+of community assemblage and not microbiota diversity therein. The most
+abundant taxa identified were consistent with relative abundances
+estimated from previous studies, but many rare or low-abundance taxa
+were also identified, which may be putatively new species. Furthermore,
+urbanization has an apparent influence on the relative abundance of
+several microbial taxa communities, specifically those that have
+reported pathogenic or antifungal properties. Specifically, the
+increased relative abundance of the presumed fungal-resistant
+\emph{Acinetobacter} along with other taxa associated with pathogenic
+impacts, may suggest greater exposure among rural salamanders to
+potentially harmful microbial elements. Further study is recommended to
+compare these impacts that altered bacterial colonies have on dermal
+health and whether these changes better reflect variation in the
+microbial composition of the habitat or a response to a yet identified
+environmental pressure.
+
+\newpage
+
+\section{Acknowledgements}\label{acknowledgements}
+
+Thanks to Carlos Caballero-Díaz for assistance with sampling, to Isolde
+van Riemsdijk for consulting the best practices for sampling dermal
+swabs.
+
+This publication was funded through the generous support of the Fundação
+para a Ciência e a Tecnologia (FCT) as part of the project
+``ANTHROPHIBIANS: adaptive genomic and microbiotic responses of
+amphibians in anthropogenic landscapes'' (2021.05570.BD;
+\url{https://doi.org/10.54499/2021.05570.BD}).
+
+\subsubsection{Data accessibility}\label{data-accessibility}
+
+The raw data tables containing the quantitative information and
+bioinformatic code scripts used for the analysis are available in a
+dedicated GitHub repository accessible through Zenodo with Doi:
+10.5281/zenodo.19578779. Raw sequencing data and microbial genome
+sequences, have been or will be published as part of the 2nd EHI Data
+Release, under the Bioproject PRJEB77033.
+
+\newpage
+
+\section{Supplementary Materials}\label{supplementary-materials}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Figure S1. Differences in beta diversity of species richness (A,E), Shannon diversity (C,F), phylogentic diversity (C,G), and functional diversity (D,H) between sites within rural (A-D) and urban (E-H) habitats.}]{ms_ssal_porto_microbiome_files/Ssal_Microbiota/figure/site_beta_diversity.png}}
+\caption{Figure S1. Differences in beta diversity of species richness
+(A,E), Shannon diversity (C,F), phylogentic diversity (C,G), and
+functional diversity (D,H) between sites within rural (A-D) and urban
+(E-H) habitats.}
+\end{figure}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Figure S2. For each samples, the probability that the dermal microbiome, as an aggregate, is associated with a genome-inferred functional trait (GIFT) associated with biosynthesis, degradation, or structural (Str.) functionality.}]{ms_ssal_porto_microbiome_files/Ssal_Microbiota/figure/habitat_gift_function.png}}
+\caption{Figure S2. For each samples, the probability that the dermal
+microbiome, as an aggregate, is associated with a genome-inferred
+functional trait (GIFT) associated with biosynthesis, degradation, or
+structural (Str.) functionality.}
+\end{figure}
+
+Table S1. A list of MAGs for which a significant LFC was observed
+between habitats, with negatives values indicating greater relative
+abundance among rural samples.
+
+\begin{table}
+\centering
+\begin{tblr}[         %% tabularray outer open
+]                     %% tabularray outer close
+{                     %% tabularray inner open
+colspec={Q[]Q[]Q[]Q[]Q[]Q[]Q[]Q[]Q[]},
+hline{2}={1-9}{solid, black, 0.05em},
+hline{1}={1-9}{solid, black, 0.08em},
+hline{14}={1-9}{solid, black, 0.08em},
+}                     %% tabularray inner close
+Phylum & Class & Order & Family & Genus & Species & MAG & LFC & p \\
+Bacillota & Bacilli & Mycoplasmatales & Mycoplasmoidaceae & Mycoplasma_N &  & EHA05315_bin.4 & -4.5 & 9.4e-06 \\
+Pseudomonadota & Gammaproteobacteria & Burkholderiales & 2013Ark19i &  &  & EHA05315_bin.2 & -3.8 & 2.7e-04 \\
+Pseudomonadota & Gammaproteobacteria & Pseudomonadales & Moraxellaceae & Acinetobacter & Acinetobacter ursingii & EHA05315_bin.14 & -3.7 & 8.4e-06 \\
+Pseudomonadota & Gammaproteobacteria & Pseudomonadales & Moraxellaceae & Acinetobacter & Acinetobacter johnsonii & EHA05315_bin.31 & -3.2 & 9.0e-05 \\
+Pseudomonadota & Gammaproteobacteria & Pseudomonadales & Moraxellaceae & Acinetobacter & Acinetobacter bereziniae & EHA05315_bin.118 & -3.1 & 8.2e-05 \\
+Pseudomonadota & Gammaproteobacteria & Pseudomonadales & Moraxellaceae & Acinetobacter & Acinetobacter sp001696615 & EHA05315_bin.26 & -2.5 & 1.5e-03 \\
+Pseudomonadota & Gammaproteobacteria & Pseudomonadales & Moraxellaceae & Acinetobacter & Acinetobacter pittii_E & EHA05315_bin.3 & -2.5 & 1.1e-03 \\
+Pseudomonadota & Gammaproteobacteria & Pseudomonadales & Moraxellaceae & Acinetobacter & Acinetobacter vivianii & EHA05315_bin.7 & -2.4 & 2.3e-03 \\
+Pseudomonadota & Gammaproteobacteria & Pseudomonadales & Moraxellaceae & Acinetobacter & Acinetobacter beijerinckii & EHA05315_bin.52 & -2.4 & 1.2e-03 \\
+Pseudomonadota & Gammaproteobacteria & Pseudomonadales & Moraxellaceae & Acinetobacter & Acinetobacter sp002367455 & EHA05315_bin.29 & -2.4 & 4.9e-03 \\
+Pseudomonadota & Gammaproteobacteria & Enterobacterales & Enterobacteriaceae & Citrobacter & Citrobacter braakii & EHA05315_bin.84 & -2.1 & 4.4e-03 \\
+Pseudomonadota & Gammaproteobacteria & Enterobacterales & Enterobacteriaceae & Citrobacter & Citrobacter freundii & EHA05315_bin.78 & -1.8 & 1.2e-02 \\
+\end{tblr}
+\end{table}
+
+Table S1. ANOVA results comparing metrics for species richness, neutral
+diversity, phylogenetic diversity, and functional diversity between
+habitats. R\textsuperscript{2} represents the proportional sum of
+squares and the significance.
+
+\begin{table}
+\centering
+\begin{tblr}[         %% tabularray outer open
+]                     %% tabularray outer close
+{                     %% tabularray inner open
+colspec={Q[]Q[]Q[]Q[]Q[]},
+hline{2}={1-5}{solid, black, 0.05em},
+hline{1}={1-5}{solid, black, 0.08em},
+hline{6}={1-5}{solid, black, 0.08em},
+}                     %% tabularray inner close
+Metric & Habitat R2 & Habitat P & Site R2 & Site P \\
+species richness & 0.03870089 & 0.0370 & 0.1280550 & 0.0336 \\
+neutral diversity & 0.08861909 & 0.0003 & 0.2326501 & 0.0001 \\
+phylogenetic diversity & 0.09280180 & 0.0001 & 0.2858097 & 0.0001 \\
+functional diversity & 0.11158579 & 0.0028 & 0.2003820 & 0.0113 \\
+\end{tblr}
+\end{table}
+
+\newpage
+
+\section*{Bibliography}\label{bibliography}
+\addcontentsline{toc}{section}{Bibliography}
+
+\protect\phantomsection\label{refs}
+\begin{CSLReferences}{1}{1}
+\bibitem[\citeproctext]{ref-afonso_effects_2022}
+Afonso, Mariana, Laura Coelho, Fátima Jesus, et al. 2022. {``Effects of
+{Pine} and {Eucalypt} Ashes on Bacterial Isolates from the Skin
+Microbiome of the Fire Salamander ({Salamandra} Salamandra).''}
+\emph{Science of The Total Environment} 841: 156677.
+\url{https://doi.org/10.1016/j.scitotenv.2022.156677}.
+
+\bibitem[\citeproctext]{ref-aitchison_statistical_1982}
+Aitchison, J. 1982. {``The {Statistical} {Analysis} of {Compositional}
+{Data}.''} \emph{Journal of the Royal Statistical Society: Series B
+(Methodological)} 44 (2): 139--60.
+\url{https://doi.org/10.1111/j.2517-6161.1982.tb01195.x}.
+
+\bibitem[\citeproctext]{ref-aizpurua_impact_2026}
+Aizpurua, Ostaizka, Evie Morris, Lasse Nyholm, et al. 2026. {``Impact of
+Sequencing Approach on Ecological Inference from Highly Variable Bat Gut
+Microbiomes.''} \emph{bioRxiv}, January, 2026.01.08.698297.
+\url{https://doi.org/10.64898/2026.01.08.698297}.
+
+\bibitem[\citeproctext]{ref-akat_comden_complex_2023}
+Akat Çömden, Esra, Melodi Yenmiş, and Berna Çakır. 2023. {``The Complex
+Bridge Between Aquatic and Terrestrial Life: {Skin} Changes During
+Development of Amphibians.''} \emph{Journal of Developmental Biology} 11
+(1): 6. \url{https://doi.org/10.3390/jdb11010006}.
+
+\bibitem[\citeproctext]{ref-alarcon-rios_urban_2024}
+Alarcón-Ríos, Lucía, Antigoni Kaliontzopoulou, David Álvarez, and
+Guillermo Velo-Antón. 2024. {``Urban Life Affects Differentiation and
+Phenotypic Variation but Not Asymmetry in a Fully Terrestrial
+Salamander.''} \emph{Evolutionary Biology} 51 (3): 295--309.
+\url{https://doi.org/10.1007/s11692-024-09635-6}.
+
+\bibitem[\citeproctext]{ref-alberdi_hilldiv2_2025}
+Alberdi, Antton. 2025. \emph{Hilldiv2: {Integral} {Analysis} of
+{Diversity} {Based} on {Hill} {Numbers}}.
+\url{https://github.com/anttonalberdi/hilldiv2}.
+
+\bibitem[\citeproctext]{ref-alneberg_binning_2014}
+Alneberg, Johannes, Brynjar Smári Bjarnason, Ino De Bruijn, et al. 2014.
+{``Binning Metagenomic Contigs by Coverage and Composition.''}
+\emph{Nature Methods} 11: 1144--46.
+\url{https://doi.org/10.1038/nmeth.3103}.
+
+\bibitem[\citeproctext]{ref-antony-babu_multiple_2017}
+Antony-Babu, Sanjay, Didier Stien, Véronique Eparvier, Delphine Parrot,
+Sophie Tomasi, and Marcelino T Suzuki. 2017. {``Multiple {Streptomyces}
+Species with Distinct Secondary Metabolomes Have Identical {16S} {rRNA}
+Gene Sequences.''} \emph{Scientific Reports} 7: 11089.
+\url{https://doi.org/10.1038/s41598-017-11363-1}.
+
+\bibitem[\citeproctext]{ref-aroney_coverm_2025}
+Aroney, Samuel TN, Rhys JP Newell, Jakob N Nissen, Antonio Pedro
+Camargo, Gene W Tyson, and Ben J Woodcroft. 2025. {``{CoverM}: {Read}
+Alignment Statistics for Metagenomics.''} \emph{Bioinformatics} 41 (4):
+btaf147. \url{https://doi.org/10.1093/bioinformatics/btaf147}.
+
+\bibitem[\citeproctext]{ref-barberan_exploration_2012}
+Barberán, Albert, Antoni Fernández-Guerra, Brendan JM Bohannan, and
+Emilio O Casamayor. 2012. {``Exploration of Community Traits as
+Ecological Markers in Microbial Metagenomes.''} \emph{Molecular Ecology}
+21 (8): 1909--17.
+\url{https://doi.org/10.1111/j.1365-294X.2011.05383.x}.
+
+\bibitem[\citeproctext]{ref-barnes_assembly_2021}
+Barnes, Elle M, Steve Kutos, Nina Naghshineh, Marissa Mesko, Qing You,
+and JD Lewis. 2021. {``Assembly of the Amphibian Microbiome Is
+Influenced by the Effects of Land-Use Change on Environmental
+Reservoirs.''} \emph{Environmental Microbiology} 23 (8): 4595--611.
+\url{https://doi.org/10.1111/1462-2920.15653}.
+
+\bibitem[\citeproctext]{ref-barrett_urbanization_2014}
+Barrett, Kyle, and Steven J Price. 2014. {``Urbanization and Stream
+Salamanders: A Review, Conservation Options, and Research Needs.''}
+\emph{Freshwater Science} 33 (3): 927--40.
+\url{https://doi.org/10.1086/677556}.
+
+\bibitem[\citeproctext]{ref-basanta_genetic_2022}
+Basanta, María Delia, Eria A Rebollar, Mirna G García-Castillo, et al.
+2022. {``Genetic Variation of {Batrachochytrium} Dendrobatidis Is Linked
+to Skin Bacterial Diversity in the {Pacific} Treefrog {Hyliola} Regilla
+(Hypochondriaca).''} \emph{Environmental Microbiology} 24 (1): 494--506.
+\url{https://doi.org/10.1111/1462-2920.15861}.
+
+\bibitem[\citeproctext]{ref-bates_captivity_2019}
+Bates, Kieran A, Jennifer MG Shelton, Victoria L Mercier, et al. 2019.
+{``Captivity and Infection by the Fungal Pathogen {Batrachochytrium}
+Salamandrivorans Perturb the Amphibian Skin Microbiome.''}
+\emph{Frontiers in Microbiology} 10: 1834.
+\url{https://doi.org/10.3389/fmicb.2019.01834}.
+
+\bibitem[\citeproctext]{ref-bates_microbiome_2022}
+{Bates, Kieran A, Ulf Sommer, Kevin P Hopkins, et al.} 2022.
+{``Microbiome Function Predicts Amphibian Chytridiomycosis Disease
+Dynamics.''} \emph{Microbiome} 10 (1): 44.
+\url{https://doi.org/10.1186/s40168-021-01215-6}.
+
+\bibitem[\citeproctext]{ref-bauer_constructing_1972}
+Bauer, David F. 1972. {``Constructing Confidence Sets Using Rank
+Statistics.''} \emph{Journal of the American Statistical Association} 67
+(339): 687--90. \url{https://doi.org/10.1080/01621459.1972.10481279}.
+
+\bibitem[\citeproctext]{ref-becker_cutaneous_2010}
+Becker, Matthew H., and Reid N. Harris. 2010. {``Cutaneous {Bacteria} of
+the {Redback} {Salamander} {Prevent} {Morbidity} {Associated} with a
+{Lethal} {Disease}.''} \emph{PLoS One} 5 (6): 1--6.
+\url{https://doi.org/10.1371/journal.pone.0010957}.
+
+\bibitem[\citeproctext]{ref-bletz_host_2017}
+Bletz, Molly C, Holly Archer, Reid N Harris, et al. 2017. {``Host
+Ecology Rather Than Host Phylogeny Drives Amphibian Skin Microbial
+Community Structure in the Biodiversity Hotspot of {Madagascar}.''}
+\emph{Frontiers in Microbiology} 8: 1530.
+\url{https://doi.org/10.3389/fmicb.2017.01530}.
+
+\bibitem[\citeproctext]{ref-bletz_disruption_2018}
+{Bletz, Molly C, Moira Kelly, Joana Sabino-Pinto, et al.} 2018.
+{``Disruption of Skin Microbiota Contributes to Salamander Disease.''}
+\emph{Proceedings of the Royal Society B} 285 (1885): 20180758.
+\url{https://doi.org/10.1098/rspb.2018.0758}.
+
+\bibitem[\citeproctext]{ref-bowers_minimum_2017}
+{Bowers, Robert M, Nikos C Kyrpides, Ramunas Stepanauskas, et al.} 2017.
+{``Minimum Information about a Single Amplified Genome ({MISAG}) and a
+Metagenome-Assembled Genome ({MIMAG}) of Bacteria and Archaea.''}
+\emph{Nature Biotechnology} 35 (8): 725--31.
+\url{https://doi.org/10.1038/nbt.3893}.
+
+\bibitem[\citeproctext]{ref-brown_mycoplasma_2018}
+Brown, Daniel R., Meghan May, Janet M. Bradbury, et al. 2018.
+{``Mycoplasma.''} In \emph{Bergey's {Manual} of {Systematics} of
+{Archaea} and {Bacteria}}.
+\url{https://doi.org/10.1002/9781118960608.gbm01263.pub2}.
+
+\bibitem[\citeproctext]{ref-brown_chromosome-scale_2025}
+{Brown, Thomas, Ketan Mishra, Ahmed Elewa, et al.} 2025.
+{``Chromosome-Scale Genome Assembly Reveals How Repeat Elements Shape
+Non-Coding {RNA} Landscapes Active During Newt Limb Regeneration.''}
+\emph{Cell Genomics} 5 (2).
+\url{https://doi.org/10.1016/j.xgen.2025.100761}.
+
+\bibitem[\citeproctext]{ref-burgon_phylogenomic_2021}
+{Burgon, James D, Miguel Vences, Sebastian Steinfartz, et al.} 2021.
+{``Phylogenomic Inference of Species and Subspecies Diversity in the
+{Palearctic} Salamander Genus {Salamandra}.''} \emph{Molecular
+Phylogenetics and Evolution} 157: 107063.
+\url{https://doi.org/10.1016/j.ympev.2020.107063}.
+
+\bibitem[\citeproctext]{ref-cachada_levels_2012}
+Cachada, A, P Pato, T Rocha-Santos, E Ferreira da Silva, and AC Duarte.
+2012. {``Levels, Sources and Potential Human Health Risks of Organic
+Pollutants in Urban Soils.''} \emph{Science of the Total Environment}
+430: 184--92. \url{https://doi.org/10.1016/j.scitotenv.2012.04.075}.
+
+\bibitem[\citeproctext]{ref-callahan_exact_2017}
+Callahan, Benjamin J, Paul J McMurdie, and Susan P Holmes. 2017.
+{``Exact Sequence Variants Should Replace Operational Taxonomic Units in
+Marker-Gene Data Analysis.''} \emph{The ISME Journal} 11 (12): 2639--43.
+\url{https://doi.org/10.1038/ismej.2017.119}.
+
+\bibitem[\citeproctext]{ref-campanaro_taxonomy_2018}
+Campanaro, Stefano, Laura Treu, Panagiotis G Kougias, Xinyu Zhu, and
+Irini Angelidaki. 2018. {``Taxonomy of Anaerobic Digestion Microbiome
+Reveals Biases Associated with the Applied High Throughput Sequencing
+Strategies.''} \emph{Scientific Reports} 8 (1): 1926.
+\url{https://doi.org/10.1038/s41598-018-20414-0}.
+
+\bibitem[\citeproctext]{ref-cantarel_carbohydrate-active_2009}
+Cantarel, Brandi L, Pedro M Coutinho, Corinne Rancurel, Thomas Bernard,
+Vincent Lombard, and Bernard Henrissat. 2009. {``The
+{Carbohydrate}-{Active} {EnZymes} Database ({CAZy}): An Expert Resource
+for Glycogenomics.''} \emph{Nucleic Acids Research} 37 (suppl\_1):
+D233--38. \url{https://doi.org/10.1093/nar/gkn663}.
+
+\bibitem[\citeproctext]{ref-caroe_single-tube_2018}
+Carøe, Christian, Shyam Gopalakrishnan, Lasse Vinner, et al. 2018.
+{``Single-Tube Library Preparation for Degraded {DNA}.''} \emph{Methods
+in Ecology and Evolution} 9 (2): 410--19.
+\url{https://doi.org/10.1111/2041-210X.12871}.
+
+\bibitem[\citeproctext]{ref-castro_monzon_batrachochytrium_2022}
+Castro Monzon, Federico, Mark-Oliver Rödel, Florian Ruland, Gabriela
+Parra-Olea, and Jonathan M Jeschke. 2022. {``Batrachochytrium
+Salamandrivorans' Amphibian Host Species and Invasion Range.''}
+\emph{EcoHealth} 19 (4): 475--86.
+\url{https://doi.org/10.1007/s10393-022-01620-9}.
+
+\bibitem[\citeproctext]{ref-cevallos_genomic_2022}
+Cevallos, MA, MD Basanta, E Bello-López, et al. 2022. {``Genomic
+Characterization of Antifungal {Acinetobacter} Bacteria Isolated from
+the Skin of the Frogs {Agalychnis} Callidryas and {Craugastor}
+Fitzingeri.''} \emph{FEMS Microbiology Ecology} 98 (12): fiac126.
+\url{https://doi.org/10.1093/femsec/fiac126}.
+
+\bibitem[\citeproctext]{ref-chambers_statistical_1992}
+Chambers, J. M., and T. J. Hastie. 1992. \emph{Statistical {Models} in
+{S}}. Wadsworth \& Brooks/Cole.
+
+\bibitem[\citeproctext]{ref-chao_unifying_2014}
+Chao, Anne, Chun-Huo Chiu, and Lou Jost. 2014. {``Unifying Species
+Diversity, Phylogenetic Diversity, Functional Diversity, and Related
+Similarity and Differentiation Measures Through {Hill} Numbers.''}
+\emph{Annual Review of Ecology, Evolution, and Systematics} 45 (1):
+297--324. \url{https://doi.org/10.1146/annurev-ecolsys-120213-091540}.
+
+\bibitem[\citeproctext]{ref-chaumeil_gtdb-tk_2022}
+Chaumeil, Pierre-Alain, Aaron J Mussig, Philip Hugenholtz, and Donovan H
+Parks. 2022. {``{GTDB}-{Tk} V2: Memory Friendly Classification with the
+Genome Taxonomy Database.''} \emph{Bioinformatics} 38 (23): 5315--16.
+\url{https://doi.org/10.1093/bioinformatics/btac672}.
+
+\bibitem[\citeproctext]{ref-chen_fastp_2018}
+Chen, Shifu, Yanqing Zhou, Yaru Chen, and Jia Gu. 2018. {``Fastp: An
+Ultra-Fast All-in-One {FASTQ} Preprocessor.''} \emph{Bioinformatics} 34
+(17): i884--90. \url{https://doi.org/10.1093/bioinformatics/bty560}.
+
+\bibitem[\citeproctext]{ref-chklovski_checkm2_2023}
+Chklovski, Alex, Donovan H Parks, Ben J Woodcroft, and Gene W Tyson.
+2023. {``{CheckM2}: A Rapid, Scalable and Accurate Tool for Assessing
+Microbial Genome Quality Using Machine Learning.''} \emph{Nature
+Methods} 20 (8): 1203--12.
+\url{https://doi.org/10.1038/s41592-023-01940-w}.
+
+\bibitem[\citeproctext]{ref-clavel_worldwide_2011}
+Clavel, Joanne, Romain Julliard, and Vincent Devictor. 2011.
+{``Worldwide Decline of Specialist Species: Toward a Global Functional
+Homogenization?''} \emph{Frontiers in Ecology and the Environment} 9
+(4): 222--28. \url{https://doi.org/10.1890/080216}.
+
+\bibitem[\citeproctext]{ref-coban_soil_2022}
+Coban, Oksana, Gerlinde B De Deyn, and Martine van der Ploeg. 2022.
+{``Soil Microbiota as Game-Changers in Restoration of Degraded Lands.''}
+\emph{Science} 375 (6584): abe0725.
+\url{https://doi.org/10.1126/science.abe0725}.
+
+\bibitem[\citeproctext]{ref-cordeiro_amphibian_2024}
+{Cordeiro, Isabella Ferreira, Camila Gracyelle de Carvalho Lemes,
+Angélica Bianchini Sanchez, et al.} 2024. {``Amphibian Tolerance to
+Arsenic: Microbiome-Mediated Insights.''} \emph{Scientific Reports} 14
+(1): 10193. \url{https://doi.org/10.1038/s41598-024-60879-w}.
+
+\bibitem[\citeproctext]{ref-cox_global_2022}
+Cox, Neil, Bruce E. Young, Philip Bowles, et al. 2022. {``A Global
+Reptile Assessment Highlights Shared Conservation Needs of Tetrapods.''}
+\emph{Nature} 605 (7909): 285--90.
+\url{https://doi.org/10.1038/s41586-022-04664-7}.
+
+\bibitem[\citeproctext]{ref-crawshaw_widespread_2022}
+Crawshaw, Lauren, Tore Buchanan, Leonard Shirose, et al. 2022.
+{``Widespread Occurrence of {Batrachochytrium} Dendrobatidis in
+{Ontario}, {Canada}, and Predicted Habitat Suitability for the Emerging
+{Batrachochytrium} Salamandrivorans.''} \emph{Ecology and Evolution} 12
+(4): e8798. \url{https://doi.org/10.1002/ece3.8798}.
+
+\bibitem[\citeproctext]{ref-danecek_twelve_2021}
+{Danecek, Petr, James K Bonfield, Jennifer Liddle, et al.} 2021.
+{``Twelve Years of {SAMtools} and {BCFtools}.''} \emph{Gigascience} 10
+(2): giab008. \url{https://doi.org/10.1093/gigascience/giab008}.
+
+\bibitem[\citeproctext]{ref-demori_peptides_2019}
+{Demori, Ilaria, Zeinab El Rashed, Viola Corradino, et al.} 2019.
+{``Peptides for Skin Protection and Healing in Amphibians.''}
+\emph{Molecules} 24 (2): 347.
+\url{https://doi.org/10.3390/molecules24020347}.
+
+\bibitem[\citeproctext]{ref-dinis_dry-climate_2025}
+Dinis, Marco, Fernando Martínez-Freiría, Wouter Beukema, Sergé Bogaerts,
+and Guillermo Velo-Antón. 2025. {``The {Dry}-{Climate} {Hypothesis}:
+{Identifying} the {Environmental} {Drivers} of {Terrestrial}
+{Viviparous} {Salamanders}.''} \emph{Journal of Biogeography} 52 (11):
+e70046. \url{https://doi.org/10.1111/jbi.70046}.
+
+\bibitem[\citeproctext]{ref-dong_rice_2024}
+Dong, Wen-jing, Ming-da Xu, Xue-wen Yang, et al. 2024. {``Rice Straw Ash
+and Amphibian Health: {A} Deep Dive into Microbiota Changes and
+Potential Ecological Consequences.''} \emph{Science of The Total
+Environment} 926: 171651.
+\url{https://doi.org/10.1016/j.scitotenv.2024.171651}.
+
+\bibitem[\citeproctext]{ref-durazzi_comparison_2021}
+Durazzi, Francesco, Claudia Sala, Gastone Castellani, Gerardo Manfreda,
+Daniel Remondini, and Alessandra De Cesare. 2021. {``Comparison Between
+{16S} {rRNA} and Shotgun Sequencing Data for the Taxonomic
+Characterization of the Gut Microbiota.''} \emph{Scientific Reports} 11
+(1): 3030. \url{https://doi.org/10.1038/s41598-021-82726-y}.
+
+\bibitem[\citeproctext]{ref-eisenhofer_quantifying_2024}
+Eisenhofer, Raphael, Antton Alberdi, and Ben J Woodcroft. 2024.
+{``Quantifying Microbial {DNA} in Metagenomes Improves Microbial Trait
+Estimation.''} \emph{ISME Communications} 4 (1): ycae111.
+\url{https://doi.org/10.1093/ismeco/ycae111}.
+
+\bibitem[\citeproctext]{ref-eisenhofer_impact_2023}
+Eisenhofer, Raphael, Iñaki Odriozola, and Antton Alberdi. 2023.
+{``Impact of Microbial Genome Completeness on Metagenomic Functional
+Inference.''} \emph{ISME Communications} 3 (1): 12.
+\url{https://doi.org/10.1038/s43705-023-00221-z}.
+
+\bibitem[\citeproctext]{ref-faulhaber_detection_2025}
+Faulhaber, Marline M., Florence Tardy, Franziska Saul, Elisabeth Müller,
+Michael Pees, and Rachel E. Marschang. 2025. {``Detection of
+{Mycoplasma} Spp. From Snakes from Five Different Families.''} \emph{BMC
+Veterinary Research} 21 (1): 38.
+\url{https://doi.org/10.1186/s12917-025-04487-4}.
+
+\bibitem[\citeproctext]{ref-ferreira_lipopolysaccharide_2021}
+Ferreira, L F, P G Garcia Neto, S C M Titon, et al. 2021.
+{``Lipopolysaccharide {Regulates} {Pro}- and {Anti}-{Inflammatory}
+{Cytokines}, {Corticosterone}, and {Melatonin} in {Toads}.''}
+\emph{Integrative Organismal Biology} 3 (1): obab025.
+\url{https://doi.org/10.1093/iob/obab025}.
+
+\bibitem[\citeproctext]{ref-finn_pfam_2016}
+{Finn, Robert D, Penelope Coggill, Ruth Y Eberhardt, et al.} 2016.
+{``The {Pfam} Protein Families Database: Towards a More Sustainable
+Future.''} \emph{Nucleic Acids Research} 44 (D1): D279--85.
+\url{https://doi.org/10.1093/nar/gkv1344}.
+
+\bibitem[\citeproctext]{ref-fisher_chytrid_2020}
+Fisher, Matthew C, and Trenton WJ Garner. 2020. {``Chytrid Fungi and
+Global Amphibian Declines.''} \emph{Nature Reviews Microbiology} 18 (6):
+332--43. \url{https://doi.org/10.1038/s41579-020-0335-x}.
+
+\bibitem[\citeproctext]{ref-friedman_analysis_2018}
+Friedman, Mendel. 2018. {``Analysis, {Nutrition}, and {Health}
+{Benefits} of {Tryptophan}.''} \emph{International Journal of Tryptophan
+Research} 11 (January): 1178646918802282.
+\url{https://doi.org/10.1177/1178646918802282}.
+
+\bibitem[\citeproctext]{ref-gloor_microbiome_2017}
+Gloor, Gregory B, Jean M Macklaim, Vera Pawlowsky-Glahn, and Juan J
+Egozcue. 2017. {``Microbiome Datasets Are Compositional: And This Is Not
+Optional.''} \emph{Frontiers in Microbiology} 8: 2224.
+\url{https://doi.org/10.3389/fmicb.2017.02224}.
+
+\bibitem[\citeproctext]{ref-gloor_compositional_2016}
+Gloor, Gregory B, and Gregor Reid. 2016. {``Compositional Analysis: A
+Valid Approach to Analyze Microbiome High-Throughput Sequencing Data.''}
+\emph{Canadian Journal of Microbiology} 62 (8): 692--703.
+\url{https://doi.org/10.1139/cjm-2015-0821}.
+
+\bibitem[\citeproctext]{ref-gonzalez-serrano_amphibian_2025}
+{González-Serrano, Francisco, Yordan J Romero-Contreras, Alberto H Orta,
+et al.} 2025. {``Amphibian Skin Bacteria Contain a Wide Repertoire of
+Genes Linked to Their Antifungal Capacities.''} \emph{World Journal of
+Microbiology and Biotechnology} 41 (3): 78.
+\url{https://doi.org/10.1007/s11274-025-04292-z}.
+
+\bibitem[\citeproctext]{ref-guilherme_looking_2022}
+Guilherme, Filipa, Eva García Moreno, José Alberto Gonçalves, Miguel A
+Carretero, and Paulo Farinha-Marques. 2022. {``Looking Closer at the
+Patterns of Land Cover in the {City} of {Porto}, {Portugal}, Between
+1947 and 2019---{A} Contribution for the Integration of Ecological Data
+in Spatial Planning.''} \emph{Land} 11 (10): 1828.
+\url{https://doi.org/10.3390/land11101828}.
+
+\bibitem[\citeproctext]{ref-gurevich_quast_2013}
+Gurevich, Alexey, Vladislav Saveliev, Nikolay Vyahhi, and Glenn Tesler.
+2013. {``{QUAST}: Quality Assessment Tool for Genome Assemblies.''}
+\emph{Bioinformatics} 29 (8): 1072--75.
+\url{https://doi.org/10.1093/bioinformatics/btt086}.
+
+\bibitem[\citeproctext]{ref-hamer_amphibian_2008}
+Hamer, Andrew J, and Mark J McDonnell. 2008. {``Amphibian Ecology and
+Conservation in the Urbanising World: A Review.''} \emph{Biological
+Conservation} 141 (10): 2432--49.
+\url{https://doi.org/10.1016/j.biocon.2008.07.020}.
+
+\bibitem[\citeproctext]{ref-hernandez_contrasting_2024}
+Hernández, Mauricio, Jorge Langa, Ostaizka Aizpurua, Yendi E
+Navarro-Noya, and Antton Alberdi. 2024. \emph{Contrasting Recovery of
+Metagenome-Assembled Genomes and Derived Microbial Communities from
+Lizard Fecal and Cloacal Samples}.
+\url{https://doi.org/10.21203/rs.3.rs-5287039/v1}.
+
+\bibitem[\citeproctext]{ref-hernandez-gomez_invasive_2020}
+Hernández-Gómez, Obed, Allison Q Byrne, Alex R Gunderson, et al. 2020.
+{``Invasive Vegetation Affects Amphibian Skin Microbiota and Body
+Condition.''} \emph{PeerJ} 8: e8549.
+\url{https://doi.org/10.7717/peerj.8549}.
+
+\bibitem[\citeproctext]{ref-hernandez-gomez_organismal_2023}
+Hernández-Gómez, Obed, and Jessica Hua. 2023. {``From the Organismal to
+Biosphere Levels: Environmental Impacts on the Amphibian Microbiota.''}
+\emph{FEMS Microbiology Reviews} 47 (1): fuad002.
+\url{https://doi.org/doi.org/10.1093/femsre/fuad002}.
+
+\bibitem[\citeproctext]{ref-hill_diversity_1973}
+Hill, Mark O. 1973. {``Diversity and Evenness: A Unifying Notation and
+Its Consequences.''} \emph{Ecology} 54 (2): 427--32.
+\url{https://doi.org/10.2307/1934352}.
+
+\bibitem[\citeproctext]{ref-hoyt_bacteria_2015}
+Hoyt, Joseph R, Tina L Cheng, Kate E Langwig, Mallory M Hee, Winifred F
+Frick, and A Marm Kilpatrick. 2015. {``Bacteria Isolated from Bats
+Inhibit the Growth of {Pseudogymnoascus} Destructans, the Causative
+Agent of White-Nose Syndrome.''} \emph{PLoS One} 10 (4): e0121329.
+\url{https://doi.org/10.1371/journal.pone.0121329}.
+
+\bibitem[\citeproctext]{ref-hu_impervious_2018}
+Hu, Yinhong, Xiaolin Dou, Juanyong Li, and Feng Li. 2018. {``Impervious
+Surfaces Alter Soil Bacterial Communities in Urban Areas: A Case Study
+in {Beijing}, {China}.''} \emph{Frontiers in Microbiology} 9: 226.
+\url{https://doi.org/10.3389/fmicb.2018.00226}.
+
+\bibitem[\citeproctext]{ref-iacobazzi_citrate_2014}
+Iacobazzi, Vito, and Vittoria Infantino. 2014. \emph{Citrate -- New
+Functions for an Old Metabolite}. Biological {Chemistry}, vol. 395 (4):
+387--99. \url{https://doi.org/10.1515/hsz-2013-0271}.
+
+\bibitem[\citeproctext]{ref-iglesias-carrasco_urban_2017}
+Iglesias-Carrasco, Maider, José Martín, and Carlos Cabido. 2017.
+{``Urban Habitats Can Affect Body Size and Body Condition but Not Immune
+Response in Amphibians.''} \emph{Urban Ecosystems} 20: 1331--38.
+\url{https://doi.org/10.1007/s11252-017-0685-y}.
+
+\bibitem[\citeproctext]{ref-jani_amphibian_2021}
+Jani, Andrea J, Jessie Bushell, Cédric G Arisdakessian, et al. 2021.
+{``The Amphibian Microbiome Exhibits Poor Resilience Following
+Pathogen-Induced Disturbance.''} \emph{The ISME Journal} 15 (6):
+1628--40. \url{https://doi.org/10.1038/s41396-020-00875-w}.
+
+\bibitem[\citeproctext]{ref-jennette_variation_2019}
+Jennette, Matthew A, Joel W Snodgrass, and Don C Forester. 2019.
+{``Variation in Age, Body Size, and Reproductive Traits Among Urban and
+Rural Amphibian Populations.''} \emph{Urban Ecosystems} 22 (1): 137--47.
+\url{https://doi.org/10.1007/s11252-018-0801-7}.
+
+\bibitem[\citeproctext]{ref-jimenez_fungicide_2021}
+Jiménez, Randall R, Gilbert Alvarado, Clemens Ruepert, Erick Ballestero,
+and Simone Sommer. 2021. {``The Fungicide Chlorothalonil Changes the
+Amphibian Skin Microbiome: A Potential Factor Disrupting a Host
+Disease-Protective Trait.''} \emph{Applied Microbiology} 1 (1): 26--37.
+\url{https://doi.org/10.3390/applmicrobiol1010004}.
+
+\bibitem[\citeproctext]{ref-kanehisa_kegg_2017}
+Kanehisa, Minoru, Miho Furumichi, Mao Tanabe, Yoko Sato, and Kanae
+Morishima. 2017. {``{KEGG}: New Perspectives on Genomes, Pathways,
+Diseases and Drugs.''} \emph{Nucleic Acids Research} 45 (D1): D353--61.
+\url{https://doi.org/10.1093/nar/gkw1092}.
+
+\bibitem[\citeproctext]{ref-kang_metabat_2019}
+Kang, Dongwan D, Feng Li, Edward Kirton, et al. 2019. {``{MetaBAT} 2: An
+Adaptive Binning Algorithm for Robust and Efficient Genome
+Reconstruction from Metagenome Assemblies.''} \emph{PeerJ} 7: e7359.
+\url{https://doi.org/10.7717/peerj.7359}.
+
+\bibitem[\citeproctext]{ref-kaufmann_adaption_2016}
+Kaufmann, Katharina, and Peter Dohmen. 2016. {``Adaption of a Dermal in
+Vitro Method to Investigate the Uptake of Chemicals Across Amphibian
+Skin.''} \emph{Environmental Sciences Europe} 28 (1): 10.
+\url{https://doi.org/10.1186/s12302-016-0080-y}.
+
+\bibitem[\citeproctext]{ref-kosch_comparative_2025}
+Kosch, Tiffany A., Andrew J. Crawford, Rachel Lockridge Mueller, et al.
+2025. {``Comparative Analysis of Amphibian Genomes: {An} Emerging
+Resource for Basic and Applied Research.''} \emph{Molecular Ecology
+Resources} 25 (1): e14025.
+\url{https://doi.org/10.1111/1755-0998.14025}.
+
+\bibitem[\citeproctext]{ref-kosch_amphibian_2024}
+{Kosch, Tiffany A, María Torres-Sánchez, H Christoph Liedtke, et al.}
+2024. {``The {Amphibian} {Genomics} {Consortium}: Advancing Genomic and
+Genetic Resources for Amphibian Research and Conservation.''} \emph{BMC
+Genomics} 25 (1): 1025.
+\url{https://doi.org/10.1186/s12864-024-10899-7}.
+
+\bibitem[\citeproctext]{ref-kueneman_effects_2022}
+{Kueneman, Jordan G, Molly C Bletz, Matthew Becker, et al.} 2022.
+{``Effects of Captivity and Rewilding on Amphibian Skin Microbiomes.''}
+\emph{Biological Conservation} 271: 109576.
+\url{https://doi.org/10.1016/j.biocon.2022.109576}.
+
+\bibitem[\citeproctext]{ref-kueneman_amphibian_2014}
+Kueneman, Jordan G, Laura Wegener Parfrey, Douglas C Woodhams, Holly M
+Archer, Rob Knight, and Valerie J McKenzie. 2014. {``The Amphibian
+Skin-Associated Microbiome Across Species, Space and Life History
+Stages.''} \emph{Molecular Ecology} 23 (6): 1238--50.
+\url{https://doi.org/10.1111/mec.12510}.
+
+\bibitem[\citeproctext]{ref-kurtz_sparse_2015}
+Kurtz, Zachary D, Christian L Müller, Emily R Miraldi, Dan R Littman,
+Martin J Blaser, and Richard A Bonneau. 2015. {``Sparse and
+Compositionally Robust Inference of Microbial Ecological Networks.''}
+\emph{PLoS Computational Biology} 11 (5): e1004226.
+\url{https://doi.org/10.1371/journal.pcbi.1004226}.
+
+\bibitem[\citeproctext]{ref-langmead_fast_2012}
+Langmead, Ben, and Steven L Salzberg. 2012. {``Fast Gapped-Read
+Alignment with {Bowtie} 2.''} \emph{Nature Methods} 9 (4): 357--59.
+\url{https://doi.org/10.1038/nmeth.1923}.
+
+\bibitem[\citeproctext]{ref-lauritsen_robust_2025}
+{Lauritsen, Jonas G, Christian Carøe, Nanna Gaun, et al.} 2025.
+{``Robust, {Open}-{Source} and {Automation}-{Friendly} {DNA}
+{Extraction} {Protocol} for {Hologenomic} {Research}.''} \emph{Molecular
+Ecology Resources} 25 (8): e70042.
+\url{https://doi.org/10.1111/1755-0998.70042}.
+
+\bibitem[\citeproctext]{ref-le_sage_preparatory_2021}
+Le Sage, Emily H, Brandon C LaBumbard, Laura K Reinert, et al. 2021.
+{``Preparatory Immunity: {Seasonality} of Mucosal Skin Defences and
+{Batrachochytrium} Infections in {Southern} Leopard Frogs.''}
+\emph{Journal of Animal Ecology} 90 (2): 542--54.
+\url{https://doi.org/10.1111/1365-2656.13386}.
+
+\bibitem[\citeproctext]{ref-leonard_global_2024}
+{Leonard, Aoife, Javier Abalos, Titus Adhola, et al.} 2024. {``A Global
+Initiative for Ecological and Evolutionary Hologenomics.''} \emph{Trends
+in Ecology \& Evolution}, ahead of print.
+\url{https://doi.org/10.1016/j.tree.2024.03.005}.
+
+\bibitem[\citeproctext]{ref-li_megahit_2016}
+Li, Dinghua, Ruibang Luo, Chi-Man Liu, et al. 2016. {``{MEGAHIT} V1. 0:
+A Fast and Scalable Metagenome Assembler Driven by Advanced
+Methodologies and Community Practices.''} \emph{Methods} 102: 3--11.
+\url{https://doi.org/10.1016/j.ymeth.2016.02.020}.
+
+\bibitem[\citeproctext]{ref-li_damage_2022}
+Li, Minghao, Jincheng Wang, Huiling Deng, et al. 2022. {``The {Damage}
+of the {Crayfish} ({Procambarus} {Clarkii}) {Digestive} {Organs}
+{Caused} by {Citrobacter} {Freundii} {Is} {Associated} {With} the
+{Disturbance} of {Intestinal} {Microbiota} and {Disruption} of
+{Intestinal}-{Liver} {Axis} {Homeostasis}.''} \emph{Frontiers in
+Cellular and Infection Microbiology} Volume 12 - 2022.
+\url{https://www.frontiersin.org/journals/cellular-and-infection-microbiology/articles/10.3389/fcimb.2022.940576}.
+
+\bibitem[\citeproctext]{ref-libro_novo_2023}
+Libro, Pietro, Andrea Chiocchio, Erika De Rysky, et al. 2023. {``De Novo
+Transcriptome Assembly and Annotation for Gene Discovery in {Salamandra}
+Salamandra at the Larval Stage.''} \emph{Scientific Data} 10 (1): 330.
+\url{https://doi.org/10.1038/s41597-023-02217-9}.
+
+\bibitem[\citeproctext]{ref-liedtke_macroevolutionary_2018}
+Liedtke, H Christoph, David J Gower, Mark Wilkinson, and Ivan
+Gomez-Mestre. 2018. {``Macroevolutionary Shift in the Size of Amphibian
+Genomes and the Role of Life History and Climate.''} \emph{Nature
+Ecology \& Evolution} 2 (11): 1792--99.
+\url{https://doi.org/10.1038/s41559-018-0674-4}.
+
+\bibitem[\citeproctext]{ref-lin_analysis_2020}
+Lin, Huang, and Shyamal Das Peddada. 2020. {``Analysis of Compositions
+of Microbiomes with Bias Correction.''} \emph{Nature Communications} 11
+(1): 3514. \url{https://doi.org/10.1038/s41467-020-17041-7}.
+
+\bibitem[\citeproctext]{ref-liu_microbial_2025}
+Liu, Pengfei, Shizhi Wen, Shanshan Zhu, Xi Hu, and Yamin Wang. 2025.
+{``Microbial {Degradation} of {Soil} {Organic} {Pollutants}:
+{Mechanisms}, {Challenges}, and {Advances} in {Forest} {Ecosystem}
+{Management}.''} \emph{Processes} 13 (3): 916.
+\url{https://doi.org/10.3390/pr13030916}.
+
+\bibitem[\citeproctext]{ref-longcore_batrachochytrium_1999}
+Longcore, Joyce E, Allan P Pessier, and Donald K Nichols. 1999.
+{``Batrachochytrium Dendrobatidis Gen. Et Sp. Nov., a Chytrid Pathogenic
+to Amphibians.''} \emph{Mycologia} 91 (2): 219--27.
+\url{https://doi.org/10.1080/00275514.1999.12061011}.
+
+\bibitem[\citeproctext]{ref-loudon_microbial_2013}
+Loudon, Andrew H, Douglas C Woodhams, Laura Wegener Parfrey, et al.
+2013. {``Microbial Community Dynamics and Effect of Environmental
+Microbial Reservoirs on Red-Backed Salamanders ({Plethodon}
+Cinereus).''} \emph{The ISME Journal} 8 (4): 830--40.
+\url{https://doi.org/10.1038/ismej.2013.200}.
+
+\bibitem[\citeproctext]{ref-lourenco_trapped_2017}
+Lourenço, André, David Álvarez, Ian J Wang, and Guillermo Velo-Antón.
+2017. {``Trapped Within the City: {Integrating} Demography, Time Since
+Isolation and Population-Specific Traits to Assess the Genetic Effects
+of Urbanization.''} \emph{Molecular Ecology} 26 (6): 1498--514.
+\url{https://doi.org/10.1111/mec.14019}.
+
+\bibitem[\citeproctext]{ref-luddecke_salamanders_2018}
+Lüddecke, Tim, Stefan Schulz, Sebastian Steinfartz, and Miguel Vences.
+2018. {``A Salamander's Toxic Arsenal: Review of Skin Poison Diversity
+and Function in True Salamanders, Genus {Salamandra}.''} \emph{The
+Science of Nature} 105 (9): 56.
+\url{https://doi.org/10.1007/s00114-018-1579-4}.
+
+\bibitem[\citeproctext]{ref-luedtke_ongoing_2023}
+{Luedtke, Jennifer A, Janice Chanson, Kelsey Neam, et al.} 2023.
+{``Ongoing Declines for the World's Amphibians in the Face of Emerging
+Threats.''} \emph{Nature} 622 (7982): 308--14.
+\url{https://doi.org/10.1038/s41586-023-06578-4}.
+
+\bibitem[\citeproctext]{ref-macdonald_meta-analysis_2023}
+Macdonald, Kristina J, Don A Driscoll, Kimberley J Macdonald, Bronwyn
+Hradsky, and Tim S Doherty. 2023. {``Meta-Analysis Reveals Impacts of
+Disturbance on Reptile and Amphibian Body Condition.''} \emph{Global
+Change Biology} 29 (17): 4949--65.
+\url{https://doi.org/10.1111/gcb.16852}.
+
+\bibitem[\citeproctext]{ref-madureira_green_2011}
+Madureira, Helena, Teresa Andresen, and Ana Monteiro. 2011. {``Green
+Structure and Planning Evolution in {Porto}.''} \emph{Urban Forestry \&
+Urban Greening} 10 (2): 141--49.
+\url{https://doi.org/10.1016/j.ufug.2010.12.004}.
+
+\bibitem[\citeproctext]{ref-mandal_analysis_2015}
+Mandal, Siddhartha, Will Van Treuren, Richard A White, Merete Eggesbø,
+Rob Knight, and Shyamal D Peddada. 2015. {``Analysis of Composition of
+Microbiomes: A Novel Method for Studying Microbial Composition.''}
+\emph{Microbial Ecology in Health and Disease} 26 (1): 27663.
+\url{https://doi.org/10.3402/mehd.v26.27663}.
+
+\bibitem[\citeproctext]{ref-marques_coi_2022}
+Marques, Adam J. D., Vanessa A. Mata, and Guillermo Velo-Antón. 2022.
+{``{COI} {Metabarcoding} {Provides} {Insights} into the {Highly}
+{Diverse} {Diet} of a {Generalist} {Salamander}, {Salamandra} Salamandra
+({Caudata}: {Salamandridae}).''} \emph{Diversity} 14 (2): 89.
+\url{https://doi.org/10.3390/d14020089}.
+
+\bibitem[\citeproctext]{ref-martel_batrachochytrium_2013}
+{Martel, An, Annemarieke Spitzen-van der Sluijs, Mark Blooi, et al.}
+2013. {``Batrachochytrium Salamandrivorans Sp. Nov. Causes Lethal
+Chytridiomycosis in Amphibians.''} \emph{Proceedings of the National
+Academy of Sciences} 110 (38): 15325--29.
+\url{https://doi.org/10.1073/pnas.1307356110}.
+
+\bibitem[\citeproctext]{ref-mayeux_pathobiology_1997}
+Mayeux, Philip R. 1997. {``Pathobiology of {Lipolysaccharide}.''}
+\emph{Journal of Toxicology and Environmental Health} 51 (5): 415--35.
+\url{https://doi.org/10.1080/00984109708984034}.
+
+\bibitem[\citeproctext]{ref-mcgarvey_uniprot_2019}
+McGarvey, Peter B, Andrew Nightingale, Jie Luo, et al. 2019.
+{``{UniProt} Genomic Mapping for Deciphering Functional Effects of
+Missense Variants.''} \emph{Human Mutation} 40 (6): 694--705.
+\url{https://doi.org/10.1002/humu.23738}.
+
+\bibitem[\citeproctext]{ref-mckinney_urbanization_2006}
+McKinney, Michael L. 2006. {``Urbanization as a Major Cause of Biotic
+Homogenization.''} \emph{Biological Conservation} 127 (3): 247--60.
+\url{https://doi.org/10.1016/j.biocon.2005.09.005}.
+
+\bibitem[\citeproctext]{ref-mclellan_microbiome_2015}
+McLellan, Sandra L, Jenny C Fisher, and Ryan J Newton. 2015. {``The
+Microbiome of Urban Waters.''} \emph{International Microbiology: The
+Official Journal of the Spanish Society for Microbiology} 18 (3):
+141--49. \url{https://doi.org/10.2436/20.1501.01.244}.
+
+\bibitem[\citeproctext]{ref-mcnabb_effects_2019}
+McNabb, Micaiah C, Christa Marie Saelinger, Melody Danley, and Robin
+Lewis Cooper. 2019. {``Effects of {Bacterial} {Endotoxin}
+{Lipopolysaccharides} ({LPS}) on {Synaptic} {Transmission} at
+{Neuromuscular} {Junction} in an {Amphibian}.''} \emph{Int. J. Zool.
+Res} 15: 38--42. \url{https://doi.org/10.3923/ijzr.2019.38.42}.
+
+\bibitem[\citeproctext]{ref-morell_frogs_1999}
+Morell, Virginia. 1999. {``Frogs: {Canaries} in the {Hot} {Zone}?''}
+\emph{Science} 284 (5415): 729--29.
+\url{https://doi.org/10.1126/science.284.5415.729}.
+
+\bibitem[\citeproctext]{ref-muletz_soil_2012}
+Muletz, Carly R, Jillian M Myers, Rickie J Domangue, James B Herrick,
+and Reid N Harris. 2012. {``Soil Bioaugmentation with Amphibian
+Cutaneous Bacteria Protects Amphibian Hosts from Infection by
+{Batrachochytrium} Dendrobatidis.''} \emph{Biological Conservation} 152:
+119--26. \url{https://doi.org/10.1016/j.biocon.2012.03.022}.
+
+\bibitem[\citeproctext]{ref-muletz_wolz_effects_2018}
+Muletz Wolz, Carly R, Stephanie A Yarwood, Evan H Campbell Grant, Robert
+C Fleischer, and Karen R Lips. 2018. {``Effects of Host Species and
+Environment on the Skin Microbiome of {Plethodontid} Salamanders.''}
+\emph{Journal of Animal Ecology} 87 (2): 341--53.
+\url{https://doi.org/10.1111/1365-2656.12726}.
+
+\bibitem[\citeproctext]{ref-muletz-wolz_inhibition_2017}
+Muletz-Wolz, Carly R, Jose G Almario, Samuel E Barnett, et al. 2017.
+{``Inhibition of Fungal Pathogens Across Genotypes and Temperatures by
+Amphibian Skin Bacteria.''} \emph{Frontiers in Microbiology} 8: 1551.
+\url{https://doi.org/10.3389/fmicb.2017.01551}.
+
+\bibitem[\citeproctext]{ref-murray_benchtop_2015}
+Murray, Dáithí C, Megan L Coghlan, and Michael Bunce. 2015. {``From
+Benchtop to Desktop: Important Considerations When Designing Amplicon
+Sequencing Workflows.''} \emph{PloS One} 10 (4): e0124671.
+\url{https://doi.org/10.1371/journal.pone.0124671}.
+
+\bibitem[\citeproctext]{ref-nearing_identifying_2021}
+Nearing, Jacob T, André M Comeau, and Morgan GI Langille. 2021.
+{``Identifying Biases and Their Potential Solutions in Human Microbiome
+Studies.''} \emph{Microbiome} 9 (1): 113.
+\url{https://doi.org/10.1186/s40168-021-01059-0}.
+
+\bibitem[\citeproctext]{ref-norris_ghosts_2007}
+Norris, Scott. 2007. {``Ghosts in Our Midst: Coming to Terms with
+Amphibian Extinctions.''} \emph{BioScience} 57 (4): 311--16.
+\url{https://doi.org/10.1641/B570403}.
+
+\bibitem[\citeproctext]{ref-ohanlon_recent_2018}
+{O'Hanlon, Simon J, Adrien Rieux, Rhys A Farrer, et al.} 2018. {``Recent
+{Asian} Origin of Chytrid Fungi Causing Global Amphibian Declines.''}
+\emph{Science} 360 (6389): 621--27.
+\url{https://doi.org/10.1126/science.aar1965}.
+
+\bibitem[\citeproctext]{ref-ohmer_skin_2015}
+Ohmer, Michel E. B., Rebecca L. Cramp, Craig R. White, and Craig E.
+Franklin. 2015. {``Skin Sloughing Rate Increases with Chytrid Fungus
+Infection Load in a Susceptible Amphibian.''} \emph{Functional Ecology}
+29 (5): 674--82. \url{https://doi.org/10.1111/1365-2435.12370}.
+
+\bibitem[\citeproctext]{ref-oksanen_package_2013}
+{Oksanen, Jari, F Guillaume Blanchet, Roeland Kindt, et al.} 2013.
+{``Package {`Vegan'}.''} \emph{Community Ecology Package, Version} 2
+(9): 1--295.
+
+\bibitem[\citeproctext]{ref-olm_drep_2017}
+Olm, Matthew R, Christopher T Brown, Brandon Brooks, and Jillian F
+Banfield. 2017. {``{dRep}: A Tool for Fast and Accurate Genomic
+Comparisons That Enables Improved Genome Recovery from Metagenomes
+Through de-Replication.''} \emph{The ISME Journal} 11 (12): 2864--68.
+\url{https://doi.org/10.1038/ismej.2017.126}.
+
+\bibitem[\citeproctext]{ref-paranhos_sepsis_2024}
+Paranhos, Gabriel F., Hodias S. Oliveira Filho, José L. C. Duarte, et
+al. 2024. {``Sepsis by {Plesiomonas} Shigelloides, {Citrobacter}
+Freundii and {Aeromonas} Jandaei in a Green Iguana ({Iguana} Iguana).''}
+\emph{Pesquisa Veterinária Brasileira} 44.
+
+\bibitem[\citeproctext]{ref-parks_gtdb_2022}
+Parks, Donovan H, Maria Chuvochina, Christian Rinke, Aaron J Mussig,
+Pierre-Alain Chaumeil, and Philip Hugenholtz. 2022. {``{GTDB}: An
+Ongoing Census of Bacterial and Archaeal Diversity Through a
+Phylogenetically Consistent, Rank Normalized and Complete Genome-Based
+Taxonomy.''} \emph{Nucleic Acids Research} 50 (D1): D785--94.
+\url{https://doi.org/10.1093/nar/gkab776}.
+
+\bibitem[\citeproctext]{ref-pereira_skin_2018}
+Pereira, Kenzie E, Brian I Crother, David M Sever, et al. 2018. {``Skin
+Glands of an Aquatic Salamander Vary in Size and Distribution and
+Release Antimicrobial Secretions Effective Against Chytrid Fungal
+Pathogens.''} \emph{Journal of Experimental Biology} 221 (14):
+jeb183707. \url{https://doi.org/10.1242/jeb.183707}.
+
+\bibitem[\citeproctext]{ref-pereira-marques_impact_2019}
+Pereira-Marques, Joana, Anne Hout, Rui M Ferreira, et al. 2019.
+{``Impact of Host {DNA} and Sequencing Depth on the Taxonomic Resolution
+of Whole Metagenome Sequencing for Microbiome Analysis.''}
+\emph{Frontiers in Microbiology} 10: 1277.
+\url{https://doi.org/10.3389/fmicb.2019.01277}.
+
+\bibitem[\citeproctext]{ref-pietroni_hologenomic_2025}
+Pietroni, Carlotta, Nanna Gaun, Aoife Leonard, et al. 2025.
+{``Hologenomic Data Generation and Analysis in Wild Vertebrates.''}
+\emph{Methods in Ecology and Evolution} 16 (1): 97--107.
+\url{https://doi.org/10.1111/2041-210X.14456}.
+
+\bibitem[\citeproctext]{ref-pruesse_silva_2007}
+Pruesse, Elmar, Christian Quast, Katrin Knittel, et al. 2007.
+{``{SILVA}: A Comprehensive Online Resource for Quality Checked and
+Aligned Ribosomal {RNA} Sequence Data Compatible with {ARB}.''}
+\emph{Nucleic Acids Research} 35 (21): 7188--96.
+\url{https://doi.org/10.1093/nar/gkm864}.
+
+\bibitem[\citeproctext]{ref-purucker_estimating_2023}
+Purucker, S Thomas, Marcía N Snyder, Donna A Glinski, et al. 2023.
+{``Estimating Dermal Contact Soil Exposure for Amphibians.''}
+\emph{Integrated Environmental Assessment and Management} 19 (1): 9--16.
+\url{https://doi.org/10.1002/ieam.4619}.
+
+\bibitem[\citeproctext]{ref-quaranta_why_2009}
+Quaranta, Angelo, Vito Bellantuono, Giuseppe Cassano, and Claudio Lippe.
+2009. {``Why Amphibians Are More Sensitive Than Mammals to
+Xenobiotics.''} \emph{PLoS One} 4 (11): e7699.
+\url{https://doi.org/10.1371/journal.pone.0007699}.
+
+\bibitem[\citeproctext]{ref-quast_silva_2013}
+Quast, Christian, Elmar Pruesse, Pelin Yilmaz, et al. 2013. {``The
+{SILVA} Ribosomal {RNA} Gene Database Project: Improved Data Processing
+and Web-Based Tools.''} \emph{Nucleic Acids Research} 41 (D1): D590--96.
+\url{https://doi.org/10.1093/nar/gks1219}.
+
+\bibitem[\citeproctext]{ref-quince_shotgun_2017}
+Quince, Christopher, Alan W Walker, Jared T Simpson, Nicholas J Loman,
+and Nicola Segata. 2017. {``Shotgun Metagenomics, from Sampling to
+Analysis.''} \emph{Nature Biotechnology} 35 (9): 833--44.
+\url{https://doi.org/10.1038/nbt.3935}.
+
+\bibitem[\citeproctext]{ref-raetz_lipopolysaccharide_2002}
+Raetz, Christian R. H., and Chris Whitfield. 2002. {``Lipopolysaccharide
+{Endotoxins}.''} \emph{Annual Review of Biochemistry} 71 (Volume 71,
+2002): 635--700.
+https://doi.org/\url{https://doi.org/10.1146/annurev.biochem.71.110601.135414}.
+
+\bibitem[\citeproctext]{ref-rawlings_merops_1999}
+Rawlings, Neil D, and Alan J Barrett. 1999. {``{MEROPS}: The Peptidase
+Database.''} \emph{Nucleic Acids Research} 27 (1): 325--31.
+\url{https://doi.org/10.1093/nar/gkp971}.
+
+\bibitem[\citeproctext]{ref-rollins-smith_batrachochytrium_2021}
+Rollins-Smith, Louise A, and Emily H Le Sage. 2021. {``Batrachochytrium
+Fungi: Stealth Invaders in Amphibian Skin.''} \emph{Current Opinion in
+Microbiology} 61: 124--32.
+\url{https://doi.org/10.1016/j.mib.2021.04.002}.
+
+\bibitem[\citeproctext]{ref-ross_skin_2019}
+Ross, Ashley A., Aline Rodrigues Hoffmann, and Josh D. Neufeld. 2019.
+{``The Skin Microbiome of Vertebrates.''} \emph{Microbiome} 7 (1): 79.
+\url{https://doi.org/10.1186/s40168-019-0694-6}.
+
+\bibitem[\citeproctext]{ref-sanchez_cutaneous_2017}
+Sanchez, Eugenia, Molly C Bletz, Laura Duntsch, et al. 2017.
+{``Cutaneous Bacterial Communities of a Poisonous Salamander: A
+Perspective from Life Stages, Body Parts and Environmental
+Conditions.''} \emph{Microbial Ecology} 73 (2): 455--65.
+\url{https://doi.org/10.1007/s00248-016-0863-0}.
+
+\bibitem[\citeproctext]{ref-santos_skin_2023}
+Santos, Bárbara, Filipa MS Martins, Joana Sabino-Pinto, Fulvio Licata,
+and Angelica Crottini. 2023. {``Skin and Gut Microbiomes of Tadpoles
+Vary Differently with Host and Water Environment: A Short-Term
+Experiment Using {16S} Metabarcoding.''} \emph{Scientific Reports} 13
+(1): 16321. \url{https://doi.org/10.1038/s41598-023-43340-2}.
+
+\bibitem[\citeproctext]{ref-scheffers_effects_2012}
+Scheffers, Brett R, and Cynthia A Paszkowski. 2012. {``The Effects of
+Urbanization on {North} {American} Amphibian Species: {Identifying} New
+Directions for Urban Conservation.''} \emph{Urban Ecosystems} 15:
+133--47. \url{https://doi.org/10.1007/s11252-011-0199-y}.
+
+\bibitem[\citeproctext]{ref-shaffer_dram_2020}
+{Shaffer, Michael, Mikayla A Borton, Bridget B McGivern, et al.} 2020.
+{``{DRAM} for Distilling Microbial Metabolism to Automate the Curation
+of Microbiome Function.''} \emph{Nucleic Acids Research} 48 (16):
+8883--900. \url{https://doi.org/10.1093/nar/gkaa621}.
+
+\bibitem[\citeproctext]{ref-silverman_measuring_2019}
+Silverman, Justin D, Rachael J Bloom, Sharon Jiang, Heather K Durand,
+Sayan Mukherjee, and Lawrence A David. 2019. {``Measuring and Mitigating
+{PCR} Bias in Microbiome Data.''} \emph{BioRxiv}, 604025.
+\url{https://doi.org/10.1101/604025}.
+
+\bibitem[\citeproctext]{ref-smith_skin_2018}
+Smith, Hannah Keely, Frank Pasmans, Maarten Dhaenens, et al. 2018.
+{``Skin Mucosome Activity as an Indicator of {Batrachochytrium}
+Salamandrivorans Susceptibility in Salamanders.''} \emph{PLoS One} 13
+(7): e0199295. \url{https://doi.org/10.1371/journal.pone.0199295}.
+
+\bibitem[\citeproctext]{ref-soto-pozos_imprints_2025}
+Soto-Pozos, Ángel F, Eria A Rebollar, Sean M Rovito, and Gabriela
+Parra-Olea. 2025. {``Imprints of {Land} {Use} {History} on the
+{Cutaneous} {Microbiota} of {Mexican} {Cloud} {Forest} {Salamanders}.''}
+\emph{Microbial Ecology}, ahead of print.
+\url{https://doi.org/10.1007/s00248-025-02671-5}.
+
+\bibitem[\citeproctext]{ref-su_neglected_2023}
+Su, Rui, Sheng Zhang, Xueying Zhang, Shengnan Wang, and Wenya Zhang.
+2023. {``Neglected Skin-Associated Microbial Communities: A Unique
+Immune Defense Strategy of {Bufo} Raddei Under Environmental Heavy Metal
+Pollution.''} \emph{Environmental Science and Pollution Research} 30
+(9): 22330--42. \url{https://doi.org/10.1007/s11356-022-23803-1}.
+
+\bibitem[\citeproctext]{ref-sun_slow_2012}
+Sun, Cheng, José R López Arriaza, and Rachel Lockridge Mueller. 2012.
+{``Slow {DNA} Loss in the Gigantic Genomes of Salamanders.''}
+\emph{Genome Biology and Evolution} 4 (12): 1340--48.
+\url{https://doi.org/10.1093/gbe/evs103}.
+
+\bibitem[\citeproctext]{ref-sun_inference-based_2020}
+Sun, Shan, Roshonda B Jones, and Anthony A Fodor. 2020.
+{``Inference-Based Accuracy of Metagenome Prediction Tools Varies Across
+Sample Types and Functional Categories.''} \emph{Microbiome} 8: 1--9.
+\url{https://doi.org/10.1186/s40168-020-00815-y}.
+
+\bibitem[\citeproctext]{ref-tattersall_skin_2007}
+Tattersall, G. 2007. {``Skin Breathing in Amphibians.''} In
+\emph{Endothelial Biomedicine: A Comprehensive Reference}.
+
+\bibitem[\citeproctext]{ref-toledo_cutaneous_1993}
+Toledo, RC, and C Jared. 1993. {``Cutaneous Adaptations to Water Balance
+in Amphibians.''} \emph{Comparative Biochemistry and Physiology Part A:
+Physiology} 105 (4): 593--608.
+\url{https://doi.org/10.1016/0300-9629(93)90259-7}.
+
+\bibitem[\citeproctext]{ref-tornabene_energy-related_2023}
+Tornabene, Brian J., Kelly L. Smalling, Carrie E. Givens, Emily B. Oja,
+and Blake R. Hossack. 2023. {``Energy-Related Wastewater Contamination
+Alters Microbial Communities of Sediment, Water, and Amphibian Skin.''}
+\emph{Science of The Total Environment} 880 (July): 163160.
+\url{https://doi.org/10.1016/j.scitotenv.2023.163160}.
+
+\bibitem[\citeproctext]{ref-touceda-suarez_differences_2025}
+Touceda-Suárez, María, Alise J Ponsero, and Albert Barberán. 2025.
+{``Differences in the Genomic Potential of Soil Bacterial and Viral
+Communities Between Urban Greenspaces and Natural Arid Soils.''}
+\emph{Applied and Environmental Microbiology} 91 (8): e02124--24.
+\url{https://doi.org/10.1128/aem.02124-24}.
+
+\bibitem[\citeproctext]{ref-uritskiy_metawrapflexible_2018}
+Uritskiy, Gherman V, Jocelyne DiRuggiero, and James Taylor. 2018.
+{``{MetaWRAP}---a Flexible Pipeline for Genome-Resolved Metagenomic Data
+Analysis.''} \emph{Microbiome} 6: 1--13.
+\url{https://doi.org/10.1186/s40168-018-0541-1}.
+
+\bibitem[\citeproctext]{ref-velo-anton_salamandra_2015}
+Velo-Antón, Guillermo, and David Buckley. 2015. {``Salamandra
+Común--{Salamandra} Salamandra ({Linnaeus}, 1758).''} In
+\emph{Enciclopedia {Virtual} de Los {Vertebrados} {Españoles}}. Museo
+Nacional de Ciencias Naturales, Madrid.
+
+\bibitem[\citeproctext]{ref-wagner_habitat_2020}
+Wagner, Norman, Wiebke Harms, Florian Hildebrandt, et al. 2020. {``Do
+Habitat Preferences of {European} Fire Salamander ({Salamandra}
+Salamandra) Larvae Differ Among Landscapes? {A} Case Study from
+{Western} {Germany}.''} \emph{Salamandra} 56 (3).
+
+\bibitem[\citeproctext]{ref-walke_seasonal_2021}
+Walke, Jenifer B, Matthew H Becker, Arianna Krinos, et al. 2021.
+{``Seasonal Changes and the Unexpected Impact of Environmental
+Disturbance on Skin Bacteria of Individual Amphibians in a Natural
+Habitat.''} \emph{FEMS Microbiology Ecology} 97 (3): fiaa248.
+\url{https://doi.org/10.1093/femsec/fiaa248}.
+
+\bibitem[\citeproctext]{ref-walke_amphibian_2014}
+Walke, Jenifer B, Matthew H Becker, Stephen C Loftus, et al. 2014.
+{``Amphibian Skin May Select for Rare Environmental Microbes.''}
+\emph{The ISME Journal} 8 (11): 2207--17.
+\url{https://doi.org/10.1038/ismej.2014.77}.
+
+\bibitem[\citeproctext]{ref-weinstock_genomic_2012}
+Weinstock, George M. 2012. {``Genomic Approaches to Studying the Human
+Microbiota.''} \emph{Nature} 489 (7415): 250--56.
+\url{https://doi.org/10.1038/nature11553}.
+
+\bibitem[\citeproctext]{ref-wheeler_effects_2025}
+Wheeler, Sara J, Manning DelCogliano, Brennan Hare, et al. 2025.
+{``Effects of Urbanization on the Microbial Fungal Communities from
+Water, Sediment, and Amphibian Hosts Across a Rural-to-Urban Waterway in
+{Worcester}, {Massachusetts}.''} \emph{bioRxiv}, 2025--04.
+\url{https://doi.org/10.1101/2025.04.01.646624}.
+
+\bibitem[\citeproctext]{ref-woodhams_adaptive_2023}
+Woodhams, Douglas C., Julia McCartney, Jenifer B. Walke, and Ross
+Whetstone. 2023. {``The Adaptive Microbiome Hypothesis and Immune
+Interactions in Amphibian Mucus.''} \emph{Developmental \& Comparative
+Immunology} 145 (August): 104690.
+\url{https://doi.org/10.1016/j.dci.2023.104690}.
+
+\bibitem[\citeproctext]{ref-wu_maxbin_2016}
+Wu, Yu-Wei, Blake A Simmons, and Steven W Singer. 2016. {``{MaxBin} 2.0:
+An Automated Binning Algorithm to Recover Genomes from Multiple
+Metagenomic Datasets.''} \emph{Bioinformatics} 32 (4): 605--7.
+\url{https://doi.org/10.1093/bioinformatics/btv638}.
+
+\bibitem[\citeproctext]{ref-yang_global_2022}
+Yang, Lu, Shuqing Zhao, and Shuguang Liu. 2022. {``A Global Analysis of
+Urbanization Effects on Amphibian Richness: {Patterns} and Drivers.''}
+\emph{Global Environmental Change} 73: 102476.
+\url{https://doi.org/10.1016/j.gloenvcha.2022.102476}.
+
+\bibitem[\citeproctext]{ref-yang_comparative_2024}
+Yang, Peikui, Yuzhong Zheng, Xianghui Zou, Yanjie Sun, and Yaqun Liu.
+2024. {``Comparative Transcriptomic Analysis of Gene Expression Profiles
+in the Liver and Spleen of {American} Bullfrog ({Lithobates}
+Catesbeianus) in Response to {Citrobacter} Freundii Infection.''}
+\emph{Journal of the World Aquaculture Society} 55 (1): 353--72.
+\url{https://doi.org/10.1111/jwas.12999}.
+
+\bibitem[\citeproctext]{ref-zhang_phylogeny_2008}
+Zhang, Peng, Theodore J Papenfuss, Marvalee H Wake, Lianghu Qu, and
+David B Wake. 2008. {``Phylogeny and Biogeography of the Family
+{Salamandridae} ({Amphibia}: {Caudata}) Inferred from Complete
+Mitochondrial Genomes.''} \emph{Molecular Phylogenetics and Evolution}
+49 (2): 586--97. \url{https://doi.org/10.1016/j.ympev.2008.08.020}.
+
+\bibitem[\citeproctext]{ref-zheng_urbanization_2025}
+Zheng, Bangxiao, Nan Hui, Ari Jumpponen, et al. 2025. {``Urbanization
+Leads to Asynchronous Homogenization of Soil Microbial Communities
+Across Biomes.''} \emph{Environmental Science and Ecotechnology} 25:
+100547. \url{https://doi.org/10.1016/j.ese.2025.100547}.
+
+\bibitem[\citeproctext]{ref-zhou_urbanization_2023}
+Zhou, Jin, Ziyan Liao, Zhidong Liu, Xuecheng Guo, Wenyan Zhang, and
+Youhua Chen. 2023. {``Urbanization Increases Stochasticity and Reduces
+the Ecological Stability of Microbial Communities in Amphibian Hosts.''}
+\emph{Frontiers in Microbiology} 13: 1108662.
+\url{https://doi.org/10.3389/fmicb.2022.1108662}.
+
+\bibitem[\citeproctext]{ref-zhu_skin_2024}
+Zhu, De-quan, Wen-jing Dong, Xin-zhou Long, et al. 2024. {``Skin Ulcers
+and Microbiota in {Rana} Dybowskii: Uncovering the Role of the Gut-Skin
+Axis in Amphibian Health.''} \emph{Aquaculture} 585: 740724.
+\url{https://doi.org/10.1016/j.aquaculture.2024.740724}.
+
+\bibitem[\citeproctext]{ref-ziesemer_intrinsic_2015}
+{Ziesemer, Kirsten A, Allison E Mann, Krithivasan Sankaranarayanan, et
+al.} 2015. {``Intrinsic Challenges in Ancient Microbiome Reconstruction
+Using {16S} {rRNA} Gene Amplification.''} \emph{Scientific Reports} 5
+(1): 16498. \url{https://doi.org/10.1038/srep16498}.
+
+\end{CSLReferences}
+
+\end{document}
