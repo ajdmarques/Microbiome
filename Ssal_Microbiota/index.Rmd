@@ -6,7 +6,7 @@ author:
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
-bibliography: [book.bib, packages.bib]
+bibliography: [Microbiota.bib]
 url: [Blinded for review]
 description: |
   Data analysis for mircrobiota sequencing of salamanders

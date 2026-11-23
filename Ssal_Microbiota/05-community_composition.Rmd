@@ -9,7 +9,7 @@ install.packages(setdiff(pkgs, rownames(installed.packages())))
 lapply(pkgs, require, character.only = TRUE)
 ```
 
-```{r load_data_community, comment="", message=FALSE, warning=FALSE, eval=TRUE}
+```{r , comment="", message=FALSE, warning=FALSE, eval=TRUE}
 load("data/data.Rdata")
 
 # keep sample metadatabut rewrite with filters
@@ -23,7 +23,7 @@ query_variables = query_variables[sapply(sample_metadata[,query_variables], func
 ```
 
 Filter samples with high host data
-```{r load_data_host_filtering, comment="", message=FALSE, warning=FALSE, eval=TRUE}
+```{r , comment="", message=FALSE, warning=FALSE, eval=TRUE}
 genome_counts_filt <- genome_counts %>%
   select(one_of(c("genome",sample_metadata$sample)))%>%
   filter(rowSums(. != 0, na.rm = TRUE) > 0) %>%
@@ -77,7 +77,7 @@ save(sample_metadata,
 
 ### Stacked barplot
 
-```{r taxonomy_barplot, fig.height=6, fig.width=10, fig.fullwidth=TRUE}
+```{r , fig.height=6, fig.width=10, fig.fullwidth=TRUE}
 for (q in seq_along(query_variables)[-1]){
 print(
 genome_counts_filt %>%
@@ -112,7 +112,7 @@ genome_counts_filt %>%
 
 **Number of bacteria phyla**
 
-```{r phyla, comment="", echo=FALSE, message=FALSE, warning=FALSE}
+```{r , comment="", echo=FALSE, message=FALSE, warning=FALSE}
 genome_metadata %>% 
   filter(domain == "d__Bacteria")%>%
   dplyr::select(phylum) %>%
@@ -123,7 +123,7 @@ genome_metadata %>%
 
 **Bacteria phyla in urban individuals**
 
-```{r phyla_nat, comment="", echo=FALSE, message=FALSE, warning=FALSE}
+```{r , comment="", echo=FALSE, message=FALSE, warning=FALSE}
 
 urban_samples <- sample_metadata %>% 
   filter(event_id==c("CTAT","SMAT","PCAR")) %>% 
@@ -151,7 +151,7 @@ genome_metadata %>%
 
 **Number of Archaea phyla**
 
-```{r arch, comment="", echo=FALSE, message=FALSE, warning=FALSE}
+```{r , comment="", echo=FALSE, message=FALSE, warning=FALSE}
 genome_metadata %>% 
   filter(domain == "d__Archaea")%>%
   dplyr::select(phylum) %>%
@@ -163,7 +163,7 @@ genome_metadata %>%
 ### Genus and species annotation
 
 **Number of MAGs without species-level annotation**
-```{r nonspe, comment="", echo=FALSE, message=FALSE, warning=FALSE}
+```{r , comment="", echo=FALSE, message=FALSE, warning=FALSE}
 genome_metadata %>%
   filter(species == "s__") %>%
   summarize(Mag_nospecies = n())%>%
@@ -187,7 +187,7 @@ genome_metadata %>%
 ```
 
 **Percentage of MAGs without species-level annotation**
-```{r sp_percet, comment="", echo=FALSE, message=FALSE, warning=FALSE}
+```{r , comment="", echo=FALSE, message=FALSE, warning=FALSE}
 nmags <- nrow(genome_counts)
 nonspecies <- genome_metadata %>%
     filter(species == "s__") %>%
@@ -197,7 +197,7 @@ perct
 ```
 
 **Number of MAGs without genera-level annotation**
-```{r nongenera, comment="", echo=FALSE, message=FALSE, warning=FALSE}
+```{r , comment="", echo=FALSE, message=FALSE, warning=FALSE}
 nongenera <- genome_metadata %>%
     filter(genus == "g__") %>%
     nrow()
@@ -205,7 +205,7 @@ cat(nongenera)
 ```
 
 
-```{r nongen_phylum, comment="", echo=FALSE, message=FALSE, warning=FALSE}
+```{r , comment="", echo=FALSE, message=FALSE, warning=FALSE}
 total_mag_phylum <- genome_metadata %>%
   group_by(phylum) %>%
   summarize(count_total = n())
@@ -223,7 +223,7 @@ genome_metadata %>%
 
 ### Phylum
 
-```{r taxonomy_phylum_summary, warning=FALSE, comments="", message=FALSE}
+```{r , warning=FALSE, comments="", message=FALSE}
 phylum_summary <- genome_counts_filt %>%
   mutate_at(vars(-genome),~./sum(.)) %>% #apply TSS nornalisation
   pivot_longer(-genome, names_to = "sample", values_to = "count") %>%
@@ -238,7 +238,7 @@ phylum_summary$clr =
   compositions::clr(phylum_summary$relabun)
 ```
 
-```{r taxonomy_boxplot_phylum, warning=FALSE, comments="", message=FALSE, fig.height=8, fig.width=10, fig.fullwidth=TRUE}
+```{r , warning=FALSE, comments="", message=FALSE, fig.height=8, fig.width=10, fig.fullwidth=TRUE}
 phylum_arrange <- phylum_summary %>%
     group_by(phylum) %>%
     summarise(mean=mean(clr)) %>%
@@ -259,7 +259,7 @@ phylum_summary %>%
 
 ```
 
-```{r taxonomy_jitterplot_phylum, warning=FALSE, comments="", message=FALSE, fig.height=8, fig.width=10, fig.fullwidth=TRUE}
+```{r , warning=FALSE, comments="", message=FALSE, fig.height=8, fig.width=10, fig.fullwidth=TRUE}
 phylum_arrange <- phylum_summary %>%
     group_by(phylum) %>%
     summarise(mean=sum(clr)) %>%
@@ -357,7 +357,7 @@ Use Tukey Honest Significant Differences to create confidence intervals on the d
 
 #### Difference between habitat
 
-```{r tukey_phylum_habitat, warning=FALSE, comments="", message=FALSE}
+```{r , warning=FALSE, comments="", message=FALSE}
 phylum_tukey =
   TukeyHSD(
     aov(clr ~ phylum * habitat, 
@@ -395,7 +395,7 @@ phylum_tukey[
 
 #### Difference between swabs
 
-```{r tukey_phylum_Swab, warning=FALSE, comments="", message=FALSE}
+```{r , warning=FALSE, comments="", message=FALSE}
 phylum_tukey =
   TukeyHSD(
     aov(clr ~ phylum * swab, 
@@ -429,7 +429,7 @@ Significant differences in p__Desulfobacterota between swab types. However, this
 
 ### Class
 
-```{r taxonomy_family_summary, warning=FALSE, comments="", message=FALSE}
+```{r , warning=FALSE, comments="", message=FALSE}
 class_summary <- genome_counts_filt %>%
   mutate_at(vars(-genome),~./sum(.)) %>% #apply TSS nornalisation
   pivot_longer(-genome, names_to = "sample", values_to = "count") %>% #reduce to minimum number of columns
@@ -443,7 +443,7 @@ class_summary$clr =
   compositions::clr(class_summary$relabun)
 ```
 
-```{r taxonomy_jitterplot_family, warning=FALSE, comments="", message=FALSE, fig.height=8, fig.width=10, fig.fullwidth=TRUE}
+```{r , warning=FALSE, comments="", message=FALSE, fig.height=8, fig.width=10, fig.fullwidth=TRUE}
 class_arrange <- class_summary %>%
     group_by(class) %>%
     summarise(mean=sum(clr)) %>%
@@ -468,7 +468,7 @@ class_summary %>%
 
 ```
 
-```{r tukey_class, warning=FALSE, comments="", message=FALSE}
+```{r , warning=FALSE, comments="", message=FALSE}
 class_tukey =
   TukeyHSD(
     aov(clr ~ class * habitat, 
@@ -498,7 +498,7 @@ Significant difference in proportion of classes c__Bacilli between habitats.
 
 ### Family
 
-```{r taxonomy_family_summary, warning=FALSE, comments="", message=FALSE}
+```{r , warning=FALSE, comments="", message=FALSE}
 family_summary <- genome_counts_filt %>%
   mutate_at(vars(-genome),~./sum(.)) %>% #apply TSS nornalisation
   pivot_longer(-genome, names_to = "sample", values_to = "count") %>% #reduce to minimum number of columns
@@ -512,7 +512,7 @@ family_summary$clr =
   compositions::clr(family_summary$relabun)
 ```
 
-```{r taxonomy_jitterplot_family, warning=FALSE, comments="", message=FALSE, fig.height=8, fig.width=10, fig.fullwidth=TRUE}
+```{r , warning=FALSE, comments="", message=FALSE, fig.height=8, fig.width=10, fig.fullwidth=TRUE}
 family_arrange <- family_summary %>%
     group_by(family) %>%
     summarise(mean=sum(clr)) %>%
@@ -536,7 +536,7 @@ family_summary %>%
         labs(y="family", x="Relative abundance CLR", color="Habitat")
 ggsave(paste0('figure/habitat_FAMILY_relative_abundance.png'), width=15, height=10, units='cm')
 ```
-```{r tukey_family, warning=FALSE, comments="", message=FALSE}
+```{r , warning=FALSE, comments="", message=FALSE}
 family_tukey =
   TukeyHSD(
     aov(clr ~ family * habitat, 
@@ -566,7 +566,7 @@ f__Moraxellaceae and f__2013Ark19i are significantly different Family between ha
 
 ### Genus 
 
-```{r taxonomy_family_summary, warning=FALSE, comments="", message=FALSE}
+```{r , warning=FALSE, comments="", message=FALSE}
 genus_summary <- genome_counts_filt %>%
   mutate_at(vars(-genome),~./sum(.)) %>% #apply TSS nornalisation
   pivot_longer(-genome, names_to = "sample", values_to = "count") %>% #reduce to minimum number of columns
@@ -610,7 +610,7 @@ Analysis of Compositions of Microbiomes with Bias Correction 2 (ANCOM-BC2) is a 
 
 The primary output of the ANCOM-BC2 methodology identifies taxa with differential abundance based on the chosen covariate. The results include: 1) log fold changes, 2) standard errors, 3) test statistics, 4) p-values, 5) adjusted p-values, 6) indicators denoting whether the taxon is differentially abundant (TRUE) or not (FALSE), and 7) indicators denoting whether the taxon passed the sensitivity analysis (TRUE) or not (FALSE).
 
-```{r zero_phylo1, comment="", echo=FALSE, message=FALSE, warning=FALSE}
+```{r , comment="", echo=FALSE, message=FALSE, warning=FALSE}
 #phyloseq object considering structual zeros
 phylo_samples <- sample_metadata %>% 
                     column_to_rownames("sample") %>% 
@@ -631,14 +631,14 @@ physeq_genome_filtered <- phyloseq(phylo_genome, phylo_taxonomy, phylo_samples)
 ```
 
 
-```{r filtercapwild, comment="", echo=FALSE, message=FALSE, warning=FALSE}
+```{r , comment="", echo=FALSE, message=FALSE, warning=FALSE}
 physeq_sample <- subset_samples(physeq_genome_filtered, habitat %in% c("urban","rural"))
 physeq_sample <- prune_taxa(taxa_sums(physeq_sample)>0, physeq_sample)
 ```
 
 #### Perform ANCOMB2
 
-```{r ancom_rand_capwild, comment="", echo=FALSE, message=FALSE, warning=FALSE, eval=TRUE}
+```{r , comment="", echo=FALSE, message=FALSE, warning=FALSE, eval=TRUE}
 set.seed(1234) #set seed for reproducibility
 ancom_rand_output_mag_habitat = ancombc2(data = physeq_sample, 
                   assay_name = "counts", 
@@ -713,7 +713,7 @@ fig_p
 
 
 
-```{r ancom_table_capwild, comment="", echo=FALSE, message=FALSE, warning=FALSE}
+```{r , comment="", echo=FALSE, message=FALSE, warning=FALSE}
 taxonomy <- data.frame(physeq_sample@tax_table) %>%
   rownames_to_column(., "taxon") %>%
   mutate_at(vars(phylum, class, order, family, genus, species), ~ str_replace(., "[dpcofgs]__", ""))
@@ -746,7 +746,7 @@ saveRDS(file = "data/ancombc_rand_table_mag.Rds",
         object = ancombc_rand_table_mag)
 ```
 
-```{r ancombc_rand_plot_capwild, comment="", echo=FALSE, message=FALSE, warning=FALSE, fig.height=10, fig.width=8, fig.fullwidth=TRUE}
+```{r , comment="", echo=FALSE, message=FALSE, warning=FALSE, fig.height=10, fig.width=8, fig.fullwidth=TRUE}
 ancombc_rand_table_mag%>%
       mutate(genome=factor(genome,levels=ancombc_rand_table_mag$genome)) %>%
 ggplot(., aes(x=lfc_habitaturban, y=forcats::fct_reorder(genome,lfc_habitaturban), fill=phylum)) + #forcats::fct_rev()
@@ -805,7 +805,7 @@ Any taxon highlighted in green indicates its successful passage through the sens
 
 This species of Acinetobacter is known for its denitrification capacity and in some cases as a pathogen in humans. It was identified as pathogenic among a bullfrog species in southern China that emerges in low temperature conditions [Lin, et al. 2025]. *A. johnsonii* used as an environmental probiotic in aquaculture for ammonia removal, pyrene degradation, sulfide degradation, and malathion biodegradation (Jiang et al., 2012, Jiang et al., 2018). 
 
-```{r ancom_rand_volcano_sp, comment="", echo=FALSE, message=FALSE, warning=FALSE}
+```{r , comment="", echo=FALSE, message=FALSE, warning=FALSE}
 
 genome_counts_clr =
 cbind.data.frame(genome = genome_counts_filt$genome,

@@ -1,0 +1,1894 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4 Data statistics | Urban Amphibian Microbiota | Manuscript in prep</title>
+  <meta name="description" content="Data analysis for mircrobiota sequencing of salamanders" />
+  <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4 Data statistics | Urban Amphibian Microbiota | Manuscript in prep" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Data analysis for mircrobiota sequencing of salamanders" />
+  <meta name="github-repo" content="Blinded for review" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 Data statistics | Urban Amphibian Microbiota | Manuscript in prep" />
+  
+  <meta name="twitter:description" content="Data analysis for mircrobiota sequencing of salamanders" />
+  
+
+
+
+<meta name="date" content="2026-11-23" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="prepare-data.html"/>
+<link rel="next" href="mag-catalogue.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#prepare-the-r-environment"><i class="fa fa-check"></i><b>1.1</b> Prepare the R environment</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#environment"><i class="fa fa-check"></i><b>1.1.1</b> Environment</a></li>
+<li class="chapter" data-level="1.1.2" data-path="index.html"><a href="index.html#libraries"><i class="fa fa-check"></i><b>1.1.2</b> Libraries</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html"><i class="fa fa-check"></i><b>2</b> Bioinformatics Workflow</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#data-preprocessing-step-1"><i class="fa fa-check"></i><b>2.1</b> Data preprocessing (step 1)</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#quality-filtering"><i class="fa fa-check"></i><b>2.1.1</b> Quality-filtering</a></li>
+<li class="chapter" data-level="2.1.2" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#host-mapping"><i class="fa fa-check"></i><b>2.1.2</b> Host mapping</a></li>
+<li class="chapter" data-level="2.1.3" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#metagenomic-complexity-assessment"><i class="fa fa-check"></i><b>2.1.3</b> Metagenomic complexity assessment</a></li>
+<li class="chapter" data-level="2.1.4" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#prokaryotic-fraction-assessment"><i class="fa fa-check"></i><b>2.1.4</b> Prokaryotic fraction assessment</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#assembly-binning-steps-2-4"><i class="fa fa-check"></i><b>2.2</b> Assembly &amp; Binning (steps 2-4)</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#metagenomic-assembly"><i class="fa fa-check"></i><b>2.2.1</b> Metagenomic assembly</a></li>
+<li class="chapter" data-level="2.2.2" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#assembly-mapping"><i class="fa fa-check"></i><b>2.2.2</b> Assembly mapping</a></li>
+<li class="chapter" data-level="2.2.3" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#ensemble-binning"><i class="fa fa-check"></i><b>2.2.3</b> Ensemble binning</a></li>
+<li class="chapter" data-level="2.2.4" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#bin-refinement"><i class="fa fa-check"></i><b>2.2.4</b> Bin refinement</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#mag-annotation-step-5"><i class="fa fa-check"></i><b>2.3</b> MAG Annotation (step 5)</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#taxonomic-annotation"><i class="fa fa-check"></i><b>2.3.1</b> Taxonomic annotation</a></li>
+<li class="chapter" data-level="2.3.2" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#functional-annotation"><i class="fa fa-check"></i><b>2.3.2</b> Functional annotation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#dereplication-step-6"><i class="fa fa-check"></i><b>2.4</b> Dereplication (step 6)</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#mag-dereplication"><i class="fa fa-check"></i><b>2.4.1</b> MAG Dereplication</a></li>
+<li class="chapter" data-level="2.4.2" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#mapping-to-mag-catalogue"><i class="fa fa-check"></i><b>2.4.2</b> Mapping to MAG catalogue</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="prepare-data.html"><a href="prepare-data.html"><i class="fa fa-check"></i><b>3</b> Prepare data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="prepare-data.html"><a href="prepare-data.html#verify-directories-present"><i class="fa fa-check"></i><b>3.1</b> Verify directories present</a></li>
+<li class="chapter" data-level="3.2" data-path="prepare-data.html"><a href="prepare-data.html#load-data"><i class="fa fa-check"></i><b>3.2</b> Load data</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="prepare-data.html"><a href="prepare-data.html#sample-metadata"><i class="fa fa-check"></i><b>3.2.1</b> Sample metadata</a></li>
+<li class="chapter" data-level="3.2.2" data-path="prepare-data.html"><a href="prepare-data.html#add-environmental-variables"><i class="fa fa-check"></i><b>3.2.2</b> Add environmental variables</a></li>
+<li class="chapter" data-level="3.2.3" data-path="prepare-data.html"><a href="prepare-data.html#visualize-metadata"><i class="fa fa-check"></i><b>3.2.3</b> Visualize Metadata</a></li>
+<li class="chapter" data-level="3.2.4" data-path="prepare-data.html"><a href="prepare-data.html#filter-table"><i class="fa fa-check"></i><b>3.2.4</b> Filter Table</a></li>
+<li class="chapter" data-level="3.2.5" data-path="prepare-data.html"><a href="prepare-data.html#read-counts"><i class="fa fa-check"></i><b>3.2.5</b> Read counts</a></li>
+<li class="chapter" data-level="3.2.6" data-path="prepare-data.html"><a href="prepare-data.html#genome-taxonomy"><i class="fa fa-check"></i><b>3.2.6</b> Genome taxonomy</a></li>
+<li class="chapter" data-level="3.2.7" data-path="prepare-data.html"><a href="prepare-data.html#genome-base-hits"><i class="fa fa-check"></i><b>3.2.7</b> Genome base hits</a></li>
+<li class="chapter" data-level="3.2.8" data-path="prepare-data.html"><a href="prepare-data.html#genome-tree"><i class="fa fa-check"></i><b>3.2.8</b> Genome tree</a></li>
+<li class="chapter" data-level="3.2.9" data-path="prepare-data.html"><a href="prepare-data.html#genome-annotations"><i class="fa fa-check"></i><b>3.2.9</b> Genome annotations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="prepare-data.html"><a href="prepare-data.html#create-working-objects"><i class="fa fa-check"></i><b>3.3</b> Create working objects</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="prepare-data.html"><a href="prepare-data.html#filter-reads-by-coverage"><i class="fa fa-check"></i><b>3.3.1</b> Filter reads by coverage</a></li>
+<li class="chapter" data-level="3.3.2" data-path="prepare-data.html"><a href="prepare-data.html#transform-reads-into-genome-counts"><i class="fa fa-check"></i><b>3.3.2</b> Transform reads into genome counts</a></li>
+<li class="chapter" data-level="3.3.3" data-path="prepare-data.html"><a href="prepare-data.html#filter-samples-by-coverage"><i class="fa fa-check"></i><b>3.3.3</b> Filter samples by coverage</a></li>
+<li class="chapter" data-level="3.3.4" data-path="prepare-data.html"><a href="prepare-data.html#distill-annotations-into-gifts"><i class="fa fa-check"></i><b>3.3.4</b> Distill annotations into GIFTs</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="prepare-data.html"><a href="prepare-data.html#prepare-color-scheme"><i class="fa fa-check"></i><b>3.4</b> Prepare color scheme</a></li>
+<li class="chapter" data-level="3.5" data-path="prepare-data.html"><a href="prepare-data.html#prepare-a-phyloseq-object"><i class="fa fa-check"></i><b>3.5</b> Prepare a phyloseq object</a></li>
+<li class="chapter" data-level="3.6" data-path="prepare-data.html"><a href="prepare-data.html#wrap-working-objects"><i class="fa fa-check"></i><b>3.6</b> Wrap working objects</a></li>
+<li class="chapter" data-level="3.7" data-path="prepare-data.html"><a href="prepare-data.html#cleanup"><i class="fa fa-check"></i><b>3.7</b> cleanup</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-statistics.html"><a href="data-statistics.html"><i class="fa fa-check"></i><b>4</b> Data statistics</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="data-statistics.html"><a href="data-statistics.html#habitat-characterization"><i class="fa fa-check"></i><b>4.1</b> Habitat Characterization</a></li>
+<li class="chapter" data-level="4.2" data-path="data-statistics.html"><a href="data-statistics.html#optional-filter-samples-with-high-host-data"><i class="fa fa-check"></i><b>4.2</b> [OPTIONAL] filter samples with high host data</a></li>
+<li class="chapter" data-level="4.3" data-path="data-statistics.html"><a href="data-statistics.html#sequencing-reads-statistics"><i class="fa fa-check"></i><b>4.3</b> Sequencing reads statistics</a></li>
+<li class="chapter" data-level="4.4" data-path="data-statistics.html"><a href="data-statistics.html#dna-fractions"><i class="fa fa-check"></i><b>4.4</b> DNA fractions</a></li>
+<li class="chapter" data-level="4.5" data-path="data-statistics.html"><a href="data-statistics.html#recovered-microbial-fraction"><i class="fa fa-check"></i><b>4.5</b> Recovered microbial fraction</a></li>
+<li class="chapter" data-level="4.6" data-path="data-statistics.html"><a href="data-statistics.html#cleanup-1"><i class="fa fa-check"></i><b>4.6</b> cleanup</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="mag-catalogue.html"><a href="mag-catalogue.html"><i class="fa fa-check"></i><b>5</b> MAG catalogue</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="mag-catalogue.html"><a href="mag-catalogue.html#genome-phylogeny"><i class="fa fa-check"></i><b>5.1</b> Genome phylogeny</a></li>
+<li class="chapter" data-level="5.2" data-path="mag-catalogue.html"><a href="mag-catalogue.html#taxonomy-overview"><i class="fa fa-check"></i><b>5.2</b> Taxonomy overview</a></li>
+<li class="chapter" data-level="5.3" data-path="mag-catalogue.html"><a href="mag-catalogue.html#mag-size-mb"><i class="fa fa-check"></i><b>5.3</b> Mag size (MB)</a></li>
+<li class="chapter" data-level="5.4" data-path="mag-catalogue.html"><a href="mag-catalogue.html#genome-quality"><i class="fa fa-check"></i><b>5.4</b> Genome quality</a></li>
+<li class="chapter" data-level="5.5" data-path="mag-catalogue.html"><a href="mag-catalogue.html#functional-overview"><i class="fa fa-check"></i><b>5.5</b> Functional overview</a></li>
+<li class="chapter" data-level="5.6" data-path="mag-catalogue.html"><a href="mag-catalogue.html#functional-ordination"><i class="fa fa-check"></i><b>5.6</b> Functional ordination</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="mag-catalogue.html"><a href="mag-catalogue.html#species-novelty-v-mag-quality"><i class="fa fa-check"></i><b>5.6.1</b> Species Novelty v MAG quality</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="mag-catalogue.html"><a href="mag-catalogue.html#mag-quality-v-habitat"><i class="fa fa-check"></i><b>5.7</b> MAG Quality v Habitat</a></li>
+<li class="chapter" data-level="5.8" data-path="mag-catalogue.html"><a href="mag-catalogue.html#cleanup-2"><i class="fa fa-check"></i><b>5.8</b> cleanup</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="community-composition.html"><a href="community-composition.html"><i class="fa fa-check"></i><b>6</b> Community composition</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="community-composition.html"><a href="community-composition.html#filter-data"><i class="fa fa-check"></i><b>6.1</b> Filter data</a></li>
+<li class="chapter" data-level="6.2" data-path="community-composition.html"><a href="community-composition.html#taxonomy-overview-1"><i class="fa fa-check"></i><b>6.2</b> Taxonomy overview</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="community-composition.html"><a href="community-composition.html#stacked-barplot"><i class="fa fa-check"></i><b>6.2.1</b> Stacked barplot</a></li>
+<li class="chapter" data-level="6.2.2" data-path="community-composition.html"><a href="community-composition.html#genus-and-species-annotation"><i class="fa fa-check"></i><b>6.2.2</b> Genus and species annotation</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="community-composition.html"><a href="community-composition.html#taxonomy-boxplots"><i class="fa fa-check"></i><b>6.3</b> Taxonomy boxplots</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="community-composition.html"><a href="community-composition.html#phylum"><i class="fa fa-check"></i><b>6.3.1</b> Phylum</a></li>
+<li class="chapter" data-level="6.3.2" data-path="community-composition.html"><a href="community-composition.html#class"><i class="fa fa-check"></i><b>6.3.2</b> Class</a></li>
+<li class="chapter" data-level="6.3.3" data-path="community-composition.html"><a href="community-composition.html#family"><i class="fa fa-check"></i><b>6.3.3</b> Family</a></li>
+<li class="chapter" data-level="6.3.4" data-path="community-composition.html"><a href="community-composition.html#genus"><i class="fa fa-check"></i><b>6.3.4</b> Genus</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="community-composition.html"><a href="community-composition.html#enrichment-analysis-ancombc2"><i class="fa fa-check"></i><b>6.4</b> Enrichment analysis: Ancombc2</a></li>
+<li class="chapter" data-level="6.5" data-path="community-composition.html"><a href="community-composition.html#outputs"><i class="fa fa-check"></i><b>6.5</b> Outputs</a></li>
+<li class="chapter" data-level="6.6" data-path="community-composition.html"><a href="community-composition.html#geolocation-correlations"><i class="fa fa-check"></i><b>6.6</b> Geolocation Correlations</a></li>
+<li class="chapter" data-level="6.7" data-path="community-composition.html"><a href="community-composition.html#update-metadata"><i class="fa fa-check"></i><b>6.7</b> Update metadata</a></li>
+<li class="chapter" data-level="6.8" data-path="community-composition.html"><a href="community-composition.html#cleanup-3"><i class="fa fa-check"></i><b>6.8</b> cleanup</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="alpha-diversity.html"><a href="alpha-diversity.html"><i class="fa fa-check"></i><b>7</b> Alpha diversity</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="alpha-diversity.html"><a href="alpha-diversity.html#summary-table"><i class="fa fa-check"></i><b>7.1</b> Summary table</a></li>
+<li class="chapter" data-level="7.2" data-path="alpha-diversity.html"><a href="alpha-diversity.html#shapiro-test"><i class="fa fa-check"></i><b>7.2</b> Shapiro test</a></li>
+<li class="chapter" data-level="7.3" data-path="alpha-diversity.html"><a href="alpha-diversity.html#plots"><i class="fa fa-check"></i><b>7.3</b> Plots</a></li>
+<li class="chapter" data-level="7.4" data-path="alpha-diversity.html"><a href="alpha-diversity.html#cleanup-4"><i class="fa fa-check"></i><b>7.4</b> cleanup</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="estimate-beta-diversity.html"><a href="estimate-beta-diversity.html"><i class="fa fa-check"></i><b>8</b> Estimate Beta Diversity</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="estimate-beta-diversity.html"><a href="estimate-beta-diversity.html#hill-number-distance-matrices"><i class="fa fa-check"></i><b>8.1</b> Hill Number Distance Matrices</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="estimate-beta-diversity.html"><a href="estimate-beta-diversity.html#permanova-analysis"><i class="fa fa-check"></i><b>8.1.1</b> Permanova analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="estimate-beta-diversity.html"><a href="estimate-beta-diversity.html#geographic-correlation"><i class="fa fa-check"></i><b>8.2</b> Geographic Correlation</a></li>
+<li class="chapter" data-level="8.3" data-path="estimate-beta-diversity.html"><a href="estimate-beta-diversity.html#site-comparisons"><i class="fa fa-check"></i><b>8.3</b> Site Comparisons</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="estimate-beta-diversity.html"><a href="estimate-beta-diversity.html#permanova-analysis-beta-diversity-plots"><i class="fa fa-check"></i><b>8.3.1</b> Permanova analysis &amp; Beta diversity plots</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="estimate-beta-diversity.html"><a href="estimate-beta-diversity.html#cleanup-5"><i class="fa fa-check"></i><b>8.4</b> cleanup</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="genome-function.html"><a href="genome-function.html"><i class="fa fa-check"></i><b>9</b> Genome Function</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="genome-function.html"><a href="genome-function.html#functional-differences"><i class="fa fa-check"></i><b>9.1</b> Functional differences</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="genome-function.html"><a href="genome-function.html#gifts-elements"><i class="fa fa-check"></i><b>9.1.1</b> GIFTs Elements</a></li>
+<li class="chapter" data-level="9.1.2" data-path="genome-function.html"><a href="genome-function.html#gifts-functions"><i class="fa fa-check"></i><b>9.1.2</b> GIFTs Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="genome-function.html"><a href="genome-function.html#ancomb2-identified-taxa"><i class="fa fa-check"></i><b>9.2</b> ANCOMB2 Identified Taxa</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="genome-function.html"><a href="genome-function.html#taxa-specific-gift"><i class="fa fa-check"></i><b>9.2.1</b> Taxa specific GIFT</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="genome-function.html"><a href="genome-function.html#habitat-exclusive-taxa"><i class="fa fa-check"></i><b>9.3</b> Habitat Exclusive Taxa</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="genome-function.html"><a href="genome-function.html#families"><i class="fa fa-check"></i><b>9.3.1</b> Families</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="genome-function.html"><a href="genome-function.html#sensitivity-analysis"><i class="fa fa-check"></i><b>9.4</b> Sensitivity Analysis</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="genome-function.html"><a href="genome-function.html#wilcox-test"><i class="fa fa-check"></i><b>9.4.1</b> Wilcox Test</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="genome-function.html"><a href="genome-function.html#distribute-gift-probabilities"><i class="fa fa-check"></i><b>9.5</b> Distribute GIFT Probabilities</a></li>
+<li class="chapter" data-level="9.6" data-path="genome-function.html"><a href="genome-function.html#bacterial-fungal-interactions"><i class="fa fa-check"></i><b>9.6</b> Bacterial-Fungal interactions</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Urban Amphibian Microbiota | Manuscript in prep</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="data-statistics" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">4</span> Data statistics<a href="data-statistics.html#data-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Load packages</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb70-1"><a href="data-statistics.html#cb70-1" tabindex="-1"></a>pkgs <span class="ot">=</span> <span class="fu">readRDS</span>(<span class="st">&quot;data/Rpkgs.Rds&quot;</span>)</span>
+<span id="cb70-2"><a href="data-statistics.html#cb70-2" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">setdiff</span>(pkgs, <span class="fu">rownames</span>(<span class="fu">installed.packages</span>())))</span>
+<span id="cb70-3"><a href="data-statistics.html#cb70-3" tabindex="-1"></a><span class="fu">lapply</span>(pkgs, require, <span class="at">character.only =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre class="script-output"><code>[[1]]
+[1] TRUE
+
+[[2]]
+[1] TRUE
+
+[[3]]
+[1] TRUE
+
+[[4]]
+[1] TRUE
+
+[[5]]
+[1] TRUE
+
+[[6]]
+[1] TRUE
+
+[[7]]
+[1] TRUE
+
+[[8]]
+[1] TRUE
+
+[[9]]
+[1] TRUE
+
+[[10]]
+[1] TRUE
+
+[[11]]
+[1] TRUE
+
+[[12]]
+[1] TRUE
+
+[[13]]
+[1] TRUE
+
+[[14]]
+[1] TRUE
+
+[[15]]
+[1] TRUE
+
+[[16]]
+[1] TRUE
+
+[[17]]
+[1] TRUE
+
+[[18]]
+[1] TRUE
+
+[[19]]
+[1] TRUE
+
+[[20]]
+[1] TRUE
+
+[[21]]
+[1] TRUE
+
+[[22]]
+[1] TRUE
+
+[[23]]
+[1] TRUE
+
+[[24]]
+[1] TRUE
+
+[[25]]
+[1] TRUE
+
+[[26]]
+[1] TRUE
+
+[[27]]
+[1] TRUE
+
+[[28]]
+[1] TRUE
+
+[[29]]
+[1] TRUE
+
+[[30]]
+[1] TRUE
+
+[[31]]
+[1] TRUE
+
+[[32]]
+[1] TRUE
+
+[[33]]
+[1] TRUE
+
+[[34]]
+[1] TRUE
+
+[[35]]
+[1] TRUE
+
+[[36]]
+[1] TRUE
+
+[[37]]
+[1] TRUE
+
+[[38]]
+[1] TRUE
+
+[[39]]
+[1] TRUE
+
+[[40]]
+[1] TRUE
+
+[[41]]
+[1] TRUE
+
+[[42]]
+[1] TRUE
+
+[[43]]
+[1] TRUE
+
+[[44]]
+[1] TRUE
+
+[[45]]
+[1] TRUE
+
+[[46]]
+[1] TRUE
+
+[[47]]
+[1] TRUE
+
+[[48]]
+[1] TRUE</code></pre>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb72-1"><a href="data-statistics.html#cb72-1" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;data/data.Rdata&quot;</span>)</span>
+<span id="cb72-2"><a href="data-statistics.html#cb72-2" tabindex="-1"></a></span>
+<span id="cb72-3"><a href="data-statistics.html#cb72-3" tabindex="-1"></a><span class="co"># keep sample metadatabut rewrite with filters</span></span>
+<span id="cb72-4"><a href="data-statistics.html#cb72-4" tabindex="-1"></a>sample_metadata <span class="ot">=</span> sample_metadata3</span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb73-1"><a href="data-statistics.html#cb73-1" tabindex="-1"></a>query_variables <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;sample&quot;</span>,<span class="st">&quot;event_id&quot;</span>,<span class="st">&quot;swab&quot;</span>,<span class="st">&quot;sol&quot;</span>,<span class="st">&quot;habitat&quot;</span>)</span>
+<span id="cb73-2"><a href="data-statistics.html#cb73-2" tabindex="-1"></a>query_variables <span class="ot">=</span> query_variables[<span class="fu">sapply</span>(sample_metadata[,query_variables], <span class="cf">function</span>(x) <span class="fu">length</span>(<span class="fu">unique</span>(x))) <span class="sc">&gt;</span> <span class="dv">1</span> ] <span class="co"># varaibles with at least two conditions</span></span></code></pre></div>
+<div id="habitat-characterization" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Habitat Characterization<a href="data-statistics.html#habitat-characterization" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb74-1"><a href="data-statistics.html#cb74-1" tabindex="-1"></a>site_metadata <span class="ot">=</span></span>
+<span id="cb74-2"><a href="data-statistics.html#cb74-2" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;data/site_IMD.csv&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb74-3"><a href="data-statistics.html#cb74-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Habitat =</span> <span class="fu">c</span>(<span class="st">&quot;urban&quot;</span>,<span class="st">&quot;urban&quot;</span>,<span class="st">&quot;rural&quot;</span>,<span class="st">&quot;rural&quot;</span>,<span class="st">&quot;rural&quot;</span>,<span class="st">&quot;urban&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb74-4"><a href="data-statistics.html#cb74-4" tabindex="-1"></a>  <span class="fu">arrange</span>(X_imdmean) <span class="sc">%&gt;%</span></span>
+<span id="cb74-5"><a href="data-statistics.html#cb74-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Site =</span> <span class="fu">as.factor</span>(Sampling.e)) <span class="sc">%&gt;%</span></span>
+<span id="cb74-6"><a href="data-statistics.html#cb74-6" tabindex="-1"></a>  <span class="fu">select</span>(Site,Habitat,X_imdmean,X_imdstdev)</span>
+<span id="cb74-7"><a href="data-statistics.html#cb74-7" tabindex="-1"></a></span>
+<span id="cb74-8"><a href="data-statistics.html#cb74-8" tabindex="-1"></a><span class="fu">ggplot</span>(site_metadata,</span>
+<span id="cb74-9"><a href="data-statistics.html#cb74-9" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Site,X_imdmean), <span class="at">y =</span> X_imdmean, <span class="at">color =</span> Habitat)) <span class="sc">+</span></span>
+<span id="cb74-10"><a href="data-statistics.html#cb74-10" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb74-11"><a href="data-statistics.html#cb74-11" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> X_imdmean <span class="sc">-</span> X_imdstdev,</span>
+<span id="cb74-12"><a href="data-statistics.html#cb74-12" tabindex="-1"></a>                    <span class="at">ymax =</span> X_imdmean <span class="sc">+</span> X_imdstdev),</span>
+<span id="cb74-13"><a href="data-statistics.html#cb74-13" tabindex="-1"></a>                <span class="at">width =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb74-14"><a href="data-statistics.html#cb74-14" tabindex="-1"></a>   <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;#5bae63&quot;</span>,<span class="st">&quot;#986eac&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb74-15"><a href="data-statistics.html#cb74-15" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Site&quot;</span>,</span>
+<span id="cb74-16"><a href="data-statistics.html#cb74-16" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Mean Impervious Surface ± SD&quot;</span>) <span class="sc">+</span></span>
+<span id="cb74-17"><a href="data-statistics.html#cb74-17" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb74-18"><a href="data-statistics.html#cb74-18" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">8</span>), <span class="co">#change font size of all text</span></span>
+<span id="cb74-19"><a href="data-statistics.html#cb74-19" tabindex="-1"></a>        <span class="at">axis.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">8</span>), <span class="co">#change font size of axis text</span></span>
+<span id="cb74-20"><a href="data-statistics.html#cb74-20" tabindex="-1"></a>        <span class="at">axis.title=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">8</span>), <span class="co">#change font size of axis titles</span></span>
+<span id="cb74-21"><a href="data-statistics.html#cb74-21" tabindex="-1"></a>        <span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">8</span>), <span class="co">#change font size of plot title</span></span>
+<span id="cb74-22"><a href="data-statistics.html#cb74-22" tabindex="-1"></a>        <span class="at">legend.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">8</span>), <span class="co">#change font size of legend text</span></span>
+<span id="cb74-23"><a href="data-statistics.html#cb74-23" tabindex="-1"></a>        <span class="at">legend.title=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">8</span>)) <span class="co">#change font size of legend title</span></span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-33-1.png" alt="" width="672" /></p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb75-1"><a href="data-statistics.html#cb75-1" tabindex="-1"></a><span class="co"># Welch t-test (var.equal = FALSE is the default)</span></span>
+<span id="cb75-2"><a href="data-statistics.html#cb75-2" tabindex="-1"></a><span class="fu">t.test</span>(</span>
+<span id="cb75-3"><a href="data-statistics.html#cb75-3" tabindex="-1"></a>  site_metadata[site_metadata<span class="sc">$</span>Habitat<span class="sc">==</span><span class="st">&quot;urban&quot;</span>,<span class="st">&quot;X_imdmean&quot;</span>], </span>
+<span id="cb75-4"><a href="data-statistics.html#cb75-4" tabindex="-1"></a>  site_metadata[site_metadata<span class="sc">$</span>Habitat<span class="sc">==</span><span class="st">&quot;rural&quot;</span>,<span class="st">&quot;X_imdmean&quot;</span>]</span>
+<span id="cb75-5"><a href="data-statistics.html#cb75-5" tabindex="-1"></a>  )</span></code></pre></div>
+<pre class="script-output"><code>
+    Welch Two Sample t-test
+
+data:  site_metadata[site_metadata$Habitat == &quot;urban&quot;, &quot;X_imdmean&quot;] and site_metadata[site_metadata$Habitat == &quot;rural&quot;, &quot;X_imdmean&quot;]
+t = 4.947, df = 2.0428, p-value = 0.0369
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+  7.033227 88.337010
+sample estimates:
+mean of x mean of y 
+ 50.39158   2.70646 </code></pre>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb77-1"><a href="data-statistics.html#cb77-1" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;./figure/sm_site_imperviousness.png&quot;</span>, </span>
+<span id="cb77-2"><a href="data-statistics.html#cb77-2" tabindex="-1"></a>       <span class="fu">last_plot</span>(),</span>
+<span id="cb77-3"><a href="data-statistics.html#cb77-3" tabindex="-1"></a>       <span class="at">device =</span> <span class="st">&quot;png&quot;</span>, <span class="at">height =</span> <span class="dv">6</span>, <span class="at">width =</span> <span class="dv">10</span>, <span class="at">units =</span> <span class="st">&quot;cm&quot;</span>)</span></code></pre></div>
+</div>
+<div id="optional-filter-samples-with-high-host-data" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> [OPTIONAL] filter samples with high host data<a href="data-statistics.html#optional-filter-samples-with-high-host-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This step would remove samples with a high proportion of host DNA. While using dermal swabs, most samples will have high host data, so consider this step only if a few samples appear to be outliers.</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb78-1"><a href="data-statistics.html#cb78-1" tabindex="-1"></a>read_counts <span class="ot">&lt;-</span> read_counts <span class="sc">%&gt;%</span> </span>
+<span id="cb78-2"><a href="data-statistics.html#cb78-2" tabindex="-1"></a>    <span class="fu">select</span>(<span class="fu">one_of</span>(<span class="fu">c</span>(<span class="st">&quot;genome&quot;</span>,sample_metadata<span class="sc">$</span>sample)))<span class="sc">%&gt;%</span></span>
+<span id="cb78-3"><a href="data-statistics.html#cb78-3" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">rowSums</span>(. <span class="sc">!=</span> <span class="dv">0</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb78-4"><a href="data-statistics.html#cb78-4" tabindex="-1"></a>  <span class="fu">select_if</span>(<span class="sc">~!</span><span class="fu">all</span>(. <span class="sc">==</span> <span class="dv">0</span>))</span>
+<span id="cb78-5"><a href="data-statistics.html#cb78-5" tabindex="-1"></a></span>
+<span id="cb78-6"><a href="data-statistics.html#cb78-6" tabindex="-1"></a>genome_metadata <span class="ot">&lt;-</span> genome_metadata <span class="sc">%&gt;%</span> </span>
+<span id="cb78-7"><a href="data-statistics.html#cb78-7" tabindex="-1"></a>  <span class="fu">semi_join</span>(., read_counts, <span class="at">by =</span> <span class="st">&quot;genome&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb78-8"><a href="data-statistics.html#cb78-8" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">match</span>(genome,read_counts<span class="sc">$</span>genome))</span>
+<span id="cb78-9"><a href="data-statistics.html#cb78-9" tabindex="-1"></a></span>
+<span id="cb78-10"><a href="data-statistics.html#cb78-10" tabindex="-1"></a>genome_tree <span class="ot">&lt;-</span> <span class="fu">keep.tip</span>(genome_tree, <span class="at">tip=</span>genome_metadata<span class="sc">$</span>genome) <span class="co"># keep only MAG tips</span></span>
+<span id="cb78-11"><a href="data-statistics.html#cb78-11" tabindex="-1"></a></span>
+<span id="cb78-12"><a href="data-statistics.html#cb78-12" tabindex="-1"></a></span>
+<span id="cb78-13"><a href="data-statistics.html#cb78-13" tabindex="-1"></a><span class="fu">head</span>(genome_metadata)</span>
+<span id="cb78-14"><a href="data-statistics.html#cb78-14" tabindex="-1"></a><span class="co"># save results for supplementary materials.</span></span>
+<span id="cb78-15"><a href="data-statistics.html#cb78-15" tabindex="-1"></a><span class="fu">write_rds</span>(genome_metadata,</span>
+<span id="cb78-16"><a href="data-statistics.html#cb78-16" tabindex="-1"></a>          <span class="st">&quot;./high_host_data_genome_metadata.Rds&quot;</span>)</span></code></pre></div>
+</div>
+<div id="sequencing-reads-statistics" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Sequencing reads statistics<a href="data-statistics.html#sequencing-reads-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The total number of post-fastp bases (ie. number reads * 150) in billions, and the average number of bases among samples.</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb79-1"><a href="data-statistics.html#cb79-1" tabindex="-1"></a><span class="co"># sequence reads by 1M</span></span>
+<span id="cb79-2"><a href="data-statistics.html#cb79-2" tabindex="-1"></a>sample_metadata <span class="sc">%&gt;%</span> </span>
+<span id="cb79-3"><a href="data-statistics.html#cb79-3" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">Total=</span><span class="fu">sum</span>(reads_post_fastp  <span class="sc">/</span> <span class="dv">1000000</span>) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>), </span>
+<span id="cb79-4"><a href="data-statistics.html#cb79-4" tabindex="-1"></a>              <span class="at">mean=</span><span class="fu">mean</span>(reads_post_fastp  <span class="sc">/</span> <span class="dv">1000000</span>) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>),</span>
+<span id="cb79-5"><a href="data-statistics.html#cb79-5" tabindex="-1"></a>              <span class="at">sd=</span><span class="fu">sd</span>(reads_post_fastp <span class="sc">/</span> <span class="dv">1000000</span>) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb79-6"><a href="data-statistics.html#cb79-6" tabindex="-1"></a>    <span class="fu">unite</span>(<span class="st">&quot;Average&quot;</span>,mean, sd, <span class="at">sep =</span> <span class="st">&quot; ± &quot;</span>, <span class="at">remove =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb79-7"><a href="data-statistics.html#cb79-7" tabindex="-1"></a>    <span class="fu">tt</span>()</span></code></pre></div>
+
+    <script src="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.js"></script>
+
+    <script>
+      // Create table-specific functions using external factory
+      const tableFns_q9njmvtde5yebyjatzbn = TinyTable.createTableFunctions("tinytable_q9njmvtde5yebyjatzbn");
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: '1', j: 1 }, { i: '1', j: 2 } ], css_id: 'tinytable_css_kyvouk7qdvdinhh7x12h',}, 
+          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 } ], css_id: 'tinytable_css_o0one1ovhhz9n7yzsqju',}, 
+          ];
+
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  tableFns_q9njmvtde5yebyjatzbn.styleCell(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
+    <style>
+    /* tinytable css entries after */
+    #tinytable_q9njmvtde5yebyjatzbn td.tinytable_css_kyvouk7qdvdinhh7x12h, #tinytable_q9njmvtde5yebyjatzbn th.tinytable_css_kyvouk7qdvdinhh7x12h {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --line-type-bottom: solid; --line-type-left: solid; --line-type-right: solid; --line-type-top: solid; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
+    #tinytable_q9njmvtde5yebyjatzbn td.tinytable_css_o0one1ovhhz9n7yzsqju, #tinytable_q9njmvtde5yebyjatzbn th.tinytable_css_o0one1ovhhz9n7yzsqju {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --line-type-bottom: solid; --line-type-left: solid; --line-type-right: solid; --line-type-top: solid; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
+    </style>
+    <div class="container">
+      <table class="tinytable" id="tinytable_q9njmvtde5yebyjatzbn" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing='true'>
+        
+        <thead>
+              <tr>
+                <th scope="col" data-row="0" data-col="1">Total</th>
+                <th scope="col" data-row="0" data-col="2">Average</th>
+              </tr>
+        </thead>
+        
+        <tbody>
+                <tr>
+                  <td data-row="1" data-col="1">1611.25</td>
+                  <td data-row="1" data-col="2">28.77 ± 12.44</td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
+<div class="sourceCode" id="cb80"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb80-1"><a href="data-statistics.html#cb80-1" tabindex="-1"></a><span class="co"># sequence Gbases</span></span>
+<span id="cb80-2"><a href="data-statistics.html#cb80-2" tabindex="-1"></a>sample_metadata <span class="sc">%&gt;%</span> </span>
+<span id="cb80-3"><a href="data-statistics.html#cb80-3" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">Total=</span><span class="fu">sum</span>(reads_post_fastp <span class="sc">*</span> <span class="dv">150</span> <span class="sc">/</span> <span class="dv">1000000000</span>) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>), </span>
+<span id="cb80-4"><a href="data-statistics.html#cb80-4" tabindex="-1"></a>              <span class="at">mean=</span><span class="fu">mean</span>(reads_post_fastp <span class="sc">*</span> <span class="dv">150</span> <span class="sc">/</span> <span class="dv">1000000000</span>) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>),</span>
+<span id="cb80-5"><a href="data-statistics.html#cb80-5" tabindex="-1"></a>              <span class="at">sd=</span><span class="fu">sd</span>(reads_post_fastp <span class="sc">*</span> <span class="dv">150</span> <span class="sc">/</span> <span class="dv">1000000000</span>) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb80-6"><a href="data-statistics.html#cb80-6" tabindex="-1"></a>    <span class="fu">unite</span>(<span class="st">&quot;Average&quot;</span>,mean, sd, <span class="at">sep =</span> <span class="st">&quot; ± &quot;</span>, <span class="at">remove =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb80-7"><a href="data-statistics.html#cb80-7" tabindex="-1"></a>    <span class="fu">tt</span>()</span></code></pre></div>
+
+    <script src="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.js"></script>
+
+    <script>
+      // Create table-specific functions using external factory
+      const tableFns_ea21tk071iufyjo72cmk = TinyTable.createTableFunctions("tinytable_ea21tk071iufyjo72cmk");
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: '1', j: 1 }, { i: '1', j: 2 } ], css_id: 'tinytable_css_2i91zdx7sn5r2t29vev4',}, 
+          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 } ], css_id: 'tinytable_css_occ12l9wec1b62et5czl',}, 
+          ];
+
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  tableFns_ea21tk071iufyjo72cmk.styleCell(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
+    <style>
+    /* tinytable css entries after */
+    #tinytable_ea21tk071iufyjo72cmk td.tinytable_css_2i91zdx7sn5r2t29vev4, #tinytable_ea21tk071iufyjo72cmk th.tinytable_css_2i91zdx7sn5r2t29vev4 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --line-type-bottom: solid; --line-type-left: solid; --line-type-right: solid; --line-type-top: solid; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
+    #tinytable_ea21tk071iufyjo72cmk td.tinytable_css_occ12l9wec1b62et5czl, #tinytable_ea21tk071iufyjo72cmk th.tinytable_css_occ12l9wec1b62et5czl {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --line-type-bottom: solid; --line-type-left: solid; --line-type-right: solid; --line-type-top: solid; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
+    </style>
+    <div class="container">
+      <table class="tinytable" id="tinytable_ea21tk071iufyjo72cmk" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing='true'>
+        
+        <thead>
+              <tr>
+                <th scope="col" data-row="0" data-col="1">Total</th>
+                <th scope="col" data-row="0" data-col="2">Average</th>
+              </tr>
+        </thead>
+        
+        <tbody>
+                <tr>
+                  <td data-row="1" data-col="1">241.69</td>
+                  <td data-row="1" data-col="2">4.32 ± 1.87</td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
+<div class="sourceCode" id="cb81"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb81-1"><a href="data-statistics.html#cb81-1" tabindex="-1"></a><span class="co"># write out for supplementary materials</span></span>
+<span id="cb81-2"><a href="data-statistics.html#cb81-2" tabindex="-1"></a><span class="fu">write_rds</span>(sample_metadata <span class="sc">%&gt;%</span></span>
+<span id="cb81-3"><a href="data-statistics.html#cb81-3" tabindex="-1"></a>            <span class="fu">select</span>(sample,</span>
+<span id="cb81-4"><a href="data-statistics.html#cb81-4" tabindex="-1"></a>                   event_id,</span>
+<span id="cb81-5"><a href="data-statistics.html#cb81-5" tabindex="-1"></a>                   singlem_fraction,</span>
+<span id="cb81-6"><a href="data-statistics.html#cb81-6" tabindex="-1"></a>                   reads_post_fastp,</span>
+<span id="cb81-7"><a href="data-statistics.html#cb81-7" tabindex="-1"></a>                   reads_lost_fastp_percent,</span>
+<span id="cb81-8"><a href="data-statistics.html#cb81-8" tabindex="-1"></a>                   host_reads,</span>
+<span id="cb81-9"><a href="data-statistics.html#cb81-9" tabindex="-1"></a>                   diversity,</span>
+<span id="cb81-10"><a href="data-statistics.html#cb81-10" tabindex="-1"></a>                   C), </span>
+<span id="cb81-11"><a href="data-statistics.html#cb81-11" tabindex="-1"></a>          <span class="st">&quot;./data/supplements/sample_metadata_GB.Rds&quot;</span>)</span></code></pre></div>
+</div>
+<div id="dna-fractions" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> DNA fractions<a href="data-statistics.html#dna-fractions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb82-1"><a href="data-statistics.html#cb82-1" tabindex="-1"></a>sequence_fractions <span class="ot">&lt;-</span> read_counts <span class="sc">%&gt;%</span></span>
+<span id="cb82-2"><a href="data-statistics.html#cb82-2" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>genome, <span class="at">names_to =</span> <span class="st">&quot;sample&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;value&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb82-3"><a href="data-statistics.html#cb82-3" tabindex="-1"></a>  <span class="fu">group_by</span>(sample) <span class="sc">%&gt;%</span></span>
+<span id="cb82-4"><a href="data-statistics.html#cb82-4" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mags =</span> <span class="fu">sum</span>(value)) <span class="sc">%&gt;%</span></span>
+<span id="cb82-5"><a href="data-statistics.html#cb82-5" tabindex="-1"></a>    <span class="fu">left_join</span>(sample_metadata, <span class="at">by =</span> <span class="fu">join_by</span>(sample <span class="sc">==</span> sample)) <span class="sc">%&gt;%</span></span>
+<span id="cb82-6"><a href="data-statistics.html#cb82-6" tabindex="-1"></a>    <span class="fu">select</span>(sample,mags,metagenomic_bases,host_bases,bases_lost_fastp_percent) <span class="sc">%&gt;%</span></span>
+<span id="cb82-7"><a href="data-statistics.html#cb82-7" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">mags_bases =</span> mags<span class="sc">*</span><span class="dv">146</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb82-8"><a href="data-statistics.html#cb82-8" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">lowqual_bases =</span> ((metagenomic_bases<span class="sc">+</span>host_bases)<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>bases_lost_fastp_percent))<span class="sc">-</span>(metagenomic_bases<span class="sc">+</span>host_bases)) <span class="sc">%&gt;%</span></span>
+<span id="cb82-9"><a href="data-statistics.html#cb82-9" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">unmapped_bases =</span> metagenomic_bases <span class="sc">-</span> mags_bases) <span class="sc">%&gt;%</span></span>
+<span id="cb82-10"><a href="data-statistics.html#cb82-10" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">unmapped_bases =</span> <span class="fu">ifelse</span>(unmapped_bases <span class="sc">&lt;</span> <span class="dv">0</span>, <span class="dv">0</span>, unmapped_bases)) <span class="sc">%&gt;%</span></span>
+<span id="cb82-11"><a href="data-statistics.html#cb82-11" tabindex="-1"></a>    <span class="fu">select</span>(sample, lowqual_bases, host_bases, unmapped_bases, mags_bases) <span class="sc">%&gt;%</span></span>
+<span id="cb82-12"><a href="data-statistics.html#cb82-12" tabindex="-1"></a>  <span class="fu">na.omit</span>()</span>
+<span id="cb82-13"><a href="data-statistics.html#cb82-13" tabindex="-1"></a></span>
+<span id="cb82-14"><a href="data-statistics.html#cb82-14" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">paste</span>(</span>
+<span id="cb82-15"><a href="data-statistics.html#cb82-15" tabindex="-1"></a><span class="co"># bases mapped to MAGs</span></span>
+<span id="cb82-16"><a href="data-statistics.html#cb82-16" tabindex="-1"></a>  <span class="st">&quot;mean Gb mapped to MAGs = &quot;</span>,<span class="fu">round</span>(<span class="fu">mean</span>(sequence_fractions<span class="sc">$</span>mags_bases<span class="sc">/</span><span class="fl">1e9</span>),<span class="dv">2</span>),</span>
+<span id="cb82-17"><a href="data-statistics.html#cb82-17" tabindex="-1"></a>  <span class="st">&quot;±&quot;</span>,<span class="fu">round</span>(<span class="fu">sd</span>(sequence_fractions<span class="sc">$</span>mags_bases<span class="sc">/</span><span class="fl">1e9</span>),<span class="dv">2</span>),</span>
+<span id="cb82-18"><a href="data-statistics.html#cb82-18" tabindex="-1"></a>  <span class="st">&quot;---&quot;</span>,</span>
+<span id="cb82-19"><a href="data-statistics.html#cb82-19" tabindex="-1"></a><span class="co"># low quality bases</span></span>
+<span id="cb82-20"><a href="data-statistics.html#cb82-20" tabindex="-1"></a>  <span class="st">&quot;mean Gb of low quality bases = &quot;</span>,<span class="fu">round</span>(<span class="fu">mean</span>(sequence_fractions<span class="sc">$</span>lowqual_bases<span class="sc">/</span><span class="fl">1e9</span>),<span class="dv">2</span>),</span>
+<span id="cb82-21"><a href="data-statistics.html#cb82-21" tabindex="-1"></a>  <span class="st">&quot;±&quot;</span>,<span class="fu">round</span>(<span class="fu">sd</span>(sequence_fractions<span class="sc">$</span>lowqual_bases<span class="sc">/</span><span class="fl">1e9</span>),<span class="dv">2</span>),</span>
+<span id="cb82-22"><a href="data-statistics.html#cb82-22" tabindex="-1"></a>  <span class="st">&quot;---&quot;</span>,</span>
+<span id="cb82-23"><a href="data-statistics.html#cb82-23" tabindex="-1"></a><span class="co"># host bases</span></span>
+<span id="cb82-24"><a href="data-statistics.html#cb82-24" tabindex="-1"></a>  <span class="st">&quot;mean Gb of host bases = &quot;</span>,<span class="fu">round</span>(<span class="fu">mean</span>(sequence_fractions<span class="sc">$</span>host_bases<span class="sc">/</span><span class="fl">1e9</span>),<span class="dv">2</span>),</span>
+<span id="cb82-25"><a href="data-statistics.html#cb82-25" tabindex="-1"></a>  <span class="st">&quot;±&quot;</span>,<span class="fu">round</span>(<span class="fu">sd</span>(sequence_fractions<span class="sc">$</span>host_bases<span class="sc">/</span><span class="fl">1e9</span>),<span class="dv">2</span>),</span>
+<span id="cb82-26"><a href="data-statistics.html#cb82-26" tabindex="-1"></a>  <span class="st">&quot;---&quot;</span>,</span>
+<span id="cb82-27"><a href="data-statistics.html#cb82-27" tabindex="-1"></a><span class="co"># unmapped bases</span></span>
+<span id="cb82-28"><a href="data-statistics.html#cb82-28" tabindex="-1"></a>  <span class="st">&quot;mean Gb of unmapped bases = &quot;</span>,<span class="fu">round</span>(<span class="fu">mean</span>(sequence_fractions<span class="sc">$</span>unmapped_bases<span class="sc">/</span><span class="fl">1e9</span>),<span class="dv">2</span>),</span>
+<span id="cb82-29"><a href="data-statistics.html#cb82-29" tabindex="-1"></a>  <span class="st">&quot;±&quot;</span>,<span class="fu">round</span>(<span class="fu">sd</span>(sequence_fractions<span class="sc">$</span>unmapped_bases<span class="sc">/</span><span class="fl">1e9</span>),<span class="dv">2</span>)</span>
+<span id="cb82-30"><a href="data-statistics.html#cb82-30" tabindex="-1"></a>  ), <span class="at">file =</span> <span class="st">&quot;data/GB_summary.txt&quot;</span>)</span>
+<span id="cb82-31"><a href="data-statistics.html#cb82-31" tabindex="-1"></a></span>
+<span id="cb82-32"><a href="data-statistics.html#cb82-32" tabindex="-1"></a>sequence_fractions <span class="sc">%&gt;%</span></span>
+<span id="cb82-33"><a href="data-statistics.html#cb82-33" tabindex="-1"></a>  <span class="fu">mutate_at</span>(<span class="fu">vars</span>(<span class="sc">-</span>sample), <span class="sc">~</span>.<span class="sc">/</span><span class="dv">1000000000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb82-34"><a href="data-statistics.html#cb82-34" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">&quot;Sample&quot;</span><span class="ot">=</span><span class="dv">1</span>, <span class="st">&quot;Low quality&quot;</span><span class="ot">=</span><span class="dv">2</span>, <span class="st">&quot;Mapped to host&quot;</span><span class="ot">=</span><span class="dv">3</span>, <span class="st">&quot;Unmapped&quot;</span><span class="ot">=</span><span class="dv">4</span>, <span class="st">&quot;Mapped to MAGs&quot;</span><span class="ot">=</span><span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb82-35"><a href="data-statistics.html#cb82-35" tabindex="-1"></a>  <span class="fu">tt</span>()</span></code></pre></div>
+
+    <script src="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.js"></script>
+
+    <script>
+      // Create table-specific functions using external factory
+      const tableFns_xkjid4hjxec4uhdfl8gb = TinyTable.createTableFunctions("tinytable_xkjid4hjxec4uhdfl8gb");
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: '56', j: 1 }, { i: '56', j: 2 }, { i: '56', j: 3 }, { i: '56', j: 4 }, { i: '56', j: 5 } ], css_id: 'tinytable_css_z0q40yfxcgjss0rccl3p',}, 
+          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 }, { i: '0', j: 3 }, { i: '0', j: 4 }, { i: '0', j: 5 } ], css_id: 'tinytable_css_wwkos70e7xen09ohnl0z',}, 
+          ];
+
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  tableFns_xkjid4hjxec4uhdfl8gb.styleCell(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
+    <style>
+    /* tinytable css entries after */
+    #tinytable_xkjid4hjxec4uhdfl8gb td.tinytable_css_z0q40yfxcgjss0rccl3p, #tinytable_xkjid4hjxec4uhdfl8gb th.tinytable_css_z0q40yfxcgjss0rccl3p {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --line-type-bottom: solid; --line-type-left: solid; --line-type-right: solid; --line-type-top: solid; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
+    #tinytable_xkjid4hjxec4uhdfl8gb td.tinytable_css_wwkos70e7xen09ohnl0z, #tinytable_xkjid4hjxec4uhdfl8gb th.tinytable_css_wwkos70e7xen09ohnl0z {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --line-type-bottom: solid; --line-type-left: solid; --line-type-right: solid; --line-type-top: solid; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
+    </style>
+    <div class="container">
+      <table class="tinytable" id="tinytable_xkjid4hjxec4uhdfl8gb" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing='true'>
+        
+        <thead>
+              <tr>
+                <th scope="col" data-row="0" data-col="1">Sample</th>
+                <th scope="col" data-row="0" data-col="2">Low quality</th>
+                <th scope="col" data-row="0" data-col="3">Mapped to host</th>
+                <th scope="col" data-row="0" data-col="4">Unmapped</th>
+                <th scope="col" data-row="0" data-col="5">Mapped to MAGs</th>
+              </tr>
+        </thead>
+        
+        <tbody>
+                <tr>
+                  <td data-row="1" data-col="1">EHI02645</td>
+                  <td data-row="1" data-col="2">0.39922195</td>
+                  <td data-row="1" data-col="3">2.90368805</td>
+                  <td data-row="1" data-col="4">2.5324364</td>
+                  <td data-row="1" data-col="5">0.016704736</td>
+                </tr>
+                <tr>
+                  <td data-row="2" data-col="1">EHI02647</td>
+                  <td data-row="2" data-col="2">0.47832126</td>
+                  <td data-row="2" data-col="3">1.33463280</td>
+                  <td data-row="2" data-col="4">7.9542331</td>
+                  <td data-row="2" data-col="5">0.202542442</td>
+                </tr>
+                <tr>
+                  <td data-row="3" data-col="1">EHI02648</td>
+                  <td data-row="3" data-col="2">0.42674601</td>
+                  <td data-row="3" data-col="3">3.13160472</td>
+                  <td data-row="3" data-col="4">3.1515559</td>
+                  <td data-row="3" data-col="5">0.932833712</td>
+                </tr>
+                <tr>
+                  <td data-row="4" data-col="1">EHI02649</td>
+                  <td data-row="4" data-col="2">0.43652964</td>
+                  <td data-row="4" data-col="3">1.23599673</td>
+                  <td data-row="4" data-col="4">5.0389065</td>
+                  <td data-row="4" data-col="5">0.153319856</td>
+                </tr>
+                <tr>
+                  <td data-row="5" data-col="1">EHI02650</td>
+                  <td data-row="5" data-col="2">0.52700973</td>
+                  <td data-row="5" data-col="3">3.94143146</td>
+                  <td data-row="5" data-col="4">3.6548010</td>
+                  <td data-row="5" data-col="5">0.487298068</td>
+                </tr>
+                <tr>
+                  <td data-row="6" data-col="1">EHI02651</td>
+                  <td data-row="6" data-col="2">0.48242831</td>
+                  <td data-row="6" data-col="3">4.23379655</td>
+                  <td data-row="6" data-col="4">3.8103341</td>
+                  <td data-row="6" data-col="5">0.072785380</td>
+                </tr>
+                <tr>
+                  <td data-row="7" data-col="1">EHI02658</td>
+                  <td data-row="7" data-col="2">0.46228251</td>
+                  <td data-row="7" data-col="3">0.41411565</td>
+                  <td data-row="7" data-col="4">6.4293755</td>
+                  <td data-row="7" data-col="5">0.244056958</td>
+                </tr>
+                <tr>
+                  <td data-row="8" data-col="1">EHI02659</td>
+                  <td data-row="8" data-col="2">0.37102280</td>
+                  <td data-row="8" data-col="3">2.20844992</td>
+                  <td data-row="8" data-col="4">2.1453768</td>
+                  <td data-row="8" data-col="5">0.106965148</td>
+                </tr>
+                <tr>
+                  <td data-row="9" data-col="1">EHI02660</td>
+                  <td data-row="9" data-col="2">0.34389140</td>
+                  <td data-row="9" data-col="3">0.31129486</td>
+                  <td data-row="9" data-col="4">3.8781758</td>
+                  <td data-row="9" data-col="5">0.850452628</td>
+                </tr>
+                <tr>
+                  <td data-row="10" data-col="1">EHI03111</td>
+                  <td data-row="10" data-col="2">0.18314979</td>
+                  <td data-row="10" data-col="3">1.77016491</td>
+                  <td data-row="10" data-col="4">1.4297268</td>
+                  <td data-row="10" data-col="5">0.004384234</td>
+                </tr>
+                <tr>
+                  <td data-row="11" data-col="1">EHI03112</td>
+                  <td data-row="11" data-col="2">0.17171304</td>
+                  <td data-row="11" data-col="3">0.57657098</td>
+                  <td data-row="11" data-col="4">2.6782907</td>
+                  <td data-row="11" data-col="5">0.051851170</td>
+                </tr>
+                <tr>
+                  <td data-row="12" data-col="1">EHI03113</td>
+                  <td data-row="12" data-col="2">0.13663161</td>
+                  <td data-row="12" data-col="3">1.31405625</td>
+                  <td data-row="12" data-col="4">1.1457103</td>
+                  <td data-row="12" data-col="5">0.024039776</td>
+                </tr>
+                <tr>
+                  <td data-row="13" data-col="1">EHI03114</td>
+                  <td data-row="13" data-col="2">0.18782278</td>
+                  <td data-row="13" data-col="3">1.79130826</td>
+                  <td data-row="13" data-col="4">1.6609762</td>
+                  <td data-row="13" data-col="5">0.027054092</td>
+                </tr>
+                <tr>
+                  <td data-row="14" data-col="1">EHI03115</td>
+                  <td data-row="14" data-col="2">0.18954852</td>
+                  <td data-row="14" data-col="3">0.65374445</td>
+                  <td data-row="14" data-col="4">3.0607960</td>
+                  <td data-row="14" data-col="5">0.083488786</td>
+                </tr>
+                <tr>
+                  <td data-row="15" data-col="1">EHI03116</td>
+                  <td data-row="15" data-col="2">0.10795599</td>
+                  <td data-row="15" data-col="3">1.04813355</td>
+                  <td data-row="15" data-col="4">1.0528534</td>
+                  <td data-row="15" data-col="5">0.010999786</td>
+                </tr>
+                <tr>
+                  <td data-row="16" data-col="1">EHI03117</td>
+                  <td data-row="16" data-col="2">0.13767396</td>
+                  <td data-row="16" data-col="3">1.09918884</td>
+                  <td data-row="16" data-col="4">1.5942101</td>
+                  <td data-row="16" data-col="5">0.026883126</td>
+                </tr>
+                <tr>
+                  <td data-row="17" data-col="1">EHI03118</td>
+                  <td data-row="17" data-col="2">0.19842074</td>
+                  <td data-row="17" data-col="3">1.43355599</td>
+                  <td data-row="17" data-col="4">2.1749329</td>
+                  <td data-row="17" data-col="5">0.146481070</td>
+                </tr>
+                <tr>
+                  <td data-row="18" data-col="1">EHI03119</td>
+                  <td data-row="18" data-col="2">0.15115429</td>
+                  <td data-row="18" data-col="3">1.26889708</td>
+                  <td data-row="18" data-col="4">1.5756714</td>
+                  <td data-row="18" data-col="5">0.036698268</td>
+                </tr>
+                <tr>
+                  <td data-row="19" data-col="1">EHI03120</td>
+                  <td data-row="19" data-col="2">0.33340860</td>
+                  <td data-row="19" data-col="3">3.28270284</td>
+                  <td data-row="19" data-col="4">2.6475465</td>
+                  <td data-row="19" data-col="5">0.030319528</td>
+                </tr>
+                <tr>
+                  <td data-row="20" data-col="1">EHI03121</td>
+                  <td data-row="20" data-col="2">0.31457926</td>
+                  <td data-row="20" data-col="3">0.55590078</td>
+                  <td data-row="20" data-col="4">4.2494929</td>
+                  <td data-row="20" data-col="5">0.198885434</td>
+                </tr>
+                <tr>
+                  <td data-row="21" data-col="1">EHI03122</td>
+                  <td data-row="21" data-col="2">0.35951347</td>
+                  <td data-row="21" data-col="3">0.51602562</td>
+                  <td data-row="21" data-col="4">4.5080956</td>
+                  <td data-row="21" data-col="5">2.769721470</td>
+                </tr>
+                <tr>
+                  <td data-row="22" data-col="1">EHI03123</td>
+                  <td data-row="22" data-col="2">0.33777084</td>
+                  <td data-row="22" data-col="3">0.92703456</td>
+                  <td data-row="22" data-col="4">5.5050598</td>
+                  <td data-row="22" data-col="5">0.146737446</td>
+                </tr>
+                <tr>
+                  <td data-row="23" data-col="1">EHI03124</td>
+                  <td data-row="23" data-col="2">0.21478647</td>
+                  <td data-row="23" data-col="3">1.06479152</td>
+                  <td data-row="23" data-col="4">3.0578251</td>
+                  <td data-row="23" data-col="5">0.262802628</td>
+                </tr>
+                <tr>
+                  <td data-row="24" data-col="1">EHI03125</td>
+                  <td data-row="24" data-col="2">0.23211707</td>
+                  <td data-row="24" data-col="3">0.39570836</td>
+                  <td data-row="24" data-col="4">4.3721925</td>
+                  <td data-row="24" data-col="5">0.297402146</td>
+                </tr>
+                <tr>
+                  <td data-row="25" data-col="1">EHI03126</td>
+                  <td data-row="25" data-col="2">0.32972149</td>
+                  <td data-row="25" data-col="3">0.65324334</td>
+                  <td data-row="25" data-col="4">4.9110249</td>
+                  <td data-row="25" data-col="5">0.153404536</td>
+                </tr>
+                <tr>
+                  <td data-row="26" data-col="1">EHI03127</td>
+                  <td data-row="26" data-col="2">0.18933799</td>
+                  <td data-row="26" data-col="3">1.50688229</td>
+                  <td data-row="26" data-col="4">2.0171952</td>
+                  <td data-row="26" data-col="5">0.054826650</td>
+                </tr>
+                <tr>
+                  <td data-row="27" data-col="1">EHI03128</td>
+                  <td data-row="27" data-col="2">0.23288659</td>
+                  <td data-row="27" data-col="3">0.62123343</td>
+                  <td data-row="27" data-col="4">3.2968361</td>
+                  <td data-row="27" data-col="5">0.077507312</td>
+                </tr>
+                <tr>
+                  <td data-row="28" data-col="1">EHI03129</td>
+                  <td data-row="28" data-col="2">0.20254072</td>
+                  <td data-row="28" data-col="3">0.80983167</td>
+                  <td data-row="28" data-col="4">2.7787983</td>
+                  <td data-row="28" data-col="5">0.215115670</td>
+                </tr>
+                <tr>
+                  <td data-row="29" data-col="1">EHI03130</td>
+                  <td data-row="29" data-col="2">0.16000438</td>
+                  <td data-row="29" data-col="3">0.66271402</td>
+                  <td data-row="29" data-col="4">1.9506779</td>
+                  <td data-row="29" data-col="5">0.186832112</td>
+                </tr>
+                <tr>
+                  <td data-row="30" data-col="1">EHI03132</td>
+                  <td data-row="30" data-col="2">0.21703138</td>
+                  <td data-row="30" data-col="3">0.48916476</td>
+                  <td data-row="30" data-col="4">3.7389447</td>
+                  <td data-row="30" data-col="5">0.067476820</td>
+                </tr>
+                <tr>
+                  <td data-row="31" data-col="1">EHI03133</td>
+                  <td data-row="31" data-col="2">0.22526978</td>
+                  <td data-row="31" data-col="3">1.48681732</td>
+                  <td data-row="31" data-col="4">2.9048659</td>
+                  <td data-row="31" data-col="5">0.213076050</td>
+                </tr>
+                <tr>
+                  <td data-row="32" data-col="1">EHI03134</td>
+                  <td data-row="32" data-col="2">0.20968961</td>
+                  <td data-row="32" data-col="3">1.89943881</td>
+                  <td data-row="32" data-col="4">1.7466884</td>
+                  <td data-row="32" data-col="5">0.151851096</td>
+                </tr>
+                <tr>
+                  <td data-row="33" data-col="1">EHI03135</td>
+                  <td data-row="33" data-col="2">0.38691950</td>
+                  <td data-row="33" data-col="3">2.14058674</td>
+                  <td data-row="33" data-col="4">4.5977252</td>
+                  <td data-row="33" data-col="5">0.526750334</td>
+                </tr>
+                <tr>
+                  <td data-row="34" data-col="1">EHI03136</td>
+                  <td data-row="34" data-col="2">0.31326147</td>
+                  <td data-row="34" data-col="3">0.24062075</td>
+                  <td data-row="34" data-col="4">5.1007650</td>
+                  <td data-row="34" data-col="5">0.114943756</td>
+                </tr>
+                <tr>
+                  <td data-row="35" data-col="1">EHI03138</td>
+                  <td data-row="35" data-col="2">0.15782070</td>
+                  <td data-row="35" data-col="3">0.59134581</td>
+                  <td data-row="35" data-col="4">2.1975857</td>
+                  <td data-row="35" data-col="5">0.193238592</td>
+                </tr>
+                <tr>
+                  <td data-row="36" data-col="1">EHI03139</td>
+                  <td data-row="36" data-col="2">0.20260050</td>
+                  <td data-row="36" data-col="3">0.76590521</td>
+                  <td data-row="36" data-col="4">2.7978802</td>
+                  <td data-row="36" data-col="5">0.076838486</td>
+                </tr>
+                <tr>
+                  <td data-row="37" data-col="1">EHI03140</td>
+                  <td data-row="37" data-col="2">0.18032486</td>
+                  <td data-row="37" data-col="3">1.76068324</td>
+                  <td data-row="37" data-col="4">1.5912777</td>
+                  <td data-row="37" data-col="5">0.174207346</td>
+                </tr>
+                <tr>
+                  <td data-row="38" data-col="1">EHI03141</td>
+                  <td data-row="38" data-col="2">0.14814268</td>
+                  <td data-row="38" data-col="3">1.51062793</td>
+                  <td data-row="38" data-col="4">1.3225937</td>
+                  <td data-row="38" data-col="5">0.026807644</td>
+                </tr>
+                <tr>
+                  <td data-row="39" data-col="1">EHI03142</td>
+                  <td data-row="39" data-col="2">0.17616299</td>
+                  <td data-row="39" data-col="3">1.61244700</td>
+                  <td data-row="39" data-col="4">1.5227046</td>
+                  <td data-row="39" data-col="5">0.038426908</td>
+                </tr>
+                <tr>
+                  <td data-row="40" data-col="1">EHI03143</td>
+                  <td data-row="40" data-col="2">0.28552072</td>
+                  <td data-row="40" data-col="3">3.08000234</td>
+                  <td data-row="40" data-col="4">2.5719295</td>
+                  <td data-row="40" data-col="5">0.133893096</td>
+                </tr>
+                <tr>
+                  <td data-row="41" data-col="1">EHI03144</td>
+                  <td data-row="41" data-col="2">0.17148385</td>
+                  <td data-row="41" data-col="3">0.01820516</td>
+                  <td data-row="41" data-col="4">2.7701581</td>
+                  <td data-row="41" data-col="5">0.665238926</td>
+                </tr>
+                <tr>
+                  <td data-row="42" data-col="1">EHI03145</td>
+                  <td data-row="42" data-col="2">0.15908264</td>
+                  <td data-row="42" data-col="3">0.04586379</td>
+                  <td data-row="42" data-col="4">2.7138559</td>
+                  <td data-row="42" data-col="5">0.158387954</td>
+                </tr>
+                <tr>
+                  <td data-row="43" data-col="1">EHI03146</td>
+                  <td data-row="43" data-col="2">0.22198371</td>
+                  <td data-row="43" data-col="3">0.49151733</td>
+                  <td data-row="43" data-col="4">3.0283582</td>
+                  <td data-row="43" data-col="5">0.177908008</td>
+                </tr>
+                <tr>
+                  <td data-row="44" data-col="1">EHI03147</td>
+                  <td data-row="44" data-col="2">0.15605319</td>
+                  <td data-row="44" data-col="3">0.69783367</td>
+                  <td data-row="44" data-col="4">2.1668557</td>
+                  <td data-row="44" data-col="5">0.081897970</td>
+                </tr>
+                <tr>
+                  <td data-row="45" data-col="1">EHI03148</td>
+                  <td data-row="45" data-col="2">0.18449978</td>
+                  <td data-row="45" data-col="3">0.27122483</td>
+                  <td data-row="45" data-col="4">3.0640987</td>
+                  <td data-row="45" data-col="5">0.091911818</td>
+                </tr>
+                <tr>
+                  <td data-row="46" data-col="1">EHI03149</td>
+                  <td data-row="46" data-col="2">0.22259422</td>
+                  <td data-row="46" data-col="3">0.80512314</td>
+                  <td data-row="46" data-col="4">2.7230007</td>
+                  <td data-row="46" data-col="5">0.170485952</td>
+                </tr>
+                <tr>
+                  <td data-row="47" data-col="1">EHI03150</td>
+                  <td data-row="47" data-col="2">0.18909986</td>
+                  <td data-row="47" data-col="3">0.36465680</td>
+                  <td data-row="47" data-col="4">2.5851086</td>
+                  <td data-row="47" data-col="5">0.768260614</td>
+                </tr>
+                <tr>
+                  <td data-row="48" data-col="1">EHI03151</td>
+                  <td data-row="48" data-col="2">0.12795115</td>
+                  <td data-row="48" data-col="3">0.27994197</td>
+                  <td data-row="48" data-col="4">1.5630597</td>
+                  <td data-row="48" data-col="5">0.402879116</td>
+                </tr>
+                <tr>
+                  <td data-row="49" data-col="1">EHI03152</td>
+                  <td data-row="49" data-col="2">0.06910231</td>
+                  <td data-row="49" data-col="3">1.19495519</td>
+                  <td data-row="49" data-col="4">0.0000000</td>
+                  <td data-row="49" data-col="5">0.245865168</td>
+                </tr>
+                <tr>
+                  <td data-row="50" data-col="1">EHI03153</td>
+                  <td data-row="50" data-col="2">0.18388699</td>
+                  <td data-row="50" data-col="3">0.22143488</td>
+                  <td data-row="50" data-col="4">2.5896639</td>
+                  <td data-row="50" data-col="5">0.258752150</td>
+                </tr>
+                <tr>
+                  <td data-row="51" data-col="1">EHI03156</td>
+                  <td data-row="51" data-col="2">0.15280574</td>
+                  <td data-row="51" data-col="3">0.21399783</td>
+                  <td data-row="51" data-col="4">2.1344822</td>
+                  <td data-row="51" data-col="5">0.174475402</td>
+                </tr>
+                <tr>
+                  <td data-row="52" data-col="1">EHI03159</td>
+                  <td data-row="52" data-col="2">0.13584511</td>
+                  <td data-row="52" data-col="3">0.61144575</td>
+                  <td data-row="52" data-col="4">1.6874208</td>
+                  <td data-row="52" data-col="5">0.234542576</td>
+                </tr>
+                <tr>
+                  <td data-row="53" data-col="1">EHI03160</td>
+                  <td data-row="53" data-col="2">0.10386711</td>
+                  <td data-row="53" data-col="3">0.29663728</td>
+                  <td data-row="53" data-col="4">1.1635932</td>
+                  <td data-row="53" data-col="5">0.901800974</td>
+                </tr>
+                <tr>
+                  <td data-row="54" data-col="1">EHI03161</td>
+                  <td data-row="54" data-col="2">0.09119141</td>
+                  <td data-row="54" data-col="3">0.72255223</td>
+                  <td data-row="54" data-col="4">0.9249058</td>
+                  <td data-row="54" data-col="5">0.162488072</td>
+                </tr>
+                <tr>
+                  <td data-row="55" data-col="1">EHI03162</td>
+                  <td data-row="55" data-col="2">0.14736581</td>
+                  <td data-row="55" data-col="3">0.07498610</td>
+                  <td data-row="55" data-col="4">1.8414904</td>
+                  <td data-row="55" data-col="5">0.267724434</td>
+                </tr>
+                <tr>
+                  <td data-row="56" data-col="1">EHI03163</td>
+                  <td data-row="56" data-col="2">0.14079372</td>
+                  <td data-row="56" data-col="3">0.11037946</td>
+                  <td data-row="56" data-col="4">2.4387771</td>
+                  <td data-row="56" data-col="5">0.360737384</td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
+<div class="sourceCode" id="cb83"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb83-1"><a href="data-statistics.html#cb83-1" tabindex="-1"></a>sequence_fractions <span class="sc">%&gt;%</span></span>
+<span id="cb83-2"><a href="data-statistics.html#cb83-2" tabindex="-1"></a>  <span class="fu">mutate_at</span>(<span class="fu">vars</span>(<span class="sc">-</span>sample), <span class="sc">~</span>.<span class="sc">/</span><span class="dv">1000000000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb83-3"><a href="data-statistics.html#cb83-3" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">&quot;Sample&quot;</span><span class="ot">=</span><span class="dv">1</span>, <span class="st">&quot;Low quality&quot;</span><span class="ot">=</span><span class="dv">2</span>, <span class="st">&quot;Mapped to host&quot;</span><span class="ot">=</span><span class="dv">3</span>, <span class="st">&quot;Unmapped&quot;</span><span class="ot">=</span><span class="dv">4</span>, <span class="st">&quot;Mapped to MAGs&quot;</span><span class="ot">=</span><span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb83-4"><a href="data-statistics.html#cb83-4" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb83-5"><a href="data-statistics.html#cb83-5" tabindex="-1"></a>  <span class="fu">tt</span>()</span></code></pre></div>
+<pre><code>Warning: There was 1 warning in `summarise()`.
+ℹ In argument: `across(where(is.numeric), mean, na.rm =
+  TRUE)`.
+Caused by warning:
+! The `...` argument of `across()` is deprecated as of dplyr
+  1.1.0.
+Supply arguments directly to `.fns` through an anonymous
+function instead.
+
+  # Previously
+  across(a:b, mean, na.rm = TRUE)
+
+  # Now
+  across(a:b, \(x) mean(x, na.rm = TRUE))</code></pre>
+
+    <script src="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.js"></script>
+
+    <script>
+      // Create table-specific functions using external factory
+      const tableFns_98s0qj3tq4xrklmpkmza = TinyTable.createTableFunctions("tinytable_98s0qj3tq4xrklmpkmza");
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: '1', j: 1 }, { i: '1', j: 2 }, { i: '1', j: 3 }, { i: '1', j: 4 } ], css_id: 'tinytable_css_268rwt6yek99nyj8b8ob',}, 
+          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 }, { i: '0', j: 3 }, { i: '0', j: 4 } ], css_id: 'tinytable_css_cf2298ebmb93p9vxuii0',}, 
+          ];
+
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  tableFns_98s0qj3tq4xrklmpkmza.styleCell(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
+    <style>
+    /* tinytable css entries after */
+    #tinytable_98s0qj3tq4xrklmpkmza td.tinytable_css_268rwt6yek99nyj8b8ob, #tinytable_98s0qj3tq4xrklmpkmza th.tinytable_css_268rwt6yek99nyj8b8ob {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --line-type-bottom: solid; --line-type-left: solid; --line-type-right: solid; --line-type-top: solid; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
+    #tinytable_98s0qj3tq4xrklmpkmza td.tinytable_css_cf2298ebmb93p9vxuii0, #tinytable_98s0qj3tq4xrklmpkmza th.tinytable_css_cf2298ebmb93p9vxuii0 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --line-type-bottom: solid; --line-type-left: solid; --line-type-right: solid; --line-type-top: solid; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
+    </style>
+    <div class="container">
+      <table class="tinytable" id="tinytable_98s0qj3tq4xrklmpkmza" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing='true'>
+        
+        <thead>
+              <tr>
+                <th scope="col" data-row="0" data-col="1">Low quality</th>
+                <th scope="col" data-row="0" data-col="2">Mapped to host</th>
+                <th scope="col" data-row="0" data-col="3">Unmapped</th>
+                <th scope="col" data-row="0" data-col="4">Mapped to MAGs</th>
+              </tr>
+        </thead>
+        
+        <tbody>
+                <tr>
+                  <td data-row="1" data-col="1">0.2367597</td>
+                  <td data-row="1" data-col="2">1.136877</td>
+                  <td data-row="1" data-col="3">2.81698</td>
+                  <td data-row="1" data-col="4">0.2627368</td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
+<div class="sourceCode" id="cb85"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb85-1"><a href="data-statistics.html#cb85-1" tabindex="-1"></a><span class="co"># write to supplementals</span></span>
+<span id="cb85-2"><a href="data-statistics.html#cb85-2" tabindex="-1"></a><span class="fu">write_rds</span>(sequence_fractions,</span>
+<span id="cb85-3"><a href="data-statistics.html#cb85-3" tabindex="-1"></a>          <span class="st">&quot;./data/supplements/sequence_fractions.Rds&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb86-1"><a href="data-statistics.html#cb86-1" tabindex="-1"></a><span class="cf">for</span> (q <span class="cf">in</span> <span class="fu">seq_along</span>(query_variables)[<span class="sc">-</span><span class="dv">1</span>]){</span>
+<span id="cb86-2"><a href="data-statistics.html#cb86-2" tabindex="-1"></a></span>
+<span id="cb86-3"><a href="data-statistics.html#cb86-3" tabindex="-1"></a><span class="co">#sequence_fractions %&gt;%</span></span>
+<span id="cb86-4"><a href="data-statistics.html#cb86-4" tabindex="-1"></a><span class="fu">print</span>(  </span>
+<span id="cb86-5"><a href="data-statistics.html#cb86-5" tabindex="-1"></a><span class="fu">merge</span>(sequence_fractions, sample_metadata[,query_variables],<span class="at">by =</span> <span class="st">&quot;sample&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb86-6"><a href="data-statistics.html#cb86-6" tabindex="-1"></a>  <span class="co">#pivot_longer(!sample, names_to = &quot;fraction&quot;, values_to = &quot;value&quot;) %&gt;%</span></span>
+<span id="cb86-7"><a href="data-statistics.html#cb86-7" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">!</span><span class="fu">c</span>(query_variables), <span class="at">names_to =</span> <span class="st">&quot;fraction&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;value&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb86-8"><a href="data-statistics.html#cb86-8" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">value =</span> value <span class="sc">/</span> <span class="dv">1000000000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb86-9"><a href="data-statistics.html#cb86-9" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">fraction =</span> <span class="fu">factor</span>(fraction, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;lowqual_bases&quot;</span>,<span class="st">&quot;host_bases&quot;</span>,<span class="st">&quot;unmapped_bases&quot;</span>,<span class="st">&quot;mags_bases&quot;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb86-10"><a href="data-statistics.html#cb86-10" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="fu">aes</span>(<span class="at">x =</span> sample, <span class="at">y =</span> value, <span class="at">fill=</span>fraction)) <span class="sc">+</span></span>
+<span id="cb86-11"><a href="data-statistics.html#cb86-11" tabindex="-1"></a>        <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">&quot;stack&quot;</span>, <span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
+<span id="cb86-12"><a href="data-statistics.html#cb86-12" tabindex="-1"></a>      <span class="fu">scale_fill_manual</span>(<span class="at">name=</span><span class="st">&quot;Sequence type&quot;</span>,</span>
+<span id="cb86-13"><a href="data-statistics.html#cb86-13" tabindex="-1"></a>                    <span class="at">breaks=</span><span class="fu">c</span>(<span class="st">&quot;lowqual_bases&quot;</span>,<span class="st">&quot;host_bases&quot;</span>,<span class="st">&quot;unmapped_bases&quot;</span>,<span class="st">&quot;mags_bases&quot;</span>),</span>
+<span id="cb86-14"><a href="data-statistics.html#cb86-14" tabindex="-1"></a>                    <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;Low quality&quot;</span>,<span class="st">&quot;Mapped to host&quot;</span>,<span class="st">&quot;Unmapped&quot;</span>,<span class="st">&quot;Mapped to MAGs&quot;</span>),</span>
+<span id="cb86-15"><a href="data-statistics.html#cb86-15" tabindex="-1"></a>                    <span class="at">values=</span><span class="fu">c</span>(<span class="st">&quot;#CCCCCC&quot;</span>, <span class="st">&quot;#bcdee1&quot;</span>, <span class="st">&quot;#d8b8a3&quot;</span>,<span class="st">&quot;#93655c&quot;</span>))<span class="sc">+</span></span>
+<span id="cb86-16"><a href="data-statistics.html#cb86-16" tabindex="-1"></a>      </span>
+<span id="cb86-17"><a href="data-statistics.html#cb86-17" tabindex="-1"></a>      <span class="fu">facet_wrap</span>(<span class="fu">as.formula</span>(<span class="fu">paste</span>(<span class="st">&quot;~&quot;</span>, query_variables[q])),<span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
+<span id="cb86-18"><a href="data-statistics.html#cb86-18" tabindex="-1"></a>        </span>
+<span id="cb86-19"><a href="data-statistics.html#cb86-19" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Samples&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Amount of data (GB)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb86-20"><a href="data-statistics.html#cb86-20" tabindex="-1"></a>        <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb86-21"><a href="data-statistics.html#cb86-21" tabindex="-1"></a>        <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">size=</span><span class="dv">6</span>),<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb86-22"><a href="data-statistics.html#cb86-22" tabindex="-1"></a>  )</span>
+<span id="cb86-23"><a href="data-statistics.html#cb86-23" tabindex="-1"></a>  }</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-37-1.png" alt="" width="960" /><img src="_main_files/figure-html/unnamed-chunk-37-2.png" alt="" width="960" /><img src="_main_files/figure-html/unnamed-chunk-37-3.png" alt="" width="960" /></p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb87-1"><a href="data-statistics.html#cb87-1" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;./data/supplements/mapped_Gb.png&quot;</span>,</span>
+<span id="cb87-2"><a href="data-statistics.html#cb87-2" tabindex="-1"></a>       <span class="fu">last_plot</span>(),</span>
+<span id="cb87-3"><a href="data-statistics.html#cb87-3" tabindex="-1"></a>       <span class="st">&quot;png&quot;</span>)</span></code></pre></div>
+<p>What proportion of reads were mapped to MAGs compared to host/unmapped?</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb88-1"><a href="data-statistics.html#cb88-1" tabindex="-1"></a><span class="fu">paste</span>(</span>
+<span id="cb88-2"><a href="data-statistics.html#cb88-2" tabindex="-1"></a>  <span class="st">&quot;average % MAG bases&quot;</span>,</span>
+<span id="cb88-3"><a href="data-statistics.html#cb88-3" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">mean</span>( <span class="dv">100</span> <span class="sc">*</span></span>
+<span id="cb88-4"><a href="data-statistics.html#cb88-4" tabindex="-1"></a>  sequence_fractions<span class="sc">$</span>mags_bases <span class="sc">/</span>  <span class="co"># MAG bases</span></span>
+<span id="cb88-5"><a href="data-statistics.html#cb88-5" tabindex="-1"></a>  <span class="fu">rowSums</span>(sequence_fractions[,<span class="sc">-</span><span class="dv">1</span>]) <span class="co"># total bases</span></span>
+<span id="cb88-6"><a href="data-statistics.html#cb88-6" tabindex="-1"></a>  ),<span class="dv">3</span>),</span>
+<span id="cb88-7"><a href="data-statistics.html#cb88-7" tabindex="-1"></a><span class="st">&quot; ± &quot;</span>,</span>
+<span id="cb88-8"><a href="data-statistics.html#cb88-8" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">sd</span>( <span class="dv">100</span> <span class="sc">*</span></span>
+<span id="cb88-9"><a href="data-statistics.html#cb88-9" tabindex="-1"></a>  sequence_fractions<span class="sc">$</span>mags_bases <span class="sc">/</span>  <span class="co"># MAG bases</span></span>
+<span id="cb88-10"><a href="data-statistics.html#cb88-10" tabindex="-1"></a>  <span class="fu">rowSums</span>(sequence_fractions[,<span class="sc">-</span><span class="dv">1</span>]) <span class="co"># total bases</span></span>
+<span id="cb88-11"><a href="data-statistics.html#cb88-11" tabindex="-1"></a>  ),<span class="dv">3</span>)</span>
+<span id="cb88-12"><a href="data-statistics.html#cb88-12" tabindex="-1"></a>)</span></code></pre></div>
+<pre class="script-output"><code>[1] &quot;average % MAG bases 6.129  ±  7.476&quot;</code></pre>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb90-1"><a href="data-statistics.html#cb90-1" tabindex="-1"></a><span class="fu">paste</span>(</span>
+<span id="cb90-2"><a href="data-statistics.html#cb90-2" tabindex="-1"></a>    <span class="st">&quot;average % host &amp; unmapped bases&quot;</span>,</span>
+<span id="cb90-3"><a href="data-statistics.html#cb90-3" tabindex="-1"></a>    <span class="fu">round</span>(<span class="fu">mean</span>( <span class="dv">100</span> <span class="sc">*</span></span>
+<span id="cb90-4"><a href="data-statistics.html#cb90-4" tabindex="-1"></a>                    (sequence_fractions<span class="sc">$</span>host_bases <span class="sc">+</span> sequence_fractions<span class="sc">$</span>unmapped_bases)  <span class="sc">/</span>  <span class="co"># host bases</span></span>
+<span id="cb90-5"><a href="data-statistics.html#cb90-5" tabindex="-1"></a>                    <span class="fu">rowSums</span>(sequence_fractions[,<span class="sc">-</span><span class="dv">1</span>]) <span class="co"># total bases</span></span>
+<span id="cb90-6"><a href="data-statistics.html#cb90-6" tabindex="-1"></a>    ),<span class="dv">3</span>),</span>
+<span id="cb90-7"><a href="data-statistics.html#cb90-7" tabindex="-1"></a>    <span class="st">&quot; ± &quot;</span>,</span>
+<span id="cb90-8"><a href="data-statistics.html#cb90-8" tabindex="-1"></a>    <span class="fu">round</span>(<span class="fu">sd</span>( <span class="dv">100</span> <span class="sc">*</span></span>
+<span id="cb90-9"><a href="data-statistics.html#cb90-9" tabindex="-1"></a>                  (sequence_fractions<span class="sc">$</span>host_bases <span class="sc">+</span> sequence_fractions<span class="sc">$</span>unmapped_bases) <span class="sc">/</span>  <span class="co"># host bases</span></span>
+<span id="cb90-10"><a href="data-statistics.html#cb90-10" tabindex="-1"></a>                  <span class="fu">rowSums</span>(sequence_fractions[,<span class="sc">-</span><span class="dv">1</span>]) <span class="co"># total bases</span></span>
+<span id="cb90-11"><a href="data-statistics.html#cb90-11" tabindex="-1"></a>    ),<span class="dv">3</span>)</span>
+<span id="cb90-12"><a href="data-statistics.html#cb90-12" tabindex="-1"></a>)</span></code></pre></div>
+<pre class="script-output"><code>[1] &quot;average % host &amp; unmapped bases 88.614  ±  7.336&quot;</code></pre>
+</div>
+<div id="recovered-microbial-fraction" class="section level2 hasAnchor" number="4.5">
+<h2><span class="header-section-number">4.5</span> Recovered microbial fraction<a href="data-statistics.html#recovered-microbial-fraction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The mags_proportion refers to the proportion of the sequence bases not removed due to low quality or assigned to hosts, that were then assigned to MAGs. The singlem_proportion, estimates by SingleM, is an estimate of what proportion of the reads are prokaryotic.</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb92-1"><a href="data-statistics.html#cb92-1" tabindex="-1"></a>singlem_table <span class="ot">&lt;-</span> sequence_fractions <span class="sc">%&gt;%</span></span>
+<span id="cb92-2"><a href="data-statistics.html#cb92-2" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">mags_proportion =</span> <span class="fu">round</span>((mags_bases <span class="sc">/</span> (mags_bases <span class="sc">+</span> unmapped_bases))<span class="sc">*</span><span class="dv">100</span>,<span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb92-3"><a href="data-statistics.html#cb92-3" tabindex="-1"></a>  <span class="fu">left_join</span>(sample_metadata, <span class="at">by =</span> <span class="fu">join_by</span>(sample <span class="sc">==</span> sample))  <span class="sc">%&gt;%</span></span>
+<span id="cb92-4"><a href="data-statistics.html#cb92-4" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">singlem_proportion =</span> <span class="fu">round</span>(singlem_fraction,<span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb92-5"><a href="data-statistics.html#cb92-5" tabindex="-1"></a>    <span class="fu">select</span>(sample,mags_proportion,singlem_proportion) <span class="sc">%&gt;%</span></span>
+<span id="cb92-6"><a href="data-statistics.html#cb92-6" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">mags_proportion =</span> <span class="fu">ifelse</span>(singlem_proportion <span class="sc">==</span> <span class="dv">0</span>, <span class="dv">0</span>, mags_proportion)) <span class="sc">%&gt;%</span> <span class="co">#convert zeros to NA</span></span>
+<span id="cb92-7"><a href="data-statistics.html#cb92-7" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">singlem_proportion =</span> <span class="fu">ifelse</span>(singlem_proportion <span class="sc">==</span> <span class="dv">0</span>, <span class="cn">NA</span>, singlem_proportion)) <span class="sc">%&gt;%</span> <span class="co">#convert zeros to NA</span></span>
+<span id="cb92-8"><a href="data-statistics.html#cb92-8" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">singlem_proportion =</span> <span class="fu">ifelse</span>(singlem_proportion <span class="sc">&lt;</span> mags_proportion, <span class="cn">NA</span>, singlem_proportion)) <span class="sc">%&gt;%</span> <span class="co">#if singlem is smaller, then NA, to simplify plot</span></span>
+<span id="cb92-9"><a href="data-statistics.html#cb92-9" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">singlem_proportion =</span> <span class="fu">ifelse</span>(singlem_proportion <span class="sc">&gt;</span> <span class="dv">100</span>, <span class="dv">100</span>, singlem_proportion)) <span class="co">#simplify</span></span>
+<span id="cb92-10"><a href="data-statistics.html#cb92-10" tabindex="-1"></a></span>
+<span id="cb92-11"><a href="data-statistics.html#cb92-11" tabindex="-1"></a><span class="cf">for</span> (q <span class="cf">in</span> <span class="fu">seq_along</span>(query_variables)[<span class="sc">-</span><span class="dv">1</span>]){</span>
+<span id="cb92-12"><a href="data-statistics.html#cb92-12" tabindex="-1"></a></span>
+<span id="cb92-13"><a href="data-statistics.html#cb92-13" tabindex="-1"></a><span class="fu">print</span>(  </span>
+<span id="cb92-14"><a href="data-statistics.html#cb92-14" tabindex="-1"></a><span class="fu">merge</span>(singlem_table, sample_metadata[,query_variables],<span class="at">by =</span> <span class="st">&quot;sample&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb92-15"><a href="data-statistics.html#cb92-15" tabindex="-1"></a>    <span class="co">#pivot_longer(!sample, names_to = &quot;proportion&quot;, values_to = &quot;value&quot;) %&gt;%</span></span>
+<span id="cb92-16"><a href="data-statistics.html#cb92-16" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(<span class="sc">!</span><span class="fu">c</span>(query_variables), <span class="at">names_to =</span> <span class="st">&quot;proportion&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;value&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb92-17"><a href="data-statistics.html#cb92-17" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">proportion =</span> <span class="fu">factor</span>(proportion, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;mags_proportion&quot;</span>,<span class="st">&quot;singlem_proportion&quot;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb92-18"><a href="data-statistics.html#cb92-18" tabindex="-1"></a>    <span class="fu">ggplot</span>(., <span class="fu">aes</span>(<span class="at">x =</span> value, <span class="at">y =</span> sample, <span class="at">color=</span>proportion)) <span class="sc">+</span></span>
+<span id="cb92-19"><a href="data-statistics.html#cb92-19" tabindex="-1"></a>            <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> sample), <span class="at">color =</span> <span class="st">&quot;#f8a538&quot;</span>) <span class="sc">+</span></span>
+<span id="cb92-20"><a href="data-statistics.html#cb92-20" tabindex="-1"></a>            <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb92-21"><a href="data-statistics.html#cb92-21" tabindex="-1"></a>      <span class="fu">scale_color_manual</span>(<span class="at">name=</span><span class="st">&quot;Proportion&quot;</span>,</span>
+<span id="cb92-22"><a href="data-statistics.html#cb92-22" tabindex="-1"></a>                    <span class="at">breaks=</span><span class="fu">c</span>(<span class="st">&quot;mags_proportion&quot;</span>,<span class="st">&quot;singlem_proportion&quot;</span>),</span>
+<span id="cb92-23"><a href="data-statistics.html#cb92-23" tabindex="-1"></a>                    <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;Recovered&quot;</span>,<span class="st">&quot;Estimated&quot;</span>),</span>
+<span id="cb92-24"><a href="data-statistics.html#cb92-24" tabindex="-1"></a>                    <span class="at">values=</span><span class="fu">c</span>(<span class="st">&quot;#52e1e8&quot;</span>, <span class="st">&quot;#876b53&quot;</span>))<span class="sc">+</span></span>
+<span id="cb92-25"><a href="data-statistics.html#cb92-25" tabindex="-1"></a>      <span class="fu">facet_wrap</span>(<span class="fu">as.formula</span>(<span class="fu">paste</span>(<span class="st">&quot;~&quot;</span>, query_variables[q])),<span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
+<span id="cb92-26"><a href="data-statistics.html#cb92-26" tabindex="-1"></a>            <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb92-27"><a href="data-statistics.html#cb92-27" tabindex="-1"></a>            <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Samples&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Prokaryotic fraction (%)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb92-28"><a href="data-statistics.html#cb92-28" tabindex="-1"></a>       <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">size=</span><span class="dv">6</span>),<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb92-29"><a href="data-statistics.html#cb92-29" tabindex="-1"></a>)}</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-39-1.png" alt="" width="960" /><img src="_main_files/figure-html/unnamed-chunk-39-2.png" alt="" width="960" /><img src="_main_files/figure-html/unnamed-chunk-39-3.png" alt="" width="960" /></p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb93-1"><a href="data-statistics.html#cb93-1" tabindex="-1"></a><span class="fu">paste</span>(</span>
+<span id="cb93-2"><a href="data-statistics.html#cb93-2" tabindex="-1"></a>  <span class="st">&quot;Mean estimated proportion of prokaryote bases&quot;</span>, <span class="fu">round</span>(<span class="fu">mean</span>(<span class="fu">na.omit</span>(singlem_table<span class="sc">$</span>singlem_proportion)),<span class="dv">2</span>),<span class="st">&quot;±&quot;</span>,</span>
+<span id="cb93-3"><a href="data-statistics.html#cb93-3" tabindex="-1"></a>  <span class="fu">round</span>(<span class="fu">sd</span>(<span class="fu">na.omit</span>(singlem_table<span class="sc">$</span>singlem_proportion)),<span class="dv">2</span>)</span>
+<span id="cb93-4"><a href="data-statistics.html#cb93-4" tabindex="-1"></a>)</span></code></pre></div>
+<pre class="script-output"><code>[1] &quot;Mean estimated proportion of prokaryote bases 41.82 ± 21.49&quot;</code></pre>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb95-1"><a href="data-statistics.html#cb95-1" tabindex="-1"></a><span class="fu">paste</span>(</span>
+<span id="cb95-2"><a href="data-statistics.html#cb95-2" tabindex="-1"></a>  <span class="st">&quot;Mean proportion of based assigned to MAGs&quot;</span>, <span class="fu">round</span>(<span class="fu">mean</span>(singlem_table<span class="sc">$</span>mags_proportion),<span class="dv">2</span>),<span class="st">&quot;±&quot;</span>, <span class="fu">round</span>(<span class="fu">sd</span>(singlem_table<span class="sc">$</span>mags_proportion),<span class="dv">2</span>)</span>
+<span id="cb95-3"><a href="data-statistics.html#cb95-3" tabindex="-1"></a>)</span></code></pre></div>
+<pre class="script-output"><code>[1] &quot;Mean proportion of based assigned to MAGs 7.71 ± 8.65&quot;</code></pre>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb97-1"><a href="data-statistics.html#cb97-1" tabindex="-1"></a>singlm_df<span class="ot">=</span> singlem_table  <span class="sc">%&gt;%</span></span>
+<span id="cb97-2"><a href="data-statistics.html#cb97-2" tabindex="-1"></a>  <span class="fu">left_join</span>(sample_metadata[,<span class="fu">colnames</span>(sample_metadata) <span class="sc">%in%</span> query_variables], <span class="at">by =</span> <span class="fu">join_by</span>(sample <span class="sc">==</span> sample))</span>
+<span id="cb97-3"><a href="data-statistics.html#cb97-3" tabindex="-1"></a></span>
+<span id="cb97-4"><a href="data-statistics.html#cb97-4" tabindex="-1"></a><span class="fu">wilcox.test</span>(mags_proportion <span class="sc">~</span> habitat,</span>
+<span id="cb97-5"><a href="data-statistics.html#cb97-5" tabindex="-1"></a>            <span class="at">data =</span> singlm_df)</span></code></pre></div>
+<pre class="script-output"><code>
+    Wilcoxon rank sum exact test
+
+data:  mags_proportion by habitat
+W = 546, p-value = 0.009853
+alternative hypothesis: true location shift is not equal to 0</code></pre>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb99-1"><a href="data-statistics.html#cb99-1" tabindex="-1"></a><span class="fu">ggboxplot</span>(singlm_df, <span class="at">x =</span> <span class="st">&quot;habitat&quot;</span>, <span class="at">y =</span> <span class="st">&quot;mags_proportion&quot;</span>, </span>
+<span id="cb99-2"><a href="data-statistics.html#cb99-2" tabindex="-1"></a>          <span class="at">color =</span> <span class="st">&quot;habitat&quot;</span>, <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">&quot;#986eac&quot;</span>,<span class="st">&quot;#5bae63&quot;</span>),</span>
+<span id="cb99-3"><a href="data-statistics.html#cb99-3" tabindex="-1"></a>          <span class="at">ylab =</span> <span class="st">&quot;Prop.MAGs&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Habitat&quot;</span>) <span class="sc">+</span></span>
+<span id="cb99-4"><a href="data-statistics.html#cb99-4" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-40-1.png" alt="" width="672" /></p>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb100-1"><a href="data-statistics.html#cb100-1" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&#39;figure/habitat_prop_mag.png&#39;</span>, <span class="at">width=</span><span class="dv">6</span>, <span class="at">height=</span><span class="dv">10</span>, <span class="at">units=</span><span class="st">&#39;cm&#39;</span>)</span>
+<span id="cb100-2"><a href="data-statistics.html#cb100-2" tabindex="-1"></a></span>
+<span id="cb100-3"><a href="data-statistics.html#cb100-3" tabindex="-1"></a><span class="fu">wilcox.test</span>(mags_proportion <span class="sc">~</span> swab,</span>
+<span id="cb100-4"><a href="data-statistics.html#cb100-4" tabindex="-1"></a>            <span class="at">data =</span> singlm_df)</span></code></pre></div>
+<pre class="script-output"><code>
+    Wilcoxon rank sum exact test
+
+data:  mags_proportion by swab
+W = 348, p-value = 0.6084
+alternative hypothesis: true location shift is not equal to 0</code></pre>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb102-1"><a href="data-statistics.html#cb102-1" tabindex="-1"></a><span class="co"># repeat comparison with pre-filter reads count</span></span>
+<span id="cb102-2"><a href="data-statistics.html#cb102-2" tabindex="-1"></a>rural_read_count <span class="ot">=</span> <span class="fu">colSums</span>(</span>
+<span id="cb102-3"><a href="data-statistics.html#cb102-3" tabindex="-1"></a>  read_counts[,sample_metadata[sample_metadata<span class="sc">$</span>habitat <span class="sc">==</span> <span class="st">&quot;rural&quot;</span>,<span class="st">&quot;sample&quot;</span>]])</span>
+<span id="cb102-4"><a href="data-statistics.html#cb102-4" tabindex="-1"></a>urban_read_count <span class="ot">=</span> <span class="fu">colSums</span>(</span>
+<span id="cb102-5"><a href="data-statistics.html#cb102-5" tabindex="-1"></a>  read_counts[,sample_metadata[sample_metadata<span class="sc">$</span>habitat <span class="sc">==</span> <span class="st">&quot;urban&quot;</span>,<span class="st">&quot;sample&quot;</span>]])</span>
+<span id="cb102-6"><a href="data-statistics.html#cb102-6" tabindex="-1"></a>tmp_df <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="cb102-7"><a href="data-statistics.html#cb102-7" tabindex="-1"></a>  <span class="at">value =</span> <span class="fu">c</span>(rural_read_count, urban_read_count),</span>
+<span id="cb102-8"><a href="data-statistics.html#cb102-8" tabindex="-1"></a>  <span class="at">group =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;rural&quot;</span>, <span class="fu">length</span>(rural_read_count)), </span>
+<span id="cb102-9"><a href="data-statistics.html#cb102-9" tabindex="-1"></a>                   <span class="fu">rep</span>(<span class="st">&quot;urban&quot;</span>, <span class="fu">length</span>(urban_read_count)))))</span>
+<span id="cb102-10"><a href="data-statistics.html#cb102-10" tabindex="-1"></a><span class="co"># test for differences</span></span>
+<span id="cb102-11"><a href="data-statistics.html#cb102-11" tabindex="-1"></a>tmp_wilcox <span class="ot">=</span> </span>
+<span id="cb102-12"><a href="data-statistics.html#cb102-12" tabindex="-1"></a>  <span class="fu">wilcox.test</span>(</span>
+<span id="cb102-13"><a href="data-statistics.html#cb102-13" tabindex="-1"></a>  rural_read_count,</span>
+<span id="cb102-14"><a href="data-statistics.html#cb102-14" tabindex="-1"></a>  urban_read_count</span>
+<span id="cb102-15"><a href="data-statistics.html#cb102-15" tabindex="-1"></a>)</span>
+<span id="cb102-16"><a href="data-statistics.html#cb102-16" tabindex="-1"></a></span>
+<span id="cb102-17"><a href="data-statistics.html#cb102-17" tabindex="-1"></a><span class="fu">ggplot</span>(tmp_df, <span class="fu">aes</span>(<span class="at">x =</span> group, <span class="at">y =</span> <span class="fu">log</span>(value), <span class="at">fill =</span> group)) <span class="sc">+</span></span>
+<span id="cb102-18"><a href="data-statistics.html#cb102-18" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="fu">c</span>(<span class="st">&quot;#5bae63&quot;</span>,<span class="st">&quot;#986eac&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb102-19"><a href="data-statistics.html#cb102-19" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;log Read Count&quot;</span>)<span class="sc">+</span></span>
+<span id="cb102-20"><a href="data-statistics.html#cb102-20" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Habitat&quot;</span>) <span class="sc">+</span></span>
+<span id="cb102-21"><a href="data-statistics.html#cb102-21" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="fl">1.5</span>, <span class="at">y =</span> <span class="fu">log</span>(<span class="fu">max</span>(tmp_df<span class="sc">$</span>value<span class="sc">/</span>.<span class="dv">8</span>)),</span>
+<span id="cb102-22"><a href="data-statistics.html#cb102-22" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">paste</span>(<span class="st">&quot;W =&quot;</span>,<span class="fu">round</span>(tmp_wilcox<span class="sc">$</span>statistic,<span class="dv">3</span>),</span>
+<span id="cb102-23"><a href="data-statistics.html#cb102-23" tabindex="-1"></a>                         <span class="st">&quot;, p =&quot;</span>,<span class="fu">round</span>(tmp_wilcox<span class="sc">$</span>p.value,<span class="dv">3</span>)))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-41-1.png" alt="" width="672" /></p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb103-1"><a href="data-statistics.html#cb103-1" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<pre class="script-output"><code>&lt;theme&gt; List of 1
+ $ legend.position: chr &quot;none&quot;
+ @ complete: logi FALSE
+ @ validate: logi TRUE</code></pre>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb105-1"><a href="data-statistics.html#cb105-1" tabindex="-1"></a>  <span class="fu">ggsave</span>(<span class="st">&quot;data/supplements/read_count_habitat_comparison.png&quot;</span>, </span>
+<span id="cb105-2"><a href="data-statistics.html#cb105-2" tabindex="-1"></a>         <span class="fu">last_plot</span>())</span></code></pre></div>
+<pre><code>Saving 7 x 5 in image</code></pre>
+<p>Domain-Adjusted Mapping Rate (DAMR) is a metric to assess microbial genome recovery from metagenomes, calculated as the rate of read mapping to sets of microbial genomes (MAGs or other references) divided by the fraction of the community predicted to be bacterial or archaeal (here with SMF). <span class="citation">(<a href="#ref-Eisenhofer_2024"><strong>Eisenhofer_2024?</strong></a>)</span></p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb107-1"><a href="data-statistics.html#cb107-1" tabindex="-1"></a>damr <span class="ot">&lt;-</span> singlem_table <span class="sc">%&gt;%</span></span>
+<span id="cb107-2"><a href="data-statistics.html#cb107-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">damr=</span><span class="fu">ifelse</span>(<span class="fu">is.na</span>(singlem_proportion),<span class="dv">100</span>,mags_proportion<span class="sc">/</span>singlem_proportion<span class="sc">*</span><span class="dv">100</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb107-3"><a href="data-statistics.html#cb107-3" tabindex="-1"></a>  <span class="fu">select</span>(sample,damr)</span>
+<span id="cb107-4"><a href="data-statistics.html#cb107-4" tabindex="-1"></a></span>
+<span id="cb107-5"><a href="data-statistics.html#cb107-5" tabindex="-1"></a>damr <span class="sc">%&gt;%</span> </span>
+<span id="cb107-6"><a href="data-statistics.html#cb107-6" tabindex="-1"></a>  <span class="fu">left_join</span>(sample_metadata, <span class="at">by =</span> <span class="fu">join_by</span>(sample <span class="sc">==</span> sample)) <span class="sc">%&gt;%</span></span>
+<span id="cb107-7"><a href="data-statistics.html#cb107-7" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean=</span><span class="fu">mean</span>(damr),<span class="at">sd=</span><span class="fu">sd</span>(damr)) <span class="sc">%&gt;%</span> </span>
+<span id="cb107-8"><a href="data-statistics.html#cb107-8" tabindex="-1"></a>  <span class="fu">tt</span>()</span></code></pre></div>
+
+    <script src="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.js"></script>
+
+    <script>
+      // Create table-specific functions using external factory
+      const tableFns_n0so4z1xk599qfg04uqq = TinyTable.createTableFunctions("tinytable_n0so4z1xk599qfg04uqq");
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: '1', j: 1 }, { i: '1', j: 2 } ], css_id: 'tinytable_css_4eridu0k2ngu9n3mwj57',}, 
+          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 } ], css_id: 'tinytable_css_e1jbg3prbjshpz24hjve',}, 
+          ];
+
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  tableFns_n0so4z1xk599qfg04uqq.styleCell(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
+    <style>
+    /* tinytable css entries after */
+    #tinytable_n0so4z1xk599qfg04uqq td.tinytable_css_4eridu0k2ngu9n3mwj57, #tinytable_n0so4z1xk599qfg04uqq th.tinytable_css_4eridu0k2ngu9n3mwj57 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --line-type-bottom: solid; --line-type-left: solid; --line-type-right: solid; --line-type-top: solid; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
+    #tinytable_n0so4z1xk599qfg04uqq td.tinytable_css_e1jbg3prbjshpz24hjve, #tinytable_n0so4z1xk599qfg04uqq th.tinytable_css_e1jbg3prbjshpz24hjve {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --line-type-bottom: solid; --line-type-left: solid; --line-type-right: solid; --line-type-top: solid; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
+    </style>
+    <div class="container">
+      <table class="tinytable" id="tinytable_n0so4z1xk599qfg04uqq" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing='true'>
+        
+        <thead>
+              <tr>
+                <th scope="col" data-row="0" data-col="1">mean</th>
+                <th scope="col" data-row="0" data-col="2">sd</th>
+              </tr>
+        </thead>
+        
+        <tbody>
+                <tr>
+                  <td data-row="1" data-col="1">22.98628</td>
+                  <td data-row="1" data-col="2">22.19636</td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
+<div class="sourceCode" id="cb108"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb108-1"><a href="data-statistics.html#cb108-1" tabindex="-1"></a>damr <span class="sc">%&gt;%</span> </span>
+<span id="cb108-2"><a href="data-statistics.html#cb108-2" tabindex="-1"></a>  <span class="fu">left_join</span>(sample_metadata, <span class="at">by =</span> <span class="fu">join_by</span>(sample <span class="sc">==</span> sample)) <span class="sc">%&gt;%</span></span>
+<span id="cb108-3"><a href="data-statistics.html#cb108-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean=</span><span class="fu">mean</span>(damr),<span class="at">sd=</span><span class="fu">sd</span>(damr)) <span class="sc">%&gt;%</span> </span>
+<span id="cb108-4"><a href="data-statistics.html#cb108-4" tabindex="-1"></a>  <span class="fu">tt</span>()</span></code></pre></div>
+
+    <script src="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.js"></script>
+
+    <script>
+      // Create table-specific functions using external factory
+      const tableFns_eca2s86zbhhmwmw5mtt5 = TinyTable.createTableFunctions("tinytable_eca2s86zbhhmwmw5mtt5");
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: '1', j: 1 }, { i: '1', j: 2 } ], css_id: 'tinytable_css_ze3mpz063cl13ts4dqox',}, 
+          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 } ], css_id: 'tinytable_css_ihuyf7xtjemmw31itrck',}, 
+          ];
+
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  tableFns_eca2s86zbhhmwmw5mtt5.styleCell(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
+    <style>
+    /* tinytable css entries after */
+    #tinytable_eca2s86zbhhmwmw5mtt5 td.tinytable_css_ze3mpz063cl13ts4dqox, #tinytable_eca2s86zbhhmwmw5mtt5 th.tinytable_css_ze3mpz063cl13ts4dqox {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --line-type-bottom: solid; --line-type-left: solid; --line-type-right: solid; --line-type-top: solid; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
+    #tinytable_eca2s86zbhhmwmw5mtt5 td.tinytable_css_ihuyf7xtjemmw31itrck, #tinytable_eca2s86zbhhmwmw5mtt5 th.tinytable_css_ihuyf7xtjemmw31itrck {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --line-type-bottom: solid; --line-type-left: solid; --line-type-right: solid; --line-type-top: solid; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
+    </style>
+    <div class="container">
+      <table class="tinytable" id="tinytable_eca2s86zbhhmwmw5mtt5" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing='true'>
+        
+        <thead>
+              <tr>
+                <th scope="col" data-row="0" data-col="1">mean</th>
+                <th scope="col" data-row="0" data-col="2">sd</th>
+              </tr>
+        </thead>
+        
+        <tbody>
+                <tr>
+                  <td data-row="1" data-col="1">22.98628</td>
+                  <td data-row="1" data-col="2">22.19636</td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
+<div class="sourceCode" id="cb109"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb109-1"><a href="data-statistics.html#cb109-1" tabindex="-1"></a>damr <span class="sc">%&gt;%</span> </span>
+<span id="cb109-2"><a href="data-statistics.html#cb109-2" tabindex="-1"></a>  <span class="fu">tt</span>()</span></code></pre></div>
+
+    <script src="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.js"></script>
+
+    <script>
+      // Create table-specific functions using external factory
+      const tableFns_nzcckzabjstjdzgaadi3 = TinyTable.createTableFunctions("tinytable_nzcckzabjstjdzgaadi3");
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: '56', j: 1 }, { i: '56', j: 2 } ], css_id: 'tinytable_css_i5vjgfxvcddxcw4972ri',}, 
+          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 } ], css_id: 'tinytable_css_xmaza83ydzbenisyukg9',}, 
+          ];
+
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  tableFns_nzcckzabjstjdzgaadi3.styleCell(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
+    <style>
+    /* tinytable css entries after */
+    #tinytable_nzcckzabjstjdzgaadi3 td.tinytable_css_i5vjgfxvcddxcw4972ri, #tinytable_nzcckzabjstjdzgaadi3 th.tinytable_css_i5vjgfxvcddxcw4972ri {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --line-type-bottom: solid; --line-type-left: solid; --line-type-right: solid; --line-type-top: solid; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
+    #tinytable_nzcckzabjstjdzgaadi3 td.tinytable_css_xmaza83ydzbenisyukg9, #tinytable_nzcckzabjstjdzgaadi3 th.tinytable_css_xmaza83ydzbenisyukg9 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --line-type-bottom: solid; --line-type-left: solid; --line-type-right: solid; --line-type-top: solid; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
+    </style>
+    <div class="container">
+      <table class="tinytable" id="tinytable_nzcckzabjstjdzgaadi3" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing='true'>
+        
+        <thead>
+              <tr>
+                <th scope="col" data-row="0" data-col="1">sample</th>
+                <th scope="col" data-row="0" data-col="2">damr</th>
+              </tr>
+        </thead>
+        
+        <tbody>
+                <tr>
+                  <td data-row="1" data-col="1">EHI02645</td>
+                  <td data-row="1" data-col="2">9.428571</td>
+                </tr>
+                <tr>
+                  <td data-row="2" data-col="1">EHI02647</td>
+                  <td data-row="2" data-col="2">5.303678</td>
+                </tr>
+                <tr>
+                  <td data-row="3" data-col="1">EHI02648</td>
+                  <td data-row="3" data-col="2">81.951920</td>
+                </tr>
+                <tr>
+                  <td data-row="4" data-col="1">EHI02649</td>
+                  <td data-row="4" data-col="2">6.429817</td>
+                </tr>
+                <tr>
+                  <td data-row="5" data-col="1">EHI02650</td>
+                  <td data-row="5" data-col="2">66.440678</td>
+                </tr>
+                <tr>
+                  <td data-row="6" data-col="1">EHI02651</td>
+                  <td data-row="6" data-col="2">19.499479</td>
+                </tr>
+                <tr>
+                  <td data-row="7" data-col="1">EHI02658</td>
+                  <td data-row="7" data-col="2">5.759245</td>
+                </tr>
+                <tr>
+                  <td data-row="8" data-col="1">EHI02659</td>
+                  <td data-row="8" data-col="2">27.616279</td>
+                </tr>
+                <tr>
+                  <td data-row="9" data-col="1">EHI02660</td>
+                  <td data-row="9" data-col="2">38.596868</td>
+                </tr>
+                <tr>
+                  <td data-row="10" data-col="1">EHI03111</td>
+                  <td data-row="10" data-col="2">15.346535</td>
+                </tr>
+                <tr>
+                  <td data-row="11" data-col="1">EHI03112</td>
+                  <td data-row="11" data-col="2">4.277353</td>
+                </tr>
+                <tr>
+                  <td data-row="12" data-col="1">EHI03113</td>
+                  <td data-row="12" data-col="2">25.214198</td>
+                </tr>
+                <tr>
+                  <td data-row="13" data-col="1">EHI03114</td>
+                  <td data-row="13" data-col="2">14.401440</td>
+                </tr>
+                <tr>
+                  <td data-row="14" data-col="1">EHI03115</td>
+                  <td data-row="14" data-col="2">4.873580</td>
+                </tr>
+                <tr>
+                  <td data-row="15" data-col="1">EHI03116</td>
+                  <td data-row="15" data-col="2">7.157748</td>
+                </tr>
+                <tr>
+                  <td data-row="16" data-col="1">EHI03117</td>
+                  <td data-row="16" data-col="2">5.806226</td>
+                </tr>
+                <tr>
+                  <td data-row="17" data-col="1">EHI03118</td>
+                  <td data-row="17" data-col="2">15.775000</td>
+                </tr>
+                <tr>
+                  <td data-row="18" data-col="1">EHI03119</td>
+                  <td data-row="18" data-col="2">8.906250</td>
+                </tr>
+                <tr>
+                  <td data-row="19" data-col="1">EHI03120</td>
+                  <td data-row="19" data-col="2">48.497854</td>
+                </tr>
+                <tr>
+                  <td data-row="20" data-col="1">EHI03121</td>
+                  <td data-row="20" data-col="2">8.093427</td>
+                </tr>
+                <tr>
+                  <td data-row="21" data-col="1">EHI03122</td>
+                  <td data-row="21" data-col="2">58.284839</td>
+                </tr>
+                <tr>
+                  <td data-row="22" data-col="1">EHI03123</td>
+                  <td data-row="22" data-col="2">4.620579</td>
+                </tr>
+                <tr>
+                  <td data-row="23" data-col="1">EHI03124</td>
+                  <td data-row="23" data-col="2">16.854890</td>
+                </tr>
+                <tr>
+                  <td data-row="24" data-col="1">EHI03125</td>
+                  <td data-row="24" data-col="2">9.414721</td>
+                </tr>
+                <tr>
+                  <td data-row="25" data-col="1">EHI03126</td>
+                  <td data-row="25" data-col="2">5.117379</td>
+                </tr>
+                <tr>
+                  <td data-row="26" data-col="1">EHI03127</td>
+                  <td data-row="26" data-col="2">10.126099</td>
+                </tr>
+                <tr>
+                  <td data-row="27" data-col="1">EHI03128</td>
+                  <td data-row="27" data-col="2">4.210141</td>
+                </tr>
+                <tr>
+                  <td data-row="28" data-col="1">EHI03129</td>
+                  <td data-row="28" data-col="2">12.167880</td>
+                </tr>
+                <tr>
+                  <td data-row="29" data-col="1">EHI03130</td>
+                  <td data-row="29" data-col="2">17.225069</td>
+                </tr>
+                <tr>
+                  <td data-row="30" data-col="1">EHI03132</td>
+                  <td data-row="30" data-col="2">3.133298</td>
+                </tr>
+                <tr>
+                  <td data-row="31" data-col="1">EHI03133</td>
+                  <td data-row="31" data-col="2">18.203625</td>
+                </tr>
+                <tr>
+                  <td data-row="32" data-col="1">EHI03134</td>
+                  <td data-row="32" data-col="2">55.401662</td>
+                </tr>
+                <tr>
+                  <td data-row="33" data-col="1">EHI03135</td>
+                  <td data-row="33" data-col="2">20.288139</td>
+                </tr>
+                <tr>
+                  <td data-row="34" data-col="1">EHI03136</td>
+                  <td data-row="34" data-col="2">3.904170</td>
+                </tr>
+                <tr>
+                  <td data-row="35" data-col="1">EHI03138</td>
+                  <td data-row="35" data-col="2">15.343714</td>
+                </tr>
+                <tr>
+                  <td data-row="36" data-col="1">EHI03139</td>
+                  <td data-row="36" data-col="2">5.504020</td>
+                </tr>
+                <tr>
+                  <td data-row="37" data-col="1">EHI03140</td>
+                  <td data-row="37" data-col="2">59.745763</td>
+                </tr>
+                <tr>
+                  <td data-row="38" data-col="1">EHI03141</td>
+                  <td data-row="38" data-col="2">27.001357</td>
+                </tr>
+                <tr>
+                  <td data-row="39" data-col="1">EHI03142</td>
+                  <td data-row="39" data-col="2">18.778626</td>
+                </tr>
+                <tr>
+                  <td data-row="40" data-col="1">EHI03143</td>
+                  <td data-row="40" data-col="2">61.035758</td>
+                </tr>
+                <tr>
+                  <td data-row="41" data-col="1">EHI03144</td>
+                  <td data-row="41" data-col="2">27.425981</td>
+                </tr>
+                <tr>
+                  <td data-row="42" data-col="1">EHI03145</td>
+                  <td data-row="42" data-col="2">7.663421</td>
+                </tr>
+                <tr>
+                  <td data-row="43" data-col="1">EHI03146</td>
+                  <td data-row="43" data-col="2">10.844080</td>
+                </tr>
+                <tr>
+                  <td data-row="44" data-col="1">EHI03147</td>
+                  <td data-row="44" data-col="2">7.933740</td>
+                </tr>
+                <tr>
+                  <td data-row="45" data-col="1">EHI03148</td>
+                  <td data-row="45" data-col="2">5.107055</td>
+                </tr>
+                <tr>
+                  <td data-row="46" data-col="1">EHI03149</td>
+                  <td data-row="46" data-col="2">12.650344</td>
+                </tr>
+                <tr>
+                  <td data-row="47" data-col="1">EHI03150</td>
+                  <td data-row="47" data-col="2">34.311817</td>
+                </tr>
+                <tr>
+                  <td data-row="48" data-col="1">EHI03151</td>
+                  <td data-row="48" data-col="2">30.248007</td>
+                </tr>
+                <tr>
+                  <td data-row="49" data-col="1">EHI03152</td>
+                  <td data-row="49" data-col="2">100.000000</td>
+                </tr>
+                <tr>
+                  <td data-row="50" data-col="1">EHI03153</td>
+                  <td data-row="50" data-col="2">13.111913</td>
+                </tr>
+                <tr>
+                  <td data-row="51" data-col="1">EHI03156</td>
+                  <td data-row="51" data-col="2">11.363295</td>
+                </tr>
+                <tr>
+                  <td data-row="52" data-col="1">EHI03159</td>
+                  <td data-row="52" data-col="2">24.969300</td>
+                </tr>
+                <tr>
+                  <td data-row="53" data-col="1">EHI03160</td>
+                  <td data-row="53" data-col="2">69.016756</td>
+                </tr>
+                <tr>
+                  <td data-row="54" data-col="1">EHI03161</td>
+                  <td data-row="54" data-col="2">46.182380</td>
+                </tr>
+                <tr>
+                  <td data-row="55" data-col="1">EHI03162</td>
+                  <td data-row="55" data-col="2">20.840861</td>
+                </tr>
+                <tr>
+                  <td data-row="56" data-col="1">EHI03163</td>
+                  <td data-row="56" data-col="2">19.824669</td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
+<div class="sourceCode" id="cb110"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb110-1"><a href="data-statistics.html#cb110-1" tabindex="-1"></a>damr <span class="sc">%&gt;%</span> </span>
+<span id="cb110-2"><a href="data-statistics.html#cb110-2" tabindex="-1"></a>  <span class="fu">filter</span>(damr<span class="sc">&gt;</span><span class="dv">95</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb110-3"><a href="data-statistics.html#cb110-3" tabindex="-1"></a>  <span class="fu">nrow</span>()</span></code></pre></div>
+<pre class="script-output"><code>[1] 1</code></pre>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb112-1"><a href="data-statistics.html#cb112-1" tabindex="-1"></a>damr <span class="sc">%&gt;%</span> </span>
+<span id="cb112-2"><a href="data-statistics.html#cb112-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean=</span><span class="fu">mean</span>(damr),<span class="at">sd=</span><span class="fu">sd</span>(damr)) <span class="sc">%&gt;%</span> </span>
+<span id="cb112-3"><a href="data-statistics.html#cb112-3" tabindex="-1"></a>  <span class="fu">tt</span>()</span></code></pre></div>
+
+    <script src="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.js"></script>
+
+    <script>
+      // Create table-specific functions using external factory
+      const tableFns_43q0xsoan9fa3io02ydj = TinyTable.createTableFunctions("tinytable_43q0xsoan9fa3io02ydj");
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: '1', j: 1 }, { i: '1', j: 2 } ], css_id: 'tinytable_css_u85zubvzqidnkkkdeant',}, 
+          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 } ], css_id: 'tinytable_css_eugv33vhonpxqg1sy1rb',}, 
+          ];
+
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  tableFns_43q0xsoan9fa3io02ydj.styleCell(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
+    <style>
+    /* tinytable css entries after */
+    #tinytable_43q0xsoan9fa3io02ydj td.tinytable_css_u85zubvzqidnkkkdeant, #tinytable_43q0xsoan9fa3io02ydj th.tinytable_css_u85zubvzqidnkkkdeant {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --line-type-bottom: solid; --line-type-left: solid; --line-type-right: solid; --line-type-top: solid; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
+    #tinytable_43q0xsoan9fa3io02ydj td.tinytable_css_eugv33vhonpxqg1sy1rb, #tinytable_43q0xsoan9fa3io02ydj th.tinytable_css_eugv33vhonpxqg1sy1rb {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --line-type-bottom: solid; --line-type-left: solid; --line-type-right: solid; --line-type-top: solid; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
+    </style>
+    <div class="container">
+      <table class="tinytable" id="tinytable_43q0xsoan9fa3io02ydj" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing='true'>
+        
+        <thead>
+              <tr>
+                <th scope="col" data-row="0" data-col="1">mean</th>
+                <th scope="col" data-row="0" data-col="2">sd</th>
+              </tr>
+        </thead>
+        
+        <tbody>
+                <tr>
+                  <td data-row="1" data-col="1">22.98628</td>
+                  <td data-row="1" data-col="2">22.19636</td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
+</div>
+<div id="cleanup-1" class="section level2 hasAnchor" number="4.6">
+<h2><span class="header-section-number">4.6</span> cleanup<a href="data-statistics.html#cleanup-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb113-1"><a href="data-statistics.html#cb113-1" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span></code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="prepare-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="mag-catalogue.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

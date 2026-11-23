@@ -23,7 +23,7 @@ habitat_col = list(
 
 ## Summary table
 
-```{r alpha_div, comment="", message=FALSE, warning=FALSE}
+```{r , comment="", message=FALSE, warning=FALSE}
 # Calculate Hill numbers
 richness <- genome_counts_filt %>%
   column_to_rownames(var = "genome") %>%
@@ -135,7 +135,7 @@ merge(
 
 ## Plots
 
-```{r wilcox_habitat, comment="", message=FALSE, warning=FALSE}
+```{r , comment="", message=FALSE, warning=FALSE}
 g_alpha_div = list()
 
 for ( i in seq_along(colnames(alpha_div))[-1]){
@@ -180,7 +180,7 @@ ggsave(paste0('figure/habitat_alpha_div.png'), g, width=20, height=10, units='cm
   }
 ```
 
-```{r anova_site, comment="", message=FALSE, warning=FALSE}
+```{r , comment="", message=FALSE, warning=FALSE}
 for ( i in seq_along(colnames(alpha_div))[-1]){
   print(
   
@@ -192,13 +192,13 @@ for ( i in seq_along(colnames(alpha_div))[-1]){
         filter(!sol =="ETOH") %>% 
       filter(metric==colnames(alpha_div)[i]),
 
-    aes(x = event_ID, y = value, colour = habitat)) +
+    aes(x = event_id, y = value, colour = habitat)) +
     geom_boxplot() + 
     geom_jitter(width = 0.1, alpha = 0.5) +
   scale_color_manual(name = 'habitat', 
                      values = c("rural" = '#5bae63',"urban" = '#986eac'),
                      drop = FALSE)+  
-  labs(x = "event_ID",
+  labs(x = "event_id",
        y = colnames(alpha_div)[i]) +
     theme_minimal() +
     stat_anova_test() +
@@ -210,7 +210,7 @@ for ( i in seq_along(colnames(alpha_div))[-1]){
 ```
 
 
-```{r tukey_site, comment="", message=FALSE, warning=FALSE}
+```{r , comment="", message=FALSE, warning=FALSE}
 GGTukey.3<-function(Tukey, Style){
   GT<-function(Tukey){
     A<-require("tidyverse")
@@ -303,7 +303,7 @@ GGTukey.3<-function(Tukey, Style){
 
 TUKEY = 
   TukeyHSD(
-  aov(value ~ event_ID, 
+  aov(value ~ event_id, 
             data = alpha_div %>%
       pivot_longer(-sample, names_to = "metric", values_to = "value") %>%
       left_join(., sample_metadata, by = join_by(sample == sample)) %>%
@@ -323,7 +323,7 @@ Determine whether alpha diversity values correlate with distance.
 geo_diversity =
   merge(
     alpha_div,
-    sample_metadata[,c("sample","event_ID","latitude","longitude")],
+    sample_metadata[,c("sample","event_id","latitude","longitude")],
     by = "sample"
     )
 geo_diversity$pc1 = 

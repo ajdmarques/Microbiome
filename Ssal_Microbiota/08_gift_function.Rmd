@@ -9,7 +9,7 @@ install.packages(setdiff(pkgs, rownames(installed.packages())))
 lapply(pkgs, require, character.only = TRUE)
 ```
 
-```{r load_data_alpha, comment="", message=FALSE, warning=FALSE}
+```{r , comment="", message=FALSE, warning=FALSE}
 load("data/data.Rdata")
 
 # keep sample metadatabut rewrite with filters

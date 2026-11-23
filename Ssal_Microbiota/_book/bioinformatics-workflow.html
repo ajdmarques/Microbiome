@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 Bioinformatics Workflow | Urban Amphibian Microbiota | Manuscript in prep</title>
+  <meta name="description" content="Data analysis for mircrobiota sequencing of salamanders" />
+  <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 Bioinformatics Workflow | Urban Amphibian Microbiota | Manuscript in prep" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Data analysis for mircrobiota sequencing of salamanders" />
+  <meta name="github-repo" content="Blinded for review" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 Bioinformatics Workflow | Urban Amphibian Microbiota | Manuscript in prep" />
+  
+  <meta name="twitter:description" content="Data analysis for mircrobiota sequencing of salamanders" />
+  
+
+
+
+<meta name="date" content="2026-11-23" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="prepare-data.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#prepare-the-r-environment"><i class="fa fa-check"></i><b>1.1</b> Prepare the R environment</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#environment"><i class="fa fa-check"></i><b>1.1.1</b> Environment</a></li>
+<li class="chapter" data-level="1.1.2" data-path="index.html"><a href="index.html#libraries"><i class="fa fa-check"></i><b>1.1.2</b> Libraries</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html"><i class="fa fa-check"></i><b>2</b> Bioinformatics Workflow</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#data-preprocessing-step-1"><i class="fa fa-check"></i><b>2.1</b> Data preprocessing (step 1)</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#quality-filtering"><i class="fa fa-check"></i><b>2.1.1</b> Quality-filtering</a></li>
+<li class="chapter" data-level="2.1.2" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#host-mapping"><i class="fa fa-check"></i><b>2.1.2</b> Host mapping</a></li>
+<li class="chapter" data-level="2.1.3" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#metagenomic-complexity-assessment"><i class="fa fa-check"></i><b>2.1.3</b> Metagenomic complexity assessment</a></li>
+<li class="chapter" data-level="2.1.4" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#prokaryotic-fraction-assessment"><i class="fa fa-check"></i><b>2.1.4</b> Prokaryotic fraction assessment</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#assembly-binning-steps-2-4"><i class="fa fa-check"></i><b>2.2</b> Assembly &amp; Binning (steps 2-4)</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#metagenomic-assembly"><i class="fa fa-check"></i><b>2.2.1</b> Metagenomic assembly</a></li>
+<li class="chapter" data-level="2.2.2" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#assembly-mapping"><i class="fa fa-check"></i><b>2.2.2</b> Assembly mapping</a></li>
+<li class="chapter" data-level="2.2.3" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#ensemble-binning"><i class="fa fa-check"></i><b>2.2.3</b> Ensemble binning</a></li>
+<li class="chapter" data-level="2.2.4" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#bin-refinement"><i class="fa fa-check"></i><b>2.2.4</b> Bin refinement</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#mag-annotation-step-5"><i class="fa fa-check"></i><b>2.3</b> MAG Annotation (step 5)</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#taxonomic-annotation"><i class="fa fa-check"></i><b>2.3.1</b> Taxonomic annotation</a></li>
+<li class="chapter" data-level="2.3.2" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#functional-annotation"><i class="fa fa-check"></i><b>2.3.2</b> Functional annotation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#dereplication-step-6"><i class="fa fa-check"></i><b>2.4</b> Dereplication (step 6)</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#mag-dereplication"><i class="fa fa-check"></i><b>2.4.1</b> MAG Dereplication</a></li>
+<li class="chapter" data-level="2.4.2" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#mapping-to-mag-catalogue"><i class="fa fa-check"></i><b>2.4.2</b> Mapping to MAG catalogue</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="prepare-data.html"><a href="prepare-data.html"><i class="fa fa-check"></i><b>3</b> Prepare data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="prepare-data.html"><a href="prepare-data.html#verify-directories-present"><i class="fa fa-check"></i><b>3.1</b> Verify directories present</a></li>
+<li class="chapter" data-level="3.2" data-path="prepare-data.html"><a href="prepare-data.html#load-data"><i class="fa fa-check"></i><b>3.2</b> Load data</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="prepare-data.html"><a href="prepare-data.html#sample-metadata"><i class="fa fa-check"></i><b>3.2.1</b> Sample metadata</a></li>
+<li class="chapter" data-level="3.2.2" data-path="prepare-data.html"><a href="prepare-data.html#add-environmental-variables"><i class="fa fa-check"></i><b>3.2.2</b> Add environmental variables</a></li>
+<li class="chapter" data-level="3.2.3" data-path="prepare-data.html"><a href="prepare-data.html#visualize-metadata"><i class="fa fa-check"></i><b>3.2.3</b> Visualize Metadata</a></li>
+<li class="chapter" data-level="3.2.4" data-path="prepare-data.html"><a href="prepare-data.html#filter-table"><i class="fa fa-check"></i><b>3.2.4</b> Filter Table</a></li>
+<li class="chapter" data-level="3.2.5" data-path="prepare-data.html"><a href="prepare-data.html#read-counts"><i class="fa fa-check"></i><b>3.2.5</b> Read counts</a></li>
+<li class="chapter" data-level="3.2.6" data-path="prepare-data.html"><a href="prepare-data.html#genome-taxonomy"><i class="fa fa-check"></i><b>3.2.6</b> Genome taxonomy</a></li>
+<li class="chapter" data-level="3.2.7" data-path="prepare-data.html"><a href="prepare-data.html#genome-base-hits"><i class="fa fa-check"></i><b>3.2.7</b> Genome base hits</a></li>
+<li class="chapter" data-level="3.2.8" data-path="prepare-data.html"><a href="prepare-data.html#genome-tree"><i class="fa fa-check"></i><b>3.2.8</b> Genome tree</a></li>
+<li class="chapter" data-level="3.2.9" data-path="prepare-data.html"><a href="prepare-data.html#genome-annotations"><i class="fa fa-check"></i><b>3.2.9</b> Genome annotations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="prepare-data.html"><a href="prepare-data.html#create-working-objects"><i class="fa fa-check"></i><b>3.3</b> Create working objects</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="prepare-data.html"><a href="prepare-data.html#filter-reads-by-coverage"><i class="fa fa-check"></i><b>3.3.1</b> Filter reads by coverage</a></li>
+<li class="chapter" data-level="3.3.2" data-path="prepare-data.html"><a href="prepare-data.html#transform-reads-into-genome-counts"><i class="fa fa-check"></i><b>3.3.2</b> Transform reads into genome counts</a></li>
+<li class="chapter" data-level="3.3.3" data-path="prepare-data.html"><a href="prepare-data.html#filter-samples-by-coverage"><i class="fa fa-check"></i><b>3.3.3</b> Filter samples by coverage</a></li>
+<li class="chapter" data-level="3.3.4" data-path="prepare-data.html"><a href="prepare-data.html#distill-annotations-into-gifts"><i class="fa fa-check"></i><b>3.3.4</b> Distill annotations into GIFTs</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="prepare-data.html"><a href="prepare-data.html#prepare-color-scheme"><i class="fa fa-check"></i><b>3.4</b> Prepare color scheme</a></li>
+<li class="chapter" data-level="3.5" data-path="prepare-data.html"><a href="prepare-data.html#prepare-a-phyloseq-object"><i class="fa fa-check"></i><b>3.5</b> Prepare a phyloseq object</a></li>
+<li class="chapter" data-level="3.6" data-path="prepare-data.html"><a href="prepare-data.html#wrap-working-objects"><i class="fa fa-check"></i><b>3.6</b> Wrap working objects</a></li>
+<li class="chapter" data-level="3.7" data-path="prepare-data.html"><a href="prepare-data.html#cleanup"><i class="fa fa-check"></i><b>3.7</b> cleanup</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-statistics.html"><a href="data-statistics.html"><i class="fa fa-check"></i><b>4</b> Data statistics</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="data-statistics.html"><a href="data-statistics.html#habitat-characterization"><i class="fa fa-check"></i><b>4.1</b> Habitat Characterization</a></li>
+<li class="chapter" data-level="4.2" data-path="data-statistics.html"><a href="data-statistics.html#optional-filter-samples-with-high-host-data"><i class="fa fa-check"></i><b>4.2</b> [OPTIONAL] filter samples with high host data</a></li>
+<li class="chapter" data-level="4.3" data-path="data-statistics.html"><a href="data-statistics.html#sequencing-reads-statistics"><i class="fa fa-check"></i><b>4.3</b> Sequencing reads statistics</a></li>
+<li class="chapter" data-level="4.4" data-path="data-statistics.html"><a href="data-statistics.html#dna-fractions"><i class="fa fa-check"></i><b>4.4</b> DNA fractions</a></li>
+<li class="chapter" data-level="4.5" data-path="data-statistics.html"><a href="data-statistics.html#recovered-microbial-fraction"><i class="fa fa-check"></i><b>4.5</b> Recovered microbial fraction</a></li>
+<li class="chapter" data-level="4.6" data-path="data-statistics.html"><a href="data-statistics.html#cleanup-1"><i class="fa fa-check"></i><b>4.6</b> cleanup</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="mag-catalogue.html"><a href="mag-catalogue.html"><i class="fa fa-check"></i><b>5</b> MAG catalogue</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="mag-catalogue.html"><a href="mag-catalogue.html#genome-phylogeny"><i class="fa fa-check"></i><b>5.1</b> Genome phylogeny</a></li>
+<li class="chapter" data-level="5.2" data-path="mag-catalogue.html"><a href="mag-catalogue.html#taxonomy-overview"><i class="fa fa-check"></i><b>5.2</b> Taxonomy overview</a></li>
+<li class="chapter" data-level="5.3" data-path="mag-catalogue.html"><a href="mag-catalogue.html#mag-size-mb"><i class="fa fa-check"></i><b>5.3</b> Mag size (MB)</a></li>
+<li class="chapter" data-level="5.4" data-path="mag-catalogue.html"><a href="mag-catalogue.html#genome-quality"><i class="fa fa-check"></i><b>5.4</b> Genome quality</a></li>
+<li class="chapter" data-level="5.5" data-path="mag-catalogue.html"><a href="mag-catalogue.html#functional-overview"><i class="fa fa-check"></i><b>5.5</b> Functional overview</a></li>
+<li class="chapter" data-level="5.6" data-path="mag-catalogue.html"><a href="mag-catalogue.html#functional-ordination"><i class="fa fa-check"></i><b>5.6</b> Functional ordination</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="mag-catalogue.html"><a href="mag-catalogue.html#species-novelty-v-mag-quality"><i class="fa fa-check"></i><b>5.6.1</b> Species Novelty v MAG quality</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="mag-catalogue.html"><a href="mag-catalogue.html#mag-quality-v-habitat"><i class="fa fa-check"></i><b>5.7</b> MAG Quality v Habitat</a></li>
+<li class="chapter" data-level="5.8" data-path="mag-catalogue.html"><a href="mag-catalogue.html#cleanup-2"><i class="fa fa-check"></i><b>5.8</b> cleanup</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="community-composition.html"><a href="community-composition.html"><i class="fa fa-check"></i><b>6</b> Community composition</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="community-composition.html"><a href="community-composition.html#filter-data"><i class="fa fa-check"></i><b>6.1</b> Filter data</a></li>
+<li class="chapter" data-level="6.2" data-path="community-composition.html"><a href="community-composition.html#taxonomy-overview-1"><i class="fa fa-check"></i><b>6.2</b> Taxonomy overview</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="community-composition.html"><a href="community-composition.html#stacked-barplot"><i class="fa fa-check"></i><b>6.2.1</b> Stacked barplot</a></li>
+<li class="chapter" data-level="6.2.2" data-path="community-composition.html"><a href="community-composition.html#genus-and-species-annotation"><i class="fa fa-check"></i><b>6.2.2</b> Genus and species annotation</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="community-composition.html"><a href="community-composition.html#taxonomy-boxplots"><i class="fa fa-check"></i><b>6.3</b> Taxonomy boxplots</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="community-composition.html"><a href="community-composition.html#phylum"><i class="fa fa-check"></i><b>6.3.1</b> Phylum</a></li>
+<li class="chapter" data-level="6.3.2" data-path="community-composition.html"><a href="community-composition.html#class"><i class="fa fa-check"></i><b>6.3.2</b> Class</a></li>
+<li class="chapter" data-level="6.3.3" data-path="community-composition.html"><a href="community-composition.html#family"><i class="fa fa-check"></i><b>6.3.3</b> Family</a></li>
+<li class="chapter" data-level="6.3.4" data-path="community-composition.html"><a href="community-composition.html#genus"><i class="fa fa-check"></i><b>6.3.4</b> Genus</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="community-composition.html"><a href="community-composition.html#enrichment-analysis-ancombc2"><i class="fa fa-check"></i><b>6.4</b> Enrichment analysis: Ancombc2</a></li>
+<li class="chapter" data-level="6.5" data-path="community-composition.html"><a href="community-composition.html#outputs"><i class="fa fa-check"></i><b>6.5</b> Outputs</a></li>
+<li class="chapter" data-level="6.6" data-path="community-composition.html"><a href="community-composition.html#geolocation-correlations"><i class="fa fa-check"></i><b>6.6</b> Geolocation Correlations</a></li>
+<li class="chapter" data-level="6.7" data-path="community-composition.html"><a href="community-composition.html#update-metadata"><i class="fa fa-check"></i><b>6.7</b> Update metadata</a></li>
+<li class="chapter" data-level="6.8" data-path="community-composition.html"><a href="community-composition.html#cleanup-3"><i class="fa fa-check"></i><b>6.8</b> cleanup</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="alpha-diversity.html"><a href="alpha-diversity.html"><i class="fa fa-check"></i><b>7</b> Alpha diversity</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="alpha-diversity.html"><a href="alpha-diversity.html#summary-table"><i class="fa fa-check"></i><b>7.1</b> Summary table</a></li>
+<li class="chapter" data-level="7.2" data-path="alpha-diversity.html"><a href="alpha-diversity.html#shapiro-test"><i class="fa fa-check"></i><b>7.2</b> Shapiro test</a></li>
+<li class="chapter" data-level="7.3" data-path="alpha-diversity.html"><a href="alpha-diversity.html#plots"><i class="fa fa-check"></i><b>7.3</b> Plots</a></li>
+<li class="chapter" data-level="7.4" data-path="alpha-diversity.html"><a href="alpha-diversity.html#cleanup-4"><i class="fa fa-check"></i><b>7.4</b> cleanup</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="estimate-beta-diversity.html"><a href="estimate-beta-diversity.html"><i class="fa fa-check"></i><b>8</b> Estimate Beta Diversity</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="estimate-beta-diversity.html"><a href="estimate-beta-diversity.html#hill-number-distance-matrices"><i class="fa fa-check"></i><b>8.1</b> Hill Number Distance Matrices</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="estimate-beta-diversity.html"><a href="estimate-beta-diversity.html#permanova-analysis"><i class="fa fa-check"></i><b>8.1.1</b> Permanova analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="estimate-beta-diversity.html"><a href="estimate-beta-diversity.html#geographic-correlation"><i class="fa fa-check"></i><b>8.2</b> Geographic Correlation</a></li>
+<li class="chapter" data-level="8.3" data-path="estimate-beta-diversity.html"><a href="estimate-beta-diversity.html#site-comparisons"><i class="fa fa-check"></i><b>8.3</b> Site Comparisons</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="estimate-beta-diversity.html"><a href="estimate-beta-diversity.html#permanova-analysis-beta-diversity-plots"><i class="fa fa-check"></i><b>8.3.1</b> Permanova analysis &amp; Beta diversity plots</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="estimate-beta-diversity.html"><a href="estimate-beta-diversity.html#cleanup-5"><i class="fa fa-check"></i><b>8.4</b> cleanup</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="genome-function.html"><a href="genome-function.html"><i class="fa fa-check"></i><b>9</b> Genome Function</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="genome-function.html"><a href="genome-function.html#functional-differences"><i class="fa fa-check"></i><b>9.1</b> Functional differences</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="genome-function.html"><a href="genome-function.html#gifts-elements"><i class="fa fa-check"></i><b>9.1.1</b> GIFTs Elements</a></li>
+<li class="chapter" data-level="9.1.2" data-path="genome-function.html"><a href="genome-function.html#gifts-functions"><i class="fa fa-check"></i><b>9.1.2</b> GIFTs Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="genome-function.html"><a href="genome-function.html#ancomb2-identified-taxa"><i class="fa fa-check"></i><b>9.2</b> ANCOMB2 Identified Taxa</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="genome-function.html"><a href="genome-function.html#taxa-specific-gift"><i class="fa fa-check"></i><b>9.2.1</b> Taxa specific GIFT</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="genome-function.html"><a href="genome-function.html#habitat-exclusive-taxa"><i class="fa fa-check"></i><b>9.3</b> Habitat Exclusive Taxa</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="genome-function.html"><a href="genome-function.html#families"><i class="fa fa-check"></i><b>9.3.1</b> Families</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="genome-function.html"><a href="genome-function.html#sensitivity-analysis"><i class="fa fa-check"></i><b>9.4</b> Sensitivity Analysis</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="genome-function.html"><a href="genome-function.html#wilcox-test"><i class="fa fa-check"></i><b>9.4.1</b> Wilcox Test</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="genome-function.html"><a href="genome-function.html#distribute-gift-probabilities"><i class="fa fa-check"></i><b>9.5</b> Distribute GIFT Probabilities</a></li>
+<li class="chapter" data-level="9.6" data-path="genome-function.html"><a href="genome-function.html#bacterial-fungal-interactions"><i class="fa fa-check"></i><b>9.6</b> Bacterial-Fungal interactions</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Urban Amphibian Microbiota | Manuscript in prep</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="bioinformatics-workflow" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">2</span> Bioinformatics Workflow<a href="bioinformatics-workflow.html#bioinformatics-workflow" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>The following is a summary of the <a href="https://www.earthhologenome.org/bioinformatics/index.html#workflow-overview">Earth Hologenome Initiative (EHI) workflow</a> used to standardize the sequencing of wild organisms. The bioinformatic pipeline is developed to generate <strong>metagenome-assembled genomes (MAGs)</strong> that can be annotated and analysed to understand microbiome functionality. The workflow management system uses <strong>Snakemake</strong> to automate the process. This is a Python based tool designed to handle complex dependencies between the input files, output files, and the software tools used to process the data. The following steps of the workflow are explained here, taken from EHI guideline,</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Data preprocessing</strong>: the pipeline begins by assessing and filtering raw sequencing data to remove low-quality reads, adapters, and contaminants. This step ensures the data’s reliability and quality.</p></li>
+<li><p><strong>Splitting host and non-host data</strong>: the metagenomic fraction is separated from the host, by mapping the reads against a reference host genome.</p></li>
+<li><p><strong>Metagenomic assembly</strong>: the remaining non-host reads are assembled into contigs or scaffolds using metagenomic assembly software. This step results in a set of contigs representing the genetic material of the microbial community.</p></li>
+<li><p><strong>Binning</strong>: the assembled contigs are clustered into metagenome-assembled genomes (MAGs) based on sequence composition, coverage, and other characteristics.</p></li>
+<li><p><strong>MAG Annotation</strong>: MAGs are annotated to determine their taxonomic identity and functional potential.</p></li>
+<li><p><strong>Dereplication</strong>: MAGs are dereplicated to remove redundancy and retain only unique genomic representatives. This step ensures that each MAG represents a distinct microbial population or genome.</p></li>
+<li><p><strong>Compositional overview</strong>: finally, to understand the composition of the gut microbiota in individual samples, the pre-processed reads from each sample are mapped against the dereplicated MAG catalogue. This step quantifies the abundance of each MAG in each sample, allowing for a comprehensive view of the microbial community composition.</p></li>
+</ol>
+<div id="data-preprocessing-step-1" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Data preprocessing (step 1)<a href="bioinformatics-workflow.html#data-preprocessing-step-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="quality-filtering" class="section level3 hasAnchor" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Quality-filtering<a href="bioinformatics-workflow.html#quality-filtering" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>An efficient means to remove low-quality nucelotides, reads, and adapters, is to use <strong>fastp</strong> <span class="citation">(<a href="#ref-chen_fastp_2018">Chen et al. 2018</a>)</span>. Paired-end adapters are detected by finding the overlap of each pair, assuming that only one adapter exists in the data and that adapter sequences exist only in the read tails. A sliding window method is used to drop low-quality bases of each read’s head and tail. PolyG tails result with two-color chemistry sequencing (i.e. Illumina) where red and green florescence represent four bases (red = C, green = T, red+green = A, none 0 G). As synthesis continues and signal strength decreases, some bases are wrongly interpreted as G in the read tails.</p>
+<pre><code>fastp \                                       # Initialize fastp
+    --in1 {input.r1i} --in2 {input.r2i} \     # Single-end reads (mandatory)
+    --out1 {output.r1o} --out2 {output.r2o} \ # Paired-end reads (optional)
+    --trim_poly_g \                           # Force polyG tail trimming   
+    --trim_poly_x \                           # Enable polyX trimming in 3&#39; ends
+    --low_complexity_filter \                 # Complexity = % difference between bases
+    --n_base_limit 5 \                        # Max number of N bases per read
+    --qualified_quality_phred 20 \            # Min quality value of a base
+    --length_required 60 \                    # Min read length
+    --thread {threads} \                      # 
+    --html {output.fastp_html} \              #
+    --json {output.fastp_json} \              #
+    --adapter_sequence {params.adapter1} \    #
+    --adapter_sequence_r2 {params.adapter2}   #</code></pre>
+</div>
+<div id="host-mapping" class="section level3 hasAnchor" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> Host mapping<a href="bioinformatics-workflow.html#host-mapping" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Skin swabs were used, and so a large portion of host DNA is expected in addition to microbial reads <span class="citation">(<a href="#ref-hernandez_contrasting_2025"><strong>hernandez_contrasting_2025?</strong></a>; <a href="#ref-eisenhofer_quantifying_2024">Eisenhofer et al. 2024</a>)</span>. To separate host from microbial genomes, an index of the host genome is prepared to map it against a reference genome, otherwise the process will be very slow. <strong>Bowtie2</strong> is used to align reads to a reference genome, and requires a Burrows-Wheeler transform (BWT) algorithm index before aligning to a reference genome. SAMtools is a a software that converts files between SAM, BAM, and CRAM formats <span class="citation">(<a href="#ref-danecek_twelve_2021"><span class="nocase">Danecek et al.</span> 2021</a>)</span>. Next, reads are mapped against a reference genome, followed by a split between reads that have been mapped and the reads that were not mapped. The mapped reads can be used for performing population genomic analyses, while the unmapped reads can be used for metagenomic analyses. For salamanders, the closest available reference genome is <em>Pleurodeles waltl</em>. The estimated divergence time between these species is ~65Myr, and so we must anticipate that they will likely be very divergent <span class="citation">(<a href="#ref-zhang__2008"><strong>zhang__2008?</strong></a>)</span>.</p>
+<pre><code># Build host index
+bowtie2-build \
+    --large-index \                   # Build a large index
+    --threads {threads} \             # 
+        {input.genome} {output.index} #
+        
+# Map reads to catted reference using Bowtie2
+bowtie2 \                     #
+    --time \                  #
+    --threads {threads} \     #
+    -x {input.catted_ref} \   # The basename of the index for the reference genome.
+    -1 {input.r1i} \          # Comma-separated list of files containing mate 1.fq
+    -2 {input.r2i} \          # Comma-separated list of files containing mate 1.fq
+| samtools view -b -@ {threads} - | samtools sort -@ {threads} -o {output.all_bam} - &amp;&amp;
+
+# Extract non-host reads (note we&#39;re not compressing for nonpareil)
+samtools view -b -f12 -@ {threads} {output.all_bam} \
+| samtools fastq -@ {threads} -1 {output.non_host_r1} -2 {output.non_host_r2} - &amp;&amp;
+
+# Send host reads to BAM
+samtools view -b -F12 -@ {threads} {output.all_bam} \
+| samtools sort -@ {threads} -o {output.host_bam} -
+
+# Get % duplicates from host BAM
+picard -Xmx{resources.mem_gb}g MarkDuplicates \
+-I {output.host_bam} \
+-O {output.markdup_bam} \
+-M {output.markdup}        </code></pre>
+</div>
+<div id="metagenomic-complexity-assessment" class="section level3 hasAnchor" number="2.1.3">
+<h3><span class="header-section-number">2.1.3</span> Metagenomic complexity assessment<a href="bioinformatics-workflow.html#metagenomic-complexity-assessment" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<pre><code>nonpareil \                   # A microcode-level simulator for electronic calculators.
+    -s {input.non_host_r1} \  # 
+    -f fastq \                #
+    -T kmer \                 #
+    -t {threads} \            #
+    -b {wildcards.sample}     #
+
+#Script to extract nonpareil values of interest
+Rscript {config[codedir]}/scripts/nonpareil_table.R {output.npo} {output.npstats}</code></pre>
+</div>
+<div id="prokaryotic-fraction-assessment" class="section level3 hasAnchor" number="2.1.4">
+<h3><span class="header-section-number">2.1.4</span> Prokaryotic fraction assessment<a href="bioinformatics-workflow.html#prokaryotic-fraction-assessment" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>SingleM</strong> is a tool for profiling shotgun metagenomes. It shows good accuracy in estimating the relative abundances of microbial community members, and has a particular strength in dealing with novel lineages. This is used to estimate what proportion of the reads are prokaryotic. SingleM microbial fraction (SMF) estimates the quantity of bacterial and archaeal DNA in metagenomic datasets based on the detection of reads encoding microbial single copy marker genes. An advantage of this approach is that it does not require any knowledge of non-microbial genomes such as Eukaryota or viruses, which are often missing from reference genome databases. <span class="citation">(<a href="#ref-Eisenhofer_2024"><strong>Eisenhofer_2024?</strong></a>)</span></p>
+<pre><code>#Run singlem pipe
+singlem pipe \
+    -1 {input.non_host_r1} \
+    -2 {input.non_host_r2} \
+    --otu-table {params.pipe_uncompressed} \
+    --taxonomic-profile {output.condense} \
+    --threads {threads}
+
+#Run singlem read_fraction
+singlem read_fraction \
+    -1 {input.non_host_r1} \
+    -2 {input.non_host_r2} \
+    --input-profile {output.condense} \
+    --output-tsv {output.read_fraction} \
+    --output-per-taxon-read-fractions {params.read_fraction_taxa}</code></pre>
+</div>
+</div>
+<div id="assembly-binning-steps-2-4" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Assembly &amp; Binning (steps 2-4)<a href="bioinformatics-workflow.html#assembly-binning-steps-2-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="metagenomic-assembly" class="section level3 hasAnchor" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Metagenomic assembly<a href="bioinformatics-workflow.html#metagenomic-assembly" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Pre-processed reads are then assembled into contigs then clustered into bins to reconstruct draft bacterial genomes known as <em>metagenome-assembled genomes</em> or <em>MAGs</em>. Unlike traditional genome sequencing, where a single organism’s genome is targeted, metagenomics focuses on the genetic material of all microorganisms present in a given sample. A popular metagenome assemblers is <strong>Megahit</strong> <span class="citation">(<a href="#ref-li_2016"><strong>li_2016?</strong></a>)</span> that allows removing contigs below a certain size. Due to the large computational requirements in the EHI, the default metagenomic assembler we use is Megahit.</p>
+<pre><code>megahit \
+    -t {threads} \                #
+    --verbose \                   #
+    --min-contig-len 1500 \       # minimum length of contigs to output
+    -1 {input.r1} -2 {input.r2} \ #
+    -f \
+    -o {config[workdir]}/{wildcards.PRB}_{wildcards.EHI}_assembly</code></pre>
+<p><strong>Quast</strong> is then used to obtain some general statistics of the assemblies to decide whether they look meaningful to continue with downstream analyses <span class="citation">(<a href="#ref-gurevich_2013"><strong>gurevich_2013?</strong></a>)</span>. QUAST can evaluate assembly quality without a reference genome.</p>
+<pre><code>quast \
+    -o {output.report} \
+    --threads {threads} \
+    {input.assembly}</code></pre>
+</div>
+<div id="assembly-mapping" class="section level3 hasAnchor" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Assembly mapping<a href="bioinformatics-workflow.html#assembly-mapping" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To group contigs into MAGs, binners require contig coverage information to decide which contig belong to which bin. This type of data is generated by mapping pre-processed metagenomic reads against the metagenomic assembly. CoverM <span class="citation">(<a href="#ref-aroney_coverm_2025">Aroney et al. 2025</a>)</span> calculates coverage of genomes/MAGs or individual contigs by read mapping, its input can either be BAM files sorted by reference, or raw reads and reference genomes in various formats.</p>
+<pre><code># Construct a host index  
+bowtie2-build \
+    --large-index \
+    --threads {threads} \
+    {input.contigs} {input.contigs}
+
+# Map reads to assembly using Bowtie2
+bowtie2 \
+    --time \
+    --threads {threads} \
+    -x {input.contigs} \
+    -1 {input.r1} \
+    -2 {input.r2} \
+| samtools sort -@ {threads} -o {output}
+
+# Using coverM, generate the assembly coverage data required for downstream binning steps.
+coverm genome \                               
+      -b {input.bam} \                        #
+      --genome-fasta-files {input.contigs} \  #
+      -m relative_abundance \                 # Method(s) for calculating coverage.
+      -t {threads} \                          # 
+      --min-covered-fraction 0 \              # Genomes with coverage below this are reported as 0 coverage.
+      &gt; {output.coverm}                       
+
+#Run coverm for the eukaryotic assessment pipeline
+coverm genome \
+      -s - \                                  # Character separator between genome and contig names.
+      -b {input.bam} \                        #
+      -m relative_abundance count mean covered_fraction \
+      -t {threads} \                          #
+      --min-covered-fraction 0 \              #
+      &gt; {output.euk}                </code></pre>
+</div>
+<div id="ensemble-binning" class="section level3 hasAnchor" number="2.2.3">
+<h3><span class="header-section-number">2.2.3</span> Ensemble binning<a href="bioinformatics-workflow.html#ensemble-binning" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Metagenomic binning is the bioinformatic process that attempts to group metagenomic sequences into putative bacterial genomes. Dozens of binning algorithms exist, and performance is largely dependent on the specific properties of each sample. Subsequently, many researchers opt for ensemble approaches whereby assemblies are binned using multiple algorithms, followed by a refinement step that merges all generated information to yield consensus bins. Here, three algorithms are used:</p>
+<div id="metabat" class="section level4 hasAnchor" number="2.2.3.1">
+<h4><span class="header-section-number">2.2.3.1</span> Metabat<a href="bioinformatics-workflow.html#metabat" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>MetaBAT2 <span class="citation">(<a href="#ref-kang_2015"><strong>kang_2015?</strong></a>)</span> specialises in clustering metagenomic contigs into genome bins by considering both sequence composition and differential coverage across samples. It employs a likelihood-based approach to estimate the probability of contigs belonging to the same genome, allowing for the identification of distinct bins for individual microorganisms. MetaBAT2 is well-regarded for its ability to handle complex microbial communities and is widely used in metagenomic research for its binning accuracy.</p>
+<pre><code># summarise contig depths
+jgi_summarize_bam_contig_depths \
+     --outputDepth {params.outdir}/metabat_depth.txt {input.bam} # file with contig by bam depth matrix
+
+# Run metabat2
+metabat2 \
+     -i {input.contigs} \                   # 
+     -a {params.outdir}/metabat_depth.txt \ # mean and variance of base coverage depth
+     -o {params.outdir}/metabat2_bins/bin \ # base file name and path for each bin
+     -m 1500 \                              # Minimum size of a contig for binning
+     -t {threads} \                         #
+     --unbinned                             # generate [outFile].unbinned.fa file</code></pre>
+</div>
+<div id="maxbin" class="section level4 hasAnchor" number="2.2.3.2">
+<h4><span class="header-section-number">2.2.3.2</span> Maxbin<a href="bioinformatics-workflow.html#maxbin" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>MaxBin2 <span class="citation">(<a href="#ref-wu_2016"><strong>wu_2016?</strong></a>)</span> is a metagenome binning software that utilises a combination of tetranucleotide frequency analysis and abundance information obtained from read mapping to identify distinct genomic bins representing different microorganisms within a metagenomic sample. MaxBin2 is known for its efficiency and accuracy in binning metagenomic contigs, making it a valuable tool for characterising microbial communities in various environments.</p>
+<pre><code># summarise contig depths
+jgi_summarize_bam_contig_depths \
+    --outputDepth {params.outdir}/mb2_master_depth.txt \
+    --noIntraDepthVariance \      # Do not include variance from mean depth along the contig
+    {input.bam}
+
+#calculate total numper of columns
+A=($(head -n 1 {params.outdir}/mb2_master_depth.txt))
+N=${{#A[*]}}
+
+# split the contig depth file into multiple files
+if [ -f {params.outdir}/mb2_abund_list.txt ]; then rm {params.outdir}/mb2_abund_list.txt; fi
+for i in $(seq 4 $N); do
+    sample=$(head -n 1 {params.outdir}/mb2_master_depth.txt | cut -f $i)
+    grep -v totalAvgDepth {params.outdir}/mb2_master_depth.txt | cut -f 1,$i &gt; {params.outdir}/mb2_${{sample%.*}}.txt
+    if [[ {params.outdir} == /* ]]; then
+        echo {params.outdir}/mb2_${{sample%.*}}.txt &gt;&gt; {params.outdir}/mb2_abund_list.txt
+    else
+        echo {params.outdir}/mb2_${{sample%.*}}.txt &gt;&gt; {params.outdir}/mb2_abund_list.txt
+    fi
+done
+
+# Run maxbin2
+run_MaxBin.pl \
+    -contig {input.contigs} \             # 
+    -markerset 107 \                      # marker gene sets, 107 (default) or 40
+    -thread {threads} \                   #
+    -min_contig_length 1500 \             # Default 1000
+  -out {params.outdir}/maxbin2_out/bin \  # list of abundance files
+  -abund_list {params.outdir}/mb2_abund_list.txt
+
+mkdir -p {params.outdir}/maxbin2_bins
+for i in {params.outdir}/maxbin2_out/*.fasta;
+    do mv $i {params.outdir}/maxbin2_bins/$(basename ${{i/.fasta/.fa}});
+done</code></pre>
+</div>
+<div id="concoct" class="section level4 hasAnchor" number="2.2.3.3">
+<h4><span class="header-section-number">2.2.3.3</span> CONCOCT<a href="bioinformatics-workflow.html#concoct" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>CONCOCT [<span class="citation">(<a href="#ref-alneberg_"><strong>alneberg_?</strong></a>)</span> _2014] is a metagenomic binning software that utilises differential coverage and sequence composition to cluster contigs into genome bins. Notably, CONCOCT is capable of separating closely related strains, and suitable for exploring fine-scale diversity within microbial communities.</p>
+<pre><code>cut_up_fasta.py {input.contigs} 
+    -c 10000                            # Chunk size
+    --merge_last                        # Concatenate final part to last contig
+    -b {params.outdir}/assembly_10K.bed #
+    -o 0                                # Overlap size
+    &gt; {params.outdir}/assembly_10K.fa   
+
+concoct_coverage_table.py {params.outdir}/assembly_10K.bed {input.bam} &gt; {params.outdir}/concoct_depth.txt
+
+concoct \
+    -l 1500 \                                             # Min sequence length threshold
+    -t {threads} \                                        # 
+    --coverage_file {params.outdir}/concoct_depth.txt \   # specify the coverage file
+    --composition_file {params.outdir}/assembly_10K.fa \  # specify the composition file
+    -b {params.outdir}                                    #
+
+merge_cutup_clustering.py {params.outdir}/clustering_gt1500.csv &gt; {params.outdir}/clustering_gt1500_merged.csv
+mkdir -p {params.outdir}/concoct_bins
+python {config[codedir]}/scripts/metawrap_split_concoct_bins.py {params.outdir}/clustering_gt1500_merged.csv {input.contigs} {params.outdir}/concoct_bins</code></pre>
+</div>
+</div>
+<div id="bin-refinement" class="section level3 hasAnchor" number="2.2.4">
+<h3><span class="header-section-number">2.2.4</span> Bin refinement<a href="bioinformatics-workflow.html#bin-refinement" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>MetaWRAP</strong> <span class="citation">(<a href="#ref-uritskiy_2018"><strong>uritskiy_2018?</strong></a>)</span> is a metagenomic wrapper intended to be a fast and simple preliminary approach.</p>
+<pre><code># setup checkm2 db path (in case of first run)
+checkm2 database --setdblocation {config[checkmdb]}
+
+bash {config[codedir]}/scripts/metawrap_refinement.sh \
+    -t {threads} \                        #
+    -o {params.outdir} \                  #
+    -A {params.binning}/concoct_bins/ \   #
+    -B {params.binning}/maxbin2_bins/ \   #
+    -C {params.binning}/metabat2_bins/ \  #
+    -c 50 \                               # Min % completion of bins [&gt;50%]
+    -x 10                                 # Max % contamination of bins acceptable
+
+# Rename output files, and sort metawrap by bin name
+head -1 {params.outdir}/metawrap_50_10_bins.stats &gt; {params.outdir}/mw_colnames.tsv
+sed &#39;1d;&#39; {params.outdir}/metawrap_50_10_bins.stats | sort -k1,1 -t$&#39;\t&#39; &gt; {params.outdir}/mw_sorted.tsv
+cat {params.outdir}/mw_colnames.tsv {params.outdir}/mw_sorted.tsv &gt; {params.outdir}/mw_sorted_col.tsv
+mv {params.outdir}/mw_sorted_col.tsv {output.stats}
+mv {params.outdir}/metawrap_50_10_bins.contigs {output.contigmap}
+sed -i&#39;&#39; &#39;2,$s/bin/{wildcards.EHA}_bin/g&#39; {output.stats}
+sed -i&#39;&#39; &#39;s/bin/{wildcards.EHA}_bin/g&#39; {output.contigmap}
+
+# Rename metawrap bins to match coassembly group:
+for bin in {params.outdir}/metawrap_50_10_bins/*.fa;
+    do mv $bin ${{bin/bin./{wildcards.EHA}_bin.}};
+done
+
+# Compress output bins
+pigz -p {threads} {params.outdir}/metawrap_50_10_bins/*.fa
+
+#Print the number of MAGs to a file for combining with the assembly report
+mkdir -p {params.stats_dir}
+ls -l {params.outdir}/metawrap_50_10_bins/*.fa.gz | wc -l &gt; {params.stats_dir}/{wildcards.EHA}_bins.tsv
+
+# Reformat MAG headers for CoverM
+for mag in {params.outdir}/metawrap_50_10_bins/*.fa.gz;
+    do rename.sh \
+        in=$mag \
+        out={params.outdir}/$(basename ${{mag/.fa.gz/_renamed.fa.gz}}) \
+        zl=9 \
+        prefix=$(basename ${{mag/.fa.gz/^}});
+done
+
+rm {params.outdir}/metawrap_50_10_bins/*.fa.gz
+for mag in {params.outdir}/*.fa.gz;
+    do mv $mag {params.outdir}/metawrap_50_10_bins/$(basename ${{mag/_renamed/}});
+done</code></pre>
+</div>
+</div>
+<div id="mag-annotation-step-5" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> MAG Annotation (step 5)<a href="bioinformatics-workflow.html#mag-annotation-step-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Once bacterial genomes have been binned and generated, thay can be annotated both taxonomically and functionally.</p>
+<div id="taxonomic-annotation" class="section level3 hasAnchor" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> Taxonomic annotation<a href="bioinformatics-workflow.html#taxonomic-annotation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>MAGs can be taxonomically annotated using different algorithms and reference databases, but the <strong>Genome Taxonomy Database (GTDB) and associated taxonomic classification toolkit (GTDB-Tk)</strong> <span class="citation">(<a href="#ref-chaumeil_2022"><strong>chaumeil_2022?</strong></a>; <a href="#ref-parks_2022"><strong>parks_2022?</strong></a>)</span> have become the preferred option for many researchers. The classify workflow consists of four steps,</p>
+<ol style="list-style-type: decimal">
+<li>ani_screen - compares user genomes against a Mash database composed of all GTDB representative genomes.</li>
+<li>identify - calls genes using Prodigal, and uses HMM models to identify markers used for phylogenetic inference</li>
+<li>align - concatenates the aligned marker genes and filters ~5,000 amino acids.</li>
+<li>classify - uses pplacer to find the maximum-likelihood placement of each genome in the GTDB-Tk reference tree.</li>
+</ol>
+<pre><code># Run GTDB-tk:
+gtdbtk classify_wf \              # classify workflow 
+    --genome_dir {params.bins} \  #
+    --extension &quot;gz&quot; \            #
+    --out_dir {params.outdir} \   #
+    --cpus {threads} \            #
+    --skip_ani_screen             #</code></pre>
+</div>
+<div id="functional-annotation" class="section level3 hasAnchor" number="2.3.2">
+<h3><span class="header-section-number">2.3.2</span> Functional annotation<a href="bioinformatics-workflow.html#functional-annotation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Functional annotation identifies putative functions of genes present in MAGs based on information available in reference databases. Multiple tools exist that perform all these procedures in a single pipeline. For instance, DRAM <span class="citation">(<a href="#ref-shaffer_2020"><strong>shaffer_2020?</strong></a>)</span> performs the annotation using Pfam, KEGG, UniProt, CAZY and MEROPS databases.</p>
+<pre><code># Assigns database identifiers to genes
+DRAM.py annotate \
+        -i {input.mag} \
+        -o {params.outdir} \
+        --threads {threads} \
+        --min_contig_size 1500
+
+# Distill curates annotations into useful functional categories
+DRAM.py distill \
+        -i {params.outdir}/annotations.tsv \
+        --rrna_path {params.outdir}/rrnas.tsv \
+        --trna_path {params.outdir}/trnas.tsv \
+        -o {params.distillate}</code></pre>
+</div>
+</div>
+<div id="dereplication-step-6" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Dereplication (step 6)<a href="bioinformatics-workflow.html#dereplication-step-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="mag-dereplication" class="section level3 hasAnchor" number="2.4.1">
+<h3><span class="header-section-number">2.4.1</span> MAG Dereplication<a href="bioinformatics-workflow.html#mag-dereplication" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Dereplication is the reduction of a set of MAGs based on high sequence similarity between them to minimize computational demands, inflated diversity, or unspecific read mapping. Dereplication is based on pairwise comparisons of <strong>average nucleotide identity (ANI)</strong> between MAGs, implying a quadratic increase in comparisons. A popular tool used for dereplicating MAGs is <strong>dRep</strong>, which combines the fast yet innacurate algorithm MASH with the slow but accurate gANI computation to yield a fast and accurate estimation of ANIs between MAGs. An optimal threshold that balances between retaining genome diversity while minimising cross-mapping issues has been found to be 98% ANI.</p>
+<pre><code>dRep dereplicate \                    # dereplicates a set of genomes
+      {config[workdir]}/drep \        #
+      -p {threads} \                  #
+      -comp 50 \                      # Minumum genome completeness
+      -sa {config[ani]} \             # ANI threshold to form secondary clusters
+      -g {config[magdir]}/*.fa.gz \   # genomes to filter in
+      --genomeInfo mags_formatted.csv</code></pre>
+</div>
+<div id="mapping-to-mag-catalogue" class="section level3 hasAnchor" number="2.4.2">
+<h3><span class="header-section-number">2.4.2</span> Mapping to MAG catalogue<a href="bioinformatics-workflow.html#mapping-to-mag-catalogue" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Relative abundance information is used to measure how abundant each bacteria is among a sample. To achieve this, reads from each sample must be mapped to the MAG catalogue. Identical to the assembly read-mapping section, but using the MAG catalogue as a reference database rather than the metagenomic assembly. First, reads are mapped to the MAG catalogue to generate BAM or CRAM mapping files. Then, mapping files are used to extract quantitative read-abundance information in the form of a table in which the amount of reads mapped to each MAG in each sample is displayed.</p>
+<p>All MAGs need to be concatenated into a single file, which will become the reference MAG catalogue or database.</p>
+<pre><code># Concatenate MAGs
+cat {config[workdir]}/drep/dereplicated_genomes/*.fa.gz &gt; {config[workdir]}/mag_catalogue/{config[dmb]}_mags.fasta.gz</code></pre>
+<p>The MAG catalogue needs to be indexed before the mapping.</p>
+<pre><code># Index the coassembly
+bowtie2-build \
+      --large-index \
+      --threads {threads} \
+      {output.mags} {output.mags}</code></pre>
+<p>Then, the following step needs to be iterated for each sample, yielding a BAM mapping file for each sample.</p>
+<pre><code>bowtie2 \
+    --time \
+    --threads {threads} \
+    -x {input.contigs} \
+    -1 {input.r1} \
+    -2 {input.r2} \
+| samtools sort -@ {threads} -o {output}</code></pre>
+<p>Finally, <strong>CoverM</strong> can be used to extract the required stats, such as relative abundance and covered fraction per MAG per sample.</p>
+<pre><code>#Relative abundance
+coverm genome \
+    -b {input} \                # Path to BAM file(s).
+    -s ^ \                      # Character separator genome names from contig names. 
+    -m relative_abundance \     # Method(s) for calculating coverage
+    -t {threads} \              #
+    --min-covered-fraction 0 \  #
+    &gt; {output.mapping_rate}
+
+#MAG coverage
+coverm genome \
+    -b {input} \
+    -s ^ \
+    -m count covered_fraction \
+    -t {threads} \
+    --min-covered-fraction 0 \
+    &gt; {output.count_table}</code></pre>
+
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-aroney_coverm_2025" class="csl-entry">
+Aroney, Samuel TN, Rhys JP Newell, Jakob N Nissen, Antonio Pedro Camargo, Gene W Tyson, and Ben J Woodcroft. 2025. <span>“<span>CoverM</span>: <span>Read</span> Alignment Statistics for Metagenomics.”</span> <em>Bioinformatics</em> 41 (4): btaf147. <a href="https://doi.org/10.1093/bioinformatics/btaf147">https://doi.org/10.1093/bioinformatics/btaf147</a>.
+</div>
+<div id="ref-chen_fastp_2018" class="csl-entry">
+Chen, Shifu, Yanqing Zhou, Yaru Chen, and Jia Gu. 2018. <span>“Fastp: An Ultra-Fast All-in-One <span>FASTQ</span> Preprocessor.”</span> <em>Bioinformatics</em> 34 (17): i884–90. <a href="https://doi.org/10.1093/bioinformatics/bty560">https://doi.org/10.1093/bioinformatics/bty560</a>.
+</div>
+<div id="ref-danecek_twelve_2021" class="csl-entry">
+<span class="nocase">Danecek, Petr, James K Bonfield, Jennifer Liddle, et al.</span> 2021. <span>“Twelve Years of <span>SAMtools</span> and <span>BCFtools</span>.”</span> <em>Gigascience</em> 10 (2): giab008. <a href="https://doi.org/10.1093/gigascience/giab008">https://doi.org/10.1093/gigascience/giab008</a>.
+</div>
+<div id="ref-eisenhofer_quantifying_2024" class="csl-entry">
+Eisenhofer, Raphael, Antton Alberdi, and Ben J Woodcroft. 2024. <span>“Quantifying Microbial <span>DNA</span> in Metagenomes Improves Microbial Trait Estimation.”</span> <em>ISME Communications</em> 4 (1): ycae111. <a href="https://doi.org/10.1093/ismeco/ycae111">https://doi.org/10.1093/ismeco/ycae111</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="prepare-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

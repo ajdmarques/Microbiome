@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 Prepare data | Urban Amphibian Microbiota | Manuscript in prep</title>
+  <meta name="description" content="Data analysis for mircrobiota sequencing of salamanders" />
+  <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 Prepare data | Urban Amphibian Microbiota | Manuscript in prep" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Data analysis for mircrobiota sequencing of salamanders" />
+  <meta name="github-repo" content="Blinded for review" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 Prepare data | Urban Amphibian Microbiota | Manuscript in prep" />
+  
+  <meta name="twitter:description" content="Data analysis for mircrobiota sequencing of salamanders" />
+  
+
+
+
+<meta name="date" content="2026-11-23" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="bioinformatics-workflow.html"/>
+<link rel="next" href="data-statistics.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#prepare-the-r-environment"><i class="fa fa-check"></i><b>1.1</b> Prepare the R environment</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#environment"><i class="fa fa-check"></i><b>1.1.1</b> Environment</a></li>
+<li class="chapter" data-level="1.1.2" data-path="index.html"><a href="index.html#libraries"><i class="fa fa-check"></i><b>1.1.2</b> Libraries</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html"><i class="fa fa-check"></i><b>2</b> Bioinformatics Workflow</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#data-preprocessing-step-1"><i class="fa fa-check"></i><b>2.1</b> Data preprocessing (step 1)</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#quality-filtering"><i class="fa fa-check"></i><b>2.1.1</b> Quality-filtering</a></li>
+<li class="chapter" data-level="2.1.2" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#host-mapping"><i class="fa fa-check"></i><b>2.1.2</b> Host mapping</a></li>
+<li class="chapter" data-level="2.1.3" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#metagenomic-complexity-assessment"><i class="fa fa-check"></i><b>2.1.3</b> Metagenomic complexity assessment</a></li>
+<li class="chapter" data-level="2.1.4" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#prokaryotic-fraction-assessment"><i class="fa fa-check"></i><b>2.1.4</b> Prokaryotic fraction assessment</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#assembly-binning-steps-2-4"><i class="fa fa-check"></i><b>2.2</b> Assembly &amp; Binning (steps 2-4)</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#metagenomic-assembly"><i class="fa fa-check"></i><b>2.2.1</b> Metagenomic assembly</a></li>
+<li class="chapter" data-level="2.2.2" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#assembly-mapping"><i class="fa fa-check"></i><b>2.2.2</b> Assembly mapping</a></li>
+<li class="chapter" data-level="2.2.3" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#ensemble-binning"><i class="fa fa-check"></i><b>2.2.3</b> Ensemble binning</a></li>
+<li class="chapter" data-level="2.2.4" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#bin-refinement"><i class="fa fa-check"></i><b>2.2.4</b> Bin refinement</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#mag-annotation-step-5"><i class="fa fa-check"></i><b>2.3</b> MAG Annotation (step 5)</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#taxonomic-annotation"><i class="fa fa-check"></i><b>2.3.1</b> Taxonomic annotation</a></li>
+<li class="chapter" data-level="2.3.2" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#functional-annotation"><i class="fa fa-check"></i><b>2.3.2</b> Functional annotation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#dereplication-step-6"><i class="fa fa-check"></i><b>2.4</b> Dereplication (step 6)</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#mag-dereplication"><i class="fa fa-check"></i><b>2.4.1</b> MAG Dereplication</a></li>
+<li class="chapter" data-level="2.4.2" data-path="bioinformatics-workflow.html"><a href="bioinformatics-workflow.html#mapping-to-mag-catalogue"><i class="fa fa-check"></i><b>2.4.2</b> Mapping to MAG catalogue</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="prepare-data.html"><a href="prepare-data.html"><i class="fa fa-check"></i><b>3</b> Prepare data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="prepare-data.html"><a href="prepare-data.html#verify-directories-present"><i class="fa fa-check"></i><b>3.1</b> Verify directories present</a></li>
+<li class="chapter" data-level="3.2" data-path="prepare-data.html"><a href="prepare-data.html#load-data"><i class="fa fa-check"></i><b>3.2</b> Load data</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="prepare-data.html"><a href="prepare-data.html#sample-metadata"><i class="fa fa-check"></i><b>3.2.1</b> Sample metadata</a></li>
+<li class="chapter" data-level="3.2.2" data-path="prepare-data.html"><a href="prepare-data.html#add-environmental-variables"><i class="fa fa-check"></i><b>3.2.2</b> Add environmental variables</a></li>
+<li class="chapter" data-level="3.2.3" data-path="prepare-data.html"><a href="prepare-data.html#visualize-metadata"><i class="fa fa-check"></i><b>3.2.3</b> Visualize Metadata</a></li>
+<li class="chapter" data-level="3.2.4" data-path="prepare-data.html"><a href="prepare-data.html#filter-table"><i class="fa fa-check"></i><b>3.2.4</b> Filter Table</a></li>
+<li class="chapter" data-level="3.2.5" data-path="prepare-data.html"><a href="prepare-data.html#read-counts"><i class="fa fa-check"></i><b>3.2.5</b> Read counts</a></li>
+<li class="chapter" data-level="3.2.6" data-path="prepare-data.html"><a href="prepare-data.html#genome-taxonomy"><i class="fa fa-check"></i><b>3.2.6</b> Genome taxonomy</a></li>
+<li class="chapter" data-level="3.2.7" data-path="prepare-data.html"><a href="prepare-data.html#genome-base-hits"><i class="fa fa-check"></i><b>3.2.7</b> Genome base hits</a></li>
+<li class="chapter" data-level="3.2.8" data-path="prepare-data.html"><a href="prepare-data.html#genome-tree"><i class="fa fa-check"></i><b>3.2.8</b> Genome tree</a></li>
+<li class="chapter" data-level="3.2.9" data-path="prepare-data.html"><a href="prepare-data.html#genome-annotations"><i class="fa fa-check"></i><b>3.2.9</b> Genome annotations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="prepare-data.html"><a href="prepare-data.html#create-working-objects"><i class="fa fa-check"></i><b>3.3</b> Create working objects</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="prepare-data.html"><a href="prepare-data.html#filter-reads-by-coverage"><i class="fa fa-check"></i><b>3.3.1</b> Filter reads by coverage</a></li>
+<li class="chapter" data-level="3.3.2" data-path="prepare-data.html"><a href="prepare-data.html#transform-reads-into-genome-counts"><i class="fa fa-check"></i><b>3.3.2</b> Transform reads into genome counts</a></li>
+<li class="chapter" data-level="3.3.3" data-path="prepare-data.html"><a href="prepare-data.html#filter-samples-by-coverage"><i class="fa fa-check"></i><b>3.3.3</b> Filter samples by coverage</a></li>
+<li class="chapter" data-level="3.3.4" data-path="prepare-data.html"><a href="prepare-data.html#distill-annotations-into-gifts"><i class="fa fa-check"></i><b>3.3.4</b> Distill annotations into GIFTs</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="prepare-data.html"><a href="prepare-data.html#prepare-color-scheme"><i class="fa fa-check"></i><b>3.4</b> Prepare color scheme</a></li>
+<li class="chapter" data-level="3.5" data-path="prepare-data.html"><a href="prepare-data.html#prepare-a-phyloseq-object"><i class="fa fa-check"></i><b>3.5</b> Prepare a phyloseq object</a></li>
+<li class="chapter" data-level="3.6" data-path="prepare-data.html"><a href="prepare-data.html#wrap-working-objects"><i class="fa fa-check"></i><b>3.6</b> Wrap working objects</a></li>
+<li class="chapter" data-level="3.7" data-path="prepare-data.html"><a href="prepare-data.html#cleanup"><i class="fa fa-check"></i><b>3.7</b> cleanup</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-statistics.html"><a href="data-statistics.html"><i class="fa fa-check"></i><b>4</b> Data statistics</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="data-statistics.html"><a href="data-statistics.html#habitat-characterization"><i class="fa fa-check"></i><b>4.1</b> Habitat Characterization</a></li>
+<li class="chapter" data-level="4.2" data-path="data-statistics.html"><a href="data-statistics.html#optional-filter-samples-with-high-host-data"><i class="fa fa-check"></i><b>4.2</b> [OPTIONAL] filter samples with high host data</a></li>
+<li class="chapter" data-level="4.3" data-path="data-statistics.html"><a href="data-statistics.html#sequencing-reads-statistics"><i class="fa fa-check"></i><b>4.3</b> Sequencing reads statistics</a></li>
+<li class="chapter" data-level="4.4" data-path="data-statistics.html"><a href="data-statistics.html#dna-fractions"><i class="fa fa-check"></i><b>4.4</b> DNA fractions</a></li>
+<li class="chapter" data-level="4.5" data-path="data-statistics.html"><a href="data-statistics.html#recovered-microbial-fraction"><i class="fa fa-check"></i><b>4.5</b> Recovered microbial fraction</a></li>
+<li class="chapter" data-level="4.6" data-path="data-statistics.html"><a href="data-statistics.html#cleanup-1"><i class="fa fa-check"></i><b>4.6</b> cleanup</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="mag-catalogue.html"><a href="mag-catalogue.html"><i class="fa fa-check"></i><b>5</b> MAG catalogue</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="mag-catalogue.html"><a href="mag-catalogue.html#genome-phylogeny"><i class="fa fa-check"></i><b>5.1</b> Genome phylogeny</a></li>
+<li class="chapter" data-level="5.2" data-path="mag-catalogue.html"><a href="mag-catalogue.html#taxonomy-overview"><i class="fa fa-check"></i><b>5.2</b> Taxonomy overview</a></li>
+<li class="chapter" data-level="5.3" data-path="mag-catalogue.html"><a href="mag-catalogue.html#mag-size-mb"><i class="fa fa-check"></i><b>5.3</b> Mag size (MB)</a></li>
+<li class="chapter" data-level="5.4" data-path="mag-catalogue.html"><a href="mag-catalogue.html#genome-quality"><i class="fa fa-check"></i><b>5.4</b> Genome quality</a></li>
+<li class="chapter" data-level="5.5" data-path="mag-catalogue.html"><a href="mag-catalogue.html#functional-overview"><i class="fa fa-check"></i><b>5.5</b> Functional overview</a></li>
+<li class="chapter" data-level="5.6" data-path="mag-catalogue.html"><a href="mag-catalogue.html#functional-ordination"><i class="fa fa-check"></i><b>5.6</b> Functional ordination</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="mag-catalogue.html"><a href="mag-catalogue.html#species-novelty-v-mag-quality"><i class="fa fa-check"></i><b>5.6.1</b> Species Novelty v MAG quality</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="mag-catalogue.html"><a href="mag-catalogue.html#mag-quality-v-habitat"><i class="fa fa-check"></i><b>5.7</b> MAG Quality v Habitat</a></li>
+<li class="chapter" data-level="5.8" data-path="mag-catalogue.html"><a href="mag-catalogue.html#cleanup-2"><i class="fa fa-check"></i><b>5.8</b> cleanup</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="community-composition.html"><a href="community-composition.html"><i class="fa fa-check"></i><b>6</b> Community composition</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="community-composition.html"><a href="community-composition.html#filter-data"><i class="fa fa-check"></i><b>6.1</b> Filter data</a></li>
+<li class="chapter" data-level="6.2" data-path="community-composition.html"><a href="community-composition.html#taxonomy-overview-1"><i class="fa fa-check"></i><b>6.2</b> Taxonomy overview</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="community-composition.html"><a href="community-composition.html#stacked-barplot"><i class="fa fa-check"></i><b>6.2.1</b> Stacked barplot</a></li>
+<li class="chapter" data-level="6.2.2" data-path="community-composition.html"><a href="community-composition.html#genus-and-species-annotation"><i class="fa fa-check"></i><b>6.2.2</b> Genus and species annotation</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="community-composition.html"><a href="community-composition.html#taxonomy-boxplots"><i class="fa fa-check"></i><b>6.3</b> Taxonomy boxplots</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="community-composition.html"><a href="community-composition.html#phylum"><i class="fa fa-check"></i><b>6.3.1</b> Phylum</a></li>
+<li class="chapter" data-level="6.3.2" data-path="community-composition.html"><a href="community-composition.html#class"><i class="fa fa-check"></i><b>6.3.2</b> Class</a></li>
+<li class="chapter" data-level="6.3.3" data-path="community-composition.html"><a href="community-composition.html#family"><i class="fa fa-check"></i><b>6.3.3</b> Family</a></li>
+<li class="chapter" data-level="6.3.4" data-path="community-composition.html"><a href="community-composition.html#genus"><i class="fa fa-check"></i><b>6.3.4</b> Genus</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="community-composition.html"><a href="community-composition.html#enrichment-analysis-ancombc2"><i class="fa fa-check"></i><b>6.4</b> Enrichment analysis: Ancombc2</a></li>
+<li class="chapter" data-level="6.5" data-path="community-composition.html"><a href="community-composition.html#outputs"><i class="fa fa-check"></i><b>6.5</b> Outputs</a></li>
+<li class="chapter" data-level="6.6" data-path="community-composition.html"><a href="community-composition.html#geolocation-correlations"><i class="fa fa-check"></i><b>6.6</b> Geolocation Correlations</a></li>
+<li class="chapter" data-level="6.7" data-path="community-composition.html"><a href="community-composition.html#update-metadata"><i class="fa fa-check"></i><b>6.7</b> Update metadata</a></li>
+<li class="chapter" data-level="6.8" data-path="community-composition.html"><a href="community-composition.html#cleanup-3"><i class="fa fa-check"></i><b>6.8</b> cleanup</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="alpha-diversity.html"><a href="alpha-diversity.html"><i class="fa fa-check"></i><b>7</b> Alpha diversity</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="alpha-diversity.html"><a href="alpha-diversity.html#summary-table"><i class="fa fa-check"></i><b>7.1</b> Summary table</a></li>
+<li class="chapter" data-level="7.2" data-path="alpha-diversity.html"><a href="alpha-diversity.html#shapiro-test"><i class="fa fa-check"></i><b>7.2</b> Shapiro test</a></li>
+<li class="chapter" data-level="7.3" data-path="alpha-diversity.html"><a href="alpha-diversity.html#plots"><i class="fa fa-check"></i><b>7.3</b> Plots</a></li>
+<li class="chapter" data-level="7.4" data-path="alpha-diversity.html"><a href="alpha-diversity.html#cleanup-4"><i class="fa fa-check"></i><b>7.4</b> cleanup</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="estimate-beta-diversity.html"><a href="estimate-beta-diversity.html"><i class="fa fa-check"></i><b>8</b> Estimate Beta Diversity</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="estimate-beta-diversity.html"><a href="estimate-beta-diversity.html#hill-number-distance-matrices"><i class="fa fa-check"></i><b>8.1</b> Hill Number Distance Matrices</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="estimate-beta-diversity.html"><a href="estimate-beta-diversity.html#permanova-analysis"><i class="fa fa-check"></i><b>8.1.1</b> Permanova analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="estimate-beta-diversity.html"><a href="estimate-beta-diversity.html#geographic-correlation"><i class="fa fa-check"></i><b>8.2</b> Geographic Correlation</a></li>
+<li class="chapter" data-level="8.3" data-path="estimate-beta-diversity.html"><a href="estimate-beta-diversity.html#site-comparisons"><i class="fa fa-check"></i><b>8.3</b> Site Comparisons</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="estimate-beta-diversity.html"><a href="estimate-beta-diversity.html#permanova-analysis-beta-diversity-plots"><i class="fa fa-check"></i><b>8.3.1</b> Permanova analysis &amp; Beta diversity plots</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="estimate-beta-diversity.html"><a href="estimate-beta-diversity.html#cleanup-5"><i class="fa fa-check"></i><b>8.4</b> cleanup</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="genome-function.html"><a href="genome-function.html"><i class="fa fa-check"></i><b>9</b> Genome Function</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="genome-function.html"><a href="genome-function.html#functional-differences"><i class="fa fa-check"></i><b>9.1</b> Functional differences</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="genome-function.html"><a href="genome-function.html#gifts-elements"><i class="fa fa-check"></i><b>9.1.1</b> GIFTs Elements</a></li>
+<li class="chapter" data-level="9.1.2" data-path="genome-function.html"><a href="genome-function.html#gifts-functions"><i class="fa fa-check"></i><b>9.1.2</b> GIFTs Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="genome-function.html"><a href="genome-function.html#ancomb2-identified-taxa"><i class="fa fa-check"></i><b>9.2</b> ANCOMB2 Identified Taxa</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="genome-function.html"><a href="genome-function.html#taxa-specific-gift"><i class="fa fa-check"></i><b>9.2.1</b> Taxa specific GIFT</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="genome-function.html"><a href="genome-function.html#habitat-exclusive-taxa"><i class="fa fa-check"></i><b>9.3</b> Habitat Exclusive Taxa</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="genome-function.html"><a href="genome-function.html#families"><i class="fa fa-check"></i><b>9.3.1</b> Families</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="genome-function.html"><a href="genome-function.html#sensitivity-analysis"><i class="fa fa-check"></i><b>9.4</b> Sensitivity Analysis</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="genome-function.html"><a href="genome-function.html#wilcox-test"><i class="fa fa-check"></i><b>9.4.1</b> Wilcox Test</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="genome-function.html"><a href="genome-function.html#distribute-gift-probabilities"><i class="fa fa-check"></i><b>9.5</b> Distribute GIFT Probabilities</a></li>
+<li class="chapter" data-level="9.6" data-path="genome-function.html"><a href="genome-function.html#bacterial-fungal-interactions"><i class="fa fa-check"></i><b>9.6</b> Bacterial-Fungal interactions</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Urban Amphibian Microbiota | Manuscript in prep</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="prepare-data" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">3</span> Prepare data<a href="prepare-data.html#prepare-data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Load packages</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb23-1"><a href="prepare-data.html#cb23-1" tabindex="-1"></a>pkgs <span class="ot">=</span> <span class="fu">readRDS</span>(<span class="st">&quot;data/Rpkgs.Rds&quot;</span>)</span>
+<span id="cb23-2"><a href="prepare-data.html#cb23-2" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">setdiff</span>(pkgs, <span class="fu">rownames</span>(<span class="fu">installed.packages</span>())))</span>
+<span id="cb23-3"><a href="prepare-data.html#cb23-3" tabindex="-1"></a><span class="fu">lapply</span>(pkgs, require, <span class="at">character.only =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div id="verify-directories-present" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Verify directories present<a href="prepare-data.html#verify-directories-present" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Open the main directory where data is stored.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb24-1"><a href="prepare-data.html#cb24-1" tabindex="-1"></a>dirMain <span class="ot">=</span> <span class="fu">getwd</span>()</span>
+<span id="cb24-2"><a href="prepare-data.html#cb24-2" tabindex="-1"></a>dirData <span class="ot">=</span> <span class="st">&quot;data/&quot;</span></span>
+<span id="cb24-3"><a href="prepare-data.html#cb24-3" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="prepare-data.html#cb24-4" tabindex="-1"></a><span class="co"># if not present then create</span></span>
+<span id="cb24-5"><a href="prepare-data.html#cb24-5" tabindex="-1"></a><span class="cf">if</span> ( <span class="fu">file.exists</span>(dirData) <span class="sc">==</span> <span class="cn">FALSE</span> ) <span class="sc">+</span></span>
+<span id="cb24-6"><a href="prepare-data.html#cb24-6" tabindex="-1"></a>  { <span class="fu">dir.create</span>(<span class="fu">file.path</span>(dirData), <span class="at">showWarnings =</span> <span class="cn">TRUE</span>) }</span></code></pre></div>
+</div>
+<div id="load-data" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Load data<a href="prepare-data.html#load-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Load the original data files outputted by the bioinformatic pipeline.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb25-1"><a href="prepare-data.html#cb25-1" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;data/data.Rdata&quot;</span>)</span>
+<span id="cb25-2"><a href="prepare-data.html#cb25-2" tabindex="-1"></a><span class="fu">ls</span>()</span></code></pre></div>
+<pre class="script-output"><code> [1] &quot;dirData&quot;            &quot;dirMain&quot;            &quot;genome_counts&quot;     
+ [4] &quot;genome_counts_filt&quot; &quot;genome_gifts_raw&quot;   &quot;genome_metadata&quot;   
+ [7] &quot;genome_tree&quot;        &quot;phylum_colors&quot;      &quot;physeq_genome&quot;     
+[10] &quot;physeq_genome_clr&quot;  &quot;pkgs&quot;               &quot;read_counts&quot;       
+[13] &quot;sample_metadata&quot;    &quot;sample_metadata3&quot;  </code></pre>
+<div id="sample-metadata" class="section level3 hasAnchor" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Sample metadata<a href="prepare-data.html#sample-metadata" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Load the metadata file from EHI.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb27-1"><a href="prepare-data.html#cb27-1" tabindex="-1"></a>sample_metadata <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">&quot;data/DMB0177_metadata.tsv.gz&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb27-2"><a href="prepare-data.html#cb27-2" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">sample=</span><span class="dv">1</span>)</span></code></pre></div>
+<p>Additional metadata information about the types of samples and which habitat they are ascribed to.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb28-1"><a href="prepare-data.html#cb28-1" tabindex="-1"></a><span class="co"># sample notes</span></span>
+<span id="cb28-2"><a href="prepare-data.html#cb28-2" tabindex="-1"></a>added_metadata <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/EHI_sample_metadata.csv&quot;</span>)</span>
+<span id="cb28-3"><a href="prepare-data.html#cb28-3" tabindex="-1"></a><span class="co"># join metadata data frames</span></span>
+<span id="cb28-4"><a href="prepare-data.html#cb28-4" tabindex="-1"></a>added_metadata <span class="ot">=</span> <span class="fu">merge.data.frame</span>(sample_metadata,added_metadata, </span>
+<span id="cb28-5"><a href="prepare-data.html#cb28-5" tabindex="-1"></a>                                    <span class="at">by.x =</span> <span class="st">&quot;sample_code&quot;</span>, <span class="at">by.y =</span> <span class="st">&quot;tube_code&quot;</span>,<span class="at">all.x =</span>  T)</span>
+<span id="cb28-6"><a href="prepare-data.html#cb28-6" tabindex="-1"></a><span class="co"># clarify swab type</span></span>
+<span id="cb28-7"><a href="prepare-data.html#cb28-7" tabindex="-1"></a>added_metadata <span class="ot">=</span> added_metadata <span class="sc">%&gt;%</span></span>
+<span id="cb28-8"><a href="prepare-data.html#cb28-8" tabindex="-1"></a>                 <span class="fu">mutate</span>(<span class="at">swab =</span> <span class="fu">ifelse</span>(<span class="fu">grepl</span>(<span class="st">&quot;EHI&quot;</span>, note), </span>
+<span id="cb28-9"><a href="prepare-data.html#cb28-9" tabindex="-1"></a>                       <span class="st">&quot;EHI&quot;</span>, </span>
+<span id="cb28-10"><a href="prepare-data.html#cb28-10" tabindex="-1"></a>                       <span class="st">&quot;CTM&quot;</span>))</span>
+<span id="cb28-11"><a href="prepare-data.html#cb28-11" tabindex="-1"></a><span class="co"># clarify buffer solution</span></span>
+<span id="cb28-12"><a href="prepare-data.html#cb28-12" tabindex="-1"></a>added_metadata <span class="ot">=</span> added_metadata <span class="sc">%&gt;%</span></span>
+<span id="cb28-13"><a href="prepare-data.html#cb28-13" tabindex="-1"></a>                  <span class="fu">mutate</span>(<span class="at">sol =</span> <span class="fu">ifelse</span>(<span class="fu">grepl</span>(<span class="st">&quot;ETOH&quot;</span>, note), </span>
+<span id="cb28-14"><a href="prepare-data.html#cb28-14" tabindex="-1"></a>                                      <span class="st">&quot;ETOH&quot;</span>, </span>
+<span id="cb28-15"><a href="prepare-data.html#cb28-15" tabindex="-1"></a>                                      <span class="st">&quot;PBS&quot;</span>))</span>
+<span id="cb28-16"><a href="prepare-data.html#cb28-16" tabindex="-1"></a><span class="co"># define sites as either urban or rual </span></span>
+<span id="cb28-17"><a href="prepare-data.html#cb28-17" tabindex="-1"></a>urban_sites <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;CTAT&quot;</span>,<span class="st">&quot;SMAT&quot;</span>,<span class="st">&quot;PCAR&quot;</span>)</span>
+<span id="cb28-18"><a href="prepare-data.html#cb28-18" tabindex="-1"></a>added_metadata <span class="ot">=</span> added_metadata <span class="sc">%&gt;%</span></span>
+<span id="cb28-19"><a href="prepare-data.html#cb28-19" tabindex="-1"></a>                 <span class="fu">mutate</span>(<span class="at">habitat =</span> <span class="fu">ifelse</span>(<span class="fu">grepl</span>(<span class="fu">paste</span>(urban_sites, <span class="at">collapse=</span><span class="st">&quot;|&quot;</span>), event_id), </span>
+<span id="cb28-20"><a href="prepare-data.html#cb28-20" tabindex="-1"></a>                       <span class="st">&quot;urban&quot;</span>, </span>
+<span id="cb28-21"><a href="prepare-data.html#cb28-21" tabindex="-1"></a>                       <span class="st">&quot;rural&quot;</span>))</span>
+<span id="cb28-22"><a href="prepare-data.html#cb28-22" tabindex="-1"></a></span>
+<span id="cb28-23"><a href="prepare-data.html#cb28-23" tabindex="-1"></a>sample_metadata <span class="ot">=</span> added_metadata</span></code></pre></div>
+<p>Prepare a secondary metadata data frame to compare replicates.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb29-1"><a href="prepare-data.html#cb29-1" tabindex="-1"></a>sample_metadata2 <span class="ot">=</span> readxl<span class="sc">::</span><span class="fu">read_xlsx</span>(<span class="st">&quot;data/EHI_electronic_metadata_V3.xlsx&quot;</span>, </span>
+<span id="cb29-2"><a href="prepare-data.html#cb29-2" tabindex="-1"></a>                                     <span class="st">&quot;Metadata B2 (Samples)&quot;</span>,</span>
+<span id="cb29-3"><a href="prepare-data.html#cb29-3" tabindex="-1"></a>                                     <span class="at">skip =</span> <span class="dv">10</span>,</span>
+<span id="cb29-4"><a href="prepare-data.html#cb29-4" tabindex="-1"></a>                                     <span class="at">col_names =</span></span>
+<span id="cb29-5"><a href="prepare-data.html#cb29-5" tabindex="-1"></a>                                       <span class="fu">c</span>(<span class="st">&quot;n&quot;</span>,<span class="st">&quot;sample_code&quot;</span>,</span>
+<span id="cb29-6"><a href="prepare-data.html#cb29-6" tabindex="-1"></a>                                      <span class="st">&quot;animal_id&quot;</span>,<span class="st">&quot;event_id&quot;</span>,</span>
+<span id="cb29-7"><a href="prepare-data.html#cb29-7" tabindex="-1"></a>                                      <span class="st">&quot;sample_type&quot;</span>,<span class="st">&quot;sample_origin&quot;</span>,</span>
+<span id="cb29-8"><a href="prepare-data.html#cb29-8" tabindex="-1"></a>                                      <span class="st">&quot;freshness&quot;</span>,<span class="st">&quot;freeze_time&quot;</span>,</span>
+<span id="cb29-9"><a href="prepare-data.html#cb29-9" tabindex="-1"></a>                                      <span class="st">&quot;notes&quot;</span>))</span>
+<span id="cb29-10"><a href="prepare-data.html#cb29-10" tabindex="-1"></a><span class="co"># correct sample codes names</span></span>
+<span id="cb29-11"><a href="prepare-data.html#cb29-11" tabindex="-1"></a>sample_metadata2[<span class="fu">grep</span>(<span class="st">&quot;ETOH&quot;</span>,sample_metadata2<span class="sc">$</span>sample_code),]<span class="sc">$</span>sample_code <span class="ot">=</span></span>
+<span id="cb29-12"><a href="prepare-data.html#cb29-12" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">&quot;AKD59&quot;</span>,<span class="st">&quot;AKD60&quot;</span>,<span class="cn">NA</span>,<span class="st">&quot;AKD62&quot;</span>,<span class="st">&quot;AKD63&quot;</span>)</span>
+<span id="cb29-13"><a href="prepare-data.html#cb29-13" tabindex="-1"></a></span>
+<span id="cb29-14"><a href="prepare-data.html#cb29-14" tabindex="-1"></a>sample_metadata2 <span class="ot">=</span> </span>
+<span id="cb29-15"><a href="prepare-data.html#cb29-15" tabindex="-1"></a>  sample_metadata2 <span class="sc">%&gt;%</span></span>
+<span id="cb29-16"><a href="prepare-data.html#cb29-16" tabindex="-1"></a>  <span class="fu">full_join</span>(sample_metadata, <span class="at">by =</span> <span class="st">&quot;sample_code&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb29-17"><a href="prepare-data.html#cb29-17" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">!</span><span class="fu">ends_with</span>(<span class="st">&quot;.y&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb29-18"><a href="prepare-data.html#cb29-18" tabindex="-1"></a>  <span class="fu">filter</span>(sample_type.x <span class="sc">==</span> <span class="st">&quot;Skin swab&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb29-19"><a href="prepare-data.html#cb29-19" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(sample))</span></code></pre></div>
+</div>
+<div id="add-environmental-variables" class="section level3 hasAnchor" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> Add environmental variables<a href="prepare-data.html#add-environmental-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Include details about mean impervious surface within 200m of sites.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb30-1"><a href="prepare-data.html#cb30-1" tabindex="-1"></a><span class="co"># read impervious surface</span></span>
+<span id="cb30-2"><a href="prepare-data.html#cb30-2" tabindex="-1"></a>gis_data <span class="ot">=</span> </span>
+<span id="cb30-3"><a href="prepare-data.html#cb30-3" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;data/EHI_site_metadata_QGIS.csv&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb30-4"><a href="prepare-data.html#cb30-4" tabindex="-1"></a>  <span class="fu">rename_with</span>(<span class="sc">~</span> <span class="fu">sapply</span>(<span class="fu">strsplit</span>(.x, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">.&quot;</span>), <span class="st">`</span><span class="at">[</span><span class="st">`</span>, <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb30-5"><a href="prepare-data.html#cb30-5" tabindex="-1"></a>  <span class="fu">select</span>(Sampling,X_IMDmean)</span>
+<span id="cb30-6"><a href="prepare-data.html#cb30-6" tabindex="-1"></a></span>
+<span id="cb30-7"><a href="prepare-data.html#cb30-7" tabindex="-1"></a>sample_metadata <span class="ot">=</span> </span>
+<span id="cb30-8"><a href="prepare-data.html#cb30-8" tabindex="-1"></a>  <span class="fu">merge</span>(</span>
+<span id="cb30-9"><a href="prepare-data.html#cb30-9" tabindex="-1"></a>  sample_metadata,</span>
+<span id="cb30-10"><a href="prepare-data.html#cb30-10" tabindex="-1"></a>  gis_data,</span>
+<span id="cb30-11"><a href="prepare-data.html#cb30-11" tabindex="-1"></a>  <span class="at">by.x =</span> <span class="st">&quot;event_id&quot;</span>, <span class="at">by.y =</span> <span class="st">&quot;Sampling&quot;</span>)</span></code></pre></div>
+<div id="optional-remove-ethanol-preserved-samples-from-further-consideration" class="section level4 hasAnchor" number="3.2.2.1">
+<h4><span class="header-section-number">3.2.2.1</span> [[OPTIONAL]] Remove ethanol preserved samples from further consideration<a href="prepare-data.html#optional-remove-ethanol-preserved-samples-from-further-consideration" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Exclude samples preserved in ethanol as part of our initial buffer trial.
+The output the total number of reads from the READ_COUNTS summary excluding samples that were not included in subsequent analyses.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb31-1"><a href="prepare-data.html#cb31-1" tabindex="-1"></a>sample_metadata2 <span class="ot">=</span> </span>
+<span id="cb31-2"><a href="prepare-data.html#cb31-2" tabindex="-1"></a>  sample_metadata  <span class="sc">%&gt;%</span></span>
+<span id="cb31-3"><a href="prepare-data.html#cb31-3" tabindex="-1"></a>  <span class="fu">filter</span>(sol <span class="sc">==</span> <span class="st">&quot;PBS&quot;</span>) <span class="sc">%&gt;%</span> <span class="co"># include only samples with PBS buffer</span></span>
+<span id="cb31-4"><a href="prepare-data.html#cb31-4" tabindex="-1"></a>  <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">&quot;Male&quot;</span>) <span class="co"># exclude females included by accident</span></span>
+<span id="cb31-5"><a href="prepare-data.html#cb31-5" tabindex="-1"></a></span>
+<span id="cb31-6"><a href="prepare-data.html#cb31-6" tabindex="-1"></a><span class="co"># summarize total reads among samples plus mean and median per sample</span></span>
+<span id="cb31-7"><a href="prepare-data.html#cb31-7" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(</span>
+<span id="cb31-8"><a href="prepare-data.html#cb31-8" tabindex="-1"></a>  <span class="fu">signif</span>(<span class="fu">sum</span>(read_counts[,sample_metadata2<span class="sc">$</span>sample]) <span class="sc">/</span> <span class="fl">1e6</span>, <span class="dv">3</span>),<span class="st">&quot;M total reads (mean = &quot;</span>,</span>
+<span id="cb31-9"><a href="prepare-data.html#cb31-9" tabindex="-1"></a>  <span class="fu">signif</span>(<span class="fu">mean</span>(<span class="fu">colSums</span>(read_counts[,sample_metadata2<span class="sc">$</span>sample]) <span class="sc">/</span> <span class="fl">1e6</span>), <span class="dv">3</span>),<span class="st">&quot;M ± &quot;</span>,</span>
+<span id="cb31-10"><a href="prepare-data.html#cb31-10" tabindex="-1"></a>  <span class="fu">signif</span>(<span class="fu">sd</span>(<span class="fu">colSums</span>(read_counts[,sample_metadata2<span class="sc">$</span>sample]) <span class="sc">/</span> <span class="fl">1e6</span>), <span class="dv">3</span>),<span class="st">&quot;M, median = &quot;</span>,</span>
+<span id="cb31-11"><a href="prepare-data.html#cb31-11" tabindex="-1"></a>  <span class="fu">signif</span>(<span class="fu">median</span>(<span class="fu">colSums</span>(read_counts[,sample_metadata2<span class="sc">$</span>sample]) <span class="sc">/</span> <span class="fl">1e6</span>), <span class="dv">3</span>), <span class="st">&quot;M reads per sample)&quot;</span></span>
+<span id="cb31-12"><a href="prepare-data.html#cb31-12" tabindex="-1"></a>))</span></code></pre></div>
+<pre class="script-output"><code>[1] &quot;101M total reads (mean = 1.74M ± 2.76M, median = 1.07M reads per sample)&quot;</code></pre>
+</div>
+<div id="optional-keep-only-duplicated-swabs-to-compare-solutions" class="section level4 hasAnchor" number="3.2.2.2">
+<h4><span class="header-section-number">3.2.2.2</span> [[OPTIONAL]] Keep only duplicated swabs to compare solutions<a href="prepare-data.html#optional-keep-only-duplicated-swabs-to-compare-solutions" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb33-1"><a href="prepare-data.html#cb33-1" tabindex="-1"></a>duplicates <span class="ot">=</span> sample_metadata2<span class="sc">$</span>animal_id.x[<span class="fu">duplicated</span>(sample_metadata2<span class="sc">$</span>animal_id.x)]</span>
+<span id="cb33-2"><a href="prepare-data.html#cb33-2" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="prepare-data.html#cb33-3" tabindex="-1"></a>sample_metadata <span class="ot">=</span> sample_metadata2[sample_metadata2<span class="sc">$</span>animal_id.x <span class="sc">%in%</span> duplicates,]</span></code></pre></div>
+</div>
+</div>
+<div id="visualize-metadata" class="section level3 hasAnchor" number="3.2.3">
+<h3><span class="header-section-number">3.2.3</span> Visualize Metadata<a href="prepare-data.html#visualize-metadata" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb34-1"><a href="prepare-data.html#cb34-1" tabindex="-1"></a><span class="fu">table</span>(sample_metadata2[<span class="sc">!</span><span class="fu">duplicated</span>(sample_metadata2<span class="sc">$</span>sample),<span class="fu">c</span>(<span class="st">&quot;region&quot;</span>,<span class="st">&quot;sex&quot;</span>)])</span></code></pre></div>
+<pre class="script-output"><code>       sex
+region  Male
+  Porto   58</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb36-1"><a href="prepare-data.html#cb36-1" tabindex="-1"></a><span class="co"># number of samples from each site</span></span>
+<span id="cb36-2"><a href="prepare-data.html#cb36-2" tabindex="-1"></a><span class="fu">ggplot</span>(sample_metadata2, <span class="fu">aes</span>(<span class="at">x =</span> habitat, <span class="at">y =</span> reads_post_fastp, <span class="at">fill =</span> event_id)) <span class="sc">+</span></span>
+<span id="cb36-3"><a href="prepare-data.html#cb36-3" tabindex="-1"></a>     <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.12</span>, <span class="at">outlier.color =</span> <span class="cn">NA</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb36-4"><a href="prepare-data.html#cb36-4" tabindex="-1"></a>     <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb36-5"><a href="prepare-data.html#cb36-5" tabindex="-1"></a>     <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Pastel2&quot;</span>) <span class="sc">+</span></span>
+<span id="cb36-6"><a href="prepare-data.html#cb36-6" tabindex="-1"></a>     <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb36-7"><a href="prepare-data.html#cb36-7" tabindex="-1"></a><span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>,</span>
+<span id="cb36-8"><a href="prepare-data.html#cb36-8" tabindex="-1"></a>         <span class="at">x=</span><span class="fl">1.4</span>,</span>
+<span id="cb36-9"><a href="prepare-data.html#cb36-9" tabindex="-1"></a>         <span class="at">y=</span><span class="dv">2</span><span class="sc">*</span><span class="fu">min</span>(sample_metadata2<span class="sc">$</span>reads_post_fastp),</span>
+<span id="cb36-10"><a href="prepare-data.html#cb36-10" tabindex="-1"></a>         <span class="at">label=</span><span class="fu">paste</span>(</span>
+<span id="cb36-11"><a href="prepare-data.html#cb36-11" tabindex="-1"></a>  <span class="st">&quot;F =&quot;</span>,<span class="fu">signif</span>(<span class="fu">oneway.test</span>(reads_post_fastp <span class="sc">~</span> event_id, <span class="at">data =</span> sample_metadata2, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)<span class="sc">$</span>statistic,<span class="dv">2</span>),</span>
+<span id="cb36-12"><a href="prepare-data.html#cb36-12" tabindex="-1"></a>  <span class="st">&quot;p =&quot;</span>,<span class="fu">signif</span>(<span class="fu">oneway.test</span>(reads_post_fastp <span class="sc">~</span> event_id, <span class="at">data =</span> sample_metadata2, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)<span class="sc">$</span>p.value,<span class="dv">2</span>)</span>
+<span id="cb36-13"><a href="prepare-data.html#cb36-13" tabindex="-1"></a>  )) <span class="sc">+</span></span>
+<span id="cb36-14"><a href="prepare-data.html#cb36-14" tabindex="-1"></a><span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>,</span>
+<span id="cb36-15"><a href="prepare-data.html#cb36-15" tabindex="-1"></a>         <span class="at">x=</span><span class="fl">1.6</span>,</span>
+<span id="cb36-16"><a href="prepare-data.html#cb36-16" tabindex="-1"></a>         <span class="at">y=</span><span class="dv">2</span><span class="sc">*</span><span class="fu">min</span>(sample_metadata2<span class="sc">$</span>reads_post_fastp),</span>
+<span id="cb36-17"><a href="prepare-data.html#cb36-17" tabindex="-1"></a>         <span class="at">label=</span><span class="fu">paste</span>(</span>
+<span id="cb36-18"><a href="prepare-data.html#cb36-18" tabindex="-1"></a>  <span class="st">&quot;t =&quot;</span>,<span class="fu">signif</span>(<span class="fu">t.test</span>(reads_post_fastp <span class="sc">~</span> habitat, <span class="at">data =</span> sample_metadata2)<span class="sc">$</span>statistic,<span class="dv">2</span>),</span>
+<span id="cb36-19"><a href="prepare-data.html#cb36-19" tabindex="-1"></a>  <span class="st">&quot;p =&quot;</span>,<span class="fu">signif</span>(<span class="fu">t.test</span>(reads_post_fastp <span class="sc">~</span> habitat, <span class="at">data =</span> sample_metadata2)<span class="sc">$</span>p.value,<span class="dv">2</span>)</span>
+<span id="cb36-20"><a href="prepare-data.html#cb36-20" tabindex="-1"></a>  ))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-12-1.png" alt="" width="672" />
+Use a reverse calculation to determine the total number of pre-fastp reads per sample.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb37-1"><a href="prepare-data.html#cb37-1" tabindex="-1"></a>N <span class="ot">=</span> sample_metadata2<span class="sc">$</span>reads_post_fastp <span class="co"># reads post fastp</span></span>
+<span id="cb37-2"><a href="prepare-data.html#cb37-2" tabindex="-1"></a>P <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> sample_metadata2<span class="sc">$</span>reads_lost_fastp_percent <span class="co"># proportion reads post fastp</span></span>
+<span id="cb37-3"><a href="prepare-data.html#cb37-3" tabindex="-1"></a>  </span>
+<span id="cb37-4"><a href="prepare-data.html#cb37-4" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(</span>
+<span id="cb37-5"><a href="prepare-data.html#cb37-5" tabindex="-1"></a>  <span class="fu">signif</span>(<span class="fu">sum</span>(N <span class="sc">/</span> (P<span class="sc">/</span><span class="dv">100</span>)) <span class="sc">/</span> <span class="fl">1e6</span>, <span class="dv">3</span>),<span class="st">&quot;M total reads (mean = &quot;</span>,</span>
+<span id="cb37-6"><a href="prepare-data.html#cb37-6" tabindex="-1"></a>  <span class="fu">signif</span>(<span class="fu">mean</span>(N <span class="sc">/</span> (P<span class="sc">/</span><span class="dv">100</span>)) <span class="sc">/</span> <span class="fl">1e6</span>, <span class="dv">3</span>),<span class="st">&quot;M ± &quot;</span>,</span>
+<span id="cb37-7"><a href="prepare-data.html#cb37-7" tabindex="-1"></a>  <span class="fu">signif</span>(<span class="fu">sd</span>(N <span class="sc">/</span> (P<span class="sc">/</span><span class="dv">100</span>)) <span class="sc">/</span> <span class="fl">1e6</span>, <span class="dv">3</span>),<span class="st">&quot;M, median = &quot;</span>,</span>
+<span id="cb37-8"><a href="prepare-data.html#cb37-8" tabindex="-1"></a>  <span class="fu">signif</span>(<span class="fu">median</span>(N <span class="sc">/</span> (P<span class="sc">/</span><span class="dv">100</span>)) <span class="sc">/</span> <span class="fl">1e6</span>, <span class="dv">3</span>), <span class="st">&quot;M reads per sample)&quot;</span></span>
+<span id="cb37-9"><a href="prepare-data.html#cb37-9" tabindex="-1"></a>))</span></code></pre></div>
+<pre class="script-output"><code>[1] &quot;170000M total reads (mean = 2940M ± 1280M, median = 2580M reads per sample)&quot;</code></pre>
+</div>
+<div id="filter-table" class="section level3 hasAnchor" number="3.2.4">
+<h3><span class="header-section-number">3.2.4</span> Filter Table<a href="prepare-data.html#filter-table" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb39-1"><a href="prepare-data.html#cb39-1" tabindex="-1"></a>sample_metadata2 <span class="sc">%&gt;%</span></span>
+<span id="cb39-2"><a href="prepare-data.html#cb39-2" tabindex="-1"></a>  <span class="fu">select</span>(animal_id,habitat,</span>
+<span id="cb39-3"><a href="prepare-data.html#cb39-3" tabindex="-1"></a>         singlem_fraction,reads_post_fastp,host_reads,reads_lost_fastp_percent,</span>
+<span id="cb39-4"><a href="prepare-data.html#cb39-4" tabindex="-1"></a>               host_bases,bases_lost_fastp_percent) <span class="sc">%&gt;%</span></span>
+<span id="cb39-5"><a href="prepare-data.html#cb39-5" tabindex="-1"></a>  <span class="fu">group_by</span>(habitat) <span class="sc">%&gt;%</span></span>
+<span id="cb39-6"><a href="prepare-data.html#cb39-6" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(singlem_fraction<span class="sc">:</span>reads_lost_fastp_percent,</span>
+<span id="cb39-7"><a href="prepare-data.html#cb39-7" tabindex="-1"></a>                   <span class="fu">list</span>(<span class="at">mean =</span> mean, <span class="at">sd =</span> sd),</span>
+<span id="cb39-8"><a href="prepare-data.html#cb39-8" tabindex="-1"></a>                   <span class="at">.names =</span> <span class="st">&quot;{.col}_{.fn}&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb39-9"><a href="prepare-data.html#cb39-9" tabindex="-1"></a>  <span class="fu">t</span>()</span></code></pre></div>
+<pre class="script-output"><code>                              [,1]          [,2]         
+habitat                       &quot;rural&quot;       &quot;urban&quot;      
+singlem_fraction_mean         &quot;50.47567&quot;    &quot;28.58821&quot;   
+singlem_fraction_sd           &quot;18.30102&quot;    &quot;21.28080&quot;   
+reads_post_fastp_mean         &quot;25875938&quot;    &quot;31278090&quot;   
+reads_post_fastp_sd           &quot;10048166&quot;    &quot;14052552&quot;   
+host_reads_mean               &quot;4345564&quot;     &quot;9822994&quot;    
+host_reads_sd                 &quot;3683833&quot;     &quot;6862186&quot;    
+reads_lost_fastp_percent_mean &quot;0.02777256&quot;  &quot;0.03011154&quot; 
+reads_lost_fastp_percent_sd   &quot;0.006347456&quot; &quot;0.006622514&quot;</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb41-1"><a href="prepare-data.html#cb41-1" tabindex="-1"></a>vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;singlem_fraction&quot;</span>,<span class="st">&quot;reads_post_fastp&quot;</span>,</span>
+<span id="cb41-2"><a href="prepare-data.html#cb41-2" tabindex="-1"></a>          <span class="st">&quot;host_reads&quot;</span>,<span class="st">&quot;reads_lost_fastp_percent&quot;</span>,</span>
+<span id="cb41-3"><a href="prepare-data.html#cb41-3" tabindex="-1"></a>          <span class="st">&quot;host_bases&quot;</span>,<span class="st">&quot;bases_lost_fastp_percent&quot;</span>)</span>
+<span id="cb41-4"><a href="prepare-data.html#cb41-4" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="prepare-data.html#cb41-5" tabindex="-1"></a><span class="co"># Loop to create and save one boxplot per column</span></span>
+<span id="cb41-6"><a href="prepare-data.html#cb41-6" tabindex="-1"></a><span class="cf">for</span> (v <span class="cf">in</span> vars) {</span>
+<span id="cb41-7"><a href="prepare-data.html#cb41-7" tabindex="-1"></a>  p <span class="ot">&lt;-</span> </span>
+<span id="cb41-8"><a href="prepare-data.html#cb41-8" tabindex="-1"></a>    <span class="fu">ggplot</span>(</span>
+<span id="cb41-9"><a href="prepare-data.html#cb41-9" tabindex="-1"></a>      sample_metadata2 <span class="sc">%&gt;%</span></span>
+<span id="cb41-10"><a href="prepare-data.html#cb41-10" tabindex="-1"></a>        <span class="fu">select</span>(animal_id,habitat,</span>
+<span id="cb41-11"><a href="prepare-data.html#cb41-11" tabindex="-1"></a>               singlem_fraction,reads_post_fastp,host_reads,reads_lost_fastp_percent,</span>
+<span id="cb41-12"><a href="prepare-data.html#cb41-12" tabindex="-1"></a>               host_bases,bases_lost_fastp_percent)</span>
+<span id="cb41-13"><a href="prepare-data.html#cb41-13" tabindex="-1"></a>  , <span class="fu">aes</span>(<span class="at">x =</span> habitat, <span class="at">y =</span> .data[[v]], <span class="at">fill =</span> habitat)) <span class="sc">+</span></span>
+<span id="cb41-14"><a href="prepare-data.html#cb41-14" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.5</span>, <span class="at">outlier.shape =</span> <span class="dv">21</span>) <span class="sc">+</span></span>
+<span id="cb41-15"><a href="prepare-data.html#cb41-15" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">paste</span>(<span class="st">&quot;Boxplot of&quot;</span>, v, <span class="st">&quot;by group&quot;</span>),</span>
+<span id="cb41-16"><a href="prepare-data.html#cb41-16" tabindex="-1"></a>         <span class="at">x =</span> <span class="st">&quot;Group&quot;</span>, <span class="at">y =</span> v) <span class="sc">+</span></span>
+<span id="cb41-17"><a href="prepare-data.html#cb41-17" tabindex="-1"></a>    <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
+<span id="cb41-18"><a href="prepare-data.html#cb41-18" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span>
+<span id="cb41-19"><a href="prepare-data.html#cb41-19" tabindex="-1"></a>  </span>
+<span id="cb41-20"><a href="prepare-data.html#cb41-20" tabindex="-1"></a>  <span class="fu">print</span>(p)  <span class="co"># display in RStudio / viewer</span></span>
+<span id="cb41-21"><a href="prepare-data.html#cb41-21" tabindex="-1"></a>}</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-14-1.png" alt="" width="672" /><img src="_main_files/figure-html/unnamed-chunk-14-2.png" alt="" width="672" /><img src="_main_files/figure-html/unnamed-chunk-14-3.png" alt="" width="672" /><img src="_main_files/figure-html/unnamed-chunk-14-4.png" alt="" width="672" /><img src="_main_files/figure-html/unnamed-chunk-14-5.png" alt="" width="672" /><img src="_main_files/figure-html/unnamed-chunk-14-6.png" alt="" width="672" /></p>
+</div>
+<div id="read-counts" class="section level3 hasAnchor" number="3.2.5">
+<h3><span class="header-section-number">3.2.5</span> Read counts<a href="prepare-data.html#read-counts" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb42-1"><a href="prepare-data.html#cb42-1" tabindex="-1"></a>read_counts <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">&quot;data/DMB0177_counts.tsv.gz&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb42-2"><a href="prepare-data.html#cb42-2" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">genome=</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-3"><a href="prepare-data.html#cb42-3" tabindex="-1"></a>    <span class="fu">select</span>(<span class="fu">one_of</span>(<span class="fu">c</span>(<span class="st">&quot;genome&quot;</span>,sample_metadata<span class="sc">$</span>sample)))</span>
+<span id="cb42-4"><a href="prepare-data.html#cb42-4" tabindex="-1"></a><span class="fu">head</span>(read_counts)</span></code></pre></div>
+<pre class="script-output"><code># A tibble: 6 × 65
+  genome EHI03126 EHI03162 EHI03159 EHI03146 EHI03144 EHI03160 EHI03150 EHI03161
+  &lt;chr&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+1 EHA05…        2        0        8        4        1    29313        2        2
+2 EHA05…        0        2        0        6        0     2847        0        0
+3 EHA05…       20       22       74        2       24    38797       69       65
+4 EHA05…       24        2       14        4        8    88558      118       37
+5 EHA05…       26        3        2       10        2        3        7        0
+6 EHA05…        4        0        0        0        4    37669        4        3
+# ℹ 56 more variables: EHI02648 &lt;dbl&gt;, EHI02650 &lt;dbl&gt;, EHI03142 &lt;dbl&gt;,
+#   EHI03114 &lt;dbl&gt;, EHI02651 &lt;dbl&gt;, EHI02645 &lt;dbl&gt;, EHI03113 &lt;dbl&gt;,
+#   EHI03129 &lt;dbl&gt;, EHI03111 &lt;dbl&gt;, EHI03158 &lt;dbl&gt;, EHI03120 &lt;dbl&gt;,
+#   EHI03134 &lt;dbl&gt;, EHI03145 &lt;dbl&gt;, EHI02659 &lt;dbl&gt;, EHI03130 &lt;dbl&gt;,
+#   EHI03156 &lt;dbl&gt;, EHI03125 &lt;dbl&gt;, EHI03153 &lt;dbl&gt;, EHI03118 &lt;dbl&gt;,
+#   EHI03163 &lt;dbl&gt;, EHI03133 &lt;dbl&gt;, EHI03135 &lt;dbl&gt;, EHI03141 &lt;dbl&gt;,
+#   EHI03122 &lt;dbl&gt;, EHI03149 &lt;dbl&gt;, EHI03121 &lt;dbl&gt;, EHI03128 &lt;dbl&gt;, …</code></pre>
+</div>
+<div id="genome-taxonomy" class="section level3 hasAnchor" number="3.2.6">
+<h3><span class="header-section-number">3.2.6</span> Genome taxonomy<a href="prepare-data.html#genome-taxonomy" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb44-1"><a href="prepare-data.html#cb44-1" tabindex="-1"></a>genome_metadata <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">&quot;data/DMB0177_mag_info.tsv.gz&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb44-2"><a href="prepare-data.html#cb44-2" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">length=</span>mag_size)<span class="sc">%&gt;%</span></span>
+<span id="cb44-3"><a href="prepare-data.html#cb44-3" tabindex="-1"></a>  <span class="fu">semi_join</span>(., read_counts, <span class="at">by =</span> <span class="st">&quot;genome&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-4"><a href="prepare-data.html#cb44-4" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">match</span>(genome,read_counts<span class="sc">$</span>genome))</span>
+<span id="cb44-5"><a href="prepare-data.html#cb44-5" tabindex="-1"></a><span class="fu">head</span>(genome_metadata)</span></code></pre></div>
+<pre class="script-output"><code># A tibble: 6 × 11
+  genome           domain   phylum class order family genus species completeness
+  &lt;chr&gt;            &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;          &lt;dbl&gt;
+1 EHA05315_bin.100 d__Bact… p__Ba… c__B… o__B… f__Ri… g__A… s__             55.7
+2 EHA05315_bin.101 d__Bact… p__Ba… c__C… o__O… f__Ru… g__J… s__             63.0
+3 EHA05315_bin.102 d__Bact… p__Ba… c__B… o__B… f__Ta… g__P… s__             92.1
+4 EHA05315_bin.103 d__Bact… p__Ba… c__B… o__B… f__Ba… g__B… s__             80.2
+5 EHA05315_bin.104 d__Bact… p__Ba… c__B… o__C… f__Ch… g__H… s__             82.2
+6 EHA05315_bin.105 d__Bact… p__Ba… c__C… o__O… f__Os… g__P… s__             90.3
+# ℹ 2 more variables: contamination &lt;dbl&gt;, length &lt;dbl&gt;</code></pre>
+</div>
+<div id="genome-base-hits" class="section level3 hasAnchor" number="3.2.7">
+<h3><span class="header-section-number">3.2.7</span> Genome base hits<a href="prepare-data.html#genome-base-hits" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb46-1"><a href="prepare-data.html#cb46-1" tabindex="-1"></a>genome_coverage <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">&quot;data/DMB0177_coverage.tsv.gz&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb46-2"><a href="prepare-data.html#cb46-2" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">genome=</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-3"><a href="prepare-data.html#cb46-3" tabindex="-1"></a>    <span class="fu">select</span>(<span class="fu">one_of</span>(<span class="fu">c</span>(<span class="st">&quot;genome&quot;</span>,sample_metadata<span class="sc">$</span>sample)))<span class="sc">%&gt;%</span> </span>
+<span id="cb46-4"><a href="prepare-data.html#cb46-4" tabindex="-1"></a>  <span class="fu">semi_join</span>(., genome_metadata, <span class="at">by =</span> <span class="st">&quot;genome&quot;</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb46-5"><a href="prepare-data.html#cb46-5" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">match</span>(genome, read_counts<span class="sc">$</span>genome))</span>
+<span id="cb46-6"><a href="prepare-data.html#cb46-6" tabindex="-1"></a><span class="fu">head</span>(genome_coverage)</span></code></pre></div>
+<pre class="script-output"><code># A tibble: 6 × 65
+  genome EHI03126 EHI03162 EHI03159 EHI03146 EHI03144 EHI03160 EHI03150 EHI03161
+  &lt;chr&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+1 EHA05…  4.34e-5  0        2.11e-4  8.30e-5  8.14e-5  7.45e-1 0.000163  8.62e-5
+2 EHA05…  0        1.05e-4  0        4.57e-4  0        1.45e-1 0         0      
+3 EHA05…  3.45e-4  2.51e-4  1.20e-3  2.40e-5  4.79e-4  4.79e-1 0.00119   1.02e-3
+4 EHA05…  4.88e-4  4.89e-5  2.57e-4  6.39e-5  1.41e-4  8.31e-1 0.00256   9.96e-4
+5 EHA05…  7.84e-4  8.96e-5  3.61e-5  2.58e-4  3.68e-5  8.02e-5 0.000156  0      
+6 EHA05…  1.92e-4  0        0        0        1.38e-4  7.79e-1 0.000182  1.18e-4
+# ℹ 56 more variables: EHI02648 &lt;dbl&gt;, EHI02650 &lt;dbl&gt;, EHI03142 &lt;dbl&gt;,
+#   EHI03114 &lt;dbl&gt;, EHI02651 &lt;dbl&gt;, EHI02645 &lt;dbl&gt;, EHI03113 &lt;dbl&gt;,
+#   EHI03129 &lt;dbl&gt;, EHI03111 &lt;dbl&gt;, EHI03158 &lt;dbl&gt;, EHI03120 &lt;dbl&gt;,
+#   EHI03134 &lt;dbl&gt;, EHI03145 &lt;dbl&gt;, EHI02659 &lt;dbl&gt;, EHI03130 &lt;dbl&gt;,
+#   EHI03156 &lt;dbl&gt;, EHI03125 &lt;dbl&gt;, EHI03153 &lt;dbl&gt;, EHI03118 &lt;dbl&gt;,
+#   EHI03163 &lt;dbl&gt;, EHI03133 &lt;dbl&gt;, EHI03135 &lt;dbl&gt;, EHI03141 &lt;dbl&gt;,
+#   EHI03122 &lt;dbl&gt;, EHI03149 &lt;dbl&gt;, EHI03121 &lt;dbl&gt;, EHI03128 &lt;dbl&gt;, …</code></pre>
+</div>
+<div id="genome-tree" class="section level3 hasAnchor" number="3.2.8">
+<h3><span class="header-section-number">3.2.8</span> Genome tree<a href="prepare-data.html#genome-tree" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb48-1"><a href="prepare-data.html#cb48-1" tabindex="-1"></a>genome_tree <span class="ot">&lt;-</span> <span class="fu">read_tree</span>(<span class="st">&quot;data/DMB0177.tree.gz&quot;</span>)</span>
+<span id="cb48-2"><a href="prepare-data.html#cb48-2" tabindex="-1"></a>genome_tree<span class="sc">$</span>tip.label <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(genome_tree<span class="sc">$</span>tip.label,<span class="st">&quot;&#39;&quot;</span>, <span class="st">&quot;&quot;</span>) <span class="co">#remove single quotes in MAG names</span></span>
+<span id="cb48-3"><a href="prepare-data.html#cb48-3" tabindex="-1"></a>genome_tree <span class="ot">&lt;-</span> <span class="fu">keep.tip</span>(genome_tree, <span class="at">tip=</span>genome_metadata<span class="sc">$</span>genome) <span class="co"># keep only MAG tips</span></span>
+<span id="cb48-4"><a href="prepare-data.html#cb48-4" tabindex="-1"></a>genome_tree</span></code></pre></div>
+<pre class="script-output"><code>
+Phylogenetic tree with 118 tips and 117 internal nodes.
+
+Tip labels:
+  EHA05315_bin.54, EHA05315_bin.87, EHA05315_bin.58, EHA05315_bin.85, EHA05315_bin.49, EHA05315_bin.81, ...
+Node labels:
+  1.0, &#39;55.0-p__Verrucomicrobiota&#39;, , &#39;100.0-g__Akkermansia&#39;, 0.0, 0.0, ...
+
+Rooted; includes branch length(s).</code></pre>
+</div>
+<div id="genome-annotations" class="section level3 hasAnchor" number="3.2.9">
+<h3><span class="header-section-number">3.2.9</span> Genome annotations<a href="prepare-data.html#genome-annotations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Downloading individual annotation files from ERDA using information in Airtable and writing them to a single compressed table takes a while. The following chunk only needs to be run once, to generate the <strong><em>genome_annotations</em></strong> table that is saved in the data directory. Note that the airtable connection requires a personal access token.</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb50-1"><a href="prepare-data.html#cb50-1" tabindex="-1"></a><span class="fu">airtable</span>(<span class="st">&quot;MAGs&quot;</span>, <span class="st">&quot;appWbHBNLE6iAsMRV&quot;</span>) <span class="sc">%&gt;%</span> <span class="co">#get base ID from Airtable browser URL</span></span>
+<span id="cb50-2"><a href="prepare-data.html#cb50-2" tabindex="-1"></a>  <span class="fu">read_airtable</span>(., <span class="at">fields =</span> <span class="fu">c</span>(<span class="st">&quot;ID&quot;</span>,<span class="st">&quot;mag_name&quot;</span>,<span class="st">&quot;number_genes&quot;</span>,<span class="st">&quot;anno_url&quot;</span>), <span class="at">id_to_col =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="co">#get 3 columns from MAGs table</span></span>
+<span id="cb50-3"><a href="prepare-data.html#cb50-3" tabindex="-1"></a>  <span class="fu">filter</span>(mag_name <span class="sc">%in%</span> <span class="fu">paste0</span>(genome_metadata<span class="sc">$</span>genome,<span class="st">&quot;.fa&quot;</span>)) <span class="sc">%&gt;%</span> <span class="co">#filter by MAG name</span></span>
+<span id="cb50-4"><a href="prepare-data.html#cb50-4" tabindex="-1"></a>  <span class="fu">filter</span>(number_genes <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span> <span class="co">#genes need to exist</span></span>
+<span id="cb50-5"><a href="prepare-data.html#cb50-5" tabindex="-1"></a>  <span class="fu">select</span>(anno_url) <span class="sc">%&gt;%</span> <span class="co">#list MAG annotation urls</span></span>
+<span id="cb50-6"><a href="prepare-data.html#cb50-6" tabindex="-1"></a>  <span class="fu">pull</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb50-7"><a href="prepare-data.html#cb50-7" tabindex="-1"></a>  <span class="fu">read_tsv</span>() <span class="sc">%&gt;%</span> <span class="co">#load all tables</span></span>
+<span id="cb50-8"><a href="prepare-data.html#cb50-8" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">gene=</span><span class="dv">1</span>, <span class="at">genome=</span><span class="dv">2</span>, <span class="at">contig=</span><span class="dv">3</span>) <span class="sc">%&gt;%</span> <span class="co">#rename first 3 columns</span></span>
+<span id="cb50-9"><a href="prepare-data.html#cb50-9" tabindex="-1"></a>  <span class="fu">select</span>(gene,genome,contig,gene_position,start_position,end_position,kegg_id,cazy_hits) <span class="sc">%&gt;%</span> </span>
+<span id="cb50-10"><a href="prepare-data.html#cb50-10" tabindex="-1"></a>  <span class="fu">write_tsv</span>(<span class="at">file=</span><span class="st">&quot;data/genome_annotations.tsv.xz&quot;</span>) <span class="co">#write to overall compressed file</span></span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb51-1"><a href="prepare-data.html#cb51-1" tabindex="-1"></a>genome_annotations <span class="ot">&lt;-</span> </span>
+<span id="cb51-2"><a href="prepare-data.html#cb51-2" tabindex="-1"></a>  <span class="co">#read_tsv(&quot;data/genome_annotations.tsv.xz&quot;) %&gt;%</span></span>
+<span id="cb51-3"><a href="prepare-data.html#cb51-3" tabindex="-1"></a>  <span class="co">#rename(gene=1, genome=2, contig=3)</span></span>
+<span id="cb51-4"><a href="prepare-data.html#cb51-4" tabindex="-1"></a>  <span class="fu">read_tsv</span>(<span class="st">&quot;data/gene_annotations.tsv.xz&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb51-5"><a href="prepare-data.html#cb51-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">genome =</span> <span class="fu">str_extract</span>(gene,<span class="st">&quot;EHA</span><span class="sc">\\</span><span class="st">d+_bin</span><span class="sc">\\</span><span class="st">.</span><span class="sc">\\</span><span class="st">d+&quot;</span>))</span>
+<span id="cb51-6"><a href="prepare-data.html#cb51-6" tabindex="-1"></a>    </span>
+<span id="cb51-7"><a href="prepare-data.html#cb51-7" tabindex="-1"></a><span class="fu">head</span>(genome_annotations)</span></code></pre></div>
+<pre class="script-output"><code># A tibble: 6 × 14
+  gene                start   end strand kegg  ec    pfam  cazy  resistance_type
+  &lt;chr&gt;               &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;          
+1 EHA05315_bin.91^_0…   142   786 +      K172… 1.1.… &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;           
+2 EHA05315_bin.91^_0…   816  1991 -      K119… 5.6.… PF00… &lt;NA&gt;  &lt;NA&gt;           
+3 EHA05315_bin.91^_1…     2   394 -      K006… 2.3.… PF14… &lt;NA&gt;  &lt;NA&gt;           
+4 EHA05315_bin.91^_1…   455   952 +      K047… 5.4.… PF01… &lt;NA&gt;  &lt;NA&gt;           
+5 EHA05315_bin.91^_1…  1056  1994 +      K017… 2.5.… PF01… &lt;NA&gt;  &lt;NA&gt;           
+6 EHA05315_bin.91^_2…     3  2063 -      K161… 5.1.… PF00… &lt;NA&gt;  &lt;NA&gt;           
+# ℹ 5 more variables: resistance_target &lt;chr&gt;, vf &lt;chr&gt;, vf_type &lt;chr&gt;,
+#   signalp &lt;chr&gt;, genome &lt;chr&gt;</code></pre>
+<p>Calculate the average contig length for each MAG</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb53-1"><a href="prepare-data.html#cb53-1" tabindex="-1"></a><span class="co"># contig length as difference in bp from end to start</span></span>
+<span id="cb53-2"><a href="prepare-data.html#cb53-2" tabindex="-1"></a>genome_annotations <span class="ot">=</span></span>
+<span id="cb53-3"><a href="prepare-data.html#cb53-3" tabindex="-1"></a>  genome_annotations <span class="sc">%&gt;%</span></span>
+<span id="cb53-4"><a href="prepare-data.html#cb53-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">contig_bp =</span> end <span class="sc">-</span> start)</span>
+<span id="cb53-5"><a href="prepare-data.html#cb53-5" tabindex="-1"></a></span>
+<span id="cb53-6"><a href="prepare-data.html#cb53-6" tabindex="-1"></a><span class="co"># define the function to calculate N50 as the length such that half of the total (typically sum of lengths) is contained in contigs/scaffolds of that length or longer.</span></span>
+<span id="cb53-7"><a href="prepare-data.html#cb53-7" tabindex="-1"></a>n50 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb53-8"><a href="prepare-data.html#cb53-8" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">sort</span>(x, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb53-9"><a href="prepare-data.html#cb53-9" tabindex="-1"></a>  cum <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(x)</span>
+<span id="cb53-10"><a href="prepare-data.html#cb53-10" tabindex="-1"></a>  half <span class="ot">&lt;-</span> <span class="fu">sum</span>(x) <span class="sc">/</span> <span class="dv">2</span></span>
+<span id="cb53-11"><a href="prepare-data.html#cb53-11" tabindex="-1"></a>  x[<span class="fu">which</span>(cum <span class="sc">&gt;=</span> half)[<span class="dv">1</span>]]</span>
+<span id="cb53-12"><a href="prepare-data.html#cb53-12" tabindex="-1"></a>}</span>
+<span id="cb53-13"><a href="prepare-data.html#cb53-13" tabindex="-1"></a></span>
+<span id="cb53-14"><a href="prepare-data.html#cb53-14" tabindex="-1"></a><span class="co"># add N50 to metadata</span></span>
+<span id="cb53-15"><a href="prepare-data.html#cb53-15" tabindex="-1"></a>genome_metadata <span class="ot">=</span> </span>
+<span id="cb53-16"><a href="prepare-data.html#cb53-16" tabindex="-1"></a><span class="fu">merge</span>(</span>
+<span id="cb53-17"><a href="prepare-data.html#cb53-17" tabindex="-1"></a>  genome_metadata,</span>
+<span id="cb53-18"><a href="prepare-data.html#cb53-18" tabindex="-1"></a>  genome_annotations <span class="sc">%&gt;%</span></span>
+<span id="cb53-19"><a href="prepare-data.html#cb53-19" tabindex="-1"></a>  <span class="fu">group_by</span>(genome) <span class="sc">%&gt;%</span></span>
+<span id="cb53-20"><a href="prepare-data.html#cb53-20" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">N50 =</span> <span class="fu">n50</span>(contig_bp), <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>), </span>
+<span id="cb53-21"><a href="prepare-data.html#cb53-21" tabindex="-1"></a>  <span class="at">by =</span> <span class="st">&quot;genome&quot;</span></span>
+<span id="cb53-22"><a href="prepare-data.html#cb53-22" tabindex="-1"></a>  )</span></code></pre></div>
+</div>
+</div>
+<div id="create-working-objects" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Create working objects<a href="prepare-data.html#create-working-objects" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Transform the original data files into working objects for downstream analyses.</p>
+<div id="filter-reads-by-coverage" class="section level3 hasAnchor" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Filter reads by coverage<a href="prepare-data.html#filter-reads-by-coverage" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Set the minimum genome coverage of a MAG within each sample to 30%. MAGs with fewer that 30% coverage are then removed.</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb54-1"><a href="prepare-data.html#cb54-1" tabindex="-1"></a>min_coverage<span class="ot">=</span><span class="fl">0.3</span></span>
+<span id="cb54-2"><a href="prepare-data.html#cb54-2" tabindex="-1"></a>read_counts_filt <span class="ot">&lt;-</span> genome_coverage <span class="sc">%&gt;%</span></span>
+<span id="cb54-3"><a href="prepare-data.html#cb54-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span> <span class="fu">ifelse</span>(. <span class="sc">&gt;</span> min_coverage, <span class="dv">1</span>, <span class="dv">0</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb54-4"><a href="prepare-data.html#cb54-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="sc">~</span> . <span class="sc">*</span> read_counts[[<span class="fu">cur_column</span>()]]))</span>
+<span id="cb54-5"><a href="prepare-data.html#cb54-5" tabindex="-1"></a></span>
+<span id="cb54-6"><a href="prepare-data.html#cb54-6" tabindex="-1"></a><span class="co"># summary</span></span>
+<span id="cb54-7"><a href="prepare-data.html#cb54-7" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(</span>
+<span id="cb54-8"><a href="prepare-data.html#cb54-8" tabindex="-1"></a>  <span class="fu">signif</span>(<span class="fu">sum</span>(read_counts_filt[,sample_metadata<span class="sc">$</span>sample]) <span class="sc">/</span> <span class="fl">1e6</span>, <span class="dv">3</span>),<span class="st">&quot;M total reads (mean = &quot;</span>,</span>
+<span id="cb54-9"><a href="prepare-data.html#cb54-9" tabindex="-1"></a>  <span class="fu">signif</span>(<span class="fu">mean</span>(<span class="fu">colSums</span>(read_counts_filt[,sample_metadata<span class="sc">$</span>sample]) <span class="sc">/</span> <span class="fl">1e6</span>), <span class="dv">3</span>),<span class="st">&quot;M ± &quot;</span>,</span>
+<span id="cb54-10"><a href="prepare-data.html#cb54-10" tabindex="-1"></a>  <span class="fu">signif</span>(<span class="fu">sd</span>(<span class="fu">colSums</span>(read_counts_filt[,sample_metadata<span class="sc">$</span>sample]) <span class="sc">/</span> <span class="fl">1e6</span>), <span class="dv">3</span>),<span class="st">&quot;M, median = &quot;</span>,</span>
+<span id="cb54-11"><a href="prepare-data.html#cb54-11" tabindex="-1"></a>  <span class="fu">signif</span>(<span class="fu">median</span>(<span class="fu">colSums</span>(read_counts_filt[,sample_metadata<span class="sc">$</span>sample]) <span class="sc">/</span> <span class="fl">1e6</span>), <span class="dv">3</span>), <span class="st">&quot;M reads per sample)&quot;</span></span>
+<span id="cb54-12"><a href="prepare-data.html#cb54-12" tabindex="-1"></a>))</span></code></pre></div>
+<pre class="script-output"><code>[1] &quot;106M total reads (mean = 1.66M ± 2.66M, median = 0.986M reads per sample)&quot;</code></pre>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb56-1"><a href="prepare-data.html#cb56-1" tabindex="-1"></a><span class="fu">head</span>(read_counts_filt)</span></code></pre></div>
+<pre class="script-output"><code># A tibble: 6 × 65
+  genome EHI03126 EHI03162 EHI03159 EHI03146 EHI03144 EHI03160 EHI03150 EHI03161
+  &lt;chr&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+1 EHA05…        0        0        0        0        0    29313        0        0
+2 EHA05…        0        0        0        0        0        0        0        0
+3 EHA05…        0        0        0        0        0    38797        0        0
+4 EHA05…        0        0        0        0        0    88558        0        0
+5 EHA05…        0        0        0        0        0        0        0        0
+6 EHA05…        0        0        0        0        0    37669        0        0
+# ℹ 56 more variables: EHI02648 &lt;dbl&gt;, EHI02650 &lt;dbl&gt;, EHI03142 &lt;dbl&gt;,
+#   EHI03114 &lt;dbl&gt;, EHI02651 &lt;dbl&gt;, EHI02645 &lt;dbl&gt;, EHI03113 &lt;dbl&gt;,
+#   EHI03129 &lt;dbl&gt;, EHI03111 &lt;dbl&gt;, EHI03158 &lt;dbl&gt;, EHI03120 &lt;dbl&gt;,
+#   EHI03134 &lt;dbl&gt;, EHI03145 &lt;dbl&gt;, EHI02659 &lt;dbl&gt;, EHI03130 &lt;dbl&gt;,
+#   EHI03156 &lt;dbl&gt;, EHI03125 &lt;dbl&gt;, EHI03153 &lt;dbl&gt;, EHI03118 &lt;dbl&gt;,
+#   EHI03163 &lt;dbl&gt;, EHI03133 &lt;dbl&gt;, EHI03135 &lt;dbl&gt;, EHI03141 &lt;dbl&gt;,
+#   EHI03122 &lt;dbl&gt;, EHI03149 &lt;dbl&gt;, EHI03121 &lt;dbl&gt;, EHI03128 &lt;dbl&gt;, …</code></pre>
+</div>
+<div id="transform-reads-into-genome-counts" class="section level3 hasAnchor" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> Transform reads into genome counts<a href="prepare-data.html#transform-reads-into-genome-counts" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The number of reads for each MAG per sample (<span class="math inline">\(n_{reads}\)</span>) is divided by the total length of the genome (<span class="math inline">\(length_{genome}\)</span>) assuming a sequence read length of 150bp (<span class="math inline">\(length_{read}\)</span>).</p>
+<p><span class="math inline">\(n_{reads} / \frac{length_{genome}}{length_{read}}\)</span></p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb58-1"><a href="prepare-data.html#cb58-1" tabindex="-1"></a>readlength<span class="ot">=</span><span class="dv">150</span></span>
+<span id="cb58-2"><a href="prepare-data.html#cb58-2" tabindex="-1"></a>genome_counts <span class="ot">&lt;-</span> read_counts <span class="sc">%&gt;%</span></span>
+<span id="cb58-3"><a href="prepare-data.html#cb58-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span> . <span class="sc">/</span> (genome_metadata<span class="sc">$</span>length <span class="sc">/</span> readlength) ))</span>
+<span id="cb58-4"><a href="prepare-data.html#cb58-4" tabindex="-1"></a><span class="fu">head</span>(genome_counts)</span></code></pre></div>
+<pre class="script-output"><code># A tibble: 6 × 65
+  genome EHI03126 EHI03162 EHI03159 EHI03146 EHI03144 EHI03160 EHI03150 EHI03161
+  &lt;chr&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+1 EHA05…  8.64e-5  0        3.46e-4 0.000173  4.32e-5 1.27      8.64e-5  8.64e-5
+2 EHA05…  0        9.98e-5  0       0.000299  0       0.142     0        0      
+3 EHA05…  1.63e-3  1.79e-3  6.02e-3 0.000163  1.95e-3 3.16      5.61e-3  5.29e-3
+4 EHA05…  2.51e-3  2.09e-4  1.47e-3 0.000419  8.38e-4 9.28      1.24e-2  3.88e-3
+5 EHA05…  8.74e-4  1.01e-4  6.73e-5 0.000336  6.73e-5 0.000101  2.35e-4  0      
+6 EHA05…  1.67e-4  0        0       0         1.67e-4 1.57      1.67e-4  1.25e-4
+# ℹ 56 more variables: EHI02648 &lt;dbl&gt;, EHI02650 &lt;dbl&gt;, EHI03142 &lt;dbl&gt;,
+#   EHI03114 &lt;dbl&gt;, EHI02651 &lt;dbl&gt;, EHI02645 &lt;dbl&gt;, EHI03113 &lt;dbl&gt;,
+#   EHI03129 &lt;dbl&gt;, EHI03111 &lt;dbl&gt;, EHI03158 &lt;dbl&gt;, EHI03120 &lt;dbl&gt;,
+#   EHI03134 &lt;dbl&gt;, EHI03145 &lt;dbl&gt;, EHI02659 &lt;dbl&gt;, EHI03130 &lt;dbl&gt;,
+#   EHI03156 &lt;dbl&gt;, EHI03125 &lt;dbl&gt;, EHI03153 &lt;dbl&gt;, EHI03118 &lt;dbl&gt;,
+#   EHI03163 &lt;dbl&gt;, EHI03133 &lt;dbl&gt;, EHI03135 &lt;dbl&gt;, EHI03141 &lt;dbl&gt;,
+#   EHI03122 &lt;dbl&gt;, EHI03149 &lt;dbl&gt;, EHI03121 &lt;dbl&gt;, EHI03128 &lt;dbl&gt;, …</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb60-1"><a href="prepare-data.html#cb60-1" tabindex="-1"></a>readlength<span class="ot">=</span><span class="dv">150</span></span>
+<span id="cb60-2"><a href="prepare-data.html#cb60-2" tabindex="-1"></a>genome_counts_filt <span class="ot">&lt;-</span> read_counts_filt <span class="sc">%&gt;%</span></span>
+<span id="cb60-3"><a href="prepare-data.html#cb60-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span> . <span class="sc">/</span> (genome_metadata<span class="sc">$</span>length <span class="sc">/</span> readlength) ))</span>
+<span id="cb60-4"><a href="prepare-data.html#cb60-4" tabindex="-1"></a><span class="fu">head</span>(genome_counts_filt)</span></code></pre></div>
+<pre class="script-output"><code># A tibble: 6 × 65
+  genome EHI03126 EHI03162 EHI03159 EHI03146 EHI03144 EHI03160 EHI03150 EHI03161
+  &lt;chr&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+1 EHA05…        0        0        0        0        0     1.27        0        0
+2 EHA05…        0        0        0        0        0     0           0        0
+3 EHA05…        0        0        0        0        0     3.16        0        0
+4 EHA05…        0        0        0        0        0     9.28        0        0
+5 EHA05…        0        0        0        0        0     0           0        0
+6 EHA05…        0        0        0        0        0     1.57        0        0
+# ℹ 56 more variables: EHI02648 &lt;dbl&gt;, EHI02650 &lt;dbl&gt;, EHI03142 &lt;dbl&gt;,
+#   EHI03114 &lt;dbl&gt;, EHI02651 &lt;dbl&gt;, EHI02645 &lt;dbl&gt;, EHI03113 &lt;dbl&gt;,
+#   EHI03129 &lt;dbl&gt;, EHI03111 &lt;dbl&gt;, EHI03158 &lt;dbl&gt;, EHI03120 &lt;dbl&gt;,
+#   EHI03134 &lt;dbl&gt;, EHI03145 &lt;dbl&gt;, EHI02659 &lt;dbl&gt;, EHI03130 &lt;dbl&gt;,
+#   EHI03156 &lt;dbl&gt;, EHI03125 &lt;dbl&gt;, EHI03153 &lt;dbl&gt;, EHI03118 &lt;dbl&gt;,
+#   EHI03163 &lt;dbl&gt;, EHI03133 &lt;dbl&gt;, EHI03135 &lt;dbl&gt;, EHI03141 &lt;dbl&gt;,
+#   EHI03122 &lt;dbl&gt;, EHI03149 &lt;dbl&gt;, EHI03121 &lt;dbl&gt;, EHI03128 &lt;dbl&gt;, …</code></pre>
+</div>
+<div id="filter-samples-by-coverage" class="section level3 hasAnchor" number="3.3.3">
+<h3><span class="header-section-number">3.3.3</span> Filter samples by coverage<a href="prepare-data.html#filter-samples-by-coverage" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb62-1"><a href="prepare-data.html#cb62-1" tabindex="-1"></a><span class="do">## verify if any samples are filtered out</span></span>
+<span id="cb62-2"><a href="prepare-data.html#cb62-2" tabindex="-1"></a>retain_samples <span class="ot">=</span> <span class="fu">colnames</span>(read_counts_filt[,<span class="sc">-</span><span class="dv">1</span>])[<span class="fu">colSums</span>(read_counts_filt[,<span class="sc">-</span><span class="dv">1</span>])<span class="sc">&gt;</span><span class="dv">0</span>]</span>
+<span id="cb62-3"><a href="prepare-data.html#cb62-3" tabindex="-1"></a></span>
+<span id="cb62-4"><a href="prepare-data.html#cb62-4" tabindex="-1"></a>sample_metadata3 <span class="ot">=</span> </span>
+<span id="cb62-5"><a href="prepare-data.html#cb62-5" tabindex="-1"></a>  sample_metadata2 <span class="sc">%&gt;%</span></span>
+<span id="cb62-6"><a href="prepare-data.html#cb62-6" tabindex="-1"></a>  <span class="fu">filter</span>(sample <span class="sc">%in%</span> retain_samples)</span></code></pre></div>
+</div>
+<div id="distill-annotations-into-gifts" class="section level3 hasAnchor" number="3.3.4">
+<h3><span class="header-section-number">3.3.4</span> Distill annotations into GIFTs<a href="prepare-data.html#distill-annotations-into-gifts" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Generates a gene presence-based Genome-Inferred Functional Trait (GIFT) table at the gene bundle level from a bacterial genome annotation table. The community mode of <a href="https://github.com/anttonalberdi/distillR">distillR</a> computes community-averaged GIFT values for the entire microbiome in each sample.</p>
+<p>The default distill database is for metabolism. Another KEGG Database (i.e. <a href="https://www.genome.jp/kegg/ko.html">KEGG ORTHOLOGY</a>) is needed to capture the new gene annotations for toxicology, and must be <a href="https://www.cd-genomics.com/blog/kegg-databse-download-comprehensive-guide/">dowloaded</a>.</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb63-1"><a href="prepare-data.html#cb63-1" tabindex="-1"></a><span class="co"># input data used</span></span>
+<span id="cb63-2"><a href="prepare-data.html#cb63-2" tabindex="-1"></a>genome_gifts_raw <span class="ot">&lt;-</span> <span class="fu">distill</span>(</span>
+<span id="cb63-3"><a href="prepare-data.html#cb63-3" tabindex="-1"></a>  genome_annotations,</span>
+<span id="cb63-4"><a href="prepare-data.html#cb63-4" tabindex="-1"></a>  GIFT_db, </span>
+<span id="cb63-5"><a href="prepare-data.html#cb63-5" tabindex="-1"></a>  <span class="co">#genomecol=2, # column with genome name</span></span>
+<span id="cb63-6"><a href="prepare-data.html#cb63-6" tabindex="-1"></a>  <span class="co">#annotcol=c(7,8), # column with kegg id and crazy hits</span></span>
+<span id="cb63-7"><a href="prepare-data.html#cb63-7" tabindex="-1"></a>  <span class="at">genomecol=</span><span class="fu">match</span>(<span class="st">&quot;genome&quot;</span>,<span class="fu">colnames</span>(genome_annotations)), <span class="co"># column with genome name</span></span>
+<span id="cb63-8"><a href="prepare-data.html#cb63-8" tabindex="-1"></a>  <span class="at">annotcol=</span><span class="fu">match</span>(<span class="fu">c</span>(<span class="st">&quot;kegg&quot;</span>,<span class="st">&quot;cazy&quot;</span>),<span class="fu">colnames</span>(genome_annotations)), <span class="co"># column with kegg id and crazy hits</span></span>
+<span id="cb63-9"><a href="prepare-data.html#cb63-9" tabindex="-1"></a>  <span class="at">verbosity=</span>F) </span></code></pre></div>
+<pre class="script-output"><code>
+Identifiers in the annotation table: 2148 
+Identifiers in the database: 1547 
+Identifiers in both: 255 
+Percentage of annotation table identifiers used for distillation: 11.87%
+Percentage of database identifiers used for distillation: 16.48%</code></pre>
+</div>
+</div>
+<div id="prepare-color-scheme" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Prepare color scheme<a href="prepare-data.html#prepare-color-scheme" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><a href="www.alberdilab.dk">AlberdiLab</a> projects use unified color schemes developed for the <a href="www.earthhologenome.org">Earth Hologenome Initiative</a>, to facilitate figure interpretation.</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb65-1"><a href="prepare-data.html#cb65-1" tabindex="-1"></a>phylum_colors <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">&quot;https://raw.githubusercontent.com/earthhologenome/EHI_taxonomy_colour/main/ehi_phylum_colors.tsv&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb65-2"><a href="prepare-data.html#cb65-2" tabindex="-1"></a>    <span class="fu">right_join</span>(genome_metadata, <span class="at">by=</span><span class="fu">join_by</span>(phylum <span class="sc">==</span> phylum)) <span class="sc">%&gt;%</span></span>
+<span id="cb65-3"><a href="prepare-data.html#cb65-3" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">match</span>(genome, genome_tree<span class="sc">$</span>tip.label)) <span class="sc">%&gt;%</span></span>
+<span id="cb65-4"><a href="prepare-data.html#cb65-4" tabindex="-1"></a>    <span class="fu">select</span>(phylum, colors) <span class="sc">%&gt;%</span> </span>
+<span id="cb65-5"><a href="prepare-data.html#cb65-5" tabindex="-1"></a>    <span class="fu">unique</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb65-6"><a href="prepare-data.html#cb65-6" tabindex="-1"></a>    <span class="fu">arrange</span>(phylum) <span class="sc">%&gt;%</span></span>
+<span id="cb65-7"><a href="prepare-data.html#cb65-7" tabindex="-1"></a>    <span class="fu">pull</span>(colors, <span class="at">name=</span>phylum)</span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb66-1"><a href="prepare-data.html#cb66-1" tabindex="-1"></a>diet_colors<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;#F4B02E&quot;</span>,<span class="st">&quot;#E6771D&quot;</span>, <span class="st">&quot;#74C8AE&quot;</span>)</span></code></pre></div>
+</div>
+<div id="prepare-a-phyloseq-object" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Prepare a phyloseq object<a href="prepare-data.html#prepare-a-phyloseq-object" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A phyloseq object joins all of the previous tables into a single object. It then has a CLR transformation applied, which performs a pseudocount of <span class="math inline">\(relative\ abundance_{min}/2\)</span> to exact zero relative abundance entries in a OTU table before taking logs.</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb67-1"><a href="prepare-data.html#cb67-1" tabindex="-1"></a>phylo_samples <span class="ot">&lt;-</span> sample_metadata3 <span class="sc">%&gt;%</span> </span>
+<span id="cb67-2"><a href="prepare-data.html#cb67-2" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="st">&quot;sample&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb67-3"><a href="prepare-data.html#cb67-3" tabindex="-1"></a>  <span class="fu">sample_data</span>() <span class="co">#convert to phyloseq sample_data object</span></span>
+<span id="cb67-4"><a href="prepare-data.html#cb67-4" tabindex="-1"></a>phylo_genome <span class="ot">&lt;-</span> genome_counts_filt <span class="sc">%&gt;%</span> </span>
+<span id="cb67-5"><a href="prepare-data.html#cb67-5" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="st">&quot;genome&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb67-6"><a href="prepare-data.html#cb67-6" tabindex="-1"></a>  <span class="fu">otu_table</span>(., <span class="at">taxa_are_rows =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb67-7"><a href="prepare-data.html#cb67-7" tabindex="-1"></a>phylo_taxonomy <span class="ot">&lt;-</span> genome_metadata <span class="sc">%&gt;%</span></span>
+<span id="cb67-8"><a href="prepare-data.html#cb67-8" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="st">&quot;genome&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb67-9"><a href="prepare-data.html#cb67-9" tabindex="-1"></a>  <span class="fu">as.matrix</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb67-10"><a href="prepare-data.html#cb67-10" tabindex="-1"></a>  <span class="fu">tax_table</span>() <span class="co">#convert to phyloseq tax_table object</span></span>
+<span id="cb67-11"><a href="prepare-data.html#cb67-11" tabindex="-1"></a>phylo_tree <span class="ot">&lt;-</span> <span class="fu">phy_tree</span>(genome_tree) </span>
+<span id="cb67-12"><a href="prepare-data.html#cb67-12" tabindex="-1"></a></span>
+<span id="cb67-13"><a href="prepare-data.html#cb67-13" tabindex="-1"></a>physeq_genome <span class="ot">&lt;-</span> <span class="fu">phyloseq</span>(phylo_genome, phylo_taxonomy, phylo_samples,phylo_tree)</span>
+<span id="cb67-14"><a href="prepare-data.html#cb67-14" tabindex="-1"></a>physeq_genome_clr <span class="ot">&lt;-</span> microbiome<span class="sc">::</span><span class="fu">transform</span>(physeq_genome, <span class="st">&#39;clr&#39;</span>)</span></code></pre></div>
+</div>
+<div id="wrap-working-objects" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> Wrap working objects<a href="prepare-data.html#wrap-working-objects" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>All working objects are wrapped into a single Rdata object to facilitate downstream usage.</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb68-1"><a href="prepare-data.html#cb68-1" tabindex="-1"></a><span class="fu">save</span>(sample_metadata,</span>
+<span id="cb68-2"><a href="prepare-data.html#cb68-2" tabindex="-1"></a>     sample_metadata3,</span>
+<span id="cb68-3"><a href="prepare-data.html#cb68-3" tabindex="-1"></a>     genome_metadata, </span>
+<span id="cb68-4"><a href="prepare-data.html#cb68-4" tabindex="-1"></a>     read_counts, </span>
+<span id="cb68-5"><a href="prepare-data.html#cb68-5" tabindex="-1"></a>     genome_counts, </span>
+<span id="cb68-6"><a href="prepare-data.html#cb68-6" tabindex="-1"></a>     genome_counts_filt, </span>
+<span id="cb68-7"><a href="prepare-data.html#cb68-7" tabindex="-1"></a>     genome_tree,</span>
+<span id="cb68-8"><a href="prepare-data.html#cb68-8" tabindex="-1"></a>     physeq_genome,</span>
+<span id="cb68-9"><a href="prepare-data.html#cb68-9" tabindex="-1"></a>     physeq_genome_clr,</span>
+<span id="cb68-10"><a href="prepare-data.html#cb68-10" tabindex="-1"></a>     genome_gifts_raw, </span>
+<span id="cb68-11"><a href="prepare-data.html#cb68-11" tabindex="-1"></a>     phylum_colors,</span>
+<span id="cb68-12"><a href="prepare-data.html#cb68-12" tabindex="-1"></a>     <span class="at">file =</span> <span class="st">&quot;data/data.Rdata&quot;</span>)</span></code></pre></div>
+</div>
+<div id="cleanup" class="section level2 hasAnchor" number="3.7">
+<h2><span class="header-section-number">3.7</span> cleanup<a href="prepare-data.html#cleanup" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb69-1"><a href="prepare-data.html#cb69-1" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span></code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="bioinformatics-workflow.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="data-statistics.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

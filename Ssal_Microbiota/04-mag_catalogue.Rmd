@@ -7,7 +7,7 @@ install.packages(setdiff(pkgs, rownames(installed.packages())))
 lapply(pkgs, require, character.only = TRUE)
 ```
 
-```{r load_data_mag, message=FALSE, warning=FALSE}
+```{r , message=FALSE, warning=FALSE}
 load("data/data.Rdata")
 
 # keep sample metadatabut rewrite with filters
@@ -15,7 +15,7 @@ sample_metadata = sample_metadata3
 ```
 
 
-```{r load_data_mag_filt, comment="", message=FALSE, warning=FALSE, eval=FALSE}
+```{r , comment="", message=FALSE, warning=FALSE, eval=FALSE}
 genome_counts_filt <- genome_counts %>% 
     select(one_of(c("genome",sample_metadata$sample)))%>%
   filter(rowSums(. != 0, na.rm = TRUE) > 0) %>%
@@ -36,7 +36,7 @@ Construct a phylogeny for all the MAGs present among your samples. EHI uses its 
 
 Begin the plot by generating a circular tree for the genomes. Then apply a ring for the genomes assigned phylum. Apply another ring indicating the genome quality, with bar height indicating completeness and colour the proportion of contamination. Group specific heatmaps can then also be applied. Additionally, apply a ring indicating if the species is new or not. 
 
-```{r genome_phylogeny, message=FALSE, warning=FALSE, fig.height=10, fig.width=10, fig.fullwidth=TRUE}
+```{r , message=FALSE, warning=FALSE, fig.height=10, fig.width=10, fig.fullwidth=TRUE}
 # Generate the phylum color heatmap
 phylum_heatmap <- read_tsv("https://raw.githubusercontent.com/earthhologenome/EHI_taxonomy_colour/main/ehi_phylum_colors.tsv") %>%
     right_join(genome_metadata, by=join_by(phylum == phylum)) %>%
@@ -83,7 +83,7 @@ ruralnmap <- genome_counts_filt  %>%
 ```
 
 
-```{r genome_phylogeny, message=FALSE, warning=FALSE, fig.height=10, fig.width=10, fig.fullwidth=TRUE}
+```{r , message=FALSE, warning=FALSE, fig.height=10, fig.width=10, fig.fullwidth=TRUE}
 # Generate  basal tree
 circular_tree <- force.ultrametric(genome_tree, method="extend") %>% # extend to ultrametric for the sake of visualisation
     ggtree(., layout="fan", open.angle=10, size=0.2)
@@ -153,7 +153,7 @@ ggsave(
   limitsize = TRUE)
 ```
 
-```{r genome_phylogeny, message=FALSE, warning=FALSE, fig.height=10, fig.width=10, fig.fullwidth=TRUE}
+```{r , message=FALSE, warning=FALSE, fig.height=10, fig.width=10, fig.fullwidth=TRUE}
 # revise phylum names for print
 phylum_colors_rm = phylum_colors 
 names(phylum_colors_rm) = str_remove(names(phylum_colors), "p__")
@@ -391,7 +391,7 @@ UrbRur_pres[UrbRur_pres$exlusion == TRUE & UrbRur_pres$n_fam > 1,]
 
 ## Taxonomy overview
 
-```{r genome_taxonomy_bacteria, message=FALSE, warning=FALSE,}
+```{r , message=FALSE, warning=FALSE,}
 tax_mag <-genome_metadata %>% 
   group_by(phylum) %>%
   summarise(mag_n=n()) 
@@ -418,7 +418,7 @@ genome_metadata %>%
 
 Minimum Mags size (MB)
 
-```{r mag_size_min,message=FALSE, warning=FALSE}
+```{r ,message=FALSE, warning=FALSE}
 genome_metadata %>% 
   filter(corrected_size==min(corrected_size)) %>% 
   tt()
@@ -426,14 +426,14 @@ genome_metadata %>%
 
 Maximum Mags size (MB)
 
-```{r mag_size_max,message=FALSE, warning=FALSE}
+```{r ,message=FALSE, warning=FALSE}
 genome_metadata %>% 
   filter(corrected_size==max(corrected_size)) %>% 
   tt()
 ```
 
 Mags arrange by size (MB)
-```{r mag_size_all, message=FALSE, warning=FALSE}
+```{r , message=FALSE, warning=FALSE}
 genome_metadata %>% 
   arrange(-corrected_size)
 
@@ -448,7 +448,7 @@ plot(genome_metadata$length, xlab = "", ylab = "MAG length") +
 
 Mags average size and completeness by phylum
 
-```{r mag_size_phylum, message=FALSE, warning=FALSE}
+```{r , message=FALSE, warning=FALSE}
 genome_metadata %>% 
   group_by(phylum) %>%
   summarise(average_size=mean(corrected_size),sd_size=sd(corrected_size),average_comp=mean(completeness),sd_comp=sd(completeness)) %>%
@@ -460,7 +460,7 @@ genome_metadata %>%
 ```
 ## Genome quality
 
-```{r genome_quality, message=FALSE, warning=FALSE}
+```{r , message=FALSE, warning=FALSE}
 genome_metadata %>% 
     summarise(completeness_mean=mean(completeness) %>% round(2) %>% as.character(), 
               completeness_sd=sd(completeness) %>% round(2) %>% as.character(), 
@@ -471,7 +471,7 @@ genome_metadata %>%
     tt()
 ```
 
-```{r genome_quality_plot, message=FALSE, warning=FALSE, fig.height=8, fig.width=10, fig.fullwidth=TRUE}
+```{r , message=FALSE, warning=FALSE, fig.height=8, fig.width=10, fig.fullwidth=TRUE}
 
 #Generate quality biplot
 genome_biplot <- genome_metadata %>%
@@ -582,7 +582,7 @@ wilcox.test(
 
 Lists the total number of predicted genomes and how many of them have a possible annotation. Then specify those from the [KEGG database](https://www.kegg.jp/kegg/) for microbial functions and utilities.
 
-```{r annotation_stats, message=FALSE, warning=FALSE, fig.height=10, fig.width=10, fig.fullwidth=TRUE}
+```{r , message=FALSE, warning=FALSE, fig.height=10, fig.width=10, fig.fullwidth=TRUE}
 genome_annotations <- 
   #read_tsv("data/genome_annotations.tsv.xz") %>%
   #rename(gene=1, genome=2, contig=3)
@@ -604,7 +604,7 @@ genome_annotations %>%
 Display the genome phylogeny again along with the assigned phylum and completeness. Additionally, include the community-averaged Genome-Inferred Functional Traits (GIFT).
 Each GIFT code (e.g. B010101) corresponds to a functional annotation in the KEGG: Kyoto Encyclopedia of Genes and Genomes database, with a probability that the MAG corresponds to a given corresponding GIFT.
 
-```{r function_heatmap, message=FALSE, warning=FALSE, fig.height=10, fig.width=10, fig.fullwidth=TRUE}
+```{r , message=FALSE, warning=FALSE, fig.height=10, fig.width=10, fig.fullwidth=TRUE}
 # Aggregate basal GIFT into elements
 genome_gifts<-genome_gifts_raw
 function_table <- genome_gifts %>%
@@ -683,7 +683,7 @@ GIFTs_elements[
 
 A Barnes-Hut implementation of t-Distributed Stochastic Neighbour Embedding (Rtsne) is a tool to visualize high-dimensional data. It converts similarities between data points to joint probabilities and tries to minimize the Kullback-Leibler divergence between the joint probabilities of the low-dimensional embedding and the high-dimensional data.
 
-```{r function_ordination, message=FALSE, fig.height=8, fig.width=10, fig.fullwidth=TRUE}
+```{r , message=FALSE, fig.height=8, fig.width=10, fig.fullwidth=TRUE}
 set.seed(4485)
 # Generate the tSNE ordination
 tSNE_function <- Rtsne(X=function_table, dims = 2, check_duplicates = FALSE)
