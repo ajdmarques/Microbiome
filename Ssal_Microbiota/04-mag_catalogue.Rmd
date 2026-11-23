@@ -1,7 +1,17 @@
 # MAG catalogue
 
+Load packages
+```{r}
+pkgs = readRDS("data/Rpkgs.Rds")
+install.packages(setdiff(pkgs, rownames(installed.packages())))
+lapply(pkgs, require, character.only = TRUE)
+```
+
 ```{r load_data_mag, message=FALSE, warning=FALSE}
 load("data/data.Rdata")
+
+# keep sample metadatabut rewrite with filters
+sample_metadata = sample_metadata3
 ```
 
 
@@ -524,6 +534,49 @@ grid.arrange(grobs = list(genome_completeness,genome_biplot,genome_contamination
 ggsave(paste0('figure/mag_completeness_contamination.png'), g, width=10, height=10, units='cm')
 ```
 
+Verify whether the proportion of host contamination differs significantly between urban and rural samples, as higher host read proportions in urban samples could artificially lower MAG assembly depth and drive spurious taxonomic depletion patterns (reviewer's suggestion).
+
+Result of Wilcox Rank test suggest that among the MAGs present among rural habitats and urban habitats, there is no significant difference in contamination or completeness. There is, however, a significant difference in the proportion of completeness between habitats when considering only taxa exclusive to either habitat.
+
+```{r}
+# list of MAGs present in urban habitats
+urban_taxa =
+urbanmap %>%
+  filter(presence == "present") %>%
+  rownames()
+# list of MAGs present in rural habitats
+rural_taxa =
+ruralnmap %>%
+  filter(presence == "present") %>%
+  rownames()
+
+# Test for significant differences between habitats
+## contamination
+wilcox.test(
+  genome_metadata[genome_metadata$genome %in% urban_taxa,]$contamination,
+  genome_metadata[genome_metadata$genome %in% rural_taxa,]$contamination
+  )
+## when using only habitat specific taxa
+wilcox.test(
+  genome_metadata[genome_metadata$genome %in% urban_taxa &
+                  !genome_metadata$genome %in% rural_taxa,]$contamination,
+  genome_metadata[genome_metadata$genome %in% rural_taxa &
+                  !genome_metadata$genome %in% urban_taxa,]$contamination
+  )
+
+## completeness
+wilcox.test(
+  genome_metadata[genome_metadata$genome %in% urban_taxa,]$completeness,
+  genome_metadata[genome_metadata$genome %in% rural_taxa,]$completeness
+  )
+## when using only habitat specific taxa
+wilcox.test(
+  genome_metadata[genome_metadata$genome %in% urban_taxa &
+                  !genome_metadata$genome %in% rural_taxa,]$completeness,
+  genome_metadata[genome_metadata$genome %in% rural_taxa &
+                  !genome_metadata$genome %in% urban_taxa,]$completeness
+  )
+```
 
 ## Functional overview
 
@@ -556,6 +609,8 @@ Each GIFT code (e.g. B010101) corresponds to a functional annotation in the KEGG
 genome_gifts<-genome_gifts_raw
 function_table <- genome_gifts %>%
     to.elements(., GIFT_db)
+
+saveRDS(genome_gifts,"data/genome_gifts.Rds")
 
 # Generate  basal tree
 function_tree <- force.ultrametric(genome_tree, method="extend") %>%
@@ -596,7 +651,7 @@ function_tree
 ```
 
 
-```{r}
+```{r, eval=FALSE}
 genome_GIFT_mean = list()
 
 genome_GIFT_mean[["c__Gammaproteobacteria"]] =
@@ -648,6 +703,191 @@ function_ordination <- tSNE_function$Y %>%
                 guides(color = guide_legend(override.aes = list(size = 5))) # enlarge Phylum dots in legend
 
 function_ordination
+```
+## Update metadata
+
+```{r}
+# designate MAG quality teir
+genome_metadata =
+  genome_metadata %>%
+  mutate(tier = case_when(completeness > 90 & contamination < 5 ~ "high",
+                          completeness >= 50 & contamination < 10 ~ "medium",
+                          completeness < 50 & contamination < 10 ~ "low"))
+
+# indicate if MAG is a new species
+genome_metadata =
+  merge(
+    genome_metadata,
+    newspecies_table %>% 
+      rownames_to_column("genome")
+    )
+
+# genome prevalence by habitat 
+genome_prev_urban =
+genome_counts_filt %>%
+  select(genome, 
+         all_of(sample_metadata3[sample_metadata3$habitat == "urban","sample"])) %>%
+  mutate(prev_urban = 
+           rowSums(across(where(is.numeric), ~ .x != 0)) / ncol(across(where(is.numeric)))) %>%
+  select(genome,prev_urban)
+
+genome_prev_rural =
+genome_counts_filt %>%
+  select(genome, 
+         all_of(sample_metadata3[sample_metadata3$habitat == "rural","sample"])) %>%
+  mutate(prev_rural = 
+           rowSums(across(where(is.numeric), ~ .x != 0)) / ncol(across(where(is.numeric)))) %>%
+  select(genome,prev_rural)
+
+genome_metadata =
+  merge(genome_metadata,
+        merge(genome_prev_urban,genome_prev_rural))
+
+saveRDS(genome_metadata,
+        "data/supp_genome_metadata1.Rds")
+```
+
+### Species Novelty v MAG quality
+
+```{r}
+# proportion of high quality MAGs are new species
+
+df_tmp=
+  genome_metadata %>%
+    filter(tier == c("high")) %>%
+    select(phylum,newspecies) %>%
+    table() %>%
+    as.data.frame() %>%
+    mutate(tier = "high") %>%
+    group_by(newspecies) %>%
+    summarise(total = sum(Freq))
+paste("% new species among high quality MAGs = ",
+      round((df_tmp[df_tmp$newspecies=="Y","total"] / sum(df_tmp$total)*100),2))
+
+df_tmp=
+genome_metadata %>%
+  filter(tier != c("high")) %>%
+  select(phylum,newspecies) %>%
+  table() %>%
+  as.data.frame() %>%
+  mutate(tier = "medium") %>%
+  group_by(newspecies) %>%
+  summarise(total = sum(Freq))
+paste("% new species among medium quality MAGs = ",
+      round((df_tmp[df_tmp$newspecies=="Y","total"] / sum(df_tmp$total)*100),2))    
+
+
+```
+
+## MAG Quality v Habitat
+
+```{r}
+#Generate quality biplot
+genome_biplot <- genome_metadata %>%
+  select(c(genome,domain,phylum,completeness,contamination,length)) %>%
+  arrange(match(genome, rev(genome_tree$tip.label))) %>% #sort MAGs according to phylogenetic tree
+  ggplot(aes(x=completeness,y=contamination,size=length,color=phylum)) +
+              geom_point(alpha=0.7) +
+                    ylim(c(10,0)) +
+                    scale_color_manual(values=phylum_colors) +
+                    labs(y= "Contamination", x = "Completeness") +
+                    theme_classic() +
+                    theme(legend.position = "none")
+
+#Generate contamination boxplot
+genome_contamination_urban <- 
+  genome_metadata[
+    genome_metadata$genome %in% rownames(urbanmap)[urbanmap$presence == "present"],] %>%
+            ggplot(aes(y=contamination)) +
+                    ylim(c(10,0)) +
+                    geom_boxplot(colour = "#999999", fill="#986eac") +
+                    theme_void() +
+                    theme(legend.position = "none",
+                        axis.title.x = element_blank(),
+                        axis.title.y = element_blank(),
+                        axis.text.y=element_blank(),
+                        axis.ticks.y=element_blank(),
+                        axis.text.x=element_blank(),
+                        axis.ticks.x=element_blank(),
+                        plot.margin = unit(c(0, 0, 0.40, 0),"inches")) #add bottom-margin (top, right, bottom, left)
+genome_contamination_rural <- 
+  genome_metadata[
+    genome_metadata$genome %in% rownames(ruralnmap)[ruralnmap$presence == "present"],] %>%
+            ggplot(aes(y=contamination)) +
+                    ylim(c(10,0)) +
+                    geom_boxplot(colour = "#999999", fill="#5bae63") +
+                    theme_void() +
+                    theme(legend.position = "none",
+                        axis.title.x = element_blank(),
+                        axis.title.y = element_blank(),
+                        axis.text.y=element_blank(),
+                        axis.ticks.y=element_blank(),
+                        axis.text.x=element_blank(),
+                        axis.ticks.x=element_blank(),
+                        plot.margin = unit(c(0, 0, 0.40, 0),"inches")) #add bottom-margin (top, right, bottom, left)
+
+#Generate completeness boxplot
+genome_completeness_urban <-
+  genome_metadata[
+    genome_metadata$genome %in% rownames(urbanmap)[urbanmap$presence == "present"],] %>%
+        ggplot(aes(x=completeness)) +
+                xlim(c(50,100)) +
+                geom_boxplot(colour = "#999999", fill="#986eac") +
+                theme_void() +
+                theme(legend.position = "none",
+                    axis.title.x = element_blank(),
+                    axis.title.y = element_blank(),
+                    axis.text.y=element_blank(),
+                    axis.ticks.y=element_blank(),
+                    axis.text.x=element_blank(),
+                    axis.ticks.x=element_blank(),
+                    plot.margin = unit(c(0, 0, 0, 0.50),"inches")) #add left-margin (top, right, bottom, left)
+
+genome_completeness_rural <-
+  genome_metadata[
+    genome_metadata$genome %in% rownames(ruralnmap)[ruralnmap$presence == "present"],] %>%
+        ggplot(aes(x=completeness)) +
+                xlim(c(50,100)) +
+                geom_boxplot(colour = "#999999", fill="#5bae63") +
+                theme_void() +
+                theme(legend.position = "none",
+                    axis.title.x = element_blank(),
+                    axis.title.y = element_blank(),
+                    axis.text.y=element_blank(),
+                    axis.ticks.y=element_blank(),
+                    axis.text.x=element_blank(),
+                    axis.ticks.x=element_blank(),
+                    plot.margin = unit(c(0, 0, 0, 0.50),"inches")) #add left-margin (top, right, bottom, left)
+
+#Render composite figure
+grid.arrange(grobs = list(genome_completeness_urban,
+                          genome_biplot,
+                          genome_contamination_urban,
+                          genome_completeness_rural,
+                          genome_contamination_rural),
+        layout_matrix = rbind(c(1,1,1,1,1,1,1,1,1,1,6,6),
+                              c(4,4,4,4,4,4,4,4,4,4,6,6),
+                              c(2,2,2,2,2,2,2,2,2,2,5,3),
+                              c(2,2,2,2,2,2,2,2,2,2,5,3),
+                              c(2,2,2,2,2,2,2,2,2,2,5,3),
+                              c(2,2,2,2,2,2,2,2,2,2,5,3),
+                              c(2,2,2,2,2,2,2,2,2,2,5,3),
+                              c(2,2,2,2,2,2,2,2,2,2,5,3),
+                              c(2,2,2,2,2,2,2,2,2,2,5,3),
+                              c(2,2,2,2,2,2,2,2,2,2,5,3),
+                              c(2,2,2,2,2,2,2,2,2,2,5,3),
+                              c(2,2,2,2,2,2,2,2,2,2,5,3))) ->
+  g
+
+ggsave(paste0('figure/mag_completeness_contamination.png'), g, width=10, height=10, units='cm')
+
+```
+
+
+## cleanup
+
+```{r}
+rm(list = ls())
 ```
 
 

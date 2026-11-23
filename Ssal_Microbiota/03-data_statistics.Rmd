@@ -1,12 +1,62 @@
 # Data statistics
 
+Load packages
+```{r}
+pkgs = readRDS("data/Rpkgs.Rds")
+install.packages(setdiff(pkgs, rownames(installed.packages())))
+lapply(pkgs, require, character.only = TRUE)
+```
+
 ```{r load_data_stats}
 load("data/data.Rdata")
+
+# keep sample metadatabut rewrite with filters
+sample_metadata = sample_metadata3
 ```
 
 ```{r}
 query_variables = c("sample","event_id","swab","sol","habitat")
 query_variables = query_variables[sapply(sample_metadata[,query_variables], function(x) length(unique(x))) > 1 ] # varaibles with at least two conditions
+```
+
+
+## Habitat Characterization
+
+```{r}
+site_metadata =
+  read.csv("data/site_IMD.csv") %>%
+  mutate(Habitat = c("urban","urban","rural","rural","rural","urban")) %>%
+  arrange(X_imdmean) %>%
+  mutate(Site = as.factor(Sampling.e)) %>%
+  select(Site,Habitat,X_imdmean,X_imdstdev)
+
+ggplot(site_metadata,
+       aes(x = reorder(Site,X_imdmean), y = X_imdmean, color = Habitat)) +
+  geom_point(size = 3) +
+  geom_errorbar(aes(ymin = X_imdmean - X_imdstdev,
+                    ymax = X_imdmean + X_imdstdev),
+                width = 0.2) +
+   scale_color_manual(values = c("#5bae63","#986eac")) +
+  labs(x = "Site",
+       y = "Mean Impervious Surface ± SD") +
+  theme_minimal() +
+  theme(text=element_text(size=8), #change font size of all text
+        axis.text=element_text(size=8), #change font size of axis text
+        axis.title=element_text(size=8), #change font size of axis titles
+        plot.title=element_text(size=8), #change font size of plot title
+        legend.text=element_text(size=8), #change font size of legend text
+        legend.title=element_text(size=8)) #change font size of legend title
+  
+# Welch t-test (var.equal = FALSE is the default)
+t.test(
+  site_metadata[site_metadata$Habitat=="urban","X_imdmean"], 
+  site_metadata[site_metadata$Habitat=="rural","X_imdmean"]
+  )
+
+ggsave("../Ssal_Microbiota/figure/sm_site_imperviousness.png", 
+       last_plot(),
+       device = "png", height = 6, width = 10, units = "cm")
+
 ```
 
 
@@ -25,6 +75,12 @@ genome_metadata <- genome_metadata %>%
   arrange(match(genome,read_counts$genome))
 
 genome_tree <- keep.tip(genome_tree, tip=genome_metadata$genome) # keep only MAG tips
+
+
+head(genome_metadata)
+# save results for supplementary materials.
+write_rds(genome_metadata,
+          "../data/final/genome_metadata.Rds")
 ```
 
 ## Sequencing reads statistics
@@ -32,20 +88,33 @@ genome_tree <- keep.tip(genome_tree, tip=genome_metadata$genome) # keep only MAG
 The total number of post-fastp bases (ie. number reads * 150) in billions, and the average number of bases among samples.
 
 ```{r reads_stats}
+# sequence reads by 1M
+sample_metadata %>% 
+    summarise(Total=sum(reads_post_fastp  / 1000000) %>% round(2), 
+              mean=mean(reads_post_fastp  / 1000000) %>% round(2),
+              sd=sd(reads_post_fastp / 1000000) %>% round(2)) %>%
+    unite("Average",mean, sd, sep = " ± ", remove = TRUE) %>%
+    tt()
+
+# sequence Gbases
 sample_metadata %>% 
     summarise(Total=sum(reads_post_fastp * 150 / 1000000000) %>% round(2), 
               mean=mean(reads_post_fastp * 150 / 1000000000) %>% round(2),
               sd=sd(reads_post_fastp * 150 / 1000000000) %>% round(2)) %>%
     unite("Average",mean, sd, sep = " ± ", remove = TRUE) %>%
     tt()
-```
 
-```{r}
-# Sequencing reads statistics
-sample_metadata$reads_post_fastp %>% sum()
-sample_metadata$reads_post_fastp %>% mean()
-sample_metadata$reads_post_fastp %>% sd()
-
+# write out for supplementary materials
+write_rds(sample_metadata %>%
+            select(sample,
+                   event_id,
+                   singlem_fraction,
+                   reads_post_fastp,
+                   reads_lost_fastp_percent,
+                   host_reads,
+                   diversity,
+                   C), 
+          "../data/final/sample_metadata.Rds")
 ```
 
 
@@ -61,7 +130,26 @@ sequence_fractions <- read_counts %>%
 	mutate(lowqual_bases = ((metagenomic_bases+host_bases)/(1-bases_lost_fastp_percent))-(metagenomic_bases+host_bases)) %>%
 	mutate(unmapped_bases = metagenomic_bases - mags_bases) %>%
 	mutate(unmapped_bases = ifelse(unmapped_bases < 0, 0, unmapped_bases)) %>%
-	select(sample, lowqual_bases, host_bases, unmapped_bases, mags_bases)
+	select(sample, lowqual_bases, host_bases, unmapped_bases, mags_bases) %>%
+  na.omit()
+
+cat(paste(
+# bases mapped to MAGs
+  "mean Gb mapped to MAGs = ",round(mean(sequence_fractions$mags_bases/1e9),2),
+  "±",round(sd(sequence_fractions$mags_bases/1e9),2),
+  "---",
+# low quality bases
+  "mean Gb of low quality bases = ",round(mean(sequence_fractions$lowqual_bases/1e9),2),
+  "±",round(sd(sequence_fractions$lowqual_bases/1e9),2),
+  "---",
+# host bases
+  "mean Gb of host bases = ",round(mean(sequence_fractions$host_bases/1e9),2),
+  "±",round(sd(sequence_fractions$host_bases/1e9),2),
+  "---",
+# unmapped bases
+  "mean Gb of unmapped bases = ",round(mean(sequence_fractions$unmapped_bases/1e9),2),
+  "±",round(sd(sequence_fractions$unmapped_bases/1e9),2)
+  ), file = "data/GB_summary.txt")
 
 sequence_fractions %>%
   mutate_at(vars(-sample), ~./1000000000) %>%
@@ -73,6 +161,10 @@ sequence_fractions %>%
   rename("Sample"=1, "Low quality"=2, "Mapped to host"=3, "Unmapped"=4, "Mapped to MAGs"=5) %>%
   summarise(across(where(is.numeric), mean, na.rm = TRUE)) %>%
   tt()
+
+# write to supplementals
+write_rds(sequence_fractions,
+          "../data/final/sequence_fractions.Rds")
 
 ```
 
@@ -103,6 +195,9 @@ merge(sequence_fractions, sample_metadata[,query_variables],by = "sample") %>%
   )
   }
 
+ggsave("../data/final/mapped_Gb.png",
+       last_plot(),
+       "png")
 ```
 
 What proportion of reads were mapped to MAGs compared to host/unmapped?
@@ -199,6 +294,36 @@ wilcox.test(mags_proportion ~ swab,
 ```
 
 
+```{r}
+# repeat comparison with pre-filter reads count
+rural_read_count = colSums(
+  read_counts[,sample_metadata[sample_metadata$habitat == "rural","sample"]])
+urban_read_count = colSums(
+  read_counts[,sample_metadata[sample_metadata$habitat == "urban","sample"]])
+tmp_df = data.frame(
+  value = c(rural_read_count, urban_read_count),
+  group = factor(c(rep("rural", length(rural_read_count)), 
+                   rep("urban", length(urban_read_count)))))
+# test for differences
+tmp_wilcox = 
+  wilcox.test(
+  rural_read_count,
+  urban_read_count
+)
+
+ggplot(tmp_df, aes(x = group, y = log(value), fill = group)) +
+  geom_boxplot(fill = c("#5bae63","#986eac")) +
+  ylab("log Read Count")+
+  xlab("Habitat") +
+  annotate("text", x = 1.5, y = log(max(tmp_df$value/.8)),
+           label = paste("W =",round(tmp_wilcox$statistic,3),
+                         ", p =",round(tmp_wilcox$p.value,3)))
+  theme(legend.position = "none")
+  ggsave("data/supplements/read_count_habitat_comparison.png", 
+         last_plot())
+```
+
+
 Domain-Adjusted Mapping Rate (DAMR) is a metric to assess microbial genome recovery from metagenomes, calculated as the rate of read mapping to sets of microbial genomes (MAGs or other references) divided by the fraction of the community predicted to be bacterial or archaeal (here with SMF). [@Eisenhofer_2024]
 
 
@@ -227,5 +352,11 @@ damr %>%
 damr %>% 
   summarise(mean=mean(damr),sd=sd(damr)) %>% 
   tt()
+```
+
+## cleanup
+
+```{r}
+rm(list = ls())
 ```
 

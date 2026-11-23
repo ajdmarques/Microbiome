@@ -1,7 +1,17 @@
 # Alpha diversity
 
+Load packages
+```{r}
+pkgs = readRDS("data/Rpkgs.Rds")
+install.packages(setdiff(pkgs, rownames(installed.packages())))
+lapply(pkgs, require, character.only = TRUE)
+```
+
 ```{r load_data_alpha, comment="", message=FALSE, warning=FALSE}
 load("data/data.Rdata")
+
+# keep sample metadatabut rewrite with filters
+sample_metadata = sample_metadata3
 ```
 
 ```{r}
@@ -113,7 +123,7 @@ alpha_div %>%
 ```{r}
 merge(
   alpha_div,
-  sample_metadata[,c("sample","habitat","event_ID")],
+  sample_metadata[,c("sample","habitat","event_id")],
   "sample"
 )  %>%
   group_by(habitat) %>%
@@ -135,8 +145,9 @@ for ( i in seq_along(colnames(alpha_div))[-1]){
     alpha_div %>%
       pivot_longer(-sample, names_to = "metric", values_to = "value") %>%
       left_join(., sample_metadata, by = join_by(sample == sample)) %>%
-      #  filter(!sol =="ETOH") %>% 
-      filter(metric==colnames(alpha_div)[i]),
+      #  filter(!sol =="ETOH") %>%
+      filter(metric==colnames(alpha_div)[i]) %>%
+      na.omit(),
 
     aes(x = habitat, y = value, colour = habitat)) +
     geom_boxplot() +
@@ -303,3 +314,46 @@ TUKEY =
 GGTukey.3( TUKEY, Style=1 )
 GGTukey.3( TUKEY, Style=2 )
 ```
+## Distance Correlate
+
+Determine whether alpha diversity values correlate with distance.
+
+```{r}
+# merge 
+geo_diversity =
+  merge(
+    alpha_div,
+    sample_metadata[,c("sample","event_ID","latitude","longitude")],
+    by = "sample"
+    )
+geo_diversity$pc1 = 
+  prcomp(geo_diversity[,c("latitude","longitude")])$x[,1]
+
+# test for correlation between diversity and 
+## Richness
+anova(
+  #lm(richness ~ latitude + longitude, data = geo_diversity))
+  lm(richness ~ pc1, data = geo_diversity))
+## Neutral
+anova(
+  #lm(neutral ~ latitude + longitude, data = geo_diversity))
+  lm(neutral ~ pc1, data = geo_diversity))
+## Phylogenitic
+anova(
+  #lm(phylogenetic ~ latitude + longitude, data = geo_diversity))
+  lm(phylogenetic ~ pc1, data = geo_diversity))
+## Functional
+anova(
+  #lm(functional ~ latitude + longitude, data = geo_diversity))
+  lm(functional ~ pc1, data = geo_diversity))
+```
+
+There appear to be very few correlations between geolocation and any measure of internal diversity.  The one exception is a barely significant correlation between functional diversity and latitude (p = 0.45).
+
+## cleanup
+
+```{r}
+rm(list = ls())
+```
+
+

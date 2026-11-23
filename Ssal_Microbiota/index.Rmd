@@ -45,6 +45,7 @@ The following R packages are required for the data analysis.
 
 ```{r load_libraries, warning=FALSE, comments="", message=FALSE}
 # Base
+library(vegan)
 library(R.utils)
 library(knitr)
 library(tidyverse)
@@ -59,6 +60,7 @@ library(rmarkdown)
 library(ape)
 library(phyloseq)
 library(phytools)
+library(microbiome)
 
 # For plotting
 library(ggplot2)
@@ -73,7 +75,6 @@ library(scales)
 
 # For statistics
 library(spaa)
-library(vegan)
 library(Rtsne)
 library(geiger)
 library(hilldiv2)
@@ -86,3 +87,15 @@ library(lme4)
 library(nlme)
 library(ANCOMBC)
 ```
+
+Save list of packages to load later.
+
+```{r}
+pkgs = names(sessionInfo()$otherPkgs)
+saveRDS(pkgs, "data/Rpkgs.Rds")
+```
+
+```{r}
+rm(list = ls())
+```
+

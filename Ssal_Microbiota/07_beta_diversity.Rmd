@@ -1,24 +1,52 @@
+# Estimate Beta Diversity
+
+Load packages
+```{r}
+pkgs = readRDS("data/Rpkgs.Rds")
+install.packages(setdiff(pkgs, rownames(installed.packages())))
+lapply(pkgs, require, character.only = TRUE)
+```
 
 ```{r}
 load("data/data.Rdata")
 set.seed(4480)
+
+# keep sample metadatabut rewrite with filters
+sample_metadata = sample_metadata3
+
+library(mvabund)
+```
+
+```{r}
+genome_gifts <- genome_gifts_raw[rownames(genome_gifts_raw) %in% genome_counts_filt$genome,]
+genome_gifts <- genome_gifts[, colSums(genome_gifts != 0) > 0]
 ```
 
 
 ## Hill Number Distance Matrices
 
+Run hillpair using only the S Matrix that calculates Jaccard-type turnover.
+
 ```{r}
+genome_counts = 
+  genome_counts %>%
+  select(genome, sample_metadata$sample)
+
+
 beta_q0n <- genome_counts %>%
   column_to_rownames(., "genome") %>%
   filter(rowSums(. != 0, na.rm = TRUE) > 0) %>%
   select_if(~!all(. == 0)) %>%
-  hillpair(., q = 0)
+  hillpair(., q = 0, 
+           metric = "S")
+attr(beta_q0n,"Labels") <- colnames(genome_counts)[-1]
 
 beta_q1n <- genome_counts %>%
   column_to_rownames(., "genome") %>%
   filter(rowSums(. != 0, na.rm = TRUE) > 0) %>%
   select_if(~!all(. == 0)) %>%
-  hillpair(., q = 1)
+  hillpair(., q = 1, metric = "S")
+attr(beta_q1n,"Labels") <- colnames(genome_counts)[-1]
 
 genome_counts <- genome_counts %>%
   column_to_rownames(., "genome") %>%
@@ -32,7 +60,8 @@ beta_q1p <- genome_counts %>%
   column_to_rownames(., "genome") %>%
   filter(rowSums(. != 0, na.rm = TRUE) > 0) %>%
   select_if(~!all(. == 0)) %>%
-  hillpair(., q = 1, tree = genome_tree)
+  hillpair(., q = 1, tree = genome_tree, metric = "S")
+attr(beta_q1p,"Labels") <- colnames(genome_counts)[-1]
 
 genome_counts_filt <- genome_counts[genome_counts$genome %in% rownames(genome_gifts),]
 genome_counts_filt <- genome_counts_filt %>%
@@ -57,12 +86,25 @@ beta_q1f <- genome_counts_filt %>%
   column_to_rownames(., "genome") %>%
   filter(rowSums(. != 0, na.rm = TRUE) > 0) %>%
   select_if(~!all(. == 0)) %>%
-  hillpair(., q = 1, dist = dist)
+  hillpair(., q = 1, dist = dist, metric = "S")
+attr(beta_q1f,"Labels") <- colnames(genome_counts)[-1]
 ```
 
-## Habitat Comparison
+#### Geographic Location
+
+```{r}
+sample_metadata$pc1 = 
+  prcomp(sample_metadata[,c("latitude","longitude")])$x[,1]
+```
+
+
+v## Habitat Comparison
 
 ### Permanova analysis
+
+Because both the overdispersion and PERMANOVA result are significant, we cannot conclude that one is because of significant differences or due to differences in dispersion between habitats. However, a PERMANOVA is considered to be robust against heterogeneous dispersions *when* the sample design is balanced as is the case in this study.
+
+Anderson, M. J., & Walsh, D. C. (2013). PERMANOVA, ANOSIM, and the Mantel test in the face of heterogeneous dispersions: what null hypothesis are you testing?. Ecological monographs, 83(4), 557-574.
 
 ```{r}
 set.seed(4458)
@@ -72,22 +114,30 @@ set.seed(4458)
 
 ```{r}
 sample_metadata_row<- column_to_rownames(sample_metadata, "sample") 
-sample_metadata_row <- sample_metadata_row[labels(beta_q0n$S), ]
-
-betadisper(beta_q0n$S, sample_metadata_row$habitat) %>% permutest(., pairwise = TRUE) 
+# Test for overdispersion
+beta_q0n_disp =
+betadisper(
+  beta_q0n, # Uses Matrix S (Jaccard-type turnover)
+  sample_metadata_row$habitat) %>% 
+  permutest(., pairwise = TRUE) 
+beta_q0n_disp
 ```
+
+Results from the Beta Dispersal test suggest that microbiome diversity among one of the habitats is over dispersed, and therefore defies the PERMANOVA's assumption of homogeneous dispersion.  
+
 ```{r}
 beta_Hq0n = 
-adonis2(beta_q0n$S ~ habitat, 
-        data = sample_metadata %>% arrange(match(sample,labels(beta_q0n$S))), 
+adonis2(beta_q0n ~ habitat + (1 | pc1), 
+        data = sample_metadata %>% arrange(match(sample,labels(beta_q0n))), 
         permutations = 9999)
 beta_Hq0n
 ```
 
+
 ```{r}
 g_beta_q0n = 
   
-beta_q0n$S %>%
+beta_q0n %>%
   vegan::metaMDS(., trymax = 500, k = 2, trace=0) %>%
   vegan::scores() %>%
   as_tibble(., rownames = "sample") %>%
@@ -111,7 +161,7 @@ beta_q0n$S %>%
       axis.text.x = element_text(size = 10),
       axis.text.y = element_text(size = 10),
       axis.title = element_text(size = 10, face = "bold"),
-      axis.text = element_text(face = "bold", size = 10),
+      axis.text = element_text(size = 8),
       panel.background = element_blank(),
       axis.line = element_line(size = 0.5, linetype = "solid", colour = "black"),
       legend.text = element_text(size = 12),
@@ -123,23 +173,35 @@ beta_q0n$S %>%
 g_beta_q0n
 ```
 
+```{r}
+# test to see if habitat dispersion and individual distance are correlated
+beta_q0n_disp
+beta_Hq0n
+```
+
 #### Neutral
 
 ```{r}
-betadisper(beta_q1n$S, sample_metadata_row$habitat) %>% permutest(., pairwise = TRUE) 
+beta_q1n_disp =
+  betadisper(beta_q1n, sample_metadata_row$habitat) %>% permutest(., pairwise = TRUE) 
+beta_q1n_disp
 ```
+
+Neutral diversity is also overdispersed.
+
 ```{r}
 beta_Hq1n = 
-adonis2(beta_q1n$S ~ habitat, 
-        data = sample_metadata %>% arrange(match(sample,labels(beta_q1n$S))), 
+adonis2(beta_q1n ~ habitat + (1 | pc1), 
+        data = sample_metadata %>% arrange(match(sample,labels(beta_q1n))), 
         permutations = 9999)
 beta_Hq1n
 ```
 
+
 ```{r}
 g_beta_q1n = 
   
-beta_q1n$S %>%
+beta_q1n %>%
   vegan::metaMDS(., trymax = 500, k = 2, trace=0) %>%
   vegan::scores() %>%
   as_tibble(., rownames = "sample") %>%
@@ -163,7 +225,7 @@ beta_q1n$S %>%
       axis.text.x = element_text(size = 10),
       axis.text.y = element_text(size = 10),
       axis.title = element_text(size = 10, face = "bold"),
-      axis.text = element_text(face = "bold", size = 10),
+      axis.text = element_text(size = 8),
       panel.background = element_blank(),
       axis.line = element_line(size = 0.5, linetype = "solid", colour = "black"),
       legend.text = element_text(size = 12),
@@ -178,13 +240,15 @@ g_beta_q1n
 #### Phylogenetic
 
 ```{r}
-betadisper(beta_q1p$S, sample_metadata_row$habitat) %>% permutest(., pairwise = TRUE) 
+beta_q1p_disp=
+  betadisper(beta_q1p, sample_metadata_row$habitat) %>% permutest(., pairwise = TRUE) 
+beta_q1p_disp
 ```
 
 ```{r}
 beta_Hq1p =
-adonis2(beta_q1p$S ~ habitat, 
-        data = sample_metadata %>% arrange(match(sample,labels(beta_q1p$S))), 
+adonis2(beta_q1p ~ habitat + (1 | pc1), 
+        data = sample_metadata %>% arrange(match(sample,labels(beta_q1p))), 
         permutations = 9999)
 beta_Hq1p
 ```
@@ -193,7 +257,7 @@ beta_Hq1p
 ```{r}
 g_beta_q1p =
   
-beta_q1p$S %>%
+beta_q1p %>%
   vegan::metaMDS(., trymax = 500, k = 2, trace=0) %>%
   vegan::scores() %>%
   as_tibble(., rownames = "sample") %>%
@@ -216,7 +280,7 @@ beta_q1p$S %>%
       axis.text.x = element_text(size = 10),
       axis.text.y = element_text(size = 10),
       axis.title = element_text(size = 10, face = "bold"),
-      axis.text = element_text(face = "bold", size = 10),
+      axis.text = element_text(size = 8),
       panel.background = element_blank(),
       axis.line = element_line(size = 0.5, linetype = "solid", colour = "black"),
       legend.text = element_text(size = 12),
@@ -231,13 +295,15 @@ g_beta_q1p
 #### Functional
 
 ```{r}
-betadisper(beta_q1f$S, sample_metadata_row$habitat) %>% permutest(., pairwise = TRUE) 
+beta_q1f_disp =
+  betadisper(beta_q1f, sample_metadata_row$habitat) %>% permutest(., pairwise = TRUE) 
+beta_q1f_disp
 ```
 
 ```{r}
 beta_Hq1f =
-adonis2(beta_q1f$S ~ habitat, 
-        data = sample_metadata %>% arrange(match(sample,labels(beta_q1f$S))), 
+adonis2(beta_q1f ~ habitat + (1 | pc1), 
+        data = sample_metadata %>% arrange(match(sample,labels(beta_q1f))), 
         permutations = 9999)
 beta_Hq1f
 ```
@@ -245,7 +311,7 @@ beta_Hq1f
 ```{r}
 g_beta_q1f =
 
-beta_q1f$S %>%
+beta_q1f %>%
   vegan::metaMDS(., trymax = 500, k = 2, trace=0) %>%
   vegan::scores() %>%
   as_tibble(., rownames = "sample") %>%
@@ -268,7 +334,7 @@ beta_q1f$S %>%
       axis.text.x = element_text(size = 10),
       axis.text.y = element_text(size = 10),
       axis.title = element_text(size = 10, face = "bold"),
-      axis.text = element_text(face = "bold", size = 10),
+      axis.text = element_text(size = 8),
       panel.background = element_blank(),
       axis.line = element_line(size = 0.5, linetype = "solid", colour = "black"),
       legend.text = element_text(size = 12),
@@ -278,6 +344,45 @@ beta_q1f$S %>%
     ) +labs(color='Origin')
 g_beta_q1f
 ```
+#### Summary Results
+
+```{r}
+tmp_df = 
+rbind.data.frame(
+  c("richness",
+    beta_q0n_disp$statistic[2],beta_q0n_disp$tab$`Pr(>F)`[1],
+    beta_Hq0n$F[1],beta_Hq0n$`Pr(>F)`[1]),
+  c("neut.div.",
+    beta_q1n_disp$statistic[2],beta_q1n_disp$tab$`Pr(>F)`[1],
+    beta_Hq1n$F[1],beta_Hq1n$`Pr(>F)`[1]),
+  c("phylo.div.",
+    beta_q1p_disp$statistic[2],beta_q1p_disp$tab$`Pr(>F)`[1],
+    beta_Hq1p$F[1],beta_Hq1p$`Pr(>F)`[1]),
+  c("funct.div.",
+    beta_q1f_disp$statistic[2],beta_q1f_disp$tab$`Pr(>F)`[1],
+    beta_Hq1f$F[1],beta_Hq1f$`Pr(>F)`[1])
+) %>%
+  `colnames<-`(c("measure", 
+                 "B",
+                 "B_p",
+                 "F",
+                 "F_p")) %>%
+  mutate(B_p = p.adjust(B_p,"fdr"),
+         F_p = p.adjust(F_p,"fdr"))%>%
+  mutate(B = as.numeric(B),
+         F = as.numeric(F)) %>%
+  mutate(across(where(is.numeric), round, 2))
+
+tmp_df
+
+write.table(tmp_df,
+            "data/supplements/PERMANOVA_Habitat.csv", 
+            sep = ","
+            )
+  
+
+```
+
 
 ```{r}
  #Render composite figure
@@ -307,6 +412,39 @@ ggsave("figure/habitat_alphabeta_div.png", last_plot(),
        units = "cm", width = 22, height = 16)
 ```
 
+
+## Geographic Correlation
+
+Therefore, consider including a multivariate analysis (e.g. mvabund) instead.
+
+```{r}
+# convert genome counts into an mvabund object format
+mvabund_genome =
+  mvabund(
+  genome_counts %>%
+  column_to_rownames(., "genome") %>%
+  filter(rowSums(. != 0, na.rm = TRUE) > 0) %>%
+  select_if(~!all(. == 0))
+  )
+
+# create a model with mvabund object as response variable (after transposition)
+mod1 <- 
+  manyglm(t(mvabund_genome) ~ 
+            as.factor(sample_metadata$habitat) + # define the predictor variable
+            # use spatial coordinates as covariates
+            #prcomp(sample_metadata[,c("latitude","longitude")])$x[,1],
+            poly(sample_metadata$latitude) + 
+            poly(sample_metadata$longitude),
+          # negative binomial found to be better fit
+            family = "negative_binomial") 
+plot(mod1)
+
+# run analysis of variance
+anova(mod1)
+```
+
+In this case, habitat and geolocation are all significant. Suggesting that distance could just as easily explain the results and habitat type.
+
 ## Site Comparisons
 
 ### Permanova analysis & Beta diversity plots
@@ -323,9 +461,10 @@ habitat_col = list(
 )
 ```
 
+
+
 ```{r}
 sample_metadata_row<- column_to_rownames(sample_metadata, "sample") 
-sample_metadata_row <- sample_metadata_row[labels(beta_q0n$S), ]
 ```
 
 #### Richness
@@ -333,12 +472,13 @@ sample_metadata_row <- sample_metadata_row[labels(beta_q0n$S), ]
 Test for differences in richness among all sites.
 
 ```{r}
-betadisper(beta_q0n$S, sample_metadata_row$event_ID) %>% permutest(., pairwise = TRUE) 
-
+beta_IDq0n_disp =
+betadisper(beta_q0n, sample_metadata_row$event_id) %>% permutest(., pairwise = TRUE) 
+beta_IDq0n_disp
 
 beta_IDq0n = 
-adonis2(beta_q0n$S ~ event_ID, 
-        data = sample_metadata %>% arrange(match(sample,labels(beta_q0n$S))), 
+adonis2(beta_q0n ~ event_id + (1 | pc1), 
+        data = sample_metadata %>% arrange(match(sample,labels(beta_q0n))), 
         permutations = 9999)
 
 beta_IDq0n
@@ -351,34 +491,39 @@ bdHp_q0n = list()
 
 for (h in seq_along(habitats)){
 
+genome_names =  c("genome",
+                  colnames(genome_counts)[
+                    colnames(genome_counts) %in% rownames(sample_metadata_row[sample_metadata_row$habitat==habitats[h],])])
+  
 # make new beta diversity matrix
-beta_q0n_H[[h]] <- genome_counts[,c("genome",
-                               colnames(genome_counts)[colnames(genome_counts) %in% 
-                                                         rownames(sample_metadata_row[sample_metadata_row$habitat==habitats[h],])
-                                                       ])] %>%
+beta_q0n_H[[h]] <- 
+  genome_counts[,genome_names] %>%
   column_to_rownames(., "genome") %>%
   filter(rowSums(. != 0, na.rm = TRUE) > 0) %>%
   select_if(~!all(. == 0)) %>%
-  hillpair(., q = 0)
+  hillpair(., q = 0,  metric = "S")
+attr(beta_q0n_H[[h]],"Labels") <- genome_names[-1]
 
 
-bdH =  betadisper(beta_q0n_H[[h]]$S, sample_metadata_row[sample_metadata_row$habitat==habitats[h],]$event_ID) %>% permutest(., pairwise = TRUE)
-adH =  adonis2(beta_q0n_H[[h]]$S ~ event_ID, 
-        data = sample_metadata[sample_metadata$habitat==habitats[h],] %>% arrange(match(sample,labels(beta_q0n_H[[h]]$S))), 
+bdH =  betadisper(beta_q0n_H[[h]],
+                  sample_metadata_row[sample_metadata_row$habitat==habitats[h],]$event_id) %>%
+  permutest(., pairwise = TRUE)
+adH =  adonis2(beta_q0n_H[[h]] ~ event_id + (1 | pc1), 
+        data = sample_metadata[sample_metadata$habitat==habitats[h],] %>% arrange(match(sample,labels(beta_q0n_H[[h]]))), 
         permutations = 9999)
 
 bdHp_q0n[[h]] = 
-  beta_q0n_H[[h]]$S %>%
+  beta_q0n_H[[h]] %>%
   vegan::metaMDS(., trymax = 500, k = 2, trace=0) %>%
   vegan::scores() %>%
   as_tibble(., rownames = "sample") %>%
   dplyr::left_join(sample_metadata, by = join_by(sample == sample)) %>%
-  group_by(event_ID) %>%
+  group_by(event_id) %>%
   mutate(x_cen = mean(NMDS1, na.rm = TRUE)) %>%
   mutate(y_cen = mean(NMDS2, na.rm = TRUE)) %>%
   ungroup() %>%
-  mutate_at(c('event_ID'), as.factor)%>%
-  ggplot(aes(x = NMDS1, y = NMDS2, color = factor(event_ID, levels = c("MIND","CNSC","PAVI","CTAT","PCAR","SMAT")))) +
+  mutate_at(c('event_id'), as.factor)%>%
+  ggplot(aes(x = NMDS1, y = NMDS2, color = factor(event_id, levels = c("MIND","CNSC","PAVI","CTAT","PCAR","SMAT")))) +
     geom_point(show.legend = TRUE, size = 4) +
      scale_color_manual(name = 'Site', 
                      values = c("MIND" = '#add4a0', "CNSC" = '#5bae63', "PAVI" = '#1a7939', 
@@ -393,7 +538,7 @@ bdHp_q0n[[h]] =
       #axis.text.x = element_text(size = 12),
       #axis.text.y = element_text(size = 12),
       axis.title = element_text(size = 10),
-      axis.text = element_text(face = "bold", size = 10),
+      axis.text = element_text(size = 8),
       panel.background = element_blank(),
       axis.line = element_line(size = 0.5, linetype = "solid", colour = "black"),
       legend.text = element_text(size = 12),
@@ -410,11 +555,13 @@ print(bdHp_q0n)
 #### Neutral
 
 ```{r}
-betadisper(beta_q1n$S, sample_metadata_row$event_ID) %>% permutest(., pairwise = TRUE) 
+beta_IDq1n_disp =
+  betadisper(beta_q1n, sample_metadata_row$event_id) %>% permutest(., pairwise = TRUE) 
+beta_IDq1n_disp
 
 beta_IDq1n = 
-adonis2(beta_q1n$S ~ event_ID, 
-        data = sample_metadata %>% arrange(match(sample,labels(beta_q1n$S))), 
+adonis2(beta_q1n ~ event_id + (1 | pc1), 
+        data = sample_metadata %>% arrange(match(sample,labels(beta_q1n))), 
         permutations = 9999)
 beta_IDq1n
 ```
@@ -428,33 +575,36 @@ bdHp_q1n = list()
 
 for (h in seq_along(habitats)){
 
+genome_names =  c("genome",
+                  colnames(genome_counts)[
+                    colnames(genome_counts) %in% rownames(sample_metadata_row[sample_metadata_row$habitat==habitats[h],])])  
+  
 # make new beta diversity matrix
-beta_q1n_H[[h]] <- genome_counts[,c("genome",
-                               colnames(genome_counts)[colnames(genome_counts) %in% 
-                                                         rownames(sample_metadata_row[sample_metadata_row$habitat==habitats[h],])
-                                                       ])] %>%
+beta_q1n_H[[h]] <- genome_counts[,genome_names] %>%
  column_to_rownames(., "genome") %>%
   filter(rowSums(. != 0, na.rm = TRUE) > 0) %>%
   select_if(~!all(. == 0)) %>%
-  hillpair(., q = 1)
+  hillpair(., q = 1, metric = "S")
+attr(beta_q1n_H[[h]],"Labels") <- genome_names[-1]
 
-bdH =  betadisper(beta_q1n_H[[h]]$S, sample_metadata_row[sample_metadata_row$habitat==habitats[h],]$event_ID) %>% permutest(., pairwise = TRUE)
-adH =  adonis2(beta_q1n_H[[h]]$S ~ event_ID, 
-        data = sample_metadata[sample_metadata$habitat==habitats[h],] %>% arrange(match(sample,labels(beta_q1n_H[[h]]$S))), 
+
+bdH =  betadisper(beta_q1n_H[[h]], sample_metadata_row[sample_metadata_row$habitat==habitats[h],]$event_id) %>% permutest(., pairwise = TRUE)
+adH =  adonis2(beta_q1n_H[[h]] ~ event_id + (1 | pc1), 
+        data = sample_metadata[sample_metadata$habitat==habitats[h],] %>% arrange(match(sample,labels(beta_q1n_H[[h]]))), 
         permutations = 9999)
 
 bdHp_q1n[[h]] = 
-  beta_q1n_H[[h]]$S %>%
+  beta_q1n_H[[h]] %>%
   vegan::metaMDS(., trymax = 500, k = 2, trace=0) %>%
   vegan::scores() %>%
   as_tibble(., rownames = "sample") %>%
   dplyr::left_join(sample_metadata, by = join_by(sample == sample)) %>%
-  group_by(event_ID) %>%
+  group_by(event_id) %>%
   mutate(x_cen = mean(NMDS1, na.rm = TRUE)) %>%
   mutate(y_cen = mean(NMDS2, na.rm = TRUE)) %>%
   ungroup() %>%
-  mutate_at(c('event_ID'), as.factor)%>%
-  ggplot(aes(x = NMDS1, y = NMDS2, color = factor(event_ID, levels = c("MIND","CNSC","PAVI","CTAT","PCAR","SMAT")))) +
+  mutate_at(c('event_id'), as.factor)%>%
+  ggplot(aes(x = NMDS1, y = NMDS2, color = factor(event_id, levels = c("MIND","CNSC","PAVI","CTAT","PCAR","SMAT")))) +
    geom_point(show.legend = TRUE, size = 4) +
     scale_color_manual(name = 'Site', 
                      values = c("MIND" = '#add4a0', "CNSC" = '#5bae63', "PAVI" = '#1a7939', 
@@ -468,7 +618,7 @@ bdHp_q1n[[h]] =
       #axis.text.x = element_text(size = 12),
       #axis.text.y = element_text(size = 12),
       axis.title = element_text(size = 10),
-      axis.text = element_text(face = "bold", size = 10),
+      axis.text = element_text(size = 8),
       panel.background = element_blank(),
       axis.line = element_line(size = 0.5, linetype = "solid", colour = "black"),
       legend.text = element_text(size = 12),
@@ -485,11 +635,13 @@ print(bdHp_q1n)
 #### Phylogenetic
 
 ```{r}
-betadisper(beta_q1p$S, sample_metadata_row$event_ID) %>% permutest(., pairwise = TRUE) 
+beta_IDq1p_disp =
+  betadisper(beta_q1p, sample_metadata_row$event_id) %>% permutest(., pairwise = TRUE) 
+beta_IDq1p_disp
 
 beta_IDq1p =
-adonis2(beta_q1p$S ~ event_ID, 
-        data = sample_metadata %>% arrange(match(sample,labels(beta_q1p$S))), 
+adonis2(beta_q1p ~ event_id + (1 | pc1), 
+        data = sample_metadata %>% arrange(match(sample,labels(beta_q1p))), 
         permutations = 9999)
 beta_IDq1p
 ```
@@ -501,33 +653,35 @@ bdHp_q1p = list()
 
 for (h in seq_along(habitats)){
 
+genome_names = c("genome",
+                 colnames(genome_counts)[colnames(genome_counts) %in%                                         rownames(sample_metadata_row[sample_metadata_row$habitat==habitats[h],])])
+  
 # make new beta diversity matrix
-beta_q1p_H[[h]] <- genome_counts[,c("genome",
-                               colnames(genome_counts)[colnames(genome_counts) %in% 
-                                                         rownames(sample_metadata_row[sample_metadata_row$habitat==habitats[h],])
-                                                       ])] %>%
+beta_q1p_H[[h]] <- genome_counts[,genome_names] %>%
  column_to_rownames(., "genome") %>%
   filter(rowSums(. != 0, na.rm = TRUE) > 0) %>%
   select_if(~!all(. == 0)) %>%
-  hillpair(., q = 1, tree = genome_tree)
+  hillpair(., q = 1, tree = genome_tree, metric = "S")
+attr(beta_q1p_H[[h]],"Labels") <- genome_names[-1]
 
-bdH =  betadisper(beta_q1p_H[[h]]$S, sample_metadata_row[sample_metadata_row$habitat==habitats[h],]$event_ID) %>% permutest(., pairwise = TRUE)
-adH =  adonis2(beta_q1p_H[[h]]$S ~ event_ID, 
-        data = sample_metadata[sample_metadata$habitat==habitats[h],] %>% arrange(match(sample,labels(beta_q1p_H[[h]]$S))), 
+bdH =  betadisper(beta_q1p_H[[h]], sample_metadata_row[sample_metadata_row$habitat==habitats[h],]$event_id) %>% 
+  permutest(., pairwise = TRUE)
+adH =  adonis2(beta_q1p_H[[h]] ~ event_id + (1 | pc1), 
+        data = sample_metadata[sample_metadata$habitat==habitats[h],] %>% arrange(match(sample,labels(beta_q1p_H[[h]]))), 
         permutations = 9999)
 
 bdHp_q1p[[h]] = 
-  beta_q1p_H[[h]]$S %>%
+  beta_q1p_H[[h]] %>%
   vegan::metaMDS(., trymax = 500, k = 2, trace=0) %>%
   vegan::scores() %>%
   as_tibble(., rownames = "sample") %>%
   dplyr::left_join(sample_metadata, by = join_by(sample == sample)) %>%
-  group_by(event_ID) %>%
+  group_by(event_id) %>%
   mutate(x_cen = mean(NMDS1, na.rm = TRUE)) %>%
   mutate(y_cen = mean(NMDS2, na.rm = TRUE)) %>%
   ungroup() %>%
-  mutate_at(c('event_ID'), as.factor)%>%
-   ggplot(aes(x = NMDS1, y = NMDS2, color = factor(event_ID, levels = c("MIND","CNSC","PAVI","CTAT","PCAR","SMAT")))) +
+  mutate_at(c('event_id'), as.factor)%>%
+   ggplot(aes(x = NMDS1, y = NMDS2, color = factor(event_id, levels = c("MIND","CNSC","PAVI","CTAT","PCAR","SMAT")))) +
     geom_point(show.legend = TRUE, size = 4) +
     scale_color_manual(name = 'Site', 
                      values = c("MIND" = '#add4a0', "CNSC" = '#5bae63', "PAVI" = '#1a7939', 
@@ -541,7 +695,7 @@ bdHp_q1p[[h]] =
       #axis.text.x = element_text(size = 12),
       #axis.text.y = element_text(size = 12),
       axis.title = element_text(size = 10),
-      axis.text = element_text(face = "bold", size = 10),
+      axis.text = element_text(size = 8),
       panel.background = element_blank(),
       axis.line = element_line(size = 0.5, linetype = "solid", colour = "black"),
       legend.text = element_text(size = 12),
@@ -558,17 +712,13 @@ print(bdHp_q1p)
 #### Functional
 
 ```{r}
-#genome_gifts <- genome_gifts_raw[rownames(genome_gifts_raw) %in% genome_counts_filt$genome,]
-#genome_gifts <- genome_gifts[, colSums(genome_gifts != 0) > 0]
-```
-
-
-```{r}
-betadisper(beta_q1f$S, sample_metadata_row$event_ID) %>% permutest(., pairwise = TRUE) 
+beta_IDq1f_disp =
+  betadisper(beta_q1f, sample_metadata_row$event_id) %>% permutest(., pairwise = TRUE) 
+beta_IDq1f_disp
 
 beta_IDq1f =
-adonis2(beta_q1f$S ~ event_ID, 
-        data = sample_metadata %>% arrange(match(sample,labels(beta_q1f$S))), 
+adonis2(beta_q1f ~ event_id + (1 | pc1), 
+        data = sample_metadata %>% arrange(match(sample,labels(beta_q1f))), 
         permutations = 9999)
 beta_IDq1f
 ```
@@ -582,10 +732,10 @@ bdHp_q1f = list()
 
 for (h in seq_along(habitats)){
 
-genome_counts_H <-  genome_counts[,c("genome",
-                               colnames(genome_counts)[colnames(genome_counts) %in% 
-                                                         rownames(sample_metadata_row[sample_metadata_row$habitat==habitats[h],])
-                                                       ])]
+genome_names = c("genome",
+                 colnames(genome_counts)[colnames(genome_counts) %in%                                         rownames(sample_metadata_row[sample_metadata_row$habitat==habitats[h],])])
+
+genome_counts_H <-  genome_counts[,genome_names]
   
 genome_counts_FH <- genome_counts_H[genome_counts_H$genome %in% rownames(genome_gifts),]
 genome_counts_FH <- genome_counts_FH %>%
@@ -607,25 +757,26 @@ beta_q1f_H[[h]] <- genome_counts_FH %>%
  column_to_rownames(., "genome") %>%
   filter(rowSums(. != 0, na.rm = TRUE) > 0) %>%
   select_if(~!all(. == 0)) %>%
-  hillpair(., q = 1, dist = dist_H)  
+  hillpair(., q = 1, dist = dist_H, metric = "S")
+attr(beta_q1f_H[[h]],"Labels") <- genome_names[-1]
 
-bdH =  betadisper(beta_q1f_H[[h]]$S, sample_metadata_row[sample_metadata_row$habitat==habitats[h],]$event_ID) %>% permutest(., pairwise = TRUE)
-adH =  adonis2(beta_q1f_H[[h]]$S ~ event_ID, 
-        data = sample_metadata[sample_metadata$habitat==habitats[h],] %>% arrange(match(sample,labels(beta_q1f_H[[h]]$S))), 
+bdH =  betadisper(beta_q1f_H[[h]], sample_metadata_row[sample_metadata_row$habitat==habitats[h],]$event_id) %>% permutest(., pairwise = TRUE)
+adH =  adonis2(beta_q1f_H[[h]] ~ event_id + (1 | pc1), 
+        data = sample_metadata[sample_metadata$habitat==habitats[h],] %>% arrange(match(sample,labels(beta_q1f_H[[h]]))), 
         permutations = 9999)
 
 bdHp_q1f[[h]] = 
-  beta_q1f_H[[h]]$S %>%
+  beta_q1f_H[[h]] %>%
   vegan::metaMDS(., trymax = 500, k = 2, trace=0) %>%
   vegan::scores() %>%
   as_tibble(., rownames = "sample") %>%
   dplyr::left_join(sample_metadata, by = join_by(sample == sample)) %>%
-  group_by(event_ID) %>%
+  group_by(event_id) %>%
   mutate(x_cen = mean(NMDS1, na.rm = TRUE)) %>%
   mutate(y_cen = mean(NMDS2, na.rm = TRUE)) %>%
   ungroup() %>%
-  mutate_at(c('event_ID'), as.factor)%>%
-  ggplot(aes(x = NMDS1, y = NMDS2, color = factor(event_ID, levels = c("MIND","CNSC","PAVI","CTAT","PCAR","SMAT")))) +
+  mutate_at(c('event_id'), as.factor)%>%
+  ggplot(aes(x = NMDS1, y = NMDS2, color = factor(event_id, levels = c("MIND","CNSC","PAVI","CTAT","PCAR","SMAT")))) +
    geom_point(show.legend = TRUE, size = 4) +
     scale_color_manual(name = 'Site', 
                      values = c("MIND" = '#add4a0', "CNSC" = '#5bae63', "PAVI" = '#1a7939', 
@@ -639,7 +790,7 @@ bdHp_q1f[[h]] =
       #axis.text.x = element_text(size = 12),
       #axis.text.y = element_text(size = 12),
       axis.title = element_text(size = 10),
-      axis.text = element_text(face = "bold", size = 10),
+      axis.text = element_text(size = 8),
       panel.background = element_blank(),
       axis.line = element_line(size = 0.5, linetype = "solid", colour = "black"),
       legend.text = element_text(size = 12),
@@ -652,6 +803,7 @@ print(adH)
 }
 print(bdHp_q1f)
 ```
+#### Summary Results
 
 ```{r}
 saveRDS(
@@ -672,6 +824,43 @@ file = "data/anova_table.Rds")
 ```
 
 
+```{r}
+tmp_df = 
+  
+rbind.data.frame(
+  c("richness",
+    beta_IDq0n_disp$statistic[2],beta_IDq0n_disp$tab$`Pr(>F)`[1],
+    beta_IDq0n$F[1],beta_IDq0n$`Pr(>F)`[1]),
+  c("neut.div.",
+    beta_IDq1n_disp$statistic[2],beta_IDq1n_disp$tab$`Pr(>F)`[1],
+    beta_IDq1n$F[1],beta_IDq1n$`Pr(>F)`[1]),
+  c("phylo.div.",
+    beta_IDq1p_disp$statistic[2],beta_IDq1p_disp$tab$`Pr(>F)`[1],
+    beta_IDq1p$F[1],beta_IDq1p$`Pr(>F)`[1]),
+  c("funct.div.",
+    beta_IDq1f_disp$statistic[2],beta_IDq1f_disp$tab$`Pr(>F)`[1],
+    beta_IDq1f$F[1],beta_IDq1f$`Pr(>F)`[1])
+) %>%
+  `colnames<-`(c("measure", 
+                 "B",
+                 "B_p",
+                 "F",
+                 "F_p")) %>%
+  mutate(B_p = p.adjust(B_p,"fdr"),
+         F_p = p.adjust(F_p,"fdr")) %>%
+  mutate(B = as.numeric(B),
+         F = as.numeric(F)) %>%
+  mutate(across(where(is.numeric), round, 2))
+  
+tmp_df
+
+write.table(tmp_df,
+            "data/supplements/PERMANOVA_site.csv", 
+            sep = ","
+            )
+  
+```
+
 #### Join Plots
 
 ```{r}
@@ -684,6 +873,13 @@ ggarrange(bdHp_q0n[[1]],bdHp_q1n[[1]],bdHp_q1p[[1]],bdHp_q1f[[1]],
           legend="right") ->
   g
 g
-ggsave(paste0('figure/site_beta_diversity.png'), g, width=20, height=15, units='cm')
+ggsave(paste0('figure/site_beta_diversity.png'), g, width=26, height=15, units='cm')
 ```
+
+## cleanup
+
+```{r}
+rm(list = ls())
+```
+
 

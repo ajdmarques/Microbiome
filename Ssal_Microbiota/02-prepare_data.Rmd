@@ -1,6 +1,16 @@
 # Prepare data
 
+Load packages
+```{r, results='hide'}
+pkgs = readRDS("data/Rpkgs.Rds")
+install.packages(setdiff(pkgs, rownames(installed.packages())))
+lapply(pkgs, require, character.only = TRUE)
+```
+
+
 ## Verify directories present
+
+Open the main directory where data is stored.
 
 ```{r}
 dirMain = getwd()
@@ -17,29 +27,36 @@ Load the original data files outputted by the bioinformatic pipeline.
 
 ```{r load_data_stats}
 load("data/data.Rdata")
+ls()
 ```
 
 ### Sample metadata
+
+Load the metadata file from EHI.
 
 ```{r load_sample_metadata, warning=FALSE, comments="", message=FALSE, eval=TRUE}
 sample_metadata <- read_tsv("data/DMB0177_metadata.tsv.gz") %>%
     rename(sample=1)
 ```
-
+Additional metadata information about the types of samples and which habitat they are ascribed to.
 
 ```{r append_additional_metadata, comment="", message=FALSE, warning=FALSE, eval=TRUE}
+# sample notes
 added_metadata = read.csv("data/EHI_sample_metadata.csv")
+# join metadata data frames
 added_metadata = merge.data.frame(sample_metadata,added_metadata, 
                                     by.x = "sample_code", by.y = "tube_code",all.x =  T)
+# clarify swab type
 added_metadata = added_metadata %>%
                  mutate(swab = ifelse(grepl("EHI", note), 
                        "EHI", 
                        "CTM"))
+# clarify buffer solution
 added_metadata = added_metadata %>%
                   mutate(sol = ifelse(grepl("ETOH", note), 
                                       "ETOH", 
                                       "PBS"))
-
+# define sites as either urban or rual 
 urban_sites = c("CTAT","SMAT","PCAR")
 added_metadata = added_metadata %>%
                  mutate(habitat = ifelse(grepl(paste(urban_sites, collapse="|"), event_id), 
@@ -49,34 +66,67 @@ added_metadata = added_metadata %>%
 sample_metadata = added_metadata
 ```
 
-Simple test to confirm that sampled groups have roughly equal number of post-filtered reads.
+Prepare a secondary metadata data frame to compare replicates.
 
 ```{r load_sample_metadata, warning=FALSE, comments="", message=FALSE, eval=TRUE}
-sample_metadata2 = readxl::read_xlsx("data/EHI_electronic_metadata_V3.xlsx", "Metadata B2 (Samples)",skip = 10,
-                                     col_names = c("n","sample_code","animal_id","event_ID","sample_type","sample_origin","freshness","freeze_time","notes"))
+sample_metadata2 = readxl::read_xlsx("data/EHI_electronic_metadata_V3.xlsx", 
+                                     "Metadata B2 (Samples)",
+                                     skip = 10,
+                                     col_names =
+                                       c("n","sample_code",
+                                      "animal_id","event_ID",
+                                      "sample_type","sample_origin",
+                                      "freshness","freeze_time",
+                                      "notes"))
 # correct sample codes names
-sample_metadata2[grep("ETOH",sample_metadata2$sample_code),]$sample_code = c("AKD59","AKD60",NA,"AKD62","AKD63")
+sample_metadata2[grep("ETOH",sample_metadata2$sample_code),]$sample_code =
+  c("AKD59","AKD60",NA,"AKD62","AKD63")
 
-sample_metadata2 = sample_metadata2 %>%
+sample_metadata2 = 
+  sample_metadata2 %>%
   full_join(sample_metadata, by = "sample_code") %>%
   select(!ends_with(".y")) %>%
-  filter(sample_type == "Skin swab") %>%
+  filter(sample_type.x == "Skin swab") %>%
   filter(!is.na(sample))
 
 ```
 
+### Add environmental variables
+
+Include details about mean impervious surface within 200m of sites.
+
+```{r}
+# read impervious surface
+gis_data = 
+  read.csv("data/EHI_site_metadata_QGIS.csv") %>%
+  rename_with(~ sapply(strsplit(.x, "\\."), `[`, 1)) %>%
+  select(Sampling,X_IMDmean)
+
+sample_metadata = 
+  merge(
+  sample_metadata,
+  gis_data,
+  by.x = "event_id", by.y = "Sampling")
+```
+
+
 #### [[OPTIONAL]] Remove ethanol preserved samples from further consideration
 
-```{r remove_ethanol_samples, warning=FALSE, comments="", message=FALSE, eval=TRUE}
-sample_metadata = sample_metadata2  %>%
-  filter(sol == "PBS")
+Exclude samples preserved in ethanol as part of our initial buffer trial.
+The output the total number of reads from the READ_COUNTS summary excluding samples that were not included in subsequent analyses.
 
-# summary
+```{r remove_ethanol_samples, warning=FALSE, comments="", message=FALSE, eval=TRUE}
+sample_metadata2 = 
+  sample_metadata  %>%
+  filter(sol == "PBS") %>% # include only samples with PBS buffer
+  filter(sex == "Male") # exclude females included by accident
+
+# summarize total reads among samples plus mean and median per sample
 print(paste0(
-  signif(sum(read_counts[,sample_metadata$sample]) / 1e6, 3),"M total reads (mean = ",
-  signif(mean(colSums(read_counts[,sample_metadata$sample]) / 1e6), 3),"M ± ",
-  signif(sd(colSums(read_counts[,sample_metadata$sample]) / 1e6), 3),"M, median = ",
-  signif(median(colSums(read_counts[,sample_metadata$sample]) / 1e6), 3), "M reads per sample)"
+  signif(sum(read_counts[,sample_metadata2$sample]) / 1e6, 3),"M total reads (mean = ",
+  signif(mean(colSums(read_counts[,sample_metadata2$sample]) / 1e6), 3),"M ± ",
+  signif(sd(colSums(read_counts[,sample_metadata2$sample]) / 1e6), 3),"M, median = ",
+  signif(median(colSums(read_counts[,sample_metadata2$sample]) / 1e6), 3), "M reads per sample)"
 ))
 ```
 
@@ -88,26 +138,83 @@ duplicates = sample_metadata2$animal_id.x[duplicated(sample_metadata2$animal_id.
 sample_metadata = sample_metadata2[sample_metadata2$animal_id.x %in% duplicates,]
 ```
 
+### Visualize Metadata
 
 ```{r load_sample_metadata, warning=FALSE, comments="", message=FALSE, eval=TRUE}
 table(sample_metadata2[!duplicated(sample_metadata2$sample),c("region","sex")])
 
 # number of samples from each site
-ggplot(sample_metadata2, aes(x = habitat, y = reads_post_fastp, fill = event_ID)) +
+ggplot(sample_metadata2, aes(x = habitat, y = reads_post_fastp, fill = event_id)) +
      geom_boxplot(width = 0.12, outlier.color = NA, alpha = 0.5) +
      theme_minimal() +
      scale_fill_brewer(palette = "Pastel2") +
      coord_flip() +
-annotate("text",x=1.4,y=1.5*min(sample_metadata2$reads_post_fastp),label=paste(
-  "F =",signif(oneway.test(reads_post_fastp ~ event_ID, data = sample_metadata2, var.equal = TRUE)$statistic,2),
-  "p =",signif(oneway.test(reads_post_fastp ~ event_ID, data = sample_metadata2, var.equal = TRUE)$p.value,2)
+annotate("text",
+         x=1.4,
+         y=2*min(sample_metadata2$reads_post_fastp),
+         label=paste(
+  "F =",signif(oneway.test(reads_post_fastp ~ event_id, data = sample_metadata2, var.equal = TRUE)$statistic,2),
+  "p =",signif(oneway.test(reads_post_fastp ~ event_id, data = sample_metadata2, var.equal = TRUE)$p.value,2)
   )) +
-annotate("text",x=1.6,y=1.5*min(sample_metadata2$reads_post_fastp),label=paste(
+annotate("text",
+         x=1.6,
+         y=2*min(sample_metadata2$reads_post_fastp),
+         label=paste(
   "t =",signif(t.test(reads_post_fastp ~ habitat, data = sample_metadata2)$statistic,2),
   "p =",signif(t.test(reads_post_fastp ~ habitat, data = sample_metadata2)$p.value,2)
   ))
 ```
+Use a reverse calculation to determine the total number of pre-fastp reads per sample.
 
+```{r}
+N = sample_metadata2$reads_post_fastp # reads post fastp
+P = 1 - sample_metadata2$reads_lost_fastp_percent # proportion reads post fastp
+  
+print(paste0(
+  signif(sum(N / (P/100)) / 1e6, 3),"M total reads (mean = ",
+  signif(mean(N / (P/100)) / 1e6, 3),"M ± ",
+  signif(sd(N / (P/100)) / 1e6, 3),"M, median = ",
+  signif(median(N / (P/100)) / 1e6, 3), "M reads per sample)"
+))
+```
+
+
+### Filter Table
+
+```{r}
+sample_metadata2 %>%
+  select(animal_id,habitat,
+         singlem_fraction,reads_post_fastp,host_reads,reads_lost_fastp_percent,
+               host_bases,bases_lost_fastp_percent) %>%
+  group_by(habitat) %>%
+  summarise(across(singlem_fraction:reads_lost_fastp_percent,
+                   list(mean = mean, sd = sd),
+                   .names = "{.col}_{.fn}")) %>%
+  t()
+
+vars <- c("singlem_fraction","reads_post_fastp",
+          "host_reads","reads_lost_fastp_percent",
+          "host_bases","bases_lost_fastp_percent")
+
+# Loop to create and save one boxplot per column
+for (v in vars) {
+  p <- 
+    ggplot(
+      sample_metadata2 %>%
+        select(animal_id,habitat,
+               singlem_fraction,reads_post_fastp,host_reads,reads_lost_fastp_percent,
+               host_bases,bases_lost_fastp_percent)
+  , aes(x = habitat, y = .data[[v]], fill = habitat)) +
+    geom_boxplot(width = 0.5, outlier.shape = 21) +
+    labs(title = paste("Boxplot of", v, "by group"),
+         x = "Group", y = v) +
+    theme_minimal(base_size = 13) +
+    theme(legend.position = "none")
+  
+  print(p)  # display in RStudio / viewer
+}
+
+```
 
 
 ### Read counts
@@ -176,6 +283,34 @@ genome_annotations <-
 head(genome_annotations)
 ```
 
+Calculate the average contig length for each MAG
+
+```{r}
+# contig length as difference in bp from end to start
+genome_annotations =
+  genome_annotations %>%
+  mutate(contig_bp = end - start)
+
+# define the function to calculate N50 as the length such that half of the total (typically sum of lengths) is contained in contigs/scaffolds of that length or longer.
+n50 <- function(x) {
+  x <- sort(x, decreasing = TRUE)
+  cum <- cumsum(x)
+  half <- sum(x) / 2
+  x[which(cum >= half)[1]]
+}
+
+# add N50 to metadata
+genome_metadata = 
+merge(
+  genome_metadata,
+  genome_annotations %>%
+  group_by(genome) %>%
+  summarise(N50 = n50(contig_bp), .groups = "drop"), 
+  by = "genome"
+  )
+```
+
+
 ## Create working objects
 
 Transform the original data files into working objects for downstream analyses.
@@ -189,7 +324,6 @@ min_coverage=0.3
 read_counts_filt <- genome_coverage %>%
   mutate(across(where(is.numeric), ~ ifelse(. > min_coverage, 1, 0))) %>%
   mutate(across(-1, ~ . * read_counts[[cur_column()]]))
-head(read_counts_filt)
 
 # summary
 print(paste0(
@@ -198,7 +332,12 @@ print(paste0(
   signif(sd(colSums(read_counts_filt[,sample_metadata$sample]) / 1e6), 3),"M, median = ",
   signif(median(colSums(read_counts_filt[,sample_metadata$sample]) / 1e6), 3), "M reads per sample)"
 ))
+
+head(read_counts_filt)
+
 ```
+
+
 
 ### Transform reads into genome counts
 
@@ -219,6 +358,16 @@ genome_counts_filt <- read_counts_filt %>%
   mutate(across(where(is.numeric), ~ . / (genome_metadata$length / readlength) ))
 head(genome_counts_filt)
 ```
+### Filter samples by coverage
+
+```{r filter_coverage, warning=FALSE, comments="", message=FALSE, eval=TRUE}
+## verify if any samples are filtered out
+retain_samples = colnames(read_counts_filt[,-1])[colSums(read_counts_filt[,-1])>0]
+
+sample_metadata3 = 
+  sample_metadata2 %>%
+  filter(sample %in% retain_samples)
+```
 
 ### Distill annotations into GIFTs
 
@@ -235,7 +384,7 @@ genome_gifts_raw <- distill(
   #annotcol=c(7,8), # column with kegg id and crazy hits
   genomecol=match("genome",colnames(genome_annotations)), # column with genome name
   annotcol=match(c("kegg","cazy"),colnames(genome_annotations)), # column with kegg id and crazy hits
-  verbosity=F)
+  verbosity=F) 
 ```
 ## Prepare color scheme
 
@@ -260,7 +409,7 @@ diet_colors<- c("#F4B02E","#E6771D", "#74C8AE")
 A phyloseq object joins all of the previous tables into a single object. It then has a CLR transformation applied, which performs a pseudocount of $relative\ abundance_{min}/2$ to exact zero relative abundance entries in a OTU table before taking logs. 
 
 ```{r phyloseq_objects, warning=FALSE, comments="", message=FALSE, eval=TRUE}
-phylo_samples <- sample_metadata %>% 
+phylo_samples <- sample_metadata3 %>% 
   column_to_rownames("sample") %>% 
   sample_data() #convert to phyloseq sample_data object
 phylo_genome <- genome_counts_filt %>% 
@@ -281,7 +430,8 @@ physeq_genome_clr <- microbiome::transform(physeq_genome, 'clr')
 All working objects are wrapped into a single Rdata object to facilitate downstream usage.
 
 ```{r wrap_working_objects, warning=FALSE, comments="", message=FALSE, eval=TRUE}
-save(sample_metadata, 
+save(sample_metadata,
+     sample_metadata3,
      genome_metadata, 
      read_counts, 
      genome_counts, 
@@ -293,3 +443,11 @@ save(sample_metadata,
      phylum_colors,
      file = "data/data.Rdata")
 ```
+
+## cleanup
+
+```{r}
+rm(list = ls())
+```
+
+

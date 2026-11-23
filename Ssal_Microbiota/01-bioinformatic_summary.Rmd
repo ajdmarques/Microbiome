@@ -1,6 +1,6 @@
 # Bioinformatics Workflow
 
-The following is a summary of the [Earth Hologenome Initiative (EHI) workflow](https://www.earthhologenome.org/bioinformatics/index.html#workflow-overview) used to standardize the sequencing of wild organisms. The bioinformatic pipeline is developed to generate **metagenome-assembled genomes (MAGs)** that can be annotated and analysed to understand microbiome funtionality. The workflow management system uses **Snakemake** to automate the process. This is a Python based tool designed to handle complex dependencies between the input files, output files, and the software tools used to process the data. The following steps of the workflow are explained here, taken from EHI guideline,
+The following is a summary of the [Earth Hologenome Initiative (EHI) workflow](https://www.earthhologenome.org/bioinformatics/index.html#workflow-overview) used to standardize the sequencing of wild organisms. The bioinformatic pipeline is developed to generate **metagenome-assembled genomes (MAGs)** that can be annotated and analysed to understand microbiome functionality. The workflow management system uses **Snakemake** to automate the process. This is a Python based tool designed to handle complex dependencies between the input files, output files, and the software tools used to process the data. The following steps of the workflow are explained here, taken from EHI guideline,
 
 1.  **Data preprocessing**: the pipeline begins by assessing and filtering raw sequencing data to remove low-quality reads, adapters, and contaminants. This step ensures the data’s reliability and quality.
 
@@ -11,7 +11,6 @@ The following is a summary of the [Earth Hologenome Initiative (EHI) workflow](h
 4.  **Binning**: the assembled contigs are clustered into metagenome-assembled genomes (MAGs) based on sequence composition, coverage, and other characteristics.
 
 5.  **MAG Annotation**: MAGs are annotated to determine their taxonomic identity and functional potential.
-
 
 6.  **Dereplication**: MAGs are dereplicated to remove redundancy and retain only unique genomic representatives. This step ensures that each MAG represents a distinct microbial population or genome.
 

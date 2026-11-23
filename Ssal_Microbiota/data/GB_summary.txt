@@ -1,0 +1,1 @@
+mean Gb mapped to MAGs =  0.26 ± 0.41 --- mean Gb of low quality bases =  0.24 ± 0.11 --- mean Gb of host bases =  1.14 ± 0.99 --- mean Gb of unmapped bases =  2.82 ± 1.46

@@ -2,8 +2,18 @@
 
 ## Filter data
 
+Load packages
+```{r}
+pkgs = readRDS("data/Rpkgs.Rds")
+install.packages(setdiff(pkgs, rownames(installed.packages())))
+lapply(pkgs, require, character.only = TRUE)
+```
+
 ```{r load_data_community, comment="", message=FALSE, warning=FALSE, eval=TRUE}
 load("data/data.Rdata")
+
+# keep sample metadatabut rewrite with filters
+sample_metadata = sample_metadata3
 ```
 
 
@@ -47,7 +57,7 @@ physeq_genome <- phyloseq(phylo_genome, phylo_taxonomy, phylo_samples,phylo_tree
 physeq_genome_clr <- microbiome::transform(physeq_genome, 'clr')
 ```
 
-```{r wrap_working_objects_filtered, warning=FALSE, comments="", message=FALSE, eval=TRUE}
+```{r wrap_working_objects_filtered, warning=FALSE, comments="", message=FALSE, eval=FALSE}
 save(sample_metadata, 
      genome_metadata, 
      read_counts, 
@@ -994,5 +1004,96 @@ ggsave(
   filename = paste0('figure/relative_abundance.png'), 
   plot = fig, 
   width=10, height=15, units='cm')
+```
+## Geolocation Correlations
+
+```{r}
+# Join geolocation with taxa abundance
+geo_comp =
+  merge(
+    sample_metadata[,c("sample","event_id","latitude","longitude")],
+    t(ancom_rand_output_mag_habitat$bias_correct_log_table),
+    by.x = "sample",by.y = "row.names"
+    )
+# join latitude and longitude as a single value
+geo_comp$pc1 = prcomp(sample_metadata[,c("latitude","longitude")])$x[,1]
+
+# taxa names
+taxa_ls = colnames(t(ancom_rand_output_mag_habitat$bias_correct_log_table))
+# anova outputs
+taxa_geo_corr = list() 
+# compiled p values
+df_sig_geo_corr = matrix(nrow = 2,
+                         ncol = length(taxa_ls))
+
+for (i in seq_along(taxa_ls)){
+  # save F value and P vlaue
+  taxa_geo_corr[[i]] = 
+    anova(
+      #lm(reformulate(c("latitude", "longitude"), response = taxa_ls[i]),
+      lm(reformulate(c("pc1"), response = taxa_ls[i]),
+         data = geo_comp))[,c(4:5)]
+  # condense to table with p value
+  df_sig_geo_corr[,i] = 
+    anova(
+      #lm(reformulate(c("latitude", "longitude"), response = taxa_ls[i]),
+      lm(reformulate(c("pc1"), response = taxa_ls[i]),
+         data = geo_comp))[1:2,5]
+    
+}
+
+# apply column, row, and list names
+names(taxa_geo_corr) = taxa_ls
+rownames(df_sig_geo_corr) = c("latitude","longitude")
+colnames(df_sig_geo_corr) = taxa_ls
+
+# taxa that correlate with longitude
+df_sig_geo_corr %>%
+  as.tibble() %>%
+  select(where(~ is.numeric(.x) && any(.x < 0.05, na.rm = TRUE))) %>%
+  names()
+```
+
+Identified a list of taxa where the taxa abundance correlates with either latitutde or longitude. However, when using PC1 as a composite value for both latitude and longitude, there are fewer (4) significant correlations.
+
+## Update metadata
+
+```{r}
+genome_metadata = 
+  readRDS("data/supp_genome_metadata1.Rds")
+
+# mean CLR of each MAG within a habitat
+urban_clr = 
+compositions::clr(genome_counts_filt[,-1]) %>%
+  as.data.frame() %>%
+  select(sample_metadata3[sample_metadata3$habitat == "urban","sample"]) %>%
+  mutate(urban_clr = rowMeans(across(where(is.numeric))),
+         genome = genome_counts_filt$genome) %>%
+  select(genome,urban_clr)
+
+rural_clr = 
+compositions::clr(genome_counts_filt[,-1]) %>%
+  as.data.frame() %>%
+  select(sample_metadata3[sample_metadata3$habitat == "rural","sample"]) %>%
+  mutate(rural_clr = rowMeans(across(where(is.numeric))),
+         genome = genome_counts_filt$genome) %>%
+  select(genome,rural_clr)
+
+genome_metadata = 
+merge(
+  genome_metadata,
+  merge(urban_clr,rural_clr)
+)
+
+saveRDS(genome_metadata,
+        "data/supp_genome_metadata2.Rds")
+```
+
+
+
+## cleanup
+
+```{r}
+rm(list = ls())
 ```
 

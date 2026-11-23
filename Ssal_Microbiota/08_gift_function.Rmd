@@ -1,9 +1,20 @@
+# Genome Function
 
 scripts adapted from EmmaGravesen [squirrel_functional_diversity](https://github.com/alberdilab/squirrels_functional_diversity/tree/main)
 
+Load packages
+```{r}
+pkgs = readRDS("data/Rpkgs.Rds")
+install.packages(setdiff(pkgs, rownames(installed.packages())))
+lapply(pkgs, require, character.only = TRUE)
+```
 
 ```{r load_data_alpha, comment="", message=FALSE, warning=FALSE}
 load("data/data.Rdata")
+
+# keep sample metadatabut rewrite with filters
+sample_metadata = sample_metadata3
+
 ```
 
 ## Functional differences
@@ -48,8 +59,10 @@ merge(
                                                "c__Bacteroidia",
                                                "c__Bacilli"
                                                ),
-                  c("genome","class")] %>% remove_rownames %>% column_to_rownames(var="genome"), by = 0, all = F
-  ) %>% mutate(across(c('class'), substr, 4, nchar(class))) %>%
+                  c("genome","class")] %>% 
+    remove_rownames %>% 
+    column_to_rownames(var="genome"), by = 0, all = F) %>% 
+  mutate(across(c('class'), substr, 4, nchar(class))) %>%
   pivot_longer(cols = colnames(GIFTs_domains)) %>%
    
   ggplot(aes(x=name, y=value, facet = name, colour = class)) + 
@@ -195,7 +208,8 @@ GIFTs_elements_community %>%
     as.data.frame() %>%
     rownames_to_column(var="sample") %>%
     pivot_longer(!sample,names_to="trait",values_to="gift") %>%
-    left_join(sample_metadata, by = join_by(sample == sample))
+    left_join(sample_metadata, by = join_by(sample == sample)) %>%
+    na.omit()
 
 gift_figsm2$Element = 
   GIFT_db2$Element[match(gift_figsm2$trait, GIFT_db2$Code_element)]  
@@ -228,13 +242,18 @@ GIFTs_elements_community %>%
     ggplot(aes(x=trait,y=sample,fill=gift)) +
         geom_tile(colour="white", linewidth=0.2)+
         scale_fill_gradientn(colours=rev(c("#d53e4f", "#f46d43", "#fdae61", "#fee08b", "#e6f598", "#abdda4", "#ddf1da")))+
-        facet_grid(event_ID ~ ., scales="free",space="free")+
+        facet_grid(event_id ~ ., scales="free",space="free")+
   theme(
     axis.text.x = element_text(angle = 45, hjust=0.95, size = 6),
     axis.text.y = element_blank()
   )
 
 ```
+
+```{r}
+colMeans(GIFTs_elements_community)
+```
+
 
 #### WilCox Comparison
 
@@ -244,18 +263,19 @@ tmp_GIFTs = GIFTs_elements_community %>%
     as.data.frame() %>%
     rownames_to_column(var="sample")
 # identify functions will less than an average 0.1 functional association per sample
-low.funct.GIFTS = colnames(tmp_GIFTs[,-1])[colSums(tmp_GIFTs[,-1]) <= (nrow(tmp_GIFTs) * .3)]
+#low.funct.GIFTS = colnames(tmp_GIFTs[,-1])[colSums(tmp_GIFTs[,-1]) <= (nrow(tmp_GIFTs) * .3)]
+low.funct.GIFTS = colnames(tmp_GIFTs[,-1])[colMeans(tmp_GIFTs[,-1]) <= 0.1]
 
 habitat_GIFT_element =
   GIFTs_elements_community %>%
     as.data.frame() %>%
     
-  select(!low.funct.GIFTS) %>%
+  #select(!low.funct.GIFTS) %>% # remove elements with average < 0.1
     
     rownames_to_column(var="sample") %>%
     pivot_longer(!sample,names_to="trait",values_to="gift") %>%
     left_join(sample_metadata, by = join_by(sample == sample)) %>%
-    select(sample,trait,gift,event_ID,habitat)
+    select(sample,trait,gift,event_id,habitat)
 
 wcox = list()
 Wstat = list()
@@ -302,7 +322,6 @@ merge(
 
 
 ```{r, eval=FALSE}
-
 ggplot(
   tmp_GIFT_element[tmp_GIFT_element$trait %in% na.omit(WCox_GIFT_element[WCox_GIFT_element$p < 0.05,])$element,],
   aes(x=trait, y=gift, facet = trait, colour = habitat)) + 
@@ -409,7 +428,7 @@ GIFTs_functions_community %>%
     ggplot(aes(x=trait,y=sample,fill=gift)) +
         geom_tile(colour="white", linewidth=0.2)+
         scale_fill_gradientn(colours=rev(c("#d53e4f", "#f46d43", "#fdae61", "#fee08b", "#e6f598", "#abdda4", "#ddf1da")))+
-        facet_grid(event_ID ~ ., scales="free",space="free")
+        facet_grid(event_id ~ ., scales="free",space="free")
 
 ```
 
@@ -437,19 +456,19 @@ tmp_GIFTs = GIFTs_elements_Hcomm %>%
     as.data.frame() %>%
     rownames_to_column(var="sample")
 # identify functions will less than an average 0.1 functional association per sample
-low.funct.GIFTS = colnames(tmp_GIFTs[,-1])[colSums(tmp_GIFTs[,-1]) <= (nrow(tmp_GIFTs) * .1)]
-
+#low.funct.GIFTS = colnames(tmp_GIFTs[,-1])[colSums(tmp_GIFTs[,-1]) <= (nrow(tmp_GIFTs) * .1)]
+low.funct.GIFTS = colnames(tmp_GIFTs[,-1])[colMeans(tmp_GIFTs[,-1]) <= 0.1]
 
 df_GIFT_H.element =
   GIFTs_elements_Hcomm %>%
     as.data.frame() %>%
     
-  select(!low.funct.GIFTS) %>%
+  #select(!low.funct.GIFTS) %>%
     
     rownames_to_column(var="sample") %>%
     pivot_longer(!sample,names_to="trait",values_to="gift") %>%
     left_join(sample_metadata, by = join_by(sample == sample)) %>%
-    select(sample,trait,gift,event_ID,habitat)
+    select(sample,trait,gift,event_id,habitat)
 
 wcox = list()
 Wstat = list()
@@ -484,12 +503,16 @@ GIFTs_elements_Hcomm %>%
     left_join(sample_metadata, by = join_by(sample == sample)) %>% 
   
   filter(trait %in% na.omit(WCox_GIFT_element[WCox_GIFT_element$p < 0.05,]$element)) %>%
+
+   (\(d) if (nrow(d) > 1) {  # run only if there are any values
   
-    ggplot(aes(x=trait,y=sample,fill=gift)) +
+     ggplot(aes(x=trait,y=sample,fill=gift)) +
         geom_tile(colour="white", linewidth=0.2)+
         scale_fill_gradientn(colours=rev(c("#d53e4f", "#f46d43", "#fdae61", "#fee08b", "#e6f598", "#abdda4", "#ddf1da")))+
         facet_grid(habitat ~ ., scales="free",space="free")
 
+   })
+   
 ```
 
 ### Taxa specific GIFT 
@@ -510,7 +533,7 @@ cbind.data.frame(
 ```
 
 
-## Habitat Exlusive Taxa 
+## Habitat Exclusive Taxa 
 
 Limit the comparison to only those habitat exclusive taxa, i.e. 
 
@@ -542,20 +565,23 @@ tmp_GIFTs = GIFTs_elements_Hcomm %>%
     as.data.frame() %>%
     rownames_to_column(var="sample")
 # identify functions will less than an average 0.1 functional association per sample
-low.funct.GIFTS = colnames(tmp_GIFTs[,-1])[colSums(tmp_GIFTs[,-1]) <= (nrow(tmp_GIFTs) * .1)]
-
+#low.funct.GIFTS = colnames(tmp_GIFTs[,-1])[colSums(tmp_GIFTs[,-1]) <= (nrow(tmp_GIFTs) * .1)]
+low.funct.GIFTS = colnames(tmp_GIFTs[,-1])[colMeans(tmp_GIFTs[,-1]) <= 0.1]
 
 df_GIFT_H.element =
   GIFTs_elements_Hcomm %>%
     as.data.frame() %>%
     
-  select(!low.funct.GIFTS) %>%
+  #select(!low.funct.GIFTS) %>%
     
     rownames_to_column(var="sample") %>%
     pivot_longer(!sample,names_to="trait",values_to="gift") %>%
     left_join(sample_metadata, by = join_by(sample == sample)) %>%
-    select(sample,trait,gift,event_ID,habitat)
+    select(sample,trait,gift,event_id,habitat)
+```
 
+
+```{r}
 wcox = list()
 Wstat = list()
 Wpval = list()
@@ -593,15 +619,20 @@ GIFTs_elements_Hcomm %>%
     left_join(sample_metadata, by = join_by(sample == sample)) %>% 
   
   filter(trait %in% na.omit(WCox_GIFT_element[WCox_GIFT_element$p < 0.05,]$element)) %>%
+  na.omit() %>%
+  
+#  (\(d) if (nrow(d) >= 1) {  # run only if there are any values
+
     ggplot(aes(x=trait,y=sample,fill=gift)) +
         geom_tile(colour="white", linewidth=0.2)+
         scale_fill_gradientn(colours=
           rev(c("#d53e4f", "#f46d43", "#fdae61", "#fee08b", "#e6f598", "#abdda4", "#ddf1da")))+
         facet_grid(habitat ~ ., scales="free",space="free")
+ #})
 ```
 
 Boxplot display
-
+### Plot 
 ```{r}
 GIFTs_elements_Hcomm %>%
     as.data.frame() %>%
@@ -609,6 +640,7 @@ GIFTs_elements_Hcomm %>%
     pivot_longer(!sample,names_to="trait",values_to="gift") %>%
     left_join(sample_metadata, by = join_by(sample == sample)) %>% 
     filter(trait %in% na.omit(WCox_GIFT_element[WCox_GIFT_element$p < 0.05,]$element)) %>%
+  na.omit() %>%
     
   ggplot(aes(x=trait,y=gift,fill=habitat)) +
         geom_boxplot(alpha=0.5) +
@@ -634,15 +666,17 @@ ggsave(paste0('figure/gift_class_habitat_comparisons.png'),
        width=8, height=10, units='cm')        
 ```
 
-
 ```{r}
 tmp_xtick =
   unique(GIFT_db[GIFT_db2$Code_element %in%
             unique(df_GIFT_H.element[df_GIFT_H.element$trait %in% na.omit(WCox_GIFT_element[WCox_GIFT_element$p < 0.05,])$element,]$trait),
-          ]$Element)
+          ]$Element) 
+
 
 ggplot(
-  df_GIFT_H.element[df_GIFT_H.element$trait %in% na.omit(WCox_GIFT_element[WCox_GIFT_element$p < 0.05,])$element,],
+  df_GIFT_H.element[
+    df_GIFT_H.element$trait %in% na.omit(WCox_GIFT_element[WCox_GIFT_element$p < 0.05,])$element,] %>%
+    na.omit(),
   aes(x=trait, y=gift, facet = trait, colour = habitat)) + 
   geom_boxplot() +
   geom_jitter(size=0.4, alpha=0.9) +
@@ -659,13 +693,123 @@ ggplot(
          )
 
 ```
-## Distrubute GIFT Probabilities
+
+## Sensitivity Analysis
+
+Following reviewer's suggestion, compare the differences in GIFT score for assemblages in either habitat using all MAGs and exclusively high quality MAGs. This sensitivity analysis is intended to evaluate whether GIFT differences from aggregating incomplete genomes (medium quality; <90% completeness) creates artificial bias and false negatives
+
+With unadjusted raw GIFT scores, medium-quality MAGs will appear artificially deficient in metabolic potential compared to high-quality MAGs which can impact their conclusions. When using to.community to aggregate MAG-specific GIFT scores into sample-level functional profiles, the completeness of individual MAGs directly influences the resulting community score. If a sample is dominated by MAGs with lower completeness, that sample's community GIFT score will appear lower than a sample dominated by near-complete MAGs, even if their underlying functional capabilities are identical.
+
+
+```{r}
+genome_metadata = 
+  readRDS("data/supp_genome_metadata1.Rds")
+
+# high quality MAGs
+high_quality_mags =
+  genome_metadata %>%
+  filter(tier == "high") %>%
+  select(genome)
+
+# Get community-weighed average GIFTs per sample
+GIFTs_elements_community_HIGH <- 
+  to.community(GIFTs_elements_filtered %>% 
+                 filter(row.names(GIFTs_elements_filtered) %in% high_quality_mags$genome),
+               tss(genome_counts_filt[-1] %>% 
+                 filter(row.names(GIFTs_elements_filtered) %in% high_quality_mags$genome)), 
+               GIFT_db2)
+
+GIFTs_functions_community_HIGH <- 
+  to.community(GIFTs_functions %>% 
+                 as.data.frame() %>%
+                 filter(row.names(GIFTs_functions) %in% high_quality_mags$genome),
+               tss(genome_counts_filt[-1] %>% 
+                 filter(row.names(GIFTs_functions) %in% high_quality_mags$genome)), 
+               GIFT_db2)
+
+GIFTs_domains_community_HIGH <- 
+  to.community(GIFTs_domains %>%
+                 as.data.frame() %>%
+                 filter(row.names(GIFTs_domains) %in% high_quality_mags$genome),
+               tss(genome_counts_filt[-1] %>%
+                 filter(row.names(GIFTs_domains) %in% high_quality_mags$genome)), 
+               GIFT_db2)
+```
+### Wilcox Test
+
+```{r}
+# Generate temporary dataframe
+tmp_GIFTs = GIFTs_elements_community_HIGH %>%
+    as.data.frame() %>%
+    rownames_to_column(var="sample")
+# identify functions will less than an average 0.1 functional association per sample
+#low.funct.GIFTS = colnames(tmp_GIFTs[,-1])[colSums(tmp_GIFTs[,-1]) <= (nrow(tmp_GIFTs) * .3)]
+low.funct.GIFTS = colnames(tmp_GIFTs[,-1])[colMeans(tmp_GIFTs[,-1]) <= 0.1]
+
+habitat_GIFT_element_HIGH =
+  GIFTs_elements_community_HIGH %>%
+    as.data.frame() %>%
+    
+  #select(!low.funct.GIFTS) %>% # remove elements with average < 0.1
+    
+    rownames_to_column(var="sample") %>%
+    pivot_longer(!sample,names_to="trait",values_to="gift") %>%
+    left_join(sample_metadata, by = join_by(sample == sample)) %>%
+    select(sample,trait,gift,event_id,habitat)
+
+wcox = list()
+Wstat = list()
+Wpval = list()
+
+for (e in seq_along(unique(habitat_GIFT_element_HIGH$trait))){
+  
+  wcox[[e]] = wilcox.test(gift ~ habitat, 
+                          habitat_GIFT_element_HIGH[habitat_GIFT_element_HIGH$trait==
+                                                      unique(habitat_GIFT_element_HIGH$trait)[e],])
+  Wstat[[e]] = wcox[[e]]$statistic
+  Wpval[[e]] = wcox[[e]]$p.value
+
+}
+
+WCox_GIFT_element_HIGH =
+  data.frame(element = unique(habitat_GIFT_element_HIGH$trait),
+           W = unlist(Wstat),
+           p = unlist(Wpval))
+
+
+
+# return element names
+WCox_GIFT_element_HIGH$name =
+  GIFT_db2[match(WCox_GIFT_element_HIGH$element,GIFT_db2$Code_element),"Element"]
+
+WCox_GIFT_element_HIGH$domain =
+  GIFT_db2[match(WCox_GIFT_element_HIGH$element,GIFT_db2$Code_element),"Domain"]
+
+WCox_GIFT_element_HIGH$padj =
+  p.adjust(WCox_GIFT_element_HIGH$p)
+
+GIFTs_elements_sig_HIGH =
+GIFTs_elements_long[GIFTs_elements_long$name %in% 
+                      na.omit(WCox_GIFT_element_HIGH[
+                        WCox_GIFT_element_HIGH$padj<0.05,])$element,] %>%
+  mutate_at(c("domain", "element"), as.factor)
+
+
+merge(
+  na.omit(WCox_GIFT_element_HIGH[WCox_GIFT_element_HIGH$padj < 0.05,]),
+  GIFT_db[,c("Code_element","Domain","Function","Element")], by.x = "element", by.y = "Code_element"
+  ) %>%
+  unique.data.frame()
+```
+
+## Distribute GIFT Probabilities
 
 ```{r}
 GIFTs_elements_community
 
-
-gift_df_figsm3 = gift_figsm2[,c("sample","trait","gift","habitat")]
+gift_df_figsm3 = 
+  gift_figsm2[,c("sample","trait","gift","habitat")] %>%
+  filter(sample %in% sample_metadata3$sample)
 
 # differences in gift probability
 stats::t.test(gift_df_figsm3[gift_df_figsm3$habitat == "urban","gift"],
@@ -691,7 +835,6 @@ ggplot(gift_df_figsm3, aes(x = Bin, fill = habitat)) +
   scale_fill_manual(values = c("rural" = '#5bae63',"urban" = '#986eac')) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
-
 ## Taxa that differ by LFC
 
 The following is a list of taxa that differ between each habitat in log fold change.
@@ -704,15 +847,19 @@ lfc.mags = readRDS("./figure/table_lfc.RDS")[,"MAG"]
 Does the inferred function of these groups significantly differ from the mean?
 
 ```{r}
+# apply minimum mean GIFT score
+GIFTs_functions.min = GIFTs_functions[,colMeans(GIFTs_functions)>.1]
+
 merge(
-  GIFTs_functions %>% as.data.frame(),
+  GIFTs_functions.min  
+  %>% as.data.frame(),
   genome_metadata[,c("genome","phylum")] %>% remove_rownames %>% column_to_rownames(var="genome"), 
   by = 0, all = F) %>% 
   mutate(across(c('phylum'), substr, 4, nchar(phylum))) %>%
   # indicate if significant
   mutate(lfc.p= if_else(Row.names %in% lfc.mags, 'sig', 'ns')) %>%
   #remove_rownames %>% column_to_rownames(var="Row.names") %>%
-  pivot_longer(cols = colnames(GIFTs_functions)) %>%
+  pivot_longer(cols = colnames(GIFTs_functions.min)) %>%
 
 # plot results
 ggplot(aes(x=name, y=value, colour = lfc.p)) + 
@@ -738,14 +885,14 @@ length(lfc.mags)
 # randomly select equal number form remainder
 lfc.sample =
 sample(
-  rownames(GIFTs_functions)[!rownames(GIFTs_functions) %in% lfc.mags], # excluding sig
+  rownames(GIFTs_functions.min)[!rownames(GIFTs_functions.min) %in% lfc.mags], # excluding sig
   length(lfc.mags),
   replace = F
 )
 
 lfc.p_GIFTs =
 merge(
-  GIFTs_functions %>% as.data.frame(),
+  GIFTs_functions.min %>% as.data.frame(),
   genome_metadata[,c("genome","phylum")] %>% remove_rownames %>% column_to_rownames(var="genome"), 
   by = 0, all = F) %>% 
   mutate(across(c('phylum'), substr, 4, nchar(phylum))) %>%
@@ -755,7 +902,7 @@ merge(
   
   # filter to all sig.LFC and equal sample of those not significant
 #  filter(Row.names %in% c(lfc.mags,lfc.sample)) %>%
-  pivot_longer(cols = colnames(GIFTs_functions))
+  pivot_longer(cols = colnames(GIFTs_functions.min))
 
 
 funct_elements = levels(as.factor(lfc.p_GIFTs$name))
@@ -783,5 +930,87 @@ df_lfc_funct_elements =
 
 # significant differences between functional elements after FDR 
 df_lfc_funct_elements[df_lfc_funct_elements$p < 0.05,]
+
+lfc.p_GIFTs %>% 
+  group_by(name,lfc.p) %>%
+  summarise_at(vars(value), list(mean = mean)) %>%
+   filter(name %in% df_lfc_funct_elements[df_lfc_funct_elements$p < 0.05,]$code)
 ```
 
+## Bacterial-Fungal interactions
+
+Lapeir & Richard 2022 Gut Microbes 
+
+iron uptake as iron is essential for either bacterial or fungal function
+siderophores participate in iron transport an can be parasitized by some fungi (B0216,D0513,B0217,D0816,B0218,B0218)
+penicillin degradation as penicillin like substance are produced by fungi (D0901)
+Lactic bacteria secretions help resist fungal growth and regulate pH (B0604,B0605,D0301)
+
+*Acinetobacter* bacteria are anaerobic but few species use glucose and are therefore dependent on yeast to convert sugar into ethanol for their consumption.
+
+```{r}
+# MAGs with > .9 association with lactose degradation
+merge(
+   GIFTs_functions.min  
+   %>% as.data.frame(),
+   genome_metadata[,c("genome","phylum")] %>% remove_rownames %>% column_to_rownames(var="genome"), 
+   by = 0, all = F)[,"D03"] >= 0.9 -> tmp
+# names of thos MAGs
+deg.lactose.mags = 
+merge(
+   GIFTs_functions.min  
+   %>% as.data.frame(),
+   genome_metadata[,c("genome","phylum")] %>% remove_rownames %>% column_to_rownames(var="genome"), 
+   by = 0, all = F)[tmp,"Row.names"]
+
+genome_metadata[genome_metadata$genome %in% deg.lactose.mags,] %>%
+    arrange(phylum,class,order,family,genus)
+```
+
+```{r}
+# Return list of Acinetobacter
+acinetobater_mags = 
+  genome_metadata[genome_metadata$genus == "g__Acinetobacter","genome"]
+
+GIFT_db[GIFT_db$Code_element %in% 
+          colnames(elements)[
+            colMeans(
+              elements[rownames(elements) %in% unlist(acinetobater_mags),]
+              ) > 0.9], ]
+
+
+```
+
+
+```{r}
+# list of siderophores 
+siderophores = c("B0216","D0513","B0217","D0816","B0218","B0218")
+
+GIFTs_elements_Hcomm %>%
+    as.data.frame() %>%
+    rownames_to_column(var="sample") %>%
+    pivot_longer(!sample,names_to="trait",values_to="gift") %>%
+    left_join(sample_metadata, by = join_by(sample == sample)) %>% 
+    
+  ## limit to only  siderophores 
+  filter(trait %in% siderophores) %>%
+    
+  ggplot(aes(x=trait,y=gift,fill=habitat)) +
+        geom_boxplot(alpha=0.5) +
+        scale_fill_manual(name = 'Habitat', 
+                           values = c("rural" = '#5bae63',"urban" = '#986eac')) +
+        theme_minimal() +
+        #scale_x_discrete(label = gift_element_significant$Element) +
+        theme(axis.text.x = element_text(angle = 25, 
+                                         #colour = c("#706513","#520120","#08403E"),
+                                         #face = "bold", 
+                                         hjust=0.95, size = 8
+                                         ),
+              legend.position="top") +
+        labs(y="GIFT", x="Functional Element")
+```
+## cleanup
+
+```{r}
+rm(list = ls())
+```
